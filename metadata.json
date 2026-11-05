@@ -1,0 +1,6 @@
+{
+  "name": "Nutrition Clinic Pro",
+  "description": "Professional clinical nutrition clinic management and diet-planning platform for obesity, weight management, and therapeutic nutrition.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
