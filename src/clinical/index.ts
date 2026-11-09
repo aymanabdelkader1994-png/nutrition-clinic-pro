@@ -7,3 +7,5 @@ export * from './types';
 export * from './anthropometrics';
 export * from './energy';
 export * from './macronutrients';
+export * from './food';
+export * from './recall';
