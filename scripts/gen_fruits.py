@@ -30,7 +30,7 @@ RAW_FRUITS = [
     ("فراولة طازجة نيئة", "Fresh Strawberries", 195, "16 حبة متوسطة", "16 medium berries", "raw", "RP-FR-016", 4),
     ("عنب طازج أحمر/أخضر", "Fresh Grapes", 83, "17 حبة", "17 grapes", "raw", "RP-FR-017", 4),
     ("مانجو طازجة نيئة", "Fresh Mango", 100, "نصف حبة متوسطة", "1/2 medium mango", "raw", "RP-FR-018", 4),
-    ("أناناس طازج نيء", "Fresh Pineapple", 115, "ثلثا كوب مكعبات", "2/3 cup chunks", "raw", "RP-ST-019", 4),
+    ("أناناس طازج نيء", "Fresh Pineapple", 115, "ثلثا كوب مكعبات", "2/3 cup chunks", "raw", "RP-FR-019", 4),
     ("بطيخ أحمر طازج", "Fresh Watermelon", 200, "ثلاثة أرباع قطعة كبيرة (كوب وربع مكعبات)", "1.25 cup cubes", "raw", "RP-FR-020", 4),
     ("زبيب مجفف", "Dried Raisins", 19, "ملعقتان كبيرتان", "2 tbsp", "dried", "RP-FR-021", 4),
     ("كمثرى طازجة نيئة", "Fresh Pear", 99, "نصف حبة متوسطة", "1/2 medium pear", "raw", "RP-FR-022", 4),
@@ -90,10 +90,12 @@ FRUIT_ANALYTICAL_OVERRIDES = {
     "RP-FR-013": {"caloriesKcal": 479.0, "carbsG": 65.0, "proteinG": 4.5, "fatG": 27.0},
 }
 
+CONFECTIONERY_CODES = {"RP-FR-002", "RP-FR-003", "RP-FR-007", "RP-FR-008", "RP-FR-012", "RP-FR-013"}
+
 def make_fruit_item(row):
     ar, en, w, hh_ar, hh_en, prep, code, page = row
+    override = FRUIT_ANALYTICAL_OVERRIDES.get(code, {})
     if code in FRUIT_ANALYTICAL_OVERRIDES:
-        override = FRUIT_ANALYTICAL_OVERRIDES[code]
         kcal100 = override["caloriesKcal"]
         c100 = override["carbsG"]
         p100 = override["proteinG"]
@@ -106,44 +108,67 @@ def make_fruit_item(row):
         p100 = 0.0
         f100 = 0.0
 
-    item_id = f"food_fruit_rp_{code.lower().replace('-', '_')}"
-    return {
-        "id": item_id,
-        "code": code,
-        "sourceId": "regimeplan_2026",
-        "nameEn": en,
-        "nameAr": ar,
-        "foodGroupId": "fruits",
-        "primaryExchangeCategoryId": "fruit",
-        "preparationState": prep,
-        "verificationStatus": "clinic_reviewed",
-        "isCustom": False,
-        "nutrients100g": {
-            "basisWeightG": 100,
-            "caloriesKcal": kcal100,
-            "carbsG": c100,
-            "availableCarbsG": None,
-            "carbCalculationBasis": "total_by_difference",
-            "proteinG": p100,
-            "fatG": f100,
-            "fiberG": None,
-            "saturatedFatG": None,
-            "transFatG": None,
-            "monounsaturatedFatG": None,
-            "polyunsaturatedFatG": None,
-            "cholesterolMg": None,
-            "sodiumMg": None,
-            "potassiumMg": None,
-            "calciumMg": None,
-            "ironMg": None,
-            "waterG": None,
-            "missingNutrientKeys": [
-                "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
-                "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
-                "calciumMg", "ironMg", "waterG"
-            ]
-        },
-        "portions": [{
+    W = float(w)
+    item_id = "food_fruit_rp_rp_st_019" if code == "RP-FR-019" else f"food_fruit_rp_{code.lower().replace('-', '_')}"
+
+    is_confectionery = code in CONFECTIONERY_CODES
+    food_group = "occasions" if is_confectionery else "fruits"
+    exchange_cat = "combination_food" if is_confectionery else "fruit"
+    exchange_factor = 0 if is_confectionery else 1
+
+    water100 = override.get("waterG", None)
+    fiber100 = override.get("fiberG", None)
+    sodium100 = override.get("sodiumMg", None)
+
+    nutrients = {
+        "basisWeightG": 100,
+        "caloriesKcal": kcal100,
+        "carbsG": c100,
+        "availableCarbsG": None,
+        "carbCalculationBasis": "total_by_difference",
+        "proteinG": p100,
+        "fatG": f100,
+        "fiberG": fiber100,
+        "saturatedFatG": override.get("saturatedFatG", None),
+        "transFatG": override.get("transFatG", None),
+        "monounsaturatedFatG": override.get("monounsaturatedFatG", None),
+        "polyunsaturatedFatG": override.get("polyunsaturatedFatG", None),
+        "cholesterolMg": override.get("cholesterolMg", None),
+        "sodiumMg": sodium100,
+        "potassiumMg": override.get("potassiumMg", None),
+        "calciumMg": override.get("calciumMg", None),
+        "ironMg": override.get("ironMg", None),
+        "waterG": water100,
+    }
+
+    core_keys = [
+        "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
+        "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
+        "calciumMg", "ironMg", "waterG"
+    ]
+    nutrients["missingNutrientKeys"] = [k for k in core_keys if nutrients[k] is None]
+
+    if is_confectionery:
+        portion_def = {
+            "id": f"portion_{item_id}_serving",
+            "portionNameEn": f"1 Serving (~{w}g, Composite Confectionery)",
+            "portionNameAr": f"حصة واحدة (~{w} جم، حلويات مركبة)",
+            "householdMeasureEn": hh_en,
+            "householdMeasureAr": hh_ar,
+            "gramWeight": W,
+            "exchangeCategory": "combination_food",
+            "exchangeEquivalentFactor": 0,
+            "isUnclassifiedExchange": True,
+            "exchangeEvidenceStatus": "unclassified_composite",
+            "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+            "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
+            "isDefaultServing": True
+        }
+        tags = ["occasions", "confectionery", "sweets", prep]
+        notes_ar = f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة: {w} جم ({hh_ar}). صنف مركب يتطلب مراجعة سريرية للبدائل."
+        notes_en = f"RegimePlan Food Exchange Lists (2026, p. {page}). Serving weight: {w}g ({hh_en}). Composite item requiring clinical review."
+    else:
+        portion_def = {
             "id": f"portion_{item_id}_serving",
             "portionNameEn": f"1 Fruit Exchange (~{w}g)",
             "portionNameAr": f"بديل فاكهة واحد (~{w} جم)",
@@ -153,10 +178,27 @@ def make_fruit_item(row):
             "exchangeCategory": "fruit",
             "exchangeEquivalentFactor": 1,
             "isDefaultServing": True
-        }],
-        "tags": ["fruits", "fruit", prep],
-        "notesAr": f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar}).",
-        "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard fruit exchange portion: {w}g ({hh_en})."
+        }
+        tags = ["fruits", "fruit", prep]
+        notes_ar = f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar})."
+        notes_en = f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard fruit exchange portion: {w}g ({hh_en})."
+
+    return {
+        "id": item_id,
+        "code": code,
+        "sourceId": "regimeplan_2026",
+        "nameEn": en,
+        "nameAr": ar,
+        "foodGroupId": food_group,
+        "primaryExchangeCategoryId": exchange_cat,
+        "preparationState": prep,
+        "verificationStatus": "clinic_reviewed",
+        "isCustom": False,
+        "nutrients100g": nutrients,
+        "portions": [portion_def],
+        "tags": tags,
+        "notesAr": notes_ar,
+        "notesEn": notes_en
     }
 
 new_fruits = [make_fruit_item(r) for r in RAW_FRUITS]

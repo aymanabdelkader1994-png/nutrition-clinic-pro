@@ -47,8 +47,6 @@ export function FoodEntryModal({
   mealNameEn,
   mealNameAr,
 }: FoodEntryModalProps) {
-  if (!isOpen) return null;
-
   // Tabs: 'search_database' | 'custom_food'
   const [activeTab, setActiveTab] = useState<'database' | 'custom'>('database');
 
@@ -217,6 +215,8 @@ export function FoodEntryModal({
     { id: 'occasions', labelEn: 'Occasion & Traditional Foods', labelAr: 'أطعمة المناسبات والأعياد' },
     { id: 'free_foods', labelEn: 'Free Foods & Beverages', labelAr: 'الأطعمة الحرة والمشروبات' },
   ];
+
+  if (!isOpen) return null;
 
   return (
     <div

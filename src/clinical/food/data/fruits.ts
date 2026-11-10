@@ -329,8 +329,8 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "sourceId": "regimeplan_2026",
     "nameEn": "Dark Chocolate 70% Cacao",
     "nameAr": "شوكولاتة داكنة 70%",
-    "foodGroupId": "fruits",
-    "primaryExchangeCategoryId": "fruit",
+    "foodGroupId": "occasions",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -370,23 +370,28 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_fruit_rp_rp_fr_002_serving",
-        "portionNameEn": "1 Fruit Exchange (~33g)",
-        "portionNameAr": "بديل فاكهة واحد (~33 جم)",
+        "portionNameEn": "1 Serving (~33g, Composite Confectionery)",
+        "portionNameAr": "حصة واحدة (~33 جم، حلويات مركبة)",
         "householdMeasureEn": "3 squares",
         "householdMeasureAr": "3 مربعات",
         "gramWeight": 33,
-        "exchangeCategory": "fruit",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+        "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
         "isDefaultServing": true
       }
     ],
     "tags": [
-      "fruits",
-      "fruit",
+      "occasions",
+      "confectionery",
+      "sweets",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة البديلة: 33 جم (3 مربعات).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Standard fruit exchange portion: 33g (3 squares)."
+    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة: 33 جم (3 مربعات). صنف مركب يتطلب مراجعة سريرية للبدائل.",
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Serving weight: 33g (3 squares). Composite item requiring clinical review."
   },
   {
     "id": "food_fruit_rp_rp_fr_003",
@@ -394,8 +399,8 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "sourceId": "regimeplan_2026",
     "nameEn": "Milk Chocolate Bar",
     "nameAr": "شوكولاتة بالحليب",
-    "foodGroupId": "fruits",
-    "primaryExchangeCategoryId": "fruit",
+    "foodGroupId": "occasions",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -435,23 +440,28 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_fruit_rp_rp_fr_003_serving",
-        "portionNameEn": "1 Fruit Exchange (~25g)",
-        "portionNameAr": "بديل فاكهة واحد (~25 جم)",
+        "portionNameEn": "1 Serving (~25g, Composite Confectionery)",
+        "portionNameAr": "حصة واحدة (~25 جم، حلويات مركبة)",
         "householdMeasureEn": "2.5 squares",
         "householdMeasureAr": "مربعان ونصف",
         "gramWeight": 25,
-        "exchangeCategory": "fruit",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+        "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
         "isDefaultServing": true
       }
     ],
     "tags": [
-      "fruits",
-      "fruit",
+      "occasions",
+      "confectionery",
+      "sweets",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة البديلة: 25 جم (مربعان ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Standard fruit exchange portion: 25g (2.5 squares)."
+    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة: 25 جم (مربعان ونصف). صنف مركب يتطلب مراجعة سريرية للبدائل.",
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Serving weight: 25g (2.5 squares). Composite item requiring clinical review."
   },
   {
     "id": "food_fruit_rp_rp_fr_004",
@@ -654,8 +664,8 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "sourceId": "regimeplan_2026",
     "nameEn": "Almond Marzipan Paste",
     "nameAr": "مرزبان لوز حلو",
-    "foodGroupId": "fruits",
-    "primaryExchangeCategoryId": "fruit",
+    "foodGroupId": "occasions",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -695,23 +705,28 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_fruit_rp_rp_fr_007_serving",
-        "portionNameEn": "1 Fruit Exchange (~21g)",
-        "portionNameAr": "بديل فاكهة واحد (~21 جم)",
+        "portionNameEn": "1 Serving (~21g, Composite Confectionery)",
+        "portionNameAr": "حصة واحدة (~21 جم، حلويات مركبة)",
         "householdMeasureEn": "1.5 tbsp",
         "householdMeasureAr": "ملعقة كبيرة ونصف",
         "gramWeight": 21,
-        "exchangeCategory": "fruit",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+        "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
         "isDefaultServing": true
       }
     ],
     "tags": [
-      "fruits",
-      "fruit",
+      "occasions",
+      "confectionery",
+      "sweets",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة البديلة: 21 جم (ملعقة كبيرة ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Standard fruit exchange portion: 21g (1.5 tbsp)."
+    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة: 21 جم (ملعقة كبيرة ونصف). صنف مركب يتطلب مراجعة سريرية للبدائل.",
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Serving weight: 21g (1.5 tbsp). Composite item requiring clinical review."
   },
   {
     "id": "food_fruit_rp_rp_fr_008",
@@ -719,8 +734,8 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "sourceId": "regimeplan_2026",
     "nameEn": "Hazelnut Cocoa Spread",
     "nameAr": "شوكولاتة بالبندق للدهن",
-    "foodGroupId": "fruits",
-    "primaryExchangeCategoryId": "fruit",
+    "foodGroupId": "occasions",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -760,23 +775,28 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_fruit_rp_rp_fr_008_serving",
-        "portionNameEn": "1 Fruit Exchange (~25g)",
-        "portionNameAr": "بديل فاكهة واحد (~25 جم)",
+        "portionNameEn": "1 Serving (~25g, Composite Confectionery)",
+        "portionNameAr": "حصة واحدة (~25 جم، حلويات مركبة)",
         "householdMeasureEn": "1 tbsp",
         "householdMeasureAr": "ملعقة كبيرة",
         "gramWeight": 25,
-        "exchangeCategory": "fruit",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+        "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
         "isDefaultServing": true
       }
     ],
     "tags": [
-      "fruits",
-      "fruit",
+      "occasions",
+      "confectionery",
+      "sweets",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة البديلة: 25 جم (ملعقة كبيرة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Standard fruit exchange portion: 25g (1 tbsp)."
+    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة: 25 جم (ملعقة كبيرة). صنف مركب يتطلب مراجعة سريرية للبدائل.",
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Serving weight: 25g (1 tbsp). Composite item requiring clinical review."
   },
   {
     "id": "food_fruit_rp_rp_fr_009",
@@ -979,8 +999,8 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "sourceId": "regimeplan_2026",
     "nameEn": "Sesame Halva (Halawa Tahiniya)",
     "nameAr": "حلاوة طحينية سمسم",
-    "foodGroupId": "fruits",
-    "primaryExchangeCategoryId": "fruit",
+    "foodGroupId": "occasions",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1020,23 +1040,28 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_fruit_rp_rp_fr_012_serving",
-        "portionNameEn": "1 Fruit Exchange (~27g)",
-        "portionNameAr": "بديل فاكهة واحد (~27 جم)",
+        "portionNameEn": "1 Serving (~27g, Composite Confectionery)",
+        "portionNameAr": "حصة واحدة (~27 جم، حلويات مركبة)",
         "householdMeasureEn": "1.5 tbsp",
         "householdMeasureAr": "ملعقة كبيرة ونصف",
         "gramWeight": 27,
-        "exchangeCategory": "fruit",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+        "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
         "isDefaultServing": true
       }
     ],
     "tags": [
-      "fruits",
-      "fruit",
+      "occasions",
+      "confectionery",
+      "sweets",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة البديلة: 27 جم (ملعقة كبيرة ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Standard fruit exchange portion: 27g (1.5 tbsp)."
+    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة: 27 جم (ملعقة كبيرة ونصف). صنف مركب يتطلب مراجعة سريرية للبدائل.",
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Serving weight: 27g (1.5 tbsp). Composite item requiring clinical review."
   },
   {
     "id": "food_fruit_rp_rp_fr_013",
@@ -1044,8 +1069,8 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "sourceId": "regimeplan_2026",
     "nameEn": "Semi-Sweet Chocolate Chips",
     "nameAr": "حبيبات شوكولاتة نصف حلوة",
-    "foodGroupId": "fruits",
-    "primaryExchangeCategoryId": "fruit",
+    "foodGroupId": "occasions",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1085,23 +1110,28 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_fruit_rp_rp_fr_013_serving",
-        "portionNameEn": "1 Fruit Exchange (~23g)",
-        "portionNameAr": "بديل فاكهة واحد (~23 جم)",
+        "portionNameEn": "1 Serving (~23g, Composite Confectionery)",
+        "portionNameAr": "حصة واحدة (~23 جم، حلويات مركبة)",
         "householdMeasureEn": "2 tbsp",
         "householdMeasureAr": "ملعقتان كبيرتان",
         "gramWeight": 23,
-        "exchangeCategory": "fruit",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite confectionery food: requires clinical review; cannot be represented as a simple single-exchange fruit portion.",
+        "unclassifiedExchangeNoticeAr": "صنف حلويات وسكريات مركب: يتطلب مراجعة سريرية؛ لا يمكن حسابه كبديل فاكهة بسيط.",
         "isDefaultServing": true
       }
     ],
     "tags": [
-      "fruits",
-      "fruit",
+      "occasions",
+      "confectionery",
+      "sweets",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة البديلة: 23 جم (ملعقتان كبيرتان).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Standard fruit exchange portion: 23g (2 tbsp)."
+    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 4). وزن الحصة: 23 جم (ملعقتان كبيرتان). صنف مركب يتطلب مراجعة سريرية للبدائل.",
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 4). Serving weight: 23g (2 tbsp). Composite item requiring clinical review."
   },
   {
     "id": "food_fruit_rp_rp_fr_014",
@@ -1430,7 +1460,7 @@ export const FRUIT_FOOD_ITEMS: FoodItemRecord[] = [
   },
   {
     "id": "food_fruit_rp_rp_st_019",
-    "code": "RP-ST-019",
+    "code": "RP-FR-019",
     "sourceId": "regimeplan_2026",
     "nameEn": "Fresh Pineapple",
     "nameAr": "أناناس طازج نيء",
