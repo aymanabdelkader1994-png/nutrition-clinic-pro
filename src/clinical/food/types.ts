@@ -25,7 +25,8 @@ export type PreparationState =
   | 'roasted'
   | 'fried'
   | 'canned'
-  | 'dried';
+  | 'dried'
+  | 'ready-to-eat';
 
 export type ExchangeSystemId = 'ada_and' | 'egyptian_nci' | 'custom';
 
@@ -209,6 +210,8 @@ export interface FoodPortion {
   isUnclassifiedExchange?: boolean;
   unclassifiedExchangeNoticeEn?: string;
   unclassifiedExchangeNoticeAr?: string;
+  notesAr?: string;
+  notesEn?: string;
   isDefaultServing: boolean;
 }
 

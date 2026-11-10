@@ -46,7 +46,7 @@ describe('1. Provenance Separation, NNI Attribution & Recipe Classifications', (
 
   it('preserves internal codes while representing unissued NNI record IDs as undefined', () => {
     const items = getAllFoodItems();
-    assert.equal(items.length, 30);
+    assert.ok(items.length >= 650, `Expected catalog >= 650 items, got ${items.length}`);
 
     const nniFoods = items.filter((f) => f.sourceId === 'egyptian_nni_2006');
     assert.ok(nniFoods.length >= 8);
@@ -402,3 +402,329 @@ describe('9. Phase 1 Non-Regression & Preserved Nutritional Values', () => {
     assert.equal(bread.nutrients100g.fatG, 1.2);
   });
 });
+
+describe('10. Phase 4 Catalog Expansion & Cottage Cheese Verification', () => {
+  it('confirms the expanded catalog contains >= 650 items with strictly unique IDs', () => {
+    const allItems = getAllFoodItems();
+    assert.ok(allItems.length >= 650, `Catalog has ${allItems.length} items`);
+
+    const ids = new Set<string>();
+    for (const item of allItems) {
+      assert.ok(!ids.has(item.id), `Duplicate food ID detected: ${item.id}`);
+      ids.add(item.id);
+      assert.ok(item.nameAr && item.nameAr.length > 0);
+      assert.ok(item.nameEn && item.nameEn.length > 0);
+      assert.ok(item.portions && item.portions.length > 0);
+      for (const p of item.portions) {
+        assert.ok(p.gramWeight > 0, `Non-positive portion weight for ${item.id}: ${p.gramWeight}`);
+      }
+    }
+  });
+
+  it('verifies Egyptian Quraish cheese classification and multi-reference portions', () => {
+    const quraish = getFoodItemById('food_cheese_quraish_egyptian')!;
+    assert.ok(quraish, 'Egyptian Quraish cheese must exist in catalog');
+    assert.equal(quraish.foodGroupId, 'meats', 'Quraish cheese must be classified under meats (Meat Substitutes)');
+    assert.equal(quraish.primaryExchangeCategoryId, 'meat_lean', 'Quraish cheese primary exchange category must be meat_lean');
+
+    // Portions: 50g clinic piece, 100g, 56g RegimePlan, 30g Image Guide
+    const p50 = quraish.portions.find((p) => p.id === 'portion_quraish_piece');
+    const p100 = quraish.portions.find((p) => p.id === 'portion_quraish_100g');
+    const p56 = quraish.portions.find((p) => p.id === 'portion_quraish_quarter_cup_regimeplan');
+    const p30 = quraish.portions.find((p) => p.id === 'portion_quraish_serving_image');
+
+    assert.ok(p50, 'Standard 50g portion must exist');
+    assert.equal(p50?.gramWeight, 50);
+    assert.ok(p100, '100g portion must exist');
+    assert.equal(p100?.gramWeight, 100);
+    assert.ok(p56, 'RegimePlan 56g portion must exist');
+    assert.equal(p56?.gramWeight, 56);
+    assert.ok(p30, 'Exchange Guide 30g portion must exist');
+    assert.equal(p30?.gramWeight, 30);
+
+    // Documented discrepancy in notes
+    assert.ok(quraish.notesAr?.includes('56') && quraish.notesAr?.includes('30'));
+  });
+
+  it('ensures unassayed micronutrients are preserved as null without zero imputation', () => {
+    const allItems = getAllFoodItems();
+    const regimePlanItems = allItems.filter((f) => f.sourceId === 'regimeplan_2026');
+    assert.ok(regimePlanItems.length >= 600);
+
+    // Verify unassayed nutrients are explicitly null and in missingNutrientKeys
+    for (const item of regimePlanItems) {
+      assert.equal(item.nutrients100g.availableCarbsG, null);
+      assert.equal(item.nutrients100g.fiberG, null);
+      assert.equal(item.nutrients100g.sodiumMg, null);
+      assert.equal(item.nutrients100g.potassiumMg, null);
+      assert.ok(item.nutrients100g.missingNutrientKeys.includes('fiberG'));
+      assert.ok(item.nutrients100g.missingNutrientKeys.includes('sodiumMg'));
+    }
+  });
+
+  it('verifies bilingual search across newly added foods in Arabic and English', () => {
+    const allItems = getAllFoodItems();
+    const soyMilkSearch = searchFoodItems(allItems, 'لبن صويا');
+    assert.ok(soyMilkSearch.length >= 1, 'Should find soy milk in Arabic');
+
+    const tortillaSearch = searchFoodItems(allItems, 'tortilla');
+    assert.ok(tortillaSearch.length >= 1, 'Should find tortilla in English');
+
+    const oatSearch = searchFoodItems(allItems, 'شوفان');
+    assert.ok(oatSearch.length >= 1, 'Should find oat items in Arabic');
+  });
+});
+
+describe('11. Catalog Integrity Repair & Analytical Composition Verification', () => {
+  it('strictly validates Powdered Sugar (RP-ST-128) analytical composition and starch exchange', () => {
+    const allItems = getAllFoodItems();
+    const powderedSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_128');
+    assert.ok(powderedSugar, 'Powdered sugar must exist in the catalog');
+    assert.equal(powderedSugar?.code, 'RP-ST-128');
+    assert.equal(powderedSugar?.primaryExchangeCategoryId, 'starch');
+
+    // 100g profile verification: ~389 kcal, 99.5g carbs, 0g protein, 0g fat
+    const n100 = powderedSugar!.nutrients100g;
+    assert.equal(n100.caloriesKcal, 389.0);
+    assert.equal(n100.carbsG, 99.5);
+    assert.equal(n100.proteinG, 0.0);
+    assert.equal(n100.fatG, 0.0);
+    assert.equal(n100.waterG, 0.5);
+
+    // Serving portion verification: 15g serving
+    const serving = powderedSugar!.portions.find((p) => p.isDefaultServing);
+    assert.ok(serving, 'Default serving portion must exist');
+    assert.equal(serving?.gramWeight, 15.0);
+    assert.equal(serving?.exchangeCategory, 'starch');
+    assert.equal(serving?.exchangeEquivalentFactor, 1);
+
+    // Scaled nutrients for 15g portion
+    const scaled = scaleNutrientProfile(n100, 15.0);
+    assert.equal(scaled.caloriesKcal, 58.4);
+    assert.equal(scaled.carbsG, 14.93); // 99.5 * 0.15 = 14.925 -> rounded to 2 decimal places
+    assert.equal(scaled.proteinG, 0.0);
+    assert.equal(scaled.fatG, 0.0);
+  });
+
+  it('verifies pure sugars, syrups, and starches have defensible analytical composition', () => {
+    const allItems = getAllFoodItems();
+    
+    // Granulated sugar (RP-ST-121)
+    const whiteSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_121');
+    assert.ok(whiteSugar);
+    assert.equal(whiteSugar?.nutrients100g.carbsG, 100.0);
+    assert.equal(whiteSugar?.nutrients100g.proteinG, 0.0);
+    assert.equal(whiteSugar?.nutrients100g.fatG, 0.0);
+    assert.equal(whiteSugar?.nutrients100g.caloriesKcal, 387.0);
+
+    // Brown sugar (RP-ST-127)
+    const brownSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_127');
+    assert.ok(brownSugar);
+    assert.equal(brownSugar?.nutrients100g.carbsG, 98.1);
+    assert.equal(brownSugar?.nutrients100g.proteinG, 0.1);
+    assert.equal(brownSugar?.nutrients100g.fatG, 0.0);
+
+    // Pure Bee Honey (RP-ST-122)
+    const honey = allItems.find((f) => f.id === 'food_starch_rp_rp_st_122');
+    assert.ok(honey);
+    assert.equal(honey?.nutrients100g.carbsG, 82.4);
+    assert.equal(honey?.nutrients100g.proteinG, 0.3);
+    assert.equal(honey?.nutrients100g.fatG, 0.0);
+    assert.equal(honey?.nutrients100g.caloriesKcal, 304.0);
+
+    // Maple Syrup (RP-ST-123)
+    const maple = allItems.find((f) => f.id === 'food_starch_rp_rp_st_123');
+    assert.ok(maple);
+    assert.equal(maple?.nutrients100g.carbsG, 67.0);
+    assert.equal(maple?.nutrients100g.proteinG, 0.0);
+    assert.equal(maple?.nutrients100g.fatG, 0.1);
+
+    // Agave (RP-ST-124)
+    const agave = allItems.find((f) => f.id === 'food_starch_rp_rp_st_124');
+    assert.ok(agave);
+    assert.equal(agave?.nutrients100g.carbsG, 76.4);
+    assert.equal(agave?.nutrients100g.proteinG, 0.1);
+
+    // Egyptian Black Honey / Molasses (RP-ST-125)
+    const molasses = allItems.find((f) => f.id === 'food_starch_rp_rp_st_125');
+    assert.ok(molasses);
+    assert.equal(molasses?.nutrients100g.carbsG, 74.7);
+    assert.equal(molasses?.nutrients100g.proteinG, 0.0);
+
+    // Coconut Palm Sugar (RP-ST-126)
+    const coconutSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_126');
+    assert.ok(coconutSugar);
+    assert.equal(coconutSugar?.nutrients100g.carbsG, 93.4);
+    assert.equal(coconutSugar?.nutrients100g.proteinG, 1.1);
+
+    // Pomegranate Molasses (RP-ST-120)
+    const pomeMolasses = allItems.find((f) => f.id === 'food_starch_rp_rp_st_120');
+    assert.ok(pomeMolasses);
+    assert.equal(pomeMolasses?.nutrients100g.carbsG, 65.0);
+    assert.equal(pomeMolasses?.nutrients100g.proteinG, 0.0);
+
+    // Cornstarch (RP-ST-071)
+    const cornstarch = allItems.find((f) => f.id === 'food_starch_rp_rp_st_071');
+    assert.ok(cornstarch);
+    assert.equal(cornstarch?.nutrients100g.carbsG, 91.3);
+    assert.equal(cornstarch?.nutrients100g.proteinG, 0.3);
+    assert.equal(cornstarch?.nutrients100g.fatG, 0.1);
+
+    // Potato Starch (RP-ST-081)
+    const potatoStarch = allItems.find((f) => f.id === 'food_starch_rp_rp_st_081');
+    assert.ok(potatoStarch);
+    assert.equal(potatoStarch?.nutrients100g.carbsG, 83.1);
+    assert.equal(potatoStarch?.nutrients100g.proteinG, 6.9);
+    assert.equal(potatoStarch?.nutrients100g.fatG, 0.3);
+
+    // Dry Roqaq Flatbread (RP-ST-020)
+    const roqaq = allItems.find((f) => f.id === 'food_starch_rp_rp_st_020');
+    assert.ok(roqaq);
+    assert.equal(roqaq?.nutrients100g.carbsG, 76.5);
+    assert.equal(roqaq?.nutrients100g.proteinG, 11.2);
+    assert.equal(roqaq?.nutrients100g.fatG, 1.8);
+
+    // Cornflakes (RP-ST-049)
+    const cornflakes = allItems.find((f) => f.id === 'food_starch_rp_rp_st_049');
+    assert.ok(cornflakes);
+    assert.equal(cornflakes?.nutrients100g.carbsG, 84.0);
+    assert.equal(cornflakes?.nutrients100g.proteinG, 7.5);
+    assert.equal(cornflakes?.nutrients100g.fatG, 0.4);
+
+    // Puffed Rice Cakes (RP-ST-104)
+    const riceCakes = allItems.find((f) => f.id === 'food_starch_rp_rp_st_104');
+    assert.ok(riceCakes);
+    assert.equal(riceCakes?.nutrients100g.carbsG, 81.5);
+    assert.equal(riceCakes?.nutrients100g.proteinG, 8.2);
+    assert.equal(riceCakes?.nutrients100g.fatG, 2.8);
+  });
+
+  it('verifies Confectioneries in fruits category reflect authentic lipids and proteins', () => {
+    const allItems = getAllFoodItems();
+    
+    // Hazelnut Cocoa Spread (RP-FR-008)
+    const hazelnut = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_008');
+    assert.ok(hazelnut);
+    assert.equal(hazelnut?.nutrients100g.fatG, 30.9);
+    assert.equal(hazelnut?.nutrients100g.proteinG, 6.0);
+    assert.equal(hazelnut?.nutrients100g.caloriesKcal, 541.0);
+
+    // Dark Chocolate 70% (RP-FR-002)
+    const darkChoc = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_002');
+    assert.ok(darkChoc);
+    assert.equal(darkChoc?.nutrients100g.fatG, 42.6);
+    assert.equal(darkChoc?.nutrients100g.proteinG, 7.8);
+    assert.equal(darkChoc?.nutrients100g.caloriesKcal, 598.0);
+
+    // Milk Chocolate (RP-FR-003)
+    const milkChoc = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_003');
+    assert.ok(milkChoc);
+    assert.equal(milkChoc?.nutrients100g.fatG, 29.7);
+    assert.equal(milkChoc?.nutrients100g.proteinG, 7.7);
+
+    // Sesame Halva (RP-FR-012)
+    const halva = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_012');
+    assert.ok(halva);
+    assert.equal(halva?.nutrients100g.fatG, 26.0);
+    assert.equal(halva?.nutrients100g.proteinG, 12.0);
+
+    // Almond Marzipan (RP-FR-007)
+    const marzipan = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_007');
+    assert.ok(marzipan);
+    assert.equal(marzipan?.nutrients100g.fatG, 25.5);
+    assert.equal(marzipan?.nutrients100g.proteinG, 8.5);
+
+    // Corn Syrup (RP-FR-009)
+    const cornSyrup = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_009');
+    assert.ok(cornSyrup);
+    assert.equal(cornSyrup?.nutrients100g.carbsG, 77.4);
+    assert.equal(cornSyrup?.nutrients100g.proteinG, 0.0);
+    assert.equal(cornSyrup?.nutrients100g.fatG, 0.0);
+  });
+
+  it('verifies Plant Milks reflect authentic analytical composition across variants', () => {
+    const allItems = getAllFoodItems();
+    
+    // Unsweetened Almond Milk (RP-DA-016)
+    const almondMilk = allItems.find((f) => f.id === 'food_dairy_rp_da_016');
+    assert.ok(almondMilk);
+    assert.equal(almondMilk?.nutrients100g.caloriesKcal, 15.0);
+    assert.equal(almondMilk?.nutrients100g.carbsG, 0.3);
+    assert.equal(almondMilk?.nutrients100g.proteinG, 0.6);
+    assert.equal(almondMilk?.nutrients100g.fatG, 1.1);
+
+    // Unsweetened Oat Milk (RP-DA-017)
+    const oatMilk = allItems.find((f) => f.id === 'food_dairy_rp_da_017');
+    assert.ok(oatMilk);
+    assert.equal(oatMilk?.nutrients100g.caloriesKcal, 48.0);
+    assert.equal(oatMilk?.nutrients100g.carbsG, 6.7);
+    assert.equal(oatMilk?.nutrients100g.proteinG, 0.8);
+    assert.equal(oatMilk?.nutrients100g.fatG, 1.5);
+
+    // Unsweetened Soy Milk (RP-DA-018)
+    const soyMilk = allItems.find((f) => f.id === 'food_dairy_rp_da_018');
+    assert.ok(soyMilk);
+    assert.equal(soyMilk?.nutrients100g.caloriesKcal, 33.0);
+    assert.equal(soyMilk?.nutrients100g.carbsG, 1.7);
+    assert.equal(soyMilk?.nutrients100g.proteinG, 2.8);
+    assert.equal(soyMilk?.nutrients100g.fatG, 1.6);
+
+    // Sweetened Almond Milk (RP-DA-026)
+    const sweetAlmond = allItems.find((f) => f.id === 'food_dairy_rp_da_026');
+    assert.ok(sweetAlmond);
+    assert.equal(sweetAlmond?.nutrients100g.caloriesKcal, 30.0);
+    assert.equal(sweetAlmond?.nutrients100g.carbsG, 3.4);
+
+    // Sweetened Oat Milk (RP-DA-027)
+    const sweetOat = allItems.find((f) => f.id === 'food_dairy_rp_da_027');
+    assert.ok(sweetOat);
+    assert.equal(sweetOat?.nutrients100g.caloriesKcal, 60.0);
+    assert.equal(sweetOat?.nutrients100g.carbsG, 9.2);
+  });
+
+  it('ensures all pagination artifacts are eliminated and catalog has 676 valid items', () => {
+    const allItems = getAllFoodItems();
+    assert.equal(allItems.length, 676, 'Expected exactly 676 valid catalog records');
+
+    const artifactItems = allItems.filter(
+      (f) => f.nameAr.includes('صفحة') || f.nameEn.includes('صفحة')
+    );
+    assert.equal(artifactItems.length, 0, 'No pagination artifacts should remain in catalog');
+
+    // Check specific purged IDs
+    const purgedIds = ['food_meat_rp_mt_024', 'food_meat_rp_mt_076', 'food_meat_rp_mt_135', 'food_meat_rp_mt_197', 'food_fat_rp_ft_063'];
+    for (const pid of purgedIds) {
+      assert.strictEqual(allItems.find((f) => f.id === pid), undefined, `Artifact ID ${pid} must be removed`);
+    }
+
+    // Check unique IDs
+    const idSet = new Set(allItems.map((f) => f.id));
+    assert.equal(idSet.size, 676, 'All 676 items must have strictly unique IDs');
+
+    // Check non-empty bilingual names
+    for (const item of allItems) {
+      assert.ok(item.nameEn && item.nameEn.trim().length > 0, `Item ${item.id} must have English name`);
+      assert.ok(item.nameAr && item.nameAr.trim().length > 0, `Item ${item.id} must have Arabic name`);
+    }
+
+    // Check macro sums <= 100.5g
+    for (const item of allItems) {
+      const sum = (item.nutrients100g.carbsG || 0) + (item.nutrients100g.proteinG || 0) + (item.nutrients100g.fatG || 0);
+      assert.ok(sum <= 100.5, `Item ${item.id} (${item.nameEn}) macro sum ${sum} must not exceed 100g`);
+    }
+  });
+
+  it('validates Occasions food group items are present and searchable', () => {
+    const allItems = getAllFoodItems();
+    const occasionsItems = allItems.filter((f) => f.foodGroupId === 'occasions');
+    assert.ok(occasionsItems.length >= 20, 'Occasions category should contain holiday and traditional foods');
+    
+    // Check traditional Eid Kahk exists
+    const kahk = allItems.find((f) => f.nameAr.includes('كحك'));
+    assert.ok(kahk, 'Eid Kahk should be present in catalog');
+    assert.equal(kahk?.foodGroupId, 'occasions');
+  });
+});
+
+
+

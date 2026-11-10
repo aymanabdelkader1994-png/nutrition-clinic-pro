@@ -203,6 +203,8 @@ export function FoodEntryModal({
     }
   };
 
+  const totalFoodCount = useMemo(() => getAllFoodItems().length, []);
+
   const foodGroups: Array<{ id: string; labelEn: string; labelAr: string }> = [
     { id: 'all', labelEn: 'All Foods', labelAr: 'كل الأطعمة' },
     { id: 'starches', labelEn: 'Starches / Grains', labelAr: 'النشويات والحبوب' },
@@ -212,6 +214,7 @@ export function FoodEntryModal({
     { id: 'vegetables', labelEn: 'Vegetables', labelAr: 'الخضروات' },
     { id: 'legumes', labelEn: 'Legumes', labelAr: 'البقوليات' },
     { id: 'fats', labelEn: 'Fats & Oils', labelAr: 'الدهون والزيوت' },
+    { id: 'occasions', labelEn: 'Occasion & Traditional Foods', labelAr: 'أطعمة المناسبات والأعياد' },
     { id: 'free_foods', labelEn: 'Free Foods & Beverages', labelAr: 'الأطعمة الحرة والمشروبات' },
   ];
 
@@ -262,7 +265,9 @@ export function FoodEntryModal({
             }`}
           >
             <Search className="h-4 w-4" />
-            {isAr ? 'قاعدة الأطعمة المعيارية (30 صنفاً موثقاً)' : 'Standard Food Database'}
+            {isAr
+              ? `قاعدة الأطعمة المعيارية (${totalFoodCount} صنفاً موثقاً)`
+              : `Standard Food Database (${totalFoodCount} items)`}
           </button>
           <button
             type="button"

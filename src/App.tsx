@@ -25,6 +25,12 @@ import {
   UserCheck,
   Wheat,
   Utensils,
+  History,
+  BookmarkPlus,
+  Save,
+  RotateCcw,
+  Check,
+  X,
 } from 'lucide-react';
 
 import {
@@ -40,16 +46,36 @@ import {
   ACTIVITY_LEVELS,
   STRESS_CONDITIONS,
   DIETARY_APPROACH_PRESETS,
+  PatientAssessmentRecord,
+  saveAssessment,
+  getSavedAssessments,
 } from './clinical/index';
 import { RecallWorkbench } from './components/recall/RecallWorkbench';
+import { AssessmentHistoryView } from './components/history/AssessmentHistoryView';
 
 export default function App() {
   // Locale State: 'ar' (RTL) or 'en' (LTR)
   const [lang, setLang] = useState<'ar' | 'en'>('ar');
   const isAr = lang === 'ar';
 
-  // Active View Tab: 'calculator' | 'recall' | 'benchmarks' | 'documentation'
-  const [activeTab, setActiveTab] = useState<'calculator' | 'recall' | 'benchmarks' | 'documentation'>('calculator');
+  // Active View Tab: 'calculator' | 'recall' | 'history' | 'benchmarks' | 'documentation'
+  const [activeTab, setActiveTab] = useState<'calculator' | 'recall' | 'history' | 'benchmarks' | 'documentation'>('calculator');
+
+  // History & Progress State
+  const [historyRefreshTrigger, setHistoryRefreshTrigger] = useState(0);
+  const [savedCount, setSavedCount] = useState<number>(() => {
+    try {
+      return getSavedAssessments().length;
+    } catch {
+      return 0;
+    }
+  });
+  const [saveModalOpen, setSaveModalOpen] = useState(false);
+  const [patientNameInput, setPatientNameInput] = useState('');
+  const [patientMrnInput, setPatientMrnInput] = useState('');
+  const [visitDateInput, setVisitDateInput] = useState(() => new Date().toISOString().substring(0, 10));
+  const [visitNotesInput, setVisitNotesInput] = useState('');
+  const [loadedNotification, setLoadedNotification] = useState<string | null>(null);
 
   // Patient Input State
   const [sex, setSex] = useState<BiologicalSex>('male');
@@ -218,6 +244,115 @@ export default function App() {
     return text;
   }, [anthropometrics, parsedHeight]);
 
+  // Load a saved assessment directly into the calculator inputs
+  const handleLoadAssessment = (record: PatientAssessmentRecord) => {
+    setSex(record.inputs.sex);
+    setAge(record.inputs.ageYears);
+    setHeightCm(record.inputs.heightCm);
+    setWeightKg(record.inputs.weightKg);
+    setWaistCm(record.inputs.waistCm ?? '');
+    setHipCm(record.inputs.hipCm ?? '');
+    setBodyFatPercent(record.inputs.bodyFatPercent ?? '');
+    setHasBodyFat(record.inputs.hasBodyFat);
+    setActivityLevel(record.inputs.activityLevel);
+    setStressCondition(record.inputs.stressCondition);
+    setAdjustmentKcal(record.inputs.adjustmentKcal);
+    setSelectedEquation(record.inputs.selectedEquation);
+    setCarbsPercent(record.inputs.carbsPercent);
+    setProteinPercent(record.inputs.proteinPercent);
+    setFatPercent(record.inputs.fatPercent);
+    if (record.inputs.selectedDietPreset) {
+      setSelectedDietPreset(record.inputs.selectedDietPreset as any);
+    }
+    setActiveTab('calculator');
+    setLoadedNotification(
+      isAr
+        ? `تم تحميل فحص المريض (${record.patientName}) المؤرخ في ${record.visitDate} بنجاح في الحاسبة`
+        : `Loaded clinical assessment for ${record.patientName} (${record.visitDate}) into Calculator`
+    );
+    setTimeout(() => setLoadedNotification(null), 5000);
+  };
+
+  // Save current assessment to LocalStorage
+  const handleConfirmSaveAssessment = () => {
+    if (!anthropometrics || !energy || !macronutrients || isMissingCoreData) return;
+
+    const patientName = patientNameInput.trim() || (isAr ? 'مريض العيادة' : 'Clinic Patient');
+    const newRecord = saveAssessment({
+      patientName,
+      patientIdOrMrn: patientMrnInput.trim() || undefined,
+      visitDate: visitDateInput || new Date().toISOString().substring(0, 10),
+      notes: visitNotesInput.trim() || undefined,
+      inputs: {
+        sex,
+        ageYears: Number(parsedAge),
+        heightCm: Number(parsedHeight),
+        weightKg: Number(parsedWeight),
+        waistCm: parsedWaist,
+        hipCm: parsedHip,
+        bodyFatPercent: validatedBodyFat,
+        hasBodyFat,
+        activityLevel,
+        stressCondition,
+        adjustmentKcal,
+        selectedEquation,
+        selectedDietPreset: selectedDietPreset !== 'custom' ? selectedDietPreset : undefined,
+        carbsPercent,
+        proteinPercent,
+        fatPercent,
+      },
+      anthropometrics: {
+        bmi: anthropometrics.bmiResult.bmi,
+        bmiCategoryKey: anthropometrics.bmiResult.isPediatric
+          ? 'pediatric'
+          : anthropometrics.bmiResult.category,
+        bmiCategoryAr: anthropometrics.bmiResult.isPediatric
+          ? 'مريض يافع (أقل من 19 عاماً)'
+          : anthropometrics.bmiResult.categoryLabelAr,
+        bmiCategoryEn: anthropometrics.bmiResult.isPediatric
+          ? 'Pediatric Patient (< 19y)'
+          : anthropometrics.bmiResult.categoryLabelEn,
+        isPediatric: anthropometrics.bmiResult.isPediatric,
+        ibwDevineKg: anthropometrics.ibwResult.devineKg,
+        ibwHamwiKg: anthropometrics.ibwResult.hamwiKg,
+        ibwRobinsonKg: anthropometrics.ibwResult.robinsonKg,
+        abwKg: anthropometrics.ibwResult.adjustedBodyWeightKg,
+        isAdjustedWeightNeeded: anthropometrics.ibwResult.isAdjustedWeightNeeded,
+        waistToHipRatio: anthropometrics.cardioMetabolicRisk.whr,
+        whrRiskAr: anthropometrics.cardioMetabolicRisk.whrRiskLabelAr,
+        whrRiskEn: anthropometrics.cardioMetabolicRisk.whrRiskLevel,
+        leanBodyMassKg: anthropometrics.bodyComposition.leanBodyMassKg,
+        fatMassKg: anthropometrics.bodyComposition.fatMassKg,
+      },
+      energy: {
+        equationUsed: energy.primaryRecommendedEquation,
+        bmrKcal: energy.recommendedBmrKcal,
+        tdeeKcal: energy.recommendedTdeeKcal,
+        targetKcal: energy.targetKcal,
+        adjustmentKcal,
+      },
+      macronutrients: {
+        carbsGrams: macronutrients.carbsGrams,
+        proteinGrams: macronutrients.proteinGrams,
+        fatGrams: macronutrients.fatGrams,
+        carbsKcal: macronutrients.carbsKcal,
+        proteinKcal: macronutrients.proteinKcal,
+        fatKcal: macronutrients.fatKcal,
+        proteinPerKgActual: macronutrients.proteinGramsPerKg,
+      },
+    });
+
+    setSaveModalOpen(false);
+    setHistoryRefreshTrigger((v) => v + 1);
+    setSavedCount(getSavedAssessments().length);
+    setLoadedNotification(
+      isAr
+        ? `تم حفظ فحص (${newRecord.patientName}) في سجل المتابعة بنجاح`
+        : `Assessment for ${newRecord.patientName} saved to history successfully`
+    );
+    setTimeout(() => setLoadedNotification(null), 4000);
+  };
+
   return (
     <div
       dir={isAr ? 'rtl' : 'ltr'}
@@ -276,6 +411,23 @@ export default function App() {
               </button>
               <button
                 type="button"
+                onClick={() => setActiveTab('history')}
+                className={`relative flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                  activeTab === 'history'
+                    ? 'bg-white text-emerald-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <History className="h-3.5 w-3.5" />
+                <span>{isAr ? 'سجل متابعة المرضى' : 'Patient History'}</span>
+                {savedCount > 0 && (
+                  <span className="rounded-full bg-emerald-100 px-1.5 py-0.2 text-[10px] font-bold text-emerald-800">
+                    {savedCount}
+                  </span>
+                )}
+              </button>
+              <button
+                type="button"
                 onClick={() => setActiveTab('benchmarks')}
                 className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
                   activeTab === 'benchmarks'
@@ -331,7 +483,17 @@ export default function App() {
               activeTab === 'recall' ? 'border-b-2 border-emerald-600 font-bold text-emerald-600' : 'text-slate-500'
             }`}
           >
-            {isAr ? 'الاسترجاع 24h' : '24h Recall'}
+            {isAr ? 'الاسترجاع' : 'Recall'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('history')}
+            className={`flex-1 py-1 text-center text-xs font-medium whitespace-nowrap ${
+              activeTab === 'history' ? 'border-b-2 border-emerald-600 font-bold text-emerald-600' : 'text-slate-500'
+            }`}
+          >
+            {isAr ? 'سجل المتابعة' : 'History'}
+            {savedCount > 0 && ` (${savedCount})`}
           </button>
           <button
             type="button"
@@ -340,7 +502,7 @@ export default function App() {
               activeTab === 'benchmarks' ? 'border-b-2 border-emerald-600 font-bold text-emerald-600' : 'text-slate-500'
             }`}
           >
-            {isAr ? 'المطابقة السريرية' : 'Benchmarks'}
+            {isAr ? 'المطابقة' : 'Benchmarks'}
           </button>
           <button
             type="button"
@@ -356,6 +518,21 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+        {loadedNotification && (
+          <div className="mb-6 flex items-center justify-between rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-xs font-medium text-emerald-900 shadow-sm animate-fade-in">
+            <div className="flex items-center gap-2">
+              <Check className="h-4 w-4 text-emerald-600 flex-shrink-0" />
+              <span>{loadedNotification}</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setLoadedNotification(null)}
+              className="text-emerald-700 hover:text-emerald-900"
+            >
+              <X className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        )}
         {activeTab === 'calculator' && (
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             {/* Left Column: Clinical Inputs (5 cols) */}
@@ -782,19 +959,33 @@ export default function App() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 rounded-xl bg-white/10 p-3 backdrop-blur-sm">
-                      <div>
-                        <span className="block text-[11px] text-emerald-100">
-                          {isAr ? 'معدل الأيض الأساسي (BMR)' : 'Basal Metabolic Rate'}
-                        </span>
-                        <span className="text-lg font-bold">{energy.recommendedBmrKcal} kcal</span>
+                    <div className="flex flex-col sm:flex-row items-end sm:items-center gap-3">
+                      <div className="grid grid-cols-2 gap-3 rounded-xl bg-white/10 p-3 backdrop-blur-sm">
+                        <div>
+                          <span className="block text-[11px] text-emerald-100">
+                            {isAr ? 'معدل الأيض الأساسي (BMR)' : 'Basal Metabolic Rate'}
+                          </span>
+                          <span className="text-lg font-bold">{energy.recommendedBmrKcal} kcal</span>
+                        </div>
+                        <div>
+                          <span className="block text-[11px] text-emerald-100">
+                            {isAr ? 'استهلاك الطاقة الكلي (TDEE)' : 'Total Expenditure'}
+                          </span>
+                          <span className="text-lg font-bold">{energy.recommendedTdeeKcal} kcal</span>
+                        </div>
                       </div>
-                      <div>
-                        <span className="block text-[11px] text-emerald-100">
-                          {isAr ? 'استهلاك الطاقة الكلي (TDEE)' : 'Total Expenditure'}
-                        </span>
-                        <span className="text-lg font-bold">{energy.recommendedTdeeKcal} kcal</span>
-                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setVisitDateInput(new Date().toISOString().substring(0, 10));
+                          setSaveModalOpen(true);
+                        }}
+                        className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-xs font-bold text-emerald-800 shadow-sm transition hover:bg-emerald-50 active:scale-95"
+                      >
+                        <BookmarkPlus className="h-4 w-4 text-emerald-600" />
+                        <span>{isAr ? 'حفظ في سجل المتابعة' : 'Save to Patient History'}</span>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1317,6 +1508,16 @@ export default function App() {
           />
         )}
 
+        {/* Tab: Patient Assessment History & Progress Trends */}
+        {activeTab === 'history' && (
+          <AssessmentHistoryView
+            isAr={isAr}
+            onLoadAssessment={handleLoadAssessment}
+            onNavigateToCalculator={() => setActiveTab('calculator')}
+            refreshTrigger={historyRefreshTrigger}
+          />
+        )}
+
         {/* Tab 2: Scientific Benchmarks (Automated Suite Inspection) */}
         {activeTab === 'benchmarks' && (
           <div className="space-y-6">
@@ -1439,6 +1640,126 @@ export default function App() {
           </div>
         )}
       </main>
+
+      {/* Save Assessment to History Modal */}
+      {saveModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-6 shadow-xl animate-fade-in">
+            <div className="mb-4 flex items-center justify-between border-b border-slate-100 pb-3">
+              <div className="flex items-center gap-2">
+                <BookmarkPlus className="h-5 w-5 text-emerald-600" />
+                <h3 className="text-base font-bold text-slate-800">
+                  {isAr ? 'حفظ التقييم السريري في سجل المتابعة' : 'Save Clinical Assessment to History'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSaveModalOpen(false)}
+                className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                  {isAr ? 'اسم المريض / المعرف' : 'Patient Name / ID'} *
+                </label>
+                <input
+                  type="text"
+                  placeholder={isAr ? 'مثال: سارة أحمد' : 'e.g., Sarah Jenkins'}
+                  value={patientNameInput}
+                  onChange={(e) => setPatientNameInput(e.target.value)}
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-xs font-semibold text-slate-700">
+                    {isAr ? 'رقم السجل الطبي (اختياري)' : 'Medical Record # (Optional)'}
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="MRN-2026-001"
+                    value={patientMrnInput}
+                    onChange={(e) => setPatientMrnInput(e.target.value)}
+                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label className="mb-1 block text-xs font-semibold text-slate-700">
+                    {isAr ? 'تاريخ الزيارة' : 'Visit Date'} *
+                  </label>
+                  <input
+                    type="date"
+                    value={visitDateInput}
+                    onChange={(e) => setVisitDateInput(e.target.value)}
+                    className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="mb-1 block text-xs font-semibold text-slate-700">
+                  {isAr ? 'ملاحظات سريرية وخطة العلاج (اختياري)' : 'Clinical Notes & Treatment Plan (Optional)'}
+                </label>
+                <textarea
+                  rows={3}
+                  placeholder={
+                    isAr
+                      ? 'مثال: متابعة بعد 4 أسابيع من عجز 500 سعرة، استجابة ممتازة، الالتزام بالبروتين جيد...'
+                      : 'e.g. Follow-up after 4 weeks of -500 deficit, good adherence to protein target...'
+                  }
+                  value={visitNotesInput}
+                  onChange={(e) => setVisitNotesInput(e.target.value)}
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-xs focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                />
+              </div>
+
+              {/* Assessment Preview Box */}
+              <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs">
+                <span className="block font-bold text-slate-700 mb-2">
+                  {isAr ? 'ملخص الفحص الحالي المراد حفظه:' : 'Current Assessment Summary to Save:'}
+                </span>
+                <div className="grid grid-cols-3 gap-2 text-slate-600">
+                  <div>
+                    <span className="text-[10px] text-slate-400 block">{isAr ? 'الوزن' : 'Weight'}</span>
+                    <strong className="text-slate-800">{parsedWeight} kg</strong>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block">{isAr ? 'مؤشر الكتلة' : 'BMI'}</span>
+                    <strong className="text-slate-800">{anthropometrics?.bmiResult.bmi} kg/m²</strong>
+                  </div>
+                  <div>
+                    <span className="text-[10px] text-slate-400 block">{isAr ? 'السعرات المستهدفة' : 'Target Kcal'}</span>
+                    <strong className="text-emerald-700 font-bold">{energy?.targetKcal} kcal</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-end gap-2 border-t border-slate-100 pt-4">
+              <button
+                type="button"
+                onClick={() => setSaveModalOpen(false)}
+                className="rounded-lg border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+              >
+                {isAr ? 'إلغاء' : 'Cancel'}
+              </button>
+              <button
+                type="button"
+                onClick={handleConfirmSaveAssessment}
+                className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-700"
+              >
+                <Save className="h-4 w-4" />
+                {isAr ? 'تأكيد الحفظ في السجل' : 'Confirm Save'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="mt-12 border-t border-slate-200 bg-white py-6 text-center text-xs text-slate-500">
