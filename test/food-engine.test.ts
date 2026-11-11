@@ -35,6 +35,7 @@ import {
   calculateExchangeDivergence,
   normalizeArabicText,
   searchFoodItems,
+  searchFoodCatalog,
   deriveAvailableCarbohydrates,
   FoodNutrientProfile100g,
 } from '../src/clinical/index';
@@ -918,6 +919,77 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
       false,
       'waterG must NOT be in missingNutrientKeys when value is 0.5'
     );
+  });
+
+  it('validates nutritional plausibility across catalog: all nutrients are finite and non-negative, portion weights positive', () => {
+    const allItems = getAllFoodItems();
+    for (const item of allItems) {
+      assert.ok(item.id, 'Food item must have valid ID');
+      assert.ok(item.nutrients100g.basisWeightG > 0, `${item.id}: basisWeightG must be positive`);
+      assert.ok(Number.isFinite(item.nutrients100g.caloriesKcal) && item.nutrients100g.caloriesKcal >= 0, `${item.id}: calories must be finite and >= 0`);
+      assert.ok(Number.isFinite(item.nutrients100g.carbsG) && item.nutrients100g.carbsG >= 0, `${item.id}: carbs must be finite and >= 0`);
+      assert.ok(Number.isFinite(item.nutrients100g.proteinG) && item.nutrients100g.proteinG >= 0, `${item.id}: protein must be finite and >= 0`);
+      assert.ok(Number.isFinite(item.nutrients100g.fatG) && item.nutrients100g.fatG >= 0, `${item.id}: fat must be finite and >= 0`);
+
+      // Verify portions
+      assert.ok(item.portions.length > 0, `${item.id}: must have at least one portion`);
+      for (const p of item.portions) {
+        assert.ok(p.id, `${item.id}: portion must have ID`);
+        assert.ok(Number.isFinite(p.gramWeight) && p.gramWeight > 0, `${item.id} portion ${p.id}: gramWeight must be finite and > 0`);
+      }
+    }
+  });
+
+  it('verifies custom food registration dynamically updates catalog search without mutating standard items', () => {
+    const initialCount = getAllFoodItems().length;
+    const testCustom = registerCustomFoodItem({
+      nameEn: 'QA Test Nutrient Fortified Smoothie',
+      nameAr: 'سموذي تجريبي مدعم سريرياً',
+      foodGroupId: 'occasions',
+      primaryExchangeCategoryId: 'combination_food',
+      preparationState: 'ready-to-eat',
+      nutrients100g: {
+        basisWeightG: 100,
+        caloriesKcal: 110,
+        carbsG: 18,
+        proteinG: 4,
+        fatG: 2,
+        fiberG: 2,
+        saturatedFatG: null,
+        transFatG: null,
+        monounsaturatedFatG: null,
+        polyunsaturatedFatG: null,
+        cholesterolMg: null,
+        sodiumMg: 35,
+        potassiumMg: null,
+        calciumMg: null,
+        ironMg: null,
+        missingNutrientKeys: ['saturatedFatG', 'transFatG', 'monounsaturatedFatG', 'polyunsaturatedFatG', 'cholesterolMg', 'potassiumMg', 'calciumMg', 'ironMg'],
+      },
+      portions: [{
+        id: 'portion_qa_test_smoothie',
+        portionNameEn: '1 Glass (~250g)',
+        portionNameAr: 'كوب (~250 جم)',
+        householdMeasureEn: '1 glass',
+        householdMeasureAr: 'كوب',
+        gramWeight: 250,
+        exchangeCategory: 'combination_food',
+        exchangeEquivalentFactor: 0,
+        isDefaultServing: true,
+      }],
+      tags: ['smoothie', 'qa_test'],
+    });
+
+    try {
+      assert.equal(getAllFoodItems().length, initialCount + 1, 'Catalog length must increase by exactly 1');
+      const searchResEn = searchFoodCatalog('Fortified Smoothie');
+      assert.ok(searchResEn.some((f) => f.id === testCustom.id), 'Search by English name must find custom food');
+      const searchResAr = searchFoodCatalog('سموذي تجريبي');
+      assert.ok(searchResAr.some((f) => f.id === testCustom.id), 'Search by Arabic name must find custom food');
+    } finally {
+      clearCustomFoodsForTesting();
+      assert.equal(getAllFoodItems().length, initialCount, 'teardown must restore exact standard catalog count');
+    }
   });
 });
 

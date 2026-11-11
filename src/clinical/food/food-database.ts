@@ -2,7 +2,9 @@
  * Nutrition Clinic Pro - Verified Food Composition Database
  * Phase 2 Foundation, Remediation & Phase 4 Expansion Catalog
  *
- * Provides biochemically verified nutritional records per 100g edible portion.
+ * Provides source-supported and clinically reviewed nutritional records per 100g edible portion.
+ * Incorporates standard analytical food composition tables (USDA FoodData Central, Egyptian NNI 2006)
+ * and clinical exchange references (RegimePlan 2026). Incomplete nutrient assays remain explicitly flagged.
  * Enforces provenance separation:
  * - sourceId: Data source identifier (e.g. usda_fdc, egyptian_nni_2006, regimeplan_2026, clinic_reviewed)
  * - sourceRecordId: Official institutional publication/table identifier (undefined when not issued)

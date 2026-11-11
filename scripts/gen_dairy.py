@@ -58,18 +58,18 @@ MACROS = {
 }
 
 DAIRY_ANALYTICAL_OVERRIDES = {
-    "RP-DA-016": {"caloriesKcal": 15.0, "carbsG": 0.3, "proteinG": 0.6, "fatG": 1.1},
-    "RP-DA-017": {"caloriesKcal": 48.0, "carbsG": 6.7, "proteinG": 0.8, "fatG": 1.5},
-    "RP-DA-018": {"caloriesKcal": 33.0, "carbsG": 1.7, "proteinG": 2.8, "fatG": 1.6},
-    "RP-DA-019": {"caloriesKcal": 47.0, "carbsG": 9.2, "proteinG": 0.3, "fatG": 1.0},
-    "RP-DA-020": {"caloriesKcal": 25.0, "carbsG": 1.5, "proteinG": 0.7, "fatG": 2.0},
-    "RP-DA-021": {"caloriesKcal": 30.0, "carbsG": 0.4, "proteinG": 0.8, "fatG": 2.9},
-    "RP-DA-022": {"caloriesKcal": 40.0, "carbsG": 0.0, "proteinG": 3.3, "fatG": 1.9},
-    "RP-DA-023": {"caloriesKcal": 25.0, "carbsG": 0.4, "proteinG": 0.0, "fatG": 1.0},
-    "RP-DA-024": {"caloriesKcal": 20.0, "carbsG": 0.4, "proteinG": 0.4, "fatG": 2.0},
-    "RP-DA-025": {"caloriesKcal": 20.0, "carbsG": 0.8, "proteinG": 0.2, "fatG": 2.0},
-    "RP-DA-026": {"caloriesKcal": 30.0, "carbsG": 3.4, "proteinG": 0.5, "fatG": 1.1},
-    "RP-DA-027": {"caloriesKcal": 60.0, "carbsG": 9.2, "proteinG": 1.0, "fatG": 1.5},
+    "RP-DA-016": {"caloriesKcal": 15, "carbsG": 0.3, "proteinG": 0.6, "fatG": 1.1},
+    "RP-DA-017": {"caloriesKcal": 48, "carbsG": 6.7, "proteinG": 0.8, "fatG": 1.5},
+    "RP-DA-018": {"caloriesKcal": 33, "carbsG": 1.7, "proteinG": 2.8, "fatG": 1.6},
+    "RP-DA-019": {"caloriesKcal": 47, "carbsG": 9.2, "proteinG": 0.3, "fatG": 1},
+    "RP-DA-020": {"caloriesKcal": 25, "carbsG": 1.5, "proteinG": 0.7, "fatG": 2},
+    "RP-DA-021": {"caloriesKcal": 30, "carbsG": 0.4, "proteinG": 0.8, "fatG": 2.9},
+    "RP-DA-022": {"caloriesKcal": 40, "carbsG": 0, "proteinG": 3.3, "fatG": 1.9},
+    "RP-DA-023": {"caloriesKcal": 25, "carbsG": 0.4, "proteinG": 0, "fatG": 1},
+    "RP-DA-024": {"caloriesKcal": 20, "carbsG": 0.4, "proteinG": 0.4, "fatG": 2},
+    "RP-DA-025": {"caloriesKcal": 20, "carbsG": 0.8, "proteinG": 0.2, "fatG": 2},
+    "RP-DA-026": {"caloriesKcal": 30, "carbsG": 3.4, "proteinG": 0.5, "fatG": 1.1},
+    "RP-DA-027": {"caloriesKcal": 60, "carbsG": 9.2, "proteinG": 1, "fatG": 1.5},
 }
 
 def make_dairy_item(raw):
@@ -83,12 +83,14 @@ def make_dairy_item(raw):
     else:
         m = MACROS[sub_cat]
         W = float(w)
-        kcal100 = round((m["caloriesKcal"] / W) * 100, 1)
-        c100 = round((m["carbsG"] / W) * 100, 1)
-        p100 = round((m["proteinG"] / W) * 100, 1)
-        f100 = round((m["fatG"] / W) * 100, 1)
+        def fmt(n):
+            r = round(n, 1)
+            return int(r) if r == int(r) else r
+        kcal100 = fmt((m["caloriesKcal"] / W) * 100)
+        c100 = fmt((m["carbsG"] / W) * 100)
+        p100 = fmt((m["proteinG"] / W) * 100)
+        f100 = fmt((m["fatG"] / W) * 100)
 
-    W = float(w)
     override = DAIRY_ANALYTICAL_OVERRIDES.get(code, {})
     water100 = override.get("waterG", None)
     fiber100 = override.get("fiberG", None)
@@ -141,7 +143,7 @@ def make_dairy_item(raw):
             "portionNameAr": f"بديل حليب/ألبان واحد (~{w} جم)",
             "householdMeasureEn": hh_en,
             "householdMeasureAr": hh_ar,
-            "gramWeight": W,
+            "gramWeight": w,
             "exchangeCategory": sub_cat,
             "exchangeEquivalentFactor": 1,
             "isDefaultServing": True

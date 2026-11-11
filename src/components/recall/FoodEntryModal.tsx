@@ -74,14 +74,17 @@ export function FoodEntryModal({
   const [customPortionGrams, setCustomPortionGrams] = useState<number | ''>(100);
   const [customError, setCustomError] = useState<string | null>(null);
 
+  const [catalogUpdateKey, setCatalogUpdateKey] = useState(0);
+
   // Search results
   const searchResults = useMemo(() => {
-    let items = searchQuery.trim() ? searchFoodItems(getAllFoodItems(), searchQuery) : getAllFoodItems();
+    const all = getAllFoodItems();
+    let items = searchQuery.trim() ? searchFoodItems(all, searchQuery) : all;
     if (selectedGroup !== 'all') {
       items = items.filter((item) => item.foodGroupId === selectedGroup);
     }
     return items;
-  }, [searchQuery, selectedGroup]);
+  }, [searchQuery, selectedGroup, isOpen, catalogUpdateKey]);
 
   // When a food is selected, initialize portion
   const handleSelectFood = (food: FoodItemRecord) => {
@@ -194,6 +197,7 @@ export function FoodEntryModal({
         notes: isAr ? 'طعام مخصص مُدخل بواسطة العيادة' : 'Custom food entered by clinic',
       });
 
+      setCatalogUpdateKey((k) => k + 1);
       onAddEntry(entry);
       onClose();
     } catch (err) {
@@ -201,7 +205,7 @@ export function FoodEntryModal({
     }
   };
 
-  const totalFoodCount = useMemo(() => getAllFoodItems().length, []);
+  const totalFoodCount = useMemo(() => getAllFoodItems().length, [isOpen, catalogUpdateKey]);
 
   const foodGroups: Array<{ id: string; labelEn: string; labelAr: string }> = [
     { id: 'all', labelEn: 'All Foods', labelAr: 'كل الأطعمة' },
