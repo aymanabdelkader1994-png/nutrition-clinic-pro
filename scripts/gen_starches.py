@@ -177,8 +177,8 @@ STARCH_ANALYTICAL_OVERRIDES = {
 
 def make_starch_item(row):
     ar, en, w, hh_ar, hh_en, prep, code, page = row
+    override = STARCH_ANALYTICAL_OVERRIDES.get(code, {})
     if code in STARCH_ANALYTICAL_OVERRIDES:
-        override = STARCH_ANALYTICAL_OVERRIDES[code]
         kcal100 = override["caloriesKcal"]
         c100 = override["carbsG"]
         p100 = override["proteinG"]
@@ -197,6 +197,39 @@ def make_starch_item(row):
         p100 = round((macros["proteinG"] / W) * 100.0, 1)
         f100 = round((macros["fatG"] / W) * 100.0, 1)
 
+    W = float(w)
+    water100 = override.get("waterG", None)
+    fiber100 = override.get("fiberG", None)
+    sodium100 = override.get("sodiumMg", None)
+
+    nutrients = {
+        "basisWeightG": 100,
+        "caloriesKcal": kcal100,
+        "carbsG": c100,
+        "availableCarbsG": None,
+        "carbCalculationBasis": "total_by_difference",
+        "proteinG": p100,
+        "fatG": f100,
+        "fiberG": fiber100,
+        "saturatedFatG": override.get("saturatedFatG", None),
+        "transFatG": override.get("transFatG", None),
+        "monounsaturatedFatG": override.get("monounsaturatedFatG", None),
+        "polyunsaturatedFatG": override.get("polyunsaturatedFatG", None),
+        "cholesterolMg": override.get("cholesterolMg", None),
+        "sodiumMg": sodium100,
+        "potassiumMg": override.get("potassiumMg", None),
+        "calciumMg": override.get("calciumMg", None),
+        "ironMg": override.get("ironMg", None),
+        "waterG": water100,
+    }
+
+    core_keys = [
+        "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
+        "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
+        "calciumMg", "ironMg", "waterG"
+    ]
+    nutrients["missingNutrientKeys"] = [k for k in core_keys if nutrients[k] is None]
+
     item_id = f"food_starch_rp_{code.lower().replace('-', '_')}"
     return {
         "id": item_id,
@@ -209,31 +242,7 @@ def make_starch_item(row):
         "preparationState": prep,
         "verificationStatus": "clinic_reviewed",
         "isCustom": False,
-        "nutrients100g": {
-            "basisWeightG": 100,
-            "caloriesKcal": kcal100,
-            "carbsG": c100,
-            "availableCarbsG": None,
-            "carbCalculationBasis": "total_by_difference",
-            "proteinG": p100,
-            "fatG": f100,
-            "fiberG": None,
-            "saturatedFatG": None,
-            "transFatG": None,
-            "monounsaturatedFatG": None,
-            "polyunsaturatedFatG": None,
-            "cholesterolMg": None,
-            "sodiumMg": None,
-            "potassiumMg": None,
-            "calciumMg": None,
-            "ironMg": None,
-            "waterG": None,
-            "missingNutrientKeys": [
-                "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
-                "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
-                "calciumMg", "ironMg", "waterG"
-            ]
-        },
+        "nutrients100g": nutrients,
         "portions": [{
             "id": f"portion_{item_id}_serving",
             "portionNameEn": f"1 Starch Exchange (~{w}g)",

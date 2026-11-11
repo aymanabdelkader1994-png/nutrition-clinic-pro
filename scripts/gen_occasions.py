@@ -74,7 +74,7 @@ def make_occasion_item(raw):
         "nameEn": name_en,
         "nameAr": name_ar,
         "foodGroupId": "occasions",
-        "primaryExchangeCategoryId": "free_food",
+        "primaryExchangeCategoryId": "combination_food",
         "preparationState": "ready-to-eat",
         "verificationStatus": "clinic_reviewed",
         "isCustom": False,
@@ -110,13 +110,17 @@ def make_occasion_item(raw):
             "householdMeasureEn": hh_en,
             "householdMeasureAr": hh_ar,
             "gramWeight": W,
-            "exchangeCategory": "free_food",
-            "exchangeEquivalentFactor": 1,
+            "exchangeCategory": "combination_food",
+            "exchangeEquivalentFactor": 0,
+            "isUnclassifiedExchange": True,
+            "exchangeEvidenceStatus": "unclassified_composite",
+            "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+            "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
             "isDefaultServing": True
         }],
         "tags": ["occasions", "holiday", "ramadan", "eid", sub_grp],
-        "notesAr": f"دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: {kcal} سعرة حرارية ({hh_ar}، {w} جم).",
-        "notesEn": f"Egyptian Holiday & Occasions Food Guide. Reference serving: {kcal} kcal ({hh_en}, {w}g)."
+        "notesAr": f"دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: {kcal} سعرة حرارية ({hh_ar}، {w} جم). صنف مركب يتطلب مراجعة سريرية.",
+        "notesEn": f"Egyptian Holiday & Occasions Food Guide. Reference serving: {kcal} kcal ({hh_en}, {w}g). Composite item requiring clinical review."
     }
 
 new_occasions = [make_occasion_item(r) for r in RAW_OCCASIONS]

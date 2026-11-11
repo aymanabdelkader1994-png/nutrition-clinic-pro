@@ -88,8 +88,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "fiberG": 0,
       "saturatedFatG": 0,
       "transFatG": 0,
-      "monounsaturatedFatG": 0,
-      "polyunsaturatedFatG": 0,
+      "monounsaturatedFatG": null,
+      "polyunsaturatedFatG": null,
       "cholesterolMg": 0,
       "sodiumMg": 3,
       "potassiumMg": 20,
@@ -132,7 +132,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Ramadan Dates with Milk Drink",
     "nameAr": "بلح باللبن",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -177,8 +177,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -189,8 +193,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 200 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 200 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 200 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 200 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_002",
@@ -199,7 +203,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Qamar Al-Din Apricot Nectar",
     "nameAr": "قمر الدين",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -244,8 +248,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -256,8 +264,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 180 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 180 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 180 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 180 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_003",
@@ -266,7 +274,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Traditional Licorice Infusion (Erq Sous)",
     "nameAr": "عرقسوس مصري",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -311,8 +319,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -323,8 +335,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 100 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 100 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 100 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 100 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_004",
@@ -333,7 +345,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Sweetened Hibiscus Drink (Karkadeh)",
     "nameAr": "كركديه بالسكر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -378,8 +390,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -390,8 +406,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 150 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 150 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 150 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 150 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_005",
@@ -400,7 +416,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Unsweetened Tamarind Drink",
     "nameAr": "تمر هندي طبيعي بدون سكر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -445,8 +461,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -457,8 +477,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 45 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 45 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 45 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 45 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_006",
@@ -467,7 +487,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Sweetened Tamarind Drink",
     "nameAr": "تمر هندي بالسكر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -512,8 +532,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -524,8 +548,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 150 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 150 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 150 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 150 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_007",
@@ -534,7 +558,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Unsweetened Doum Palm Drink",
     "nameAr": "دوم طبيعي بدون سكر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -579,8 +603,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -591,8 +619,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 70 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 70 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 70 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 70 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_008",
@@ -601,7 +629,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Doum Palm Drink with Milk",
     "nameAr": "دوم باللبن",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -646,8 +674,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -658,8 +690,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 110 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 110 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 110 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 110 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_009",
@@ -668,7 +700,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Traditional Carob Drink (Kharroub)",
     "nameAr": "كوب خروب طبيعي",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -713,8 +745,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -725,8 +761,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 150 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 150 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 150 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 150 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_010",
@@ -735,7 +771,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Sobia Coconut Milk Drink",
     "nameAr": "سوبيا مصرية",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -780,8 +816,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 medium glass",
         "householdMeasureAr": "كوب متوسط",
         "gramWeight": 250.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -792,8 +832,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "beverages"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 180 سعرة حرارية (كوب متوسط، 250 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 180 kcal (1 medium glass, 250g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 180 سعرة حرارية (كوب متوسط، 250 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 180 kcal (1 medium glass, 250g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_011",
@@ -802,7 +842,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Ramadan Khoshaf Dried Fruit Compote (7 pieces)",
     "nameAr": "طبق خشاف رمضاني (7 قطع فواكه مجففة)",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -847,8 +887,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 small bowl (7 pieces)",
         "householdMeasureAr": "طبق صغير",
         "gramWeight": 180.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -859,8 +903,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 135 سعرة حرارية (طبق صغير، 180 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 135 kcal (1 small bowl (7 pieces), 180g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 135 سعرة حرارية (طبق صغير، 180 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 135 kcal (1 small bowl (7 pieces), 180g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_012",
@@ -869,7 +913,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Stuffed Kunafa with Cream / Nuts (Palm Size)",
     "nameAr": "كنافة محشية بالقشطة/المكسرات",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -914,8 +958,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece (palm size)",
         "householdMeasureAr": "قطعة حجم كف اليد",
         "gramWeight": 140.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -926,8 +974,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 630 سعرة حرارية (قطعة حجم كف اليد، 140 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 630 kcal (1 piece (palm size), 140g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 630 سعرة حرارية (قطعة حجم كف اليد، 140 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 630 kcal (1 piece (palm size), 140g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_013",
@@ -936,7 +984,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Traditional Semolina Basbousa (Palm Size)",
     "nameAr": "بسبوسة بالسمن والقطر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -981,8 +1029,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece (palm size)",
         "householdMeasureAr": "قطعة حجم كف اليد",
         "gramWeight": 125.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -993,8 +1045,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 480 سعرة حرارية (قطعة حجم كف اليد، 125 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 480 kcal (1 piece (palm size), 125g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 480 سعرة حرارية (قطعة حجم كف اليد، 125 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 480 kcal (1 piece (palm size), 125g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_014",
@@ -1003,7 +1055,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Stuffed Baklava (3 pieces)",
     "nameAr": "بقلاوة شرقية محشية",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1048,8 +1100,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "3 pieces",
         "householdMeasureAr": "3 قطع متوسطة",
         "gramWeight": 75.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1060,8 +1116,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 360 سعرة حرارية (3 قطع متوسطة، 75 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 360 kcal (3 pieces, 75g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 360 سعرة حرارية (3 قطع متوسطة، 75 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 360 kcal (3 pieces, 75g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_015",
@@ -1070,7 +1126,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Qatayef with Nuts and Syrup (2 pieces)",
     "nameAr": "قطايف مقلية بالمسكرات",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1115,8 +1171,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "2 pieces",
         "householdMeasureAr": "قطعتان",
         "gramWeight": 90.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1127,8 +1187,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 400 سعرة حرارية (قطعتان، 90 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 400 kcal (2 pieces, 90g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 400 سعرة حرارية (قطعتان، 90 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 400 kcal (2 pieces, 90g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_016",
@@ -1137,7 +1197,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Balah El Sham with Sugar Syrup (2 pieces)",
     "nameAr": "بلح الشام المقلي بالقطر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1182,8 +1242,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "2 pieces",
         "householdMeasureAr": "قطعتان",
         "gramWeight": 90.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1194,8 +1258,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 380 سعرة حرارية (قطعتان، 90 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 380 kcal (2 pieces, 90g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 380 سعرة حرارية (قطعتان، 90 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 380 kcal (2 pieces, 90g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_017",
@@ -1204,7 +1268,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Zalabia / Luqaimat Dumplings (5 pieces)",
     "nameAr": "زلابية / لقمة القاضي",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1249,8 +1313,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "5 pieces",
         "householdMeasureAr": "5 حبات",
         "gramWeight": 85.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1261,8 +1329,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 300 سعرة حرارية (5 حبات، 85 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 300 kcal (5 pieces, 85g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 300 سعرة حرارية (5 حبات، 85 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 300 kcal (5 pieces, 85g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_018",
@@ -1271,7 +1339,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Plain Egyptian Qaraqeesh",
     "nameAr": "قراقيش سادة فلاحي",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1316,8 +1384,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 25.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1328,8 +1400,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "baked"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 90 سعرة حرارية (حبة واحدة، 25 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 90 kcal (1 piece, 25g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 90 سعرة حرارية (حبة واحدة، 25 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 90 kcal (1 piece, 25g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_019",
@@ -1338,7 +1410,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Meneen Date Paste Stuffed Roll",
     "nameAr": "منين بالعجوة والتمر",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1383,8 +1455,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 30.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1395,8 +1471,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "baked"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 110 سعرة حرارية (حبة واحدة، 30 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 110 kcal (1 piece, 30g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 110 سعرة حرارية (حبة واحدة، 30 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 110 kcal (1 piece, 30g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_020",
@@ -1405,7 +1481,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Sambousek Pastry",
     "nameAr": "سمبوسك مقلية بالجبن/اللحم",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1450,8 +1526,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 35.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1462,8 +1542,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "savory"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 105 سعرة حرارية (حبة واحدة، 35 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 105 kcal (1 piece, 35g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 105 سعرة حرارية (حبة واحدة، 35 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 105 kcal (1 piece, 35g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_021",
@@ -1472,7 +1552,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Phyllo / Roqaq Pie with Minced Meat (1/2 Palm)",
     "nameAr": "جلاش أو رقاق باللحم المفروم",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1517,8 +1597,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1/2 palm size piece",
         "householdMeasureAr": "نصف حجم كف اليد",
         "gramWeight": 80.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1529,8 +1613,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "savory"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 300 سعرة حرارية (نصف حجم كف اليد، 80 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 300 kcal (1/2 palm size piece, 80g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 300 سعرة حرارية (نصف حجم كف اليد، 80 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 300 kcal (1/2 palm size piece, 80g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_022",
@@ -1539,7 +1623,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Savory Qatayef with Minced Beef",
     "nameAr": "قطايف باللحم المفروم",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1584,8 +1668,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 40.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1596,8 +1684,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "savory"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 115 سعرة حرارية (حبة واحدة، 40 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 115 kcal (1 piece, 40g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 115 سعرة حرارية (حبة واحدة، 40 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 115 kcal (1 piece, 40g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_023",
@@ -1606,7 +1694,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Savory Qatayef with White Cheese",
     "nameAr": "قطايف بالجبنة المقلية",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1651,8 +1739,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 40.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1663,8 +1755,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "savory"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 105 سعرة حرارية (حبة واحدة، 40 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 105 kcal (1 piece, 40g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 105 سعرة حرارية (حبة واحدة، 40 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 105 kcal (1 piece, 40g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_024",
@@ -1673,7 +1765,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Vegetable Spring Roll",
     "nameAr": "سبرنج رولز بالخضار",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1718,8 +1810,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 roll",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 40.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1730,8 +1826,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "savory"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 65 سعرة حرارية (حبة واحدة، 40 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 65 kcal (1 roll, 40g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 65 سعرة حرارية (حبة واحدة، 40 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 65 kcal (1 roll, 40g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_025",
@@ -1740,7 +1836,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Meat Spring Roll",
     "nameAr": "سبرنج رولز باللحم",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1785,8 +1881,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 roll",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 40.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1797,8 +1897,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "savory"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 70 سعرة حرارية (حبة واحدة، 40 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 70 kcal (1 roll, 40g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 70 سعرة حرارية (حبة واحدة، 40 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 70 kcal (1 roll, 40g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_026",
@@ -1807,7 +1907,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Traditional Plain Eid Kahk",
     "nameAr": "كحك العيد سادة بالسمن البلدي",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1852,8 +1952,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 35.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1864,8 +1968,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 170 سعرة حرارية (حبة واحدة، 35 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 170 kcal (1 piece, 35g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 170 سعرة حرارية (حبة واحدة، 35 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 170 kcal (1 piece, 35g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_027",
@@ -1874,7 +1978,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Eid Kahk with Date Filling (Agwa)",
     "nameAr": "كحك العيد بالعجوة",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1919,8 +2023,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 42.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1931,8 +2039,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 200 سعرة حرارية (حبة واحدة، 42 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 200 kcal (1 piece, 42g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 200 سعرة حرارية (حبة واحدة، 42 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 200 kcal (1 piece, 42g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_028",
@@ -1941,7 +2049,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Eid Kahk with Walnut / Nut Filling",
     "nameAr": "كحك العيد بالمكسرات وعين الجمل",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -1986,8 +2094,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 42.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -1998,8 +2110,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 220 سعرة حرارية (حبة واحدة، 42 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 220 kcal (1 piece, 42g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 220 سعرة حرارية (حبة واحدة، 42 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 220 kcal (1 piece, 42g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_029",
@@ -2008,7 +2120,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Eid Ammonia Butter Biscuit",
     "nameAr": "بسكويت العيد بالنشادر والزبدة",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2053,8 +2165,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 20.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2065,8 +2181,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 90 سعرة حرارية (حبة واحدة، 20 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 90 kcal (1 piece, 20g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 90 سعرة حرارية (حبة واحدة، 20 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 90 kcal (1 piece, 20g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_030",
@@ -2075,7 +2191,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Petit Four Butter Cookie with Jam / Chocolate",
     "nameAr": "بيتي فور مشكل بالسمن والشوكولاتة",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2120,8 +2236,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 20.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2132,8 +2252,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 90 سعرة حرارية (حبة واحدة، 20 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 90 kcal (1 piece, 20g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 90 سعرة حرارية (حبة واحدة، 20 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 90 kcal (1 piece, 20g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_031",
@@ -2142,7 +2262,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Ghorayeba Melt-in-Mouth Butter Cookie",
     "nameAr": "غريبة دايبة بالسمن البلدي",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2187,8 +2307,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1 piece",
         "householdMeasureAr": "حبة واحدة",
         "gramWeight": 30.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2199,8 +2323,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "sweets"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 160 سعرة حرارية (حبة واحدة، 30 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 160 kcal (1 piece, 30g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 160 سعرة حرارية (حبة واحدة، 30 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 160 kcal (1 piece, 30g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_032",
@@ -2209,7 +2333,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Black Watermelon Seeds (El-Leb El-Asmar, 1/8 kg)",
     "nameAr": "لب أسمر مصري (بذر بطيخ أسود)",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2254,8 +2378,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1/8 kg (125g)",
         "householdMeasureAr": "ثمن كيلو (125 جم)",
         "gramWeight": 125.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2266,8 +2394,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "seeds"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 604 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 604 kcal (1/8 kg (125g), 125g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 604 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 604 kcal (1/8 kg (125g), 125g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_033",
@@ -2276,7 +2404,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Syrian Sunflower Seeds (El-Leb El-Souri, 1/8 kg)",
     "nameAr": "لب سوري (بذور دوار الشمس بقشرها)",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2321,8 +2449,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1/8 kg (125g)",
         "householdMeasureAr": "ثمن كيلو (125 جم)",
         "gramWeight": 125.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2333,8 +2465,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "seeds"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 584 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 584 kcal (1/8 kg (125g), 125g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 584 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 584 kcal (1/8 kg (125g), 125g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_034",
@@ -2343,7 +2475,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian White Pumpkin Seeds (El-Leb El-Abyad, 1/8 kg)",
     "nameAr": "لب أبيض مصري (بذور القرع/اليقطين)",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2388,8 +2520,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1/8 kg (125g)",
         "householdMeasureAr": "ثمن كيلو (125 جم)",
         "gramWeight": 125.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2400,8 +2536,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "seeds"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 446 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 446 kcal (1/8 kg (125g), 125g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 446 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 446 kcal (1/8 kg (125g), 125g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_035",
@@ -2410,7 +2546,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Wood / Squash Seeds (El-Leb El-Khashab, 1/8 kg)",
     "nameAr": "لب خشب مصري",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2455,8 +2591,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1/8 kg (125g)",
         "householdMeasureAr": "ثمن كيلو (125 جم)",
         "gramWeight": 125.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2467,8 +2607,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "seeds"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 450 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 450 kcal (1/8 kg (125g), 125g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 450 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 450 kcal (1/8 kg (125g), 125g). Composite item requiring clinical review."
   },
   {
     "id": "food_occasion_rp_occ_036",
@@ -2477,7 +2617,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Salted Watermelon Seeds (Leb El-Bateekh, 1/8 kg)",
     "nameAr": "لب بطيخ أصفر/أحمر مصري",
     "foodGroupId": "occasions",
-    "primaryExchangeCategoryId": "free_food",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "isCustom": false,
@@ -2522,8 +2662,12 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "1/8 kg (125g)",
         "householdMeasureAr": "ثمن كيلو (125 جم)",
         "gramWeight": 125.0,
-        "exchangeCategory": "free_food",
-        "exchangeEquivalentFactor": 1,
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isUnclassifiedExchange": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
         "isDefaultServing": true
       }
     ],
@@ -2534,7 +2678,7 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
       "eid",
       "seeds"
     ],
-    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 680 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم).",
-    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 680 kcal (1/8 kg (125g), 125g)."
+    "notesAr": "دليل بدائل وأطعمة المناسبات والأعياد (المصور). السعرات المرجعية للحصة: 680 سعرة حرارية (ثمن كيلو (125 جم)، 125 جم). صنف مركب يتطلب مراجعة سريرية.",
+    "notesEn": "Egyptian Holiday & Occasions Food Guide. Reference serving: 680 kcal (1/8 kg (125g), 125g). Composite item requiring clinical review."
   }
 ];

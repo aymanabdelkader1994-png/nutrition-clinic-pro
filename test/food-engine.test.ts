@@ -726,5 +726,200 @@ describe('11. Catalog Integrity Repair & Analytical Composition Verification', (
   });
 });
 
+describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
+  it('strictly validates code and ID uniqueness across all catalog records', () => {
+    const allItems = getAllFoodItems();
+    assert.equal(allItems.length, 676);
+
+    const idSet = new Set<string>();
+    const codeSet = new Set<string>();
+
+    for (const item of allItems) {
+      assert.ok(item.id, 'Every food must have an ID');
+      assert.strictEqual(idSet.has(item.id), false, `Duplicate food ID detected: ${item.id}`);
+      idSet.add(item.id);
+
+      if (item.code && item.code.trim()) {
+        assert.strictEqual(codeSet.has(item.code), false, `Duplicate food code detected: ${item.code}`);
+        codeSet.add(item.code);
+      }
+    }
+
+    assert.equal(idSet.size, 676, 'Expected 676 unique food IDs');
+    assert.equal(codeSet.size, 676, 'Expected 676 unique food codes');
+  });
+
+  it('verifies Pineapple and Kunafa codes are strictly disambiguated with stable IDs', () => {
+    const allItems = getAllFoodItems();
+
+    // Fresh Pineapple
+    const pineapple = allItems.find((f) => f.id === 'food_fruit_rp_rp_st_019');
+    assert.ok(pineapple, 'Pineapple record must exist with its stable ID');
+    assert.equal(pineapple?.code, 'RP-FR-019', 'Pineapple code must be corrected to RP-FR-019');
+    assert.equal(pineapple?.nameEn, 'Fresh Pineapple');
+
+    // Kunafa dough
+    const kunafa = allItems.find((f) => f.id === 'food_starch_rp_rp_st_019');
+    assert.ok(kunafa, 'Kunafa dough record must exist with its stable ID');
+    assert.equal(kunafa?.code, 'RP-ST-019', 'Kunafa dough must retain RP-ST-019');
+    assert.equal(kunafa?.nameEn, 'Raw Kunafa Pastry Threads');
+
+    // Cross-check: No collision
+    assert.notEqual(pineapple?.code, kunafa?.code);
+  });
+
+  it('ensures confectionery products are not classified as fruit exchanges', () => {
+    const allItems = getAllFoodItems();
+    const confectioneryCodes = [
+      'RP-FR-002', // Dark Chocolate 70%
+      'RP-FR-003', // Milk Chocolate
+      'RP-FR-007', // Almond Marzipan
+      'RP-FR-008', // Hazelnut Cocoa Spread
+      'RP-FR-012', // Sesame Halva
+      'RP-FR-013', // Semi-Sweet Chocolate Chips
+    ];
+
+    for (const code of confectioneryCodes) {
+      const item = allItems.find((f) => f.code === code);
+      assert.ok(item, `Confectionery food ${code} must exist in catalog`);
+      
+      // Must not be primaryExchangeCategoryId: fruit
+      assert.notEqual(item?.primaryExchangeCategoryId, 'fruit', `${code} must not have fruit primary exchange`);
+      assert.equal(item?.primaryExchangeCategoryId, 'combination_food', `${code} must be combination_food`);
+      assert.equal(item?.foodGroupId, 'occasions', `${code} should be grouped under occasions/sweets`);
+
+      // Portion scaling check
+      assert.ok(item?.portions && item.portions.length > 0);
+      const defaultPortion = item.portions[0];
+      assert.notEqual(defaultPortion.exchangeCategory, 'fruit', `${code} portion must not be fruit exchange`);
+      assert.equal(defaultPortion.exchangeCategory, 'combination_food');
+      assert.equal(defaultPortion.exchangeEquivalentFactor, 0);
+      assert.equal(defaultPortion.isUnclassifiedExchange, true);
+      assert.equal(defaultPortion.exchangeEvidenceStatus, 'unclassified_composite');
+
+      // Scaled nutrients via calculation engine
+      const scaled = calculatePortionNutrients(item, defaultPortion.id, 1);
+      assert.notEqual(scaled.exchangeCategory, 'fruit');
+      assert.equal(scaled.exchangeCategory, 'combination_food');
+      assert.equal(scaled.isUnclassifiedExchange, true);
+      assert.strictEqual(scaled.calculatedExchangeCount, undefined, 'Unclassified composite must not produce a nominal exchange count');
+      assert.ok(scaled.caloriesKcal > 50, `${code} portion must preserve its authentic caloric content`);
+    }
+  });
+
+  it('ensures Occasion foods are not globally assigned free_food and RP-OCC-001 calculates accurately', () => {
+    const allItems = getAllFoodItems();
+    const rpOccasions = allItems.filter((f) => f.code && f.code.startsWith('RP-OCC-'));
+    assert.equal(rpOccasions.length, 36, 'Expected exactly 36 RP-OCC occasion items');
+
+    for (const item of rpOccasions) {
+      assert.notEqual(
+        item.primaryExchangeCategoryId,
+        'free_food',
+        `Occasion item ${item.code} (${item.nameEn}) must not be primary free_food`
+      );
+      assert.notEqual(
+        item.portions[0].exchangeCategory,
+        'free_food',
+        `Occasion item ${item.code} (${item.nameEn}) portion must not be free_food`
+      );
+      assert.equal(item.primaryExchangeCategoryId, 'combination_food');
+      assert.equal(item.portions[0].isUnclassifiedExchange, true);
+    }
+
+    // Specific test for RP-OCC-001 (Ramadan Dates with Milk Drink)
+    const datesMilk = allItems.find((f) => f.code === 'RP-OCC-001')!;
+    assert.ok(datesMilk);
+    const scaledPortion = calculatePortionNutrients(datesMilk, datesMilk.portions[0].id, 1);
+    assert.equal(scaledPortion.netWeightG, 250);
+    assert.equal(scaledPortion.caloriesKcal, 200.0, '250g serving must scale to exactly 200 kcal');
+    assert.equal(scaledPortion.carbsG, 38.0, '250g serving must scale to exactly 38g carbs');
+    assert.equal(scaledPortion.proteinG, 6.0, '250g serving must scale to exactly 6g protein');
+    assert.equal(scaledPortion.fatG, 3.0, '250g serving must scale to exactly 3g fat');
+    assert.notEqual(scaledPortion.exchangeCategory, 'free_food');
+    assert.equal(scaledPortion.exchangeCategory, 'combination_food');
+    assert.equal(scaledPortion.isUnclassifiedExchange, true);
+
+    // Verify true free foods retain free_food exchange
+    const lemon = allItems.find((f) => f.id === 'food_lemon_juice_fresh')!;
+    assert.ok(lemon);
+    assert.equal(lemon.primaryExchangeCategoryId, 'free_food');
+
+    const karkadeh = allItems.find((f) => f.id === 'food_hibiscus_tea_karkadeh')!;
+    assert.ok(karkadeh);
+    assert.equal(karkadeh.primaryExchangeCategoryId, 'free_food');
+  });
+
+  it('validates catalog-wide consistency between nutrient fields and missingNutrientKeys', () => {
+    const allItems = getAllFoodItems();
+    const coreTrackedKeys = [
+      'fiberG',
+      'saturatedFatG',
+      'transFatG',
+      'monounsaturatedFatG',
+      'polyunsaturatedFatG',
+      'cholesterolMg',
+      'sodiumMg',
+      'potassiumMg',
+      'calciumMg',
+      'ironMg',
+      'waterG',
+    ];
+
+    for (const item of allItems) {
+      const nutrients = item.nutrients100g as Record<string, any>;
+      const missingKeys = new Set(item.nutrients100g.missingNutrientKeys || []);
+
+      for (const key of coreTrackedKeys) {
+        const val = nutrients[key];
+        const isDeclaredMissing = missingKeys.has(key);
+
+        // Rule 1: A nutrient cannot have a numeric value and simultaneously appear in missingNutrientKeys
+        if (typeof val === 'number') {
+          assert.strictEqual(
+            isDeclaredMissing,
+            false,
+            `Contradiction in ${item.id} (${item.code}): ${key} has numeric value ${val} but is in missingNutrientKeys`
+          );
+        }
+
+        // Rule 2: If a nutrient is null or undefined, it must appear in missingNutrientKeys
+        if (val === null || val === undefined) {
+          assert.strictEqual(
+            isDeclaredMissing,
+            true,
+            `Contradiction in ${item.id} (${item.code}): ${key} is null/undefined but NOT in missingNutrientKeys`
+          );
+        }
+      }
+    }
+
+    // Specific regression check for food_hibiscus_tea_karkadeh
+    const karkadeh = allItems.find((f) => f.id === 'food_hibiscus_tea_karkadeh')!;
+    assert.ok(karkadeh);
+    assert.strictEqual(karkadeh.nutrients100g.monounsaturatedFatG, null);
+    assert.strictEqual(karkadeh.nutrients100g.polyunsaturatedFatG, null);
+    assert.ok(karkadeh.nutrients100g.missingNutrientKeys.includes('monounsaturatedFatG'));
+    assert.ok(karkadeh.nutrients100g.missingNutrientKeys.includes('polyunsaturatedFatG'));
+  });
+
+  it('strictly validates Powdered Sugar RP-ST-128 preserves waterG override and analytical profile', () => {
+    const allItems = getAllFoodItems();
+    const powderedSugar = allItems.find((f) => f.code === 'RP-ST-128');
+    assert.ok(powderedSugar, 'Powdered sugar RP-ST-128 must exist');
+
+    assert.equal(powderedSugar?.nutrients100g.caloriesKcal, 389.0);
+    assert.equal(powderedSugar?.nutrients100g.carbsG, 99.5);
+    assert.equal(powderedSugar?.nutrients100g.proteinG, 0.0);
+    assert.equal(powderedSugar?.nutrients100g.fatG, 0.0);
+    assert.equal(powderedSugar?.nutrients100g.waterG, 0.5, 'waterG must be preserved as 0.5');
+    assert.strictEqual(
+      powderedSugar?.nutrients100g.missingNutrientKeys.includes('waterG'),
+      false,
+      'waterG must NOT be in missingNutrientKeys when value is 0.5'
+    );
+  });
+});
+
 
 
