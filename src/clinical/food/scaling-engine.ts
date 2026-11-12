@@ -511,7 +511,7 @@ export function convertExchangesToEstimatedNutrients(
 }
 
 /**
- * Calculates the clinical divergence between actual biochemical composition
+ * Calculates the clinical divergence between food catalog analytical composition
  * and nominal exchange list expectations.
  */
 export function calculateExchangeDivergence(
@@ -540,7 +540,7 @@ export function calculateExchangeDivergence(
   const nominalProteinG = refValue.proteinG * exchangeCount;
   const nominalFatG = refValue.fatG * exchangeCount;
 
-  // Actual scaled biochemical values
+  // Actual scaled analytical values
   const actualProfile = scaleNutrientProfile(food.nutrients100g, portion.gramWeight);
   const actualKcal = actualProfile.caloriesKcal;
   const actualCarbsG = actualProfile.carbsG;

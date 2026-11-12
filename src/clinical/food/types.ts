@@ -261,7 +261,7 @@ export interface ExchangeDivergenceResult {
   nominalProteinG: number;
   nominalFatG: number;
 
-  // Actual food biochemical composition for this portion
+  // Actual food analytical/table composition for this portion
   actualKcal: number;
   actualCarbsG: number;
   actualProteinG: number;

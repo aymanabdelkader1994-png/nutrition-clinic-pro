@@ -2,9 +2,10 @@
 import json
 import os
 
-OUT_PATH = "/app/applet/src/clinical/food/data/legumes.ts"
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/legumes.ts")
 
-with open("scripts/original_30_grouped.json", "r", encoding="utf-8") as f:
+with open(os.path.join(BASE_DIR, "scripts/original_30_grouped.json"), "r", encoding="utf-8") as f:
     orig = json.load(f)["legumes"]
 
 # 29 new legume items from PDF p. 7 & 8

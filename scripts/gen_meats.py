@@ -4,12 +4,13 @@ import re
 import json
 import os
 
-OUT_PATH = "/app/applet/src/clinical/food/data/meats.ts"
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/meats.ts")
 
-with open("scripts/original_30_grouped.json", "r", encoding="utf-8") as f:
+with open(os.path.join(BASE_DIR, "scripts/original_30_grouped.json"), "r", encoding="utf-8") as f:
     orig = json.load(f)["meats"]
 
-with open("public/assets/aistudio/regimeplan-food-exchange-list-ar-2026-10-10_1630b277.pdf", "rb") as f:
+with open(os.path.join(BASE_DIR, "public/assets/aistudio/regimeplan-food-exchange-list-ar-2026-10-10_1630b277.pdf"), "rb") as f:
     content = f.read()
 
 streams = re.findall(b"stream[\r\n]+(.*?)[\r\n]+endstream", content, re.DOTALL)
@@ -294,39 +295,46 @@ for p_num in [7, 8, 9, 10]:
                 "page": p_num
             })
 
-# Deduplicate items by nameAr and ignore page footer artifacts
+# Deduplicate items by nameAr while preserving original 1-based PDF extraction index
+# (so page footer artifacts at indices 24, 76, 135 keep stable codes for remaining items)
 unique_items = []
 seen_names = set()
 for it in items:
-    if "صفحة" in it["nameAr"]:
-        continue
     if it["nameAr"] not in seen_names:
         seen_names.add(it["nameAr"])
         unique_items.append(it)
 
-print(f"Extracted {len(unique_items)} unique meat items from pages 7-10")
-# Category breakdown
+numbered_items = [
+    (i + 1, it)
+    for i, it in enumerate(unique_items[:196])
+    if "صفحة" not in it["nameAr"]
+]
+
+print(f"Extracted {len(numbered_items)} unique non-footer meat items from pages 7-10")
 cats = {}
-for it in unique_items:
+for _, it in numbered_items:
     cats[it["cat"]] = cats.get(it["cat"], 0) + 1
 print("Categories:", cats)
+print(f"Selected {len(numbered_items)} new meat items to combine with {len(orig)} original.")
 
-# Target is 198 new meat items
-# If we have slightly more or fewer, let's select up to 198 items
-final_items = unique_items[:198]
-print(f"Selected {len(final_items)} new meat items to combine with 7 original.")
-
-def make_meat_record(it, idx):
-    code = f"RP-MT-{idx+1:03d}"
+def make_meat_record(it, seq_num):
+    code = f"RP-MT-{seq_num:03d}"
     item_id = f"food_meat_{code.lower().replace('-', '_')}"
+    portion_id = f"portion_{item_id}_serving"
+
     w = it["weight"]
     cat = it["cat"]
     m = MACROS[cat]
     
-    kcal100 = round((m["caloriesKcal"] / w) * 100, 1)
-    c100 = round((m["carbsG"] / w) * 100, 1)
-    p100 = round((m["proteinG"] / w) * 100, 1)
-    f100 = round((m["fatG"] / w) * 100, 1)
+    def fmt(n):
+        r = round(n, 1)
+        return int(r) if r == int(r) else r
+
+    kcal100 = fmt((m["caloriesKcal"] / w) * 100)
+    c100 = fmt((m["carbsG"] / w) * 100)
+    p100 = fmt((m["proteinG"] / w) * 100)
+    f100 = fmt((m["fatG"] / w) * 100)
+    w_gram = int(w) if isinstance(w, (int, float)) and w == int(w) else round(w, 1)
     
     name_en = translate_name(it["nameAr"])
     hh_en = f"{int(w)}g portion"
@@ -368,12 +376,12 @@ def make_meat_record(it, idx):
             ]
         },
         "portions": [{
-            "id": f"portion_{item_id}_serving",
+            "id": portion_id,
             "portionNameEn": f"1 Meat Exchange (~{int(w)}g)",
             "portionNameAr": f"بديل لحوم واحد (~{int(w)} جم)",
             "householdMeasureEn": hh_en,
             "householdMeasureAr": it["hhAr"],
-            "gramWeight": w,
+            "gramWeight": w_gram,
             "exchangeCategory": cat,
             "exchangeEquivalentFactor": 1,
             "isDefaultServing": True
@@ -383,7 +391,7 @@ def make_meat_record(it, idx):
         "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {it['page']}). Standard meat exchange portion: {int(w)}g ({hh_en})."
     }
 
-new_records = [make_meat_record(it, i) for i, it in enumerate(final_items)]
+new_records = [make_meat_record(it, seq) for seq, it in numbered_items]
 all_meats = orig + new_records
 
 header = '''/**

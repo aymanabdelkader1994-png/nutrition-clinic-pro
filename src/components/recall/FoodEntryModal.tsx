@@ -242,8 +242,8 @@ export function FoodEntryModal({
               </h2>
               <p className="text-xs text-slate-500">
                 {isAr
-                  ? 'اختر صنفاً من قاعدة الأطعمة المعتمدة أو أضف صنفاً مخصصاً'
-                  : 'Select from verified food composition database or enter custom item'}
+                  ? 'اختر صنفاً من قاعدة الأطعمة السريرية (جداول تحليلية وتقديرات بدائل/وصفات) أو أضف صنفاً مخصصاً'
+                  : 'Select from clinical food catalog (analytical tables, exchange-derived & recipe estimates) or enter custom item'}
               </p>
             </div>
           </div>
@@ -270,8 +270,8 @@ export function FoodEntryModal({
           >
             <Search className="h-4 w-4" />
             {isAr
-              ? `قاعدة الأطعمة المعيارية (${totalFoodCount} صنفاً موثقاً)`
-              : `Standard Food Database (${totalFoodCount} items)`}
+              ? `قاعدة الأطعمة السريرية (${totalFoodCount} صنفاً)`
+              : `Clinical Food Catalog (${totalFoodCount} items)`}
           </button>
           <button
             type="button"
@@ -295,7 +295,7 @@ export function FoodEntryModal({
               <div className="flex flex-1 flex-col border-r border-slate-200 p-4 overflow-hidden">
                 {/* Search Bar */}
                 <div className="relative mb-3">
-                  <Search className="absolute top-3 left-3 h-4 w-4 text-slate-400" />
+                  <Search className="pointer-events-none absolute top-3 start-3 h-4 w-4 text-slate-400" />
                   <input
                     type="text"
                     value={searchQuery}
@@ -305,16 +305,16 @@ export function FoodEntryModal({
                         ? 'ابحث بالاسم العربي أو الإنجليزي (مثل: خبز بلدي، عدس، أرز، تونة)...'
                         : 'Search food name or alias (e.g. Baladi bread, lentils, tuna, chicken)...'
                     }
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pr-4 pl-9 text-xs text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:bg-white focus:outline-none"
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 ps-9 pe-14 text-xs text-slate-800 placeholder-slate-400 focus:border-emerald-500 focus:bg-white focus:outline-none"
                     autoFocus
                   />
                   {searchQuery && (
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
-                      className="absolute top-2.5 right-3 text-slate-400 hover:text-slate-600 text-xs"
+                      className="absolute top-2.5 end-3 text-slate-400 hover:text-slate-600 text-xs"
                     >
-                      Clear
+                      {isAr ? 'مسح' : 'Clear'}
                     </button>
                   )}
                 </div>
@@ -415,8 +415,24 @@ export function FoodEntryModal({
                       </div>
                       <div className="mt-1 text-[10px] text-emerald-800">
                         {isAr
-                          ? `التحضير: ${selectedFood.preparationState} | المصدر: ${selectedFood.sourceId}`
-                          : `Prep: ${selectedFood.preparationState} | Source: ${selectedFood.sourceId}`}
+                          ? `التحضير: ${selectedFood.preparationState} | المصدر: ${selectedFood.sourceId} | التصنيف المرجعي: ${
+                              selectedFood.verificationStatus === 'verified_standard'
+                                ? 'جدول تحليلي معياري'
+                                : selectedFood.verificationStatus === 'clinic_reviewed'
+                                ? 'مراجع سريرياً / بدائل'
+                                : selectedFood.verificationStatus === 'recipe_based'
+                                ? 'تقدير وصفي'
+                                : 'مخصص غير موثق'
+                            }`
+                          : `Prep: ${selectedFood.preparationState} | Source: ${selectedFood.sourceId} | Basis: ${
+                              selectedFood.verificationStatus === 'verified_standard'
+                                ? 'Analytical Table'
+                                : selectedFood.verificationStatus === 'clinic_reviewed'
+                                ? 'Exchange / Clinic Reviewed'
+                                : selectedFood.verificationStatus === 'recipe_based'
+                                ? 'Recipe Estimate'
+                                : 'Custom Unverified'
+                            }`}
                       </div>
                     </div>
 

@@ -25,6 +25,7 @@ import {
   getExchangeSystem,
   getAllFoodItems,
   getFoodItemById,
+  DATA_SOURCES,
   registerCustomFoodItem,
   clearCustomFoodsForTesting,
   scaleNutrientProfile,
@@ -989,6 +990,76 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
     } finally {
       clearCustomFoodsForTesting();
       assert.equal(getAllFoodItems().length, initialCount, 'teardown must restore exact standard catalog count');
+    }
+  });
+
+  it('asserts deterministic master catalog partition across all 8 modules totaling 676 items', () => {
+    const all = getAllFoodItems();
+    assert.equal(all.length, 676, 'Standard compiled catalog must contain exactly 676 items');
+
+    const groupCounts: Record<string, number> = {};
+    for (const item of all) {
+      groupCounts[item.foodGroupId] = (groupCounts[item.foodGroupId] || 0) + 1;
+    }
+
+    assert.equal(groupCounts['starches'], 133, 'Starches module must contain exactly 133 items');
+    assert.equal(groupCounts['fruits'], 60, 'Fruits module (excluding 6 confectionery items) must contain exactly 60 items');
+    assert.equal(groupCounts['occasions'], 42, 'Occasions group (36 occasion items + 6 reclassified confectionery) must contain exactly 42 items');
+    assert.equal(groupCounts['free_foods'], 2, 'Free foods group (original lemon & karkadeh) must contain exactly 2 items');
+    assert.equal(groupCounts['dairy'], 31, 'Dairy module must contain exactly 31 items');
+    assert.equal(groupCounts['vegetables'], 91, 'Vegetables module must contain exactly 91 items');
+    assert.equal(groupCounts['legumes'], 31, 'Legumes module must contain exactly 31 items');
+    assert.equal(groupCounts['meats'], 200, 'Meats module must contain exactly 200 items');
+    assert.equal(groupCounts['fats'], 86, 'Fats module must contain exactly 86 items');
+  });
+
+  it('enforces portion ID uniqueness, missingNutrientKeys deduplication, and accurate provenance separation', () => {
+    const all = getAllFoodItems();
+    const globalPortionIds = new Set<string>();
+
+    assert.equal(DATA_SOURCES.clinic_reviewed.isStandardReference, false);
+    assert.equal(
+      DATA_SOURCES.clinic_reviewed.citation.toLowerCase().includes('laboratory'),
+      false,
+      'clinic_reviewed provenance must not claim laboratory assay verification'
+    );
+
+    for (const item of all) {
+      assert.ok(DATA_SOURCES[item.sourceId], `${item.id}: sourceId "${item.sourceId}" must exist in DATA_SOURCES`);
+
+      // Exchange-list items from RegimePlan must not masquerade as verified_standard institutional assays
+      if (item.sourceId === 'regimeplan_2026') {
+        assert.equal(
+          item.verificationStatus,
+          'clinic_reviewed',
+          `${item.id}: RegimePlan item must carry clinic_reviewed status, not verified_standard`
+        );
+      }
+
+      // No duplicate missingNutrientKeys
+      const missingList = item.nutrients100g.missingNutrientKeys || [];
+      assert.equal(
+        new Set(missingList).size,
+        missingList.length,
+        `${item.id}: missingNutrientKeys must not contain duplicate entries`
+      );
+
+      // Unique portion IDs globally and per-item
+      const localPortionIds = new Set<string>();
+      for (const p of item.portions) {
+        assert.strictEqual(localPortionIds.has(p.id), false, `${item.id}: duplicate local portion ID ${p.id}`);
+        assert.strictEqual(globalPortionIds.has(p.id), false, `Global duplicate portion ID ${p.id} in ${item.id}`);
+        localPortionIds.add(p.id);
+        globalPortionIds.add(p.id);
+
+        if (item.code?.startsWith('RP-OCC-')) {
+          assert.equal(
+            (p.unclassifiedExchangeNoticeEn || '').toLowerCase().includes('exact analytical'),
+            false,
+            `${item.id}: recipe-estimated occasion item must not claim exact analytical nutrients`
+          );
+        }
+      }
     }
   });
 });

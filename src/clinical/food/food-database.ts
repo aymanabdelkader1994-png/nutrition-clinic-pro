@@ -1,10 +1,14 @@
 /**
- * Nutrition Clinic Pro - Verified Food Composition Database
- * Phase 2 Foundation, Remediation & Phase 4 Expansion Catalog
+ * Nutrition Clinic Pro - Food Composition & Exchange Catalog
+ * Phase 2 Foundation, Remediation & Expansion Catalog
  *
  * Provides source-supported and clinically reviewed nutritional records per 100g edible portion.
- * Incorporates standard analytical food composition tables (USDA FoodData Central, Egyptian NNI 2006)
- * and clinical exchange references (RegimePlan 2026). Incomplete nutrient assays remain explicitly flagged.
+ * Strictly distinguishes composition provenance across tiers:
+ * - verified_standard: Analytically sourced institutional food composition tables (USDA FoodData Central, Egyptian NNI 2006)
+ * - clinic_reviewed: Exchange-derived nutrient estimates (RegimePlan 2026 exchange lists) and documented analytical overrides
+ * - recipe_based: Standardized culinary composite recipes estimated from constituent ingredients (not chemical assays)
+ * - user_custom: Clinic/patient custom entries without official institutional reference verification
+ *
  * Enforces provenance separation:
  * - sourceId: Data source identifier (e.g. usda_fdc, egyptian_nni_2006, regimeplan_2026, clinic_reviewed)
  * - sourceRecordId: Official institutional publication/table identifier (undefined when not issued)
@@ -44,7 +48,7 @@ export const DATA_SOURCES: Record<string, FoodDataSource> = {
     code: 'REGIMEPLAN-2026',
     nameEn: 'RegimePlan Food Exchange System (Arabic Edition, 2026)',
     nameAr: 'قوائم البدائل الغذائية ريجيم بلان (الطبعة العربية 2026)',
-    citation: 'RegimePlan Clinical Nutrition Practice Food Exchange Lists (2026). regimeplan.com/ar/food-exchange-list.',
+    citation: 'RegimePlan Clinical Nutrition Practice Food Exchange Lists (2026). regimeplan.com/ar/food-exchange-list. Exchange-derived estimates unless analytical overrides are documented.',
     countryOrRegion: 'Egypt & Arab Region',
     publicationYear: 2026,
     isStandardReference: true,
@@ -53,15 +57,17 @@ export const DATA_SOURCES: Record<string, FoodDataSource> = {
     id: 'clinic_reviewed',
     code: 'NCP-CLINIC-REV',
     nameEn: 'Nutrition Clinic Pro Dietetic Review Committee',
-    nameAr: 'اللجنة الاستشارية السريرية المعتمدة للعيادة',
-    citation: 'Internal Dietetic Laboratory Review Protocol, Nutrition Clinic Pro.',
+    nameAr: 'اللجنة الاستشارية السريرية للعيادة',
+    citation: 'Internal Dietetic Review Protocol (exchange-derived and recipe-based composition estimates), Nutrition Clinic Pro.',
     countryOrRegion: 'Clinical Practice Standard',
     isStandardReference: false,
   },
 };
 
 /**
- * The standard compiled database containing all ~680+ verified and clinic-reviewed items.
+ * The standard compiled database containing 676 food records across analytical food tables
+ * (verified_standard), exchange-derived/reviewed clinical references (clinic_reviewed),
+ * and standardized composite recipes (recipe_based).
  */
 export const STANDARD_FOOD_DATABASE: FoodItemRecord[] = ALL_EXPANDED_FOOD_ITEMS;
 

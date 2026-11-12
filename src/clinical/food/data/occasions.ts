@@ -181,8 +181,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -252,8 +252,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -323,8 +323,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -394,8 +394,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -465,8 +465,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -536,8 +536,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -607,8 +607,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -678,8 +678,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -749,8 +749,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -820,8 +820,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -891,8 +891,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -962,8 +962,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1033,8 +1033,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1104,8 +1104,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1175,8 +1175,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1246,8 +1246,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1317,8 +1317,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1388,8 +1388,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1459,8 +1459,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1530,8 +1530,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1601,8 +1601,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1672,8 +1672,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1743,8 +1743,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1814,8 +1814,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1885,8 +1885,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -1956,8 +1956,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2027,8 +2027,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2098,8 +2098,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2169,8 +2169,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2240,8 +2240,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2311,8 +2311,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2382,8 +2382,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2453,8 +2453,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2524,8 +2524,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2595,8 +2595,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],
@@ -2666,8 +2666,8 @@ export const OCCASION_FOOD_ITEMS: FoodItemRecord[] = [
         "exchangeEquivalentFactor": 0,
         "isUnclassifiedExchange": true,
         "exchangeEvidenceStatus": "unclassified_composite",
-        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+        "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+        "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
         "isDefaultServing": true
       }
     ],

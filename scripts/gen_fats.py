@@ -4,12 +4,13 @@ import re
 import json
 import os
 
-OUT_PATH = "/app/applet/src/clinical/food/data/fats.ts"
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/fats.ts")
 
-with open("scripts/original_30_grouped.json", "r", encoding="utf-8") as f:
+with open(os.path.join(BASE_DIR, "scripts/original_30_grouped.json"), "r", encoding="utf-8") as f:
     orig = json.load(f)["fats"]
 
-with open("public/assets/aistudio/regimeplan-food-exchange-list-ar-2026-10-10_1630b277.pdf", "rb") as f:
+with open(os.path.join(BASE_DIR, "public/assets/aistudio/regimeplan-food-exchange-list-ar-2026-10-10_1630b277.pdf"), "rb") as f:
     content = f.read()
 
 streams = re.findall(b"stream[\r\n]+(.*?)[\r\n]+endstream", content, re.DOTALL)
@@ -193,30 +194,40 @@ for p_num in [11, 12, 13]:
                 "page": p_num
             })
 
-# Deduplicate and ignore page footer artifacts
+# Deduplicate while preserving original 1-based PDF extraction index
+# (so page footer artifact at index 63 keeps stable codes for remaining items)
 unique_items = []
 seen = set()
 for it in items:
-    if "صفحة" in it["nameAr"]:
-        continue
     if it["nameAr"] not in seen:
         seen.add(it["nameAr"])
         unique_items.append(it)
 
-print(f"Extracted {len(unique_items)} unique fat items from pages 11-13")
-# Target: 84 new fat items (+ 3 original = 87)
-final_items = unique_items[:84]
-print(f"Selected {len(final_items)} new fat items.")
+numbered_items = [
+    (i + 1, it)
+    for i, it in enumerate(unique_items[:84])
+    if "صفحة" not in it["nameAr"]
+]
 
-def make_fat_record(it, idx):
-    code = f"RP-FT-{idx+1:03d}"
+print(f"Extracted {len(numbered_items)} unique non-footer fat items from pages 11-13")
+print(f"Selected {len(numbered_items)} new fat items to combine with {len(orig)} original.")
+
+def make_fat_record(it, seq_num):
+    code = f"RP-FT-{seq_num:03d}"
     item_id = f"food_fat_{code.lower().replace('-', '_')}"
+    portion_id = f"portion_{item_id}_serving"
+
     w = it["weight"]
     
-    kcal100 = round((FAT_MACRO["caloriesKcal"] / w) * 100, 1)
-    c100 = 0.0
-    p100 = 0.0
-    f100 = round((FAT_MACRO["fatG"] / w) * 100, 1)
+    def fmt(n):
+        r = round(n, 1)
+        return int(r) if r == int(r) else r
+
+    kcal100 = fmt((FAT_MACRO["caloriesKcal"] / w) * 100)
+    c100 = 0
+    p100 = 0
+    f100 = fmt((FAT_MACRO["fatG"] / w) * 100)
+    w_gram = int(w) if isinstance(w, (int, float)) and w == int(w) else round(w, 1)
     
     name_en = translate_fat_name(it["nameAr"])
     hh_en = f"{int(w)}g portion"
@@ -258,12 +269,12 @@ def make_fat_record(it, idx):
             ]
         },
         "portions": [{
-            "id": f"portion_{item_id}_serving",
+            "id": portion_id,
             "portionNameEn": f"1 Fat Exchange (~{int(w)}g)",
             "portionNameAr": f"بديل دهون واحد (~{int(w)} جم)",
             "householdMeasureEn": hh_en,
             "householdMeasureAr": it["hhAr"],
-            "gramWeight": w,
+            "gramWeight": w_gram,
             "exchangeCategory": "fat",
             "exchangeEquivalentFactor": 1,
             "isDefaultServing": True
@@ -273,7 +284,7 @@ def make_fat_record(it, idx):
         "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {it['page']}). Standard fat exchange portion: {int(w)}g ({hh_en})."
     }
 
-new_records = [make_fat_record(it, i) for i, it in enumerate(final_items)]
+new_records = [make_fat_record(it, seq) for seq, it in numbered_items]
 all_fats = orig + new_records
 
 header = '''/**

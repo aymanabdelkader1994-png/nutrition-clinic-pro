@@ -2,9 +2,10 @@
 import json
 import os
 
-OUT_PATH = "/app/applet/src/clinical/food/data/occasions.ts"
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/occasions.ts")
 
-with open("scripts/original_30_grouped.json", "r", encoding="utf-8") as f:
+with open(os.path.join(BASE_DIR, "scripts/original_30_grouped.json"), "r", encoding="utf-8") as f:
     orig = json.load(f)["occasions"]
 
 # 36 Occasions & Holiday Items from Acrobat Image 4 (أطعمة المناسبات والحلويات والمشروبات الرمضانية وعيد الفطر)
@@ -114,8 +115,8 @@ def make_occasion_item(raw):
             "exchangeEquivalentFactor": 0,
             "isUnclassifiedExchange": True,
             "exchangeEvidenceStatus": "unclassified_composite",
-            "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled by exact analytical nutrients.",
-            "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على القيمة الغذائية التحليلية الدقيقة.",
+            "unclassifiedExchangeNoticeEn": "Composite occasion/holiday dish: unclassified multi-component exchanges requiring dietitian review; scaled using published reference calories and estimated recipe macronutrients.",
+            "unclassifiedExchangeNoticeAr": "صنف مناسبات وأعياد مركب: بدائل متعددة غير مصنفة تتطلب مراجعة أخصائي التغذية؛ يحسب بناءً على السعرات المرجعية المنشورة وتقديرات المغذيات الكبرى للوصفة.",
             "isDefaultServing": True
         }],
         "tags": ["occasions", "holiday", "ramadan", "eid", sub_grp],
