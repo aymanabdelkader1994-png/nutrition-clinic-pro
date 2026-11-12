@@ -252,23 +252,23 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_001",
     "code": "RP-DA-001",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Whole Cow Milk",
     "nameAr": "لبن كامل الدسم",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 59.6,
-      "carbsG": 4.7,
+      "caloriesKcal": 61.0,
+      "carbsG": 4.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 3.1,
-      "fatG": 3.1,
-      "fiberG": null,
+      "proteinG": 3.2,
+      "fatG": 3.3,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -280,7 +280,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -311,13 +310,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 255 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 255g (1 cup)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01211). وزن بديل الألبان من RegimePlan 2026 (ص 6): 255 جم (كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01211). RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 255g (1 cup).",
+    "sourceRecordId": "01211"
   },
   {
     "id": "food_dairy_rp_da_002",
     "code": "RP-DA-002",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Plain Whole Milk Yogurt",
     "nameAr": "زبادي سادة كامل الدسم",
     "foodGroupId": "dairy",
@@ -327,13 +327,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 63.3,
-      "carbsG": 5,
+      "caloriesKcal": 61.0,
+      "carbsG": 4.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 3.3,
+      "proteinG": 3.5,
       "fatG": 3.3,
-      "fiberG": null,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -345,7 +345,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -376,29 +375,29 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 240 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 240g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 240 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 240g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_003",
     "code": "RP-DA-003",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Plain Greek Yogurt (Whole)",
     "nameAr": "زبادي يوناني سادة",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 92.1,
-      "carbsG": 7.3,
+      "caloriesKcal": 97.0,
+      "carbsG": 4.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 4.8,
-      "fatG": 4.8,
-      "fiberG": null,
+      "proteinG": 9.0,
+      "fatG": 5.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -410,7 +409,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -441,13 +439,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 165 جم (علبة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 165g (1 container (165g))."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01293). وزن بديل الألبان من RegimePlan 2026 (ص 6): 165 جم (علبة).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01293). RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 165g (1 container (165g)).",
+    "sourceRecordId": "01293"
   },
   {
     "id": "food_dairy_rp_da_004",
     "code": "RP-DA-004",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Evaporated Whole Milk",
     "nameAr": "لبن مبخر كامل الدسم",
     "foodGroupId": "dairy",
@@ -457,13 +456,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 126.7,
-      "carbsG": 10,
+      "caloriesKcal": 134.0,
+      "carbsG": 10.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 6.7,
-      "fatG": 6.7,
-      "fiberG": null,
+      "proteinG": 6.8,
+      "fatG": 7.6,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -475,7 +474,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -506,13 +504,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 120 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 120g (1/2 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 120 جم (نصف كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 120g (1/2 cup)."
   },
   {
     "id": "food_dairy_rp_da_005",
     "code": "RP-DA-005",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Plain Whole Milk Kefir",
     "nameAr": "كيفير سادة كامل الدسم",
     "foodGroupId": "dairy",
@@ -522,13 +520,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 58.5,
-      "carbsG": 4.6,
+      "caloriesKcal": 60.0,
+      "carbsG": 4.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 3.1,
-      "fatG": 3.1,
-      "fiberG": null,
+      "proteinG": 3.3,
+      "fatG": 3.3,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -540,7 +538,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -571,13 +568,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 260 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 260g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 260 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 260g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_006",
     "code": "RP-DA-006",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Whole Rayeb Buttermilk",
     "nameAr": "لبن رايب كامل الدسم",
     "foodGroupId": "dairy",
@@ -587,13 +584,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 63.3,
-      "carbsG": 5,
+      "caloriesKcal": 58.0,
+      "carbsG": 4.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 3.3,
-      "fatG": 3.3,
-      "fiberG": null,
+      "fatG": 3.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -605,7 +602,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -636,13 +632,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 240 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 240g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 240 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 240g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_007",
     "code": "RP-DA-007",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Fresh Traditional Yogurt",
     "nameAr": "لبن زبادي طازج",
     "foodGroupId": "dairy",
@@ -652,13 +648,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 62,
-      "carbsG": 4.9,
+      "caloriesKcal": 61.0,
+      "carbsG": 4.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 3.3,
+      "proteinG": 3.5,
       "fatG": 3.3,
-      "fiberG": null,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -670,7 +666,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -701,13 +696,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_008",
     "code": "RP-DA-008",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Whole Dry Milk Powder",
     "nameAr": "لبن بودرة كامل الدسم",
     "foodGroupId": "dairy",
@@ -717,13 +712,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 490.3,
-      "carbsG": 38.7,
+      "caloriesKcal": 496.0,
+      "carbsG": 38.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 25.8,
-      "fatG": 25.8,
-      "fiberG": null,
+      "proteinG": 26.3,
+      "fatG": 26.7,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -735,7 +730,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -766,13 +760,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 31 جم (ربع كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 31g (1/4 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 31 جم (ربع كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 31g (1/4 cup)."
   },
   {
     "id": "food_dairy_rp_da_009",
     "code": "RP-DA-009",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Low-Fat Milk (1%-2%)",
     "nameAr": "لبن قليل الدسم (1%-2%)",
     "foodGroupId": "dairy",
@@ -782,13 +776,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 51,
+      "caloriesKcal": 47.0,
       "carbsG": 4.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 3.3,
-      "fatG": 2,
-      "fiberG": null,
+      "fatG": 1.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -800,7 +794,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -831,13 +824,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_010",
     "code": "RP-DA-010",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Low-Fat Plain Yogurt",
     "nameAr": "زبادي سادة قليل الدسم",
     "foodGroupId": "dairy",
@@ -847,13 +840,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 78.1,
-      "carbsG": 7.5,
+      "caloriesKcal": 63.0,
+      "carbsG": 7.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 5,
-      "fatG": 3.1,
-      "fiberG": null,
+      "proteinG": 5.3,
+      "fatG": 1.6,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -865,7 +858,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -896,13 +888,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 160 جم (ثلثا كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 160g (2/3 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 160 جم (ثلثا كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 160g (2/3 cup)."
   },
   {
     "id": "food_dairy_rp_da_011",
     "code": "RP-DA-011",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Skim Milk (Fat-Free)",
     "nameAr": "لبن فرز (خالي الدسم)",
     "foodGroupId": "dairy",
@@ -912,13 +904,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 40.8,
-      "carbsG": 5,
+      "caloriesKcal": 34.0,
+      "carbsG": 5.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 3.3,
-      "fatG": 0.8,
-      "fiberG": null,
+      "proteinG": 3.4,
+      "fatG": 0.1,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -930,7 +922,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -961,13 +952,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_skim",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 240 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 240g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 240 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 240g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_012",
     "code": "RP-DA-012",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Nonfat Cultured Buttermilk",
     "nameAr": "لبن مخيض (خالي الدسم)",
     "foodGroupId": "dairy",
@@ -977,13 +968,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 40,
-      "carbsG": 4.9,
+      "caloriesKcal": 40.0,
+      "carbsG": 4.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 3.3,
-      "fatG": 0.8,
-      "fiberG": null,
+      "fatG": 0.9,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -995,7 +986,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1026,29 +1016,29 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_skim",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_013",
     "code": "RP-DA-013",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Nonfat Dry Milk Powder",
     "nameAr": "لبن بودرة خالي الدسم",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "raw",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 426.1,
-      "carbsG": 52.2,
+      "caloriesKcal": 362.0,
+      "carbsG": 52.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 34.8,
-      "fatG": 8.7,
-      "fiberG": null,
+      "proteinG": 36.2,
+      "fatG": 0.8,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1060,7 +1050,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1091,13 +1080,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_skim",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 23 جم (ثلث كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 23g (1/3 cup)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01091). وزن بديل الألبان من RegimePlan 2026 (ص 6): 23 جم (ثلث كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01091). RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 23g (1/3 cup).",
+    "sourceRecordId": "01091"
   },
   {
     "id": "food_dairy_rp_da_014",
     "code": "RP-DA-014",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Lactose-Free Skim Milk",
     "nameAr": "لبن خالي اللاكتوز منزوع الدسم",
     "foodGroupId": "dairy",
@@ -1107,13 +1097,13 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 40.8,
-      "carbsG": 5,
+      "caloriesKcal": 34.0,
+      "carbsG": 5.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 3.3,
-      "fatG": 0.8,
-      "fiberG": null,
+      "proteinG": 3.4,
+      "fatG": 0.1,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1125,7 +1115,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1156,29 +1145,29 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_skim",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 240 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 240g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 240 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 240g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_015",
     "code": "RP-DA-015",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Nonfat Greek Yogurt",
     "nameAr": "زبادي يوناني خالي الدسم",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "ready-to-eat",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 61.3,
-      "carbsG": 7.5,
+      "caloriesKcal": 59.0,
+      "carbsG": 3.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 5,
-      "fatG": 1.2,
-      "fiberG": null,
+      "proteinG": 10.2,
+      "fatG": 0.4,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1190,7 +1179,6 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1221,8 +1209,9 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_skim",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 160 جم (علبة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 160g (1 container (160g))."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01256). وزن بديل الألبان من RegimePlan 2026 (ص 6): 160 جم (علبة).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01256). RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 160g (1 container (160g)).",
+    "sourceRecordId": "01256"
   },
   {
     "id": "food_dairy_rp_da_016",
@@ -1286,8 +1275,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_017",
@@ -1351,8 +1340,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_018",
@@ -1416,8 +1405,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_019",
@@ -1481,8 +1470,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 6). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 6). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 6): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_020",
@@ -1546,8 +1535,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_021",
@@ -1611,8 +1600,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_022",
@@ -1676,8 +1665,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_023",
@@ -1741,8 +1730,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_024",
@@ -1806,8 +1795,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_025",
@@ -1871,8 +1860,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_026",
@@ -1936,8 +1925,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   },
   {
     "id": "food_dairy_rp_da_027",
@@ -2001,7 +1990,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_lowfat",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 245 جم (كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard dairy exchange portion: 245g (1 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 245 جم (كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 245g (1 cup)."
   }
 ];

@@ -501,8 +501,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_001",
     "code": "RP-MT-001",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cooked",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Mung Beans",
     "nameAr": "ماش مطبوخ",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -511,13 +511,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 43.8,
-      "carbsG": 0,
+      "caloriesKcal": 105.0,
+      "carbsG": 19.2,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 6.7,
-      "fatG": 1.9,
-      "fiberG": null,
+      "proteinG": 7.0,
+      "fatG": 0.4,
+      "fiberG": 7.6,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -529,7 +529,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -558,7 +557,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "ماش",
+      "mung beans"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 105g (105g portion)."
@@ -566,8 +567,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_002",
     "code": "RP-MT-002",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Raw",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Raw Dried Chickpeas",
     "nameAr": "محص نيء",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -576,13 +577,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 135.3,
-      "carbsG": 0,
+      "caloriesKcal": 378.0,
+      "carbsG": 63.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20.6,
-      "fatG": 5.9,
-      "fiberG": null,
+      "proteinG": 20.5,
+      "fatG": 6.0,
+      "fiberG": 12.2,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -594,7 +595,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -623,7 +623,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "حمص",
+      "حمص نيء",
+      "chickpeas"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (ملعقتان كبيرتان  ونصف).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 34g (34g portion)."
@@ -631,45 +634,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_003",
     "code": "RP-MT-003",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cooked",
+    "sourceId": "usda_fdc",
+    "nameEn": "Cooked Chickpeas",
     "nameAr": "محص مطبوخ",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 59,
-      "carbsG": 0,
+      "caloriesKcal": 164.0,
+      "carbsG": 27.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 9,
+      "proteinG": 8.9,
       "fatG": 2.6,
-      "fiberG": null,
+      "fiberG": 7.6,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 7.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 60.2,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -688,10 +688,14 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "حمص",
+      "حمص مطبوخ",
+      "chickpeas"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 78g (78g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 78g (78g portion).",
+    "sourceRecordId": "16057"
   },
   {
     "id": "food_meat_rp_mt_004",
@@ -1346,8 +1350,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_014",
     "code": "RP-MT-014",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (محص بطحينة7 ملاعق كبيرة ونصف)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Hummus with Tahini",
     "nameAr": "محص بطحينة7 ملاعق كبيرة ونصف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1356,13 +1360,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 40,
-      "carbsG": 0,
+      "caloriesKcal": 166.0,
+      "carbsG": 14.3,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 6.1,
-      "fatG": 1.7,
-      "fiberG": null,
+      "proteinG": 7.9,
+      "fatG": 9.6,
+      "fiberG": 6.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1374,7 +1378,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1403,7 +1406,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "حمص بطحينة",
+      "حمص",
+      "hummus"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 115 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 115g (115g portion)."
@@ -1411,8 +1417,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_015",
     "code": "RP-MT-015",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (طمعية)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Egyptian Taameya / Falafel",
     "nameAr": "طمعية",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1421,13 +1427,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 76.7,
-      "carbsG": 0,
+      "caloriesKcal": 333.0,
+      "carbsG": 31.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 11.7,
-      "fatG": 3.3,
-      "fiberG": null,
+      "proteinG": 13.3,
+      "fatG": 17.8,
+      "fiberG": 4.9,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1439,7 +1445,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1468,7 +1473,11 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "طعمية",
+      "فلافل",
+      "falafel",
+      "taameya"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 60 جم (حبتان  ونصف).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 60g (60g portion)."
@@ -1476,8 +1485,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_016",
     "code": "RP-MT-016",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (دقيق محص6 ملاعق كبيرة)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Chickpea Flour (Besan)",
     "nameAr": "دقيق محص6 ملاعق كبيرة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1486,13 +1495,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 135.3,
-      "carbsG": 0,
+      "caloriesKcal": 387.0,
+      "carbsG": 57.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20.6,
-      "fatG": 5.9,
-      "fiberG": null,
+      "proteinG": 22.4,
+      "fatG": 6.7,
+      "fiberG": 10.8,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1504,7 +1513,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1533,7 +1541,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "دقيق حمص",
+      "حمص",
+      "chickpea flour"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 34g (34g portion)."
@@ -1541,8 +1552,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_017",
     "code": "RP-MT-017",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (محص معلبثلثا)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Canned Chickpeas (Drained)",
     "nameAr": "محص معلبثلثا",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1551,13 +1562,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 46.9,
-      "carbsG": 0,
+      "caloriesKcal": 139.0,
+      "carbsG": 22.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 7.1,
-      "fatG": 2,
-      "fiberG": null,
+      "fatG": 2.0,
+      "fiberG": 6.4,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1569,7 +1580,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1598,7 +1608,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "ready-to-eat"
+      "ready-to-eat",
+      "حمص معلب",
+      "حمص",
+      "chickpeas"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 98g (98g portion)."
@@ -1606,8 +1619,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_018",
     "code": "RP-MT-018",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (دال محص مطبوخ7 ملاعق كبيرة)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Chana Dal (Split Chickpeas)",
     "nameAr": "دال محص مطبوخ7 ملاعق كبيرة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1616,13 +1629,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 59,
-      "carbsG": 0,
+      "caloriesKcal": 164.0,
+      "carbsG": 27.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 9,
+      "proteinG": 8.9,
       "fatG": 2.6,
-      "fiberG": null,
+      "fiberG": 7.6,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1634,7 +1647,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1663,7 +1675,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "دال حمص",
+      "حمص",
+      "chana dal"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 78g (78g portion)."
@@ -1671,8 +1686,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_019",
     "code": "RP-MT-019",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cooked",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Urad Dal (Black Gram)",
     "nameAr": "دال أوراد مطبوخ",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1681,13 +1696,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 43.8,
-      "carbsG": 0,
+      "caloriesKcal": 105.0,
+      "carbsG": 18.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 6.7,
-      "fatG": 1.9,
-      "fiberG": null,
+      "proteinG": 7.5,
+      "fatG": 0.5,
+      "fiberG": 6.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1699,7 +1714,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1728,7 +1742,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "دال أوراد",
+      "urad dal"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 105g (105g portion)."
@@ -1736,8 +1752,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_020",
     "code": "RP-MT-020",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cooked",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Toor Dal (Split Pigeon Peas)",
     "nameAr": "دال توور مطبوخ",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1746,13 +1762,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 46.9,
-      "carbsG": 0,
+      "caloriesKcal": 121.0,
+      "carbsG": 23.3,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 7.1,
-      "fatG": 2,
-      "fiberG": null,
+      "proteinG": 6.8,
+      "fatG": 0.4,
+      "fiberG": 6.7,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1764,7 +1780,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1793,7 +1808,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "دال توور",
+      "toor dal"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 98g (98g portion)."
@@ -1801,8 +1818,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_021",
     "code": "RP-MT-021",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (محص ممحص)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Roasted Chickpeas",
     "nameAr": "محص ممحص",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1811,13 +1828,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 143.8,
-      "carbsG": 0,
+      "caloriesKcal": 369.0,
+      "carbsG": 58.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 21.9,
-      "fatG": 6.2,
-      "fiberG": null,
+      "proteinG": 19.3,
+      "fatG": 6.0,
+      "fiberG": 12.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1829,7 +1846,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1858,7 +1874,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "حمص محمص",
+      "حمص",
+      "roasted chickpeas"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 32g (32g portion)."
@@ -1866,8 +1885,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_022",
     "code": "RP-MT-022",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (ترمس مطبوخثلثا)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Lupini Beans (Termis)",
     "nameAr": "ترمس مطبوخثلثا",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1876,13 +1895,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 46,
-      "carbsG": 0,
+      "caloriesKcal": 119.0,
+      "carbsG": 9.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 7,
-      "fatG": 2,
-      "fiberG": null,
+      "proteinG": 15.6,
+      "fatG": 2.9,
+      "fiberG": 2.8,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1894,7 +1913,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1923,7 +1941,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "ترمس",
+      "lupini beans"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 100 جم (كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 100g (100g portion)."
@@ -1931,8 +1951,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_023",
     "code": "RP-MT-023",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cooked",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Split Peas",
     "nameAr": "بسلة مجروشة مطبوخة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -1941,13 +1961,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 49.5,
-      "carbsG": 0,
+      "caloriesKcal": 118.0,
+      "carbsG": 21.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 7.5,
-      "fatG": 2.2,
-      "fiberG": null,
+      "proteinG": 8.3,
+      "fatG": 0.4,
+      "fiberG": 8.3,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -1959,7 +1979,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -1988,7 +2007,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "بسلة مجروشة",
+      "split peas"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 93 جم (نصف كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 93g (93g portion)."
@@ -1996,8 +2017,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_025",
     "code": "RP-MT-025",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Liver Beef Raw",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Raw Beef Liver",
     "nameAr": "كبدة بقري نيئة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -2006,13 +2027,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 135.3,
-      "carbsG": 0,
+      "caloriesKcal": 135.0,
+      "carbsG": 3.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20.6,
-      "fatG": 5.9,
-      "fiberG": null,
+      "proteinG": 20.4,
+      "fatG": 3.6,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -2024,7 +2045,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -2053,7 +2073,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "كبدة بقري",
+      "beef liver"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 34 جم (شريحة  )501 غ( = 3 حصص).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 34g (34g portion)."
@@ -2638,7 +2660,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "grilled"
+      "grilled",
+      "سمان",
+      "quail"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 24 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 24g (24g portion)."
@@ -2703,7 +2727,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "سمان",
+      "quail"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 32 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 32g (32g portion)."
@@ -2768,7 +2794,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "baked"
+      "baked",
+      "حمام",
+      "pigeon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 29 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 29g (29g portion)."
@@ -2833,7 +2861,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "حمام",
+      "pigeon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 40 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 40g (40g portion)."
@@ -3426,8 +3456,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_047",
     "code": "RP-MT-047",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Liver Chicken",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Raw Chicken Liver",
     "nameAr": "كبدة فراخ نيئةكبدة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -3436,13 +3466,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 112.2,
-      "carbsG": 0,
+      "caloriesKcal": 119.0,
+      "carbsG": 0.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 17.1,
-      "fatG": 4.9,
-      "fiberG": null,
+      "proteinG": 16.9,
+      "fatG": 4.8,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -3454,7 +3484,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -3483,7 +3512,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "كبدة فراخ",
+      "chicken liver"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 41 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 41g (41g portion)."
@@ -3743,7 +3774,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 39 جم (قطعة فيليه  )032 غ().",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 39g (39g portion)."
@@ -3808,7 +3841,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "ready-to-eat"
+      "ready-to-eat",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 28 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 28g (28g portion)."
@@ -4328,7 +4363,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "baked"
+      "baked",
+      "سلمون",
+      "سمك",
+      "salmon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 32 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 32g (32g portion)."
@@ -4393,7 +4431,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "grilled"
+      "grilled",
+      "سلمون",
+      "سمك",
+      "salmon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 32 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 32g (32g portion)."
@@ -4458,7 +4499,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "سلمون",
+      "سمك",
+      "salmon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 34 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 34g (34g portion)."
@@ -4783,7 +4827,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "جمل",
+      "camel"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 22 جم (22 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 22g (22g portion)."
@@ -4848,7 +4894,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "جمل",
+      "camel"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 34 جم (34 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 34g (34g portion)."
@@ -5246,45 +5294,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_075",
     "code": "RP-MT-075",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Liver Beef Grilled",
+    "sourceId": "usda_fdc",
+    "nameEn": "Grilled / Braised Beef Liver",
     "nameAr": "كبدة بقري مشوية",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "grilled",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 176.9,
-      "carbsG": 0,
+      "caloriesKcal": 175.0,
+      "carbsG": 5.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 26.9,
-      "fatG": 7.7,
-      "fiberG": null,
+      "proteinG": 26.5,
+      "fatG": 4.7,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 79.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 61.9,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -5303,16 +5348,19 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "grilled"
+      "grilled",
+      "كبدة بقري",
+      "beef liver"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 26 جم (شريحة  )18 غ( = 3 حصص).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 26g (26g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 26g (26g portion).",
+    "sourceRecordId": "13326"
   },
   {
     "id": "food_meat_rp_mt_077",
     "code": "RP-MT-077",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Crab",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Imitation Crab (Surimi)",
     "nameAr": "كابوريا مقلدة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -5321,13 +5369,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 50,
-      "carbsG": 0,
+      "caloriesKcal": 95.0,
+      "carbsG": 15.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 7.6,
-      "fatG": 2.2,
-      "fiberG": null,
+      "fatG": 0.5,
+      "fiberG": 0.5,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -5339,7 +5387,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -5368,7 +5415,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "كابوريا مقلدة",
+      "surimi"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 92 جم (5 أصابع).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 92g (92g portion)."
@@ -5433,7 +5482,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "ready-to-eat"
+      "ready-to-eat",
+      "سلمون",
+      "سمك",
+      "salmon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 30 جم (30 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 30g (30g portion)."
@@ -5498,7 +5550,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "ready-to-eat"
+      "ready-to-eat",
+      "سلمون",
+      "سمك",
+      "salmon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 32 جم (شريحة ونصف).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 32g (32g portion)."
@@ -5628,7 +5683,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "جمبري",
+      "روبيان",
+      "shrimp"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 42 جم (حبة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 42g (42g portion)."
@@ -5766,8 +5824,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_084",
     "code": "RP-MT-084",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Raw",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Raw Oysters",
     "nameAr": "أويستر نيء",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -5776,13 +5834,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 62.2,
-      "carbsG": 0,
+      "caloriesKcal": 68.0,
+      "carbsG": 3.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 9.5,
-      "fatG": 2.7,
-      "fiberG": null,
+      "proteinG": 7.0,
+      "fatG": 2.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -5794,7 +5852,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -5823,7 +5880,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "أويستر",
+      "محار",
+      "oysters"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 74 جم (حبة ونصف).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 74g (74g portion)."
@@ -5953,7 +6013,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 36 جم (قطعة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 36g (36g portion)."
@@ -6018,7 +6080,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 41 جم (41 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 41g (41g portion)."
@@ -6676,8 +6740,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_098",
     "code": "RP-MT-098",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Oysters / Clams",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Clams / Oysters",
     "nameAr": "محار مطبوخ3 حبات",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -6686,13 +6750,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 170.4,
-      "carbsG": 0,
+      "caloriesKcal": 140.0,
+      "carbsG": 5.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 25.9,
-      "fatG": 7.4,
-      "fiberG": null,
+      "proteinG": 18.0,
+      "fatG": 3.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -6704,7 +6768,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -6733,7 +6796,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "محار",
+      "clams"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 27 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 27g (27g portion)."
@@ -6741,8 +6806,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_099",
     "code": "RP-MT-099",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (بلح البحر مطبوخ4 حبات)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Cooked Mussels",
     "nameAr": "بلح البحر مطبوخ4 حبات",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_lean",
@@ -6751,13 +6816,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 158.6,
-      "carbsG": 0,
+      "caloriesKcal": 172.0,
+      "carbsG": 7.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 24.1,
-      "fatG": 6.9,
-      "fiberG": null,
+      "proteinG": 23.8,
+      "fatG": 4.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -6769,7 +6834,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -6798,7 +6862,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "cooked"
+      "cooked",
+      "بلح البحر",
+      "mussels"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 29 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 29g (29g portion)."
@@ -6928,7 +6994,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "grilled"
+      "grilled",
+      "كاليماري",
+      "حبار",
+      "calamari"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 33 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 33g (33g portion)."
@@ -6993,7 +7062,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "كاليماري",
+      "حبار",
+      "calamari"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 45 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 45g (45g portion)."
@@ -7058,7 +7130,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "boiled"
+      "boiled",
+      "جمبري",
+      "روبيان",
+      "shrimp"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 29 جم (حبتان  كبيرتان).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 29g (29g portion)."
@@ -7123,7 +7198,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "grilled"
+      "grilled",
+      "جمبري",
+      "روبيان",
+      "shrimp"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 29 جم (حبتان  كبيرتان).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 29g (29g portion)."
@@ -7188,7 +7266,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "raw"
+      "raw",
+      "جمبري",
+      "روبيان",
+      "shrimp"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 35 جم (حبتان  كبيرتان).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 35g (35g portion)."
@@ -7383,7 +7464,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_lean",
-      "baked"
+      "baked",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 31 جم (قطعة فيليه  )081 غ().",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 31g (31g portion)."
@@ -7911,8 +7994,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_117",
     "code": "RP-MT-117",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Burger Patty",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Plant-Based Veggie Burger Patty",
     "nameAr": "برجر نباتيقرص )511 غ(",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -7921,13 +8004,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 162.2,
-      "carbsG": 0,
+      "caloriesKcal": 177.0,
+      "carbsG": 14.3,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 15.6,
-      "fatG": 11.1,
-      "fiberG": null,
+      "proteinG": 15.7,
+      "fatG": 6.3,
+      "fiberG": 4.9,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -7939,7 +8022,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -7968,7 +8050,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "برجر نباتي",
+      "veggie burger"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 45 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 45g (45g portion)."
@@ -7976,8 +8060,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_118",
     "code": "RP-MT-118",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat / Beef",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Dry Textured Soy Protein (TVP)",
     "nameAr": "لحم صويا جاف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -7986,13 +8070,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 521.4,
-      "carbsG": 0,
+      "caloriesKcal": 336.0,
+      "carbsG": 33.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 50,
-      "fatG": 35.7,
-      "fiberG": null,
+      "proteinG": 51.5,
+      "fatG": 1.2,
+      "fiberG": 17.5,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -8004,7 +8088,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -8033,7 +8116,11 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "لحم صويا",
+      "فول صويا",
+      "textured soy protein",
+      "tvp"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 14 جم (ملعقتان كبيرتان  ونصف).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 14g (14g portion)."
@@ -8041,8 +8128,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_119",
     "code": "RP-MT-119",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (سيتان)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Seitan (Wheat Gluten)",
     "nameAr": "سيتان",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -8051,13 +8138,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 214.7,
-      "carbsG": 0,
+      "caloriesKcal": 120.0,
+      "carbsG": 4.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20.6,
-      "fatG": 14.7,
-      "fiberG": null,
+      "proteinG": 21.0,
+      "fatG": 1.9,
+      "fiberG": 0.6,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -8069,7 +8156,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -8098,7 +8184,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "سيتان",
+      "seitan"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 34 جم (34 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 34g (34g portion)."
@@ -8106,8 +8194,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_120",
     "code": "RP-MT-120",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cheese",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Light White Cheese (Reduced-Fat Feta)",
     "nameAr": "جبنة بيضاء لايت",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -8116,13 +8204,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 125.9,
-      "carbsG": 0,
+      "caloriesKcal": 145.0,
+      "carbsG": 3.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.1,
-      "fatG": 8.6,
-      "fiberG": null,
+      "proteinG": 15.0,
+      "fatG": 8.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -8134,7 +8222,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -8163,7 +8250,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "جبنة بيضاء لايت",
+      "جبنة",
+      "cheese"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 58 جم (58 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 58g (58g portion)."
@@ -8171,8 +8261,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_121",
     "code": "RP-MT-121",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cheese",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Egyptian Quraish / Cottage Cheese",
     "nameAr": "جبنة قريش",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -8181,13 +8271,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 130.4,
-      "carbsG": 0,
+      "caloriesKcal": 98.0,
+      "carbsG": 3.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.5,
-      "fatG": 8.9,
-      "fiberG": null,
+      "proteinG": 11.1,
+      "fatG": 4.3,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -8199,7 +8289,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -8228,7 +8317,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "جبنة قريش",
+      "جبنة",
+      "quraish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 56 جم (ربع كوب).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 56g (56g portion)."
@@ -8236,45 +8328,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_122",
     "code": "RP-MT-122",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (بياض بيضبياض بيضتين)",
+    "sourceId": "usda_fdc",
+    "nameEn": "Egg White (Raw)",
     "nameAr": "بياض بيضبياض بيضتين",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 114.1,
-      "carbsG": 0,
+      "caloriesKcal": 52.0,
+      "carbsG": 0.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 10.9,
-      "fatG": 7.8,
-      "fiberG": null,
+      "fatG": 0.2,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 166.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 87.6,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -8293,10 +8382,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "بياض بيض",
+      "egg white"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 64 جم (حصة معيارية).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 64g (64g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 64g (64g portion).",
+    "sourceRecordId": "01124"
   },
   {
     "id": "food_meat_rp_mt_123",
@@ -8553,7 +8645,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "raw"
+      "raw",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 9). وزن الحصة البديلة: 39 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 39g (39g portion)."
@@ -9081,8 +9175,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_136",
     "code": "RP-MT-136",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (كالمياري مقليحلقتان ونصف)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Fried Breaded Calamari",
     "nameAr": "كالمياري مقليحلقتان ونصف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -9091,13 +9185,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 187.2,
-      "carbsG": 0,
+      "caloriesKcal": 175.0,
+      "carbsG": 7.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 17.9,
-      "fatG": 12.8,
-      "fiberG": null,
+      "fatG": 7.5,
+      "fiberG": 0.3,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -9109,7 +9203,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -9138,7 +9231,11 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "fried"
+      "fried",
+      "كاليماري مقلي",
+      "calamari",
+      "كاليماري",
+      "حبار"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 39 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 39g (39g portion)."
@@ -9146,8 +9243,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_137",
     "code": "RP-MT-137",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Shrimp Fried",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Fried Breaded Shrimp",
     "nameAr": "مجبري مقلي",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -9156,13 +9253,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 221.2,
-      "carbsG": 0,
+      "caloriesKcal": 242.0,
+      "carbsG": 11.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 21.2,
-      "fatG": 15.2,
-      "fiberG": null,
+      "proteinG": 21.4,
+      "fatG": 12.3,
+      "fiberG": 0.4,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -9174,7 +9271,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -9203,7 +9299,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "fried"
+      "fried",
+      "جمبري مقلي",
+      "جمبري",
+      "fried shrimp",
+      "روبيان",
+      "shrimp"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 33 جم (حبتان  كبيرتان).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 33g (33g portion)."
@@ -9211,8 +9312,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_138",
     "code": "RP-MT-138",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Fried",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Fried Breaded Cod Fillet",
     "nameAr": "مسك القد مقلي",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -9221,12 +9322,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 208.6,
-      "carbsG": 0,
+      "caloriesKcal": 200.0,
+      "carbsG": 9.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20,
-      "fatG": 14.3,
+      "proteinG": 18.0,
+      "fatG": 9.8,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -9268,7 +9369,11 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "fried"
+      "fried",
+      "سمك القد مقلي",
+      "سمك",
+      "fried cod",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 35 جم (قطعة فيليه  )502 غ().",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 35g (35g portion)."
@@ -9398,7 +9503,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "fried"
+      "fried",
+      "سلمون",
+      "سمك",
+      "salmon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion)."
@@ -9471,8 +9579,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_142",
     "code": "RP-MT-142",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Luncheon Meat / Mortadella",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Beef Luncheon Meat",
     "nameAr": "لانشون بقري4 شرائح",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -9481,12 +9589,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 135.2,
-      "carbsG": 0,
+      "caloriesKcal": 240.0,
+      "carbsG": 3.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 13,
-      "fatG": 9.3,
+      "proteinG": 13.5,
+      "fatG": 18.8,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -9528,7 +9636,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "لانشون بقري",
+      "لانشون",
+      "luncheon meat"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 54 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 54g (54g portion)."
@@ -9601,8 +9712,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_144",
     "code": "RP-MT-144",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (إسكالوب بانيهربع)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Breaded Beef Escalope (Pané)",
     "nameAr": "إسكالوب بانيهربع",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -9611,12 +9722,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 280.8,
-      "carbsG": 0,
+      "caloriesKcal": 265.0,
+      "carbsG": 14.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 26.9,
-      "fatG": 19.2,
+      "proteinG": 18.5,
+      "fatG": 14.5,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -9658,7 +9769,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "إسكالوب بانيه",
+      "بانيه",
+      "beef escalope"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 26 جم (حبة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 26g (26g portion)."
@@ -9861,8 +9975,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_148",
     "code": "RP-MT-148",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Salami",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Beef Salami",
     "nameAr": "سلامي بقريشريحتان ونصف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -9871,13 +9985,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 130.4,
-      "carbsG": 0,
+      "caloriesKcal": 336.0,
+      "carbsG": 2.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.5,
-      "fatG": 8.9,
-      "fiberG": null,
+      "proteinG": 21.7,
+      "fatG": 26.3,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -9889,7 +10003,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -9918,7 +10031,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "سلامي بقري",
+      "سلامي",
+      "salami"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion)."
@@ -10121,8 +10237,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_152",
     "code": "RP-MT-152",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Liver Beef Fried",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Pan-Fried Beef Liver",
     "nameAr": "كبدة بقري مقلية",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -10131,13 +10247,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 260.7,
-      "carbsG": 0,
+      "caloriesKcal": 195.0,
+      "carbsG": 5.2,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 25,
-      "fatG": 17.9,
-      "fiberG": null,
+      "proteinG": 26.0,
+      "fatG": 7.2,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -10149,7 +10265,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -10178,7 +10293,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "fried"
+      "fried",
+      "كبدة بقري مقلية",
+      "beef liver"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 28 جم (شريحة  )58 غ( = 3 حصص).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 28g (28g portion)."
@@ -10576,8 +10693,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_159",
     "code": "RP-MT-159",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Luncheon Meat / Mortadella",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Chicken Luncheon Meat",
     "nameAr": "لانشون فراخشريحتان وربع",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -10586,12 +10703,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 119.7,
-      "carbsG": 0,
+      "caloriesKcal": 210.0,
+      "carbsG": 4.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 11.5,
-      "fatG": 8.2,
+      "proteinG": 14.0,
+      "fatG": 15.0,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -10633,7 +10750,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "لانشون فراخ",
+      "لانشون",
+      "chicken luncheon"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 61 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 61g (61g portion)."
@@ -10641,8 +10761,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_160",
     "code": "RP-MT-160",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Chicken",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Chicken Nuggets",
     "nameAr": "ناجتس فراخ",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -10651,13 +10771,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 149,
-      "carbsG": 0,
+      "caloriesKcal": 296.0,
+      "carbsG": 15.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 14.3,
-      "fatG": 10.2,
-      "fiberG": null,
+      "proteinG": 15.5,
+      "fatG": 19.0,
+      "fiberG": 0.9,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -10669,7 +10789,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -10698,7 +10817,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "ناجتس فراخ",
+      "ناجتس",
+      "chicken nuggets"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 49 جم (حبتان  ونصف).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 49g (49g portion)."
@@ -10706,45 +10828,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_161",
     "code": "RP-MT-161",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Liver Chicken",
+    "sourceId": "usda_fdc",
+    "nameEn": "Simmered / Cooked Chicken Liver",
     "nameAr": "كبدة فراخ مقليةكبدة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 270.4,
-      "carbsG": 0,
+      "caloriesKcal": 167.0,
+      "carbsG": 0.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 25.9,
-      "fatG": 18.5,
-      "fiberG": null,
+      "proteinG": 24.1,
+      "fatG": 6.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 76.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 67.1,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -10763,10 +10882,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "fried"
+      "fried",
+      "كبدة فراخ",
+      "chicken liver"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 27 جم (حصة معيارية).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion).",
+    "sourceRecordId": "05028"
   },
   {
     "id": "food_meat_rp_mt_162",
@@ -10966,8 +11088,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_165",
     "code": "RP-MT-165",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Chicken",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Breaded Chicken Cutlet (Pané)",
     "nameAr": "فراخ بانيه",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -10976,13 +11098,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 243.3,
-      "carbsG": 0,
+      "caloriesKcal": 268.0,
+      "carbsG": 14.2,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 23.3,
-      "fatG": 16.7,
-      "fiberG": null,
+      "proteinG": 19.5,
+      "fatG": 14.5,
+      "fiberG": 0.8,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -10994,7 +11116,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11023,7 +11144,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "فراخ بانيه",
+      "بانيه",
+      "breaded chicken"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (صدر متوسط  )561 غ().",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion)."
@@ -11031,45 +11155,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_166",
     "code": "RP-MT-166",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (صفار بيضصفار بيضتين ونصف)",
+    "sourceId": "usda_fdc",
+    "nameEn": "Egg Yolk (Raw)",
     "nameAr": "صفار بيضصفار بيضتين ونصف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 165.9,
-      "carbsG": 0,
+      "caloriesKcal": 322.0,
+      "carbsG": 3.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 15.9,
-      "fatG": 11.4,
-      "fiberG": null,
+      "fatG": 26.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 48.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 52.3,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -11088,16 +11209,19 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "صفار بيض",
+      "egg yolk"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 44 جم (حصة معيارية).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 44g (44g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 44g (44g portion).",
+    "sourceRecordId": "01125"
   },
   {
     "id": "food_meat_rp_mt_167",
     "code": "RP-MT-167",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Beef",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Beef Hot Dog / Frankfurter",
     "nameAr": "هوت دوج بقري",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -11106,13 +11230,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 121.7,
-      "carbsG": 0,
+      "caloriesKcal": 315.0,
+      "carbsG": 2.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 11.7,
-      "fatG": 8.3,
-      "fiberG": null,
+      "fatG": 28.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -11124,7 +11248,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11153,7 +11276,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "هوت دوج",
+      "سوسيس",
+      "hot dog"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 60 جم (إصبع  وربع).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 60g (60g portion)."
@@ -11226,8 +11352,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_169",
     "code": "RP-MT-169",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Pepperoni",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Beef Pepperoni",
     "nameAr": "بيبروني بقري91",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
@@ -11236,13 +11362,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 187.2,
-      "carbsG": 0,
+      "caloriesKcal": 466.0,
+      "carbsG": 2.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 17.9,
-      "fatG": 12.8,
-      "fiberG": null,
+      "proteinG": 22.0,
+      "fatG": 40.3,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -11254,7 +11380,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11283,7 +11408,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked"
+      "cooked",
+      "بيبروني",
+      "pepperoni"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 39 جم (شريحة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 39g (39g portion)."
@@ -11413,7 +11540,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "لحمة",
+      "شاورما",
+      "shawarma"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 28 جم (28 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 28g (28g portion)."
@@ -11551,8 +11681,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_174",
     "code": "RP-MT-174",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Chicken",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Plant-Based Chick'n Strips",
     "nameAr": "شرائح دجاج نباتيةحصة )58 غ(",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -11561,13 +11691,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 333.3,
-      "carbsG": 0,
+      "caloriesKcal": 180.0,
+      "carbsG": 8.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 23.3,
-      "fatG": 26.7,
-      "fiberG": null,
+      "proteinG": 20.0,
+      "fatG": 7.0,
+      "fiberG": 3.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -11579,7 +11709,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11608,7 +11737,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "شرائح دجاج نباتية",
+      "plant protein"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion)."
@@ -11616,8 +11747,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_175",
     "code": "RP-MT-175",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Sausage",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Plant-Based Vegetarian Sausage",
     "nameAr": "سجق نباتي",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -11626,13 +11757,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 294.1,
-      "carbsG": 0,
+      "caloriesKcal": 210.0,
+      "carbsG": 9.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20.6,
-      "fatG": 23.5,
-      "fiberG": null,
+      "proteinG": 18.0,
+      "fatG": 11.0,
+      "fiberG": 3.5,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -11644,7 +11775,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11673,7 +11803,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "سجق نباتي",
+      "plant sausage"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 34 جم (34 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 34g (34g portion)."
@@ -11681,8 +11813,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_176",
     "code": "RP-MT-176",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Tofu",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Soft Tofu",
     "nameAr": "توفو طري",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -11691,13 +11823,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 103.1,
-      "carbsG": 0,
+      "caloriesKcal": 62.0,
+      "carbsG": 1.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 7.2,
-      "fatG": 8.2,
-      "fiberG": null,
+      "proteinG": 6.5,
+      "fatG": 3.5,
+      "fiberG": 0.3,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -11709,7 +11841,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11738,7 +11869,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "توفو طري",
+      "توفو",
+      "soft tofu"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 97 جم (97 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 97g (97g portion)."
@@ -11746,45 +11880,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_177",
     "code": "RP-MT-177",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Tofu",
+    "sourceId": "usda_fdc",
+    "nameEn": "Silken Tofu",
     "nameAr": "توفو حريري",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 69,
-      "carbsG": 0,
+      "caloriesKcal": 55.0,
+      "carbsG": 1.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 4.8,
-      "fatG": 5.5,
-      "fiberG": null,
+      "fatG": 2.7,
+      "fiberG": 0.1,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 5.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 89.6,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -11803,16 +11934,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "توفو حريري",
+      "توفو",
+      "silken tofu"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 145 جم (145 جم).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 145g (145g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 145g (145g portion).",
+    "sourceRecordId": "16127"
   },
   {
     "id": "food_meat_rp_mt_178",
     "code": "RP-MT-178",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (متبيه)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Tempeh",
     "nameAr": "متبيه",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -11821,12 +11956,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 294.1,
-      "carbsG": 0,
+      "caloriesKcal": 192.0,
+      "carbsG": 7.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 20.6,
-      "fatG": 23.5,
+      "proteinG": 20.3,
+      "fatG": 10.8,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -11868,7 +12003,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "تمبي",
+      "tempeh"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 34 جم (34 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 34g (34g portion)."
@@ -11876,45 +12013,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_179",
     "code": "RP-MT-179",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Tofu",
+    "sourceId": "usda_fdc",
+    "nameEn": "Firm Tofu",
     "nameAr": "توفو جامد",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 250,
-      "carbsG": 0,
+      "caloriesKcal": 144.0,
+      "carbsG": 2.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 17.5,
-      "fatG": 20,
-      "fiberG": null,
+      "proteinG": 17.3,
+      "fatG": 8.7,
+      "fiberG": 2.3,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 14.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 69.8,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -11933,16 +12067,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "توفو جامد",
+      "توفو",
+      "firm tofu"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 40 جم (40 جم).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 40g (40g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 40g (40g portion).",
+    "sourceRecordId": "16126"
   },
   {
     "id": "food_meat_rp_mt_180",
     "code": "RP-MT-180",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cheese",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Akkawi Cheese",
     "nameAr": "جبنة عكاوي",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -11951,13 +12089,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 232.6,
-      "carbsG": 0,
+      "caloriesKcal": 289.0,
+      "carbsG": 1.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 16.3,
-      "fatG": 18.6,
-      "fiberG": null,
+      "proteinG": 22.0,
+      "fatG": 21.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -11969,7 +12107,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -11998,7 +12135,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "جبنة عكاوي",
+      "عكاوي",
+      "akkawi cheese"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 43 جم (43 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 43g (43g portion)."
@@ -12006,8 +12146,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_181",
     "code": "RP-MT-181",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cheese",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Processed Triangle Cheese Wedges",
     "nameAr": "جبنة مثلثات4 مثلثات",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12016,13 +12156,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 153.8,
-      "carbsG": 0,
+      "caloriesKcal": 285.0,
+      "carbsG": 4.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 10.8,
-      "fatG": 12.3,
-      "fiberG": null,
+      "proteinG": 11.0,
+      "fatG": 25.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12034,7 +12174,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12063,7 +12202,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "جبنة مثلثات",
+      "جبنة",
+      "processed cheese"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 65 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 65g (65g portion)."
@@ -12071,8 +12213,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_182",
     "code": "RP-MT-182",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (بانيرمكعب وربع)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Paneer Cheese",
     "nameAr": "بانيرمكعب وربع",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12081,13 +12223,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 263.2,
-      "carbsG": 0,
+      "caloriesKcal": 296.0,
+      "carbsG": 3.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 18.4,
-      "fatG": 21.1,
-      "fiberG": null,
+      "proteinG": 18.3,
+      "fatG": 23.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12099,7 +12241,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12128,7 +12269,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "جبنة بانير",
+      "بانير",
+      "paneer"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 38 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 38g (38g portion)."
@@ -12136,45 +12280,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_183",
     "code": "RP-MT-183",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (ريكوتا6 ملاعق كبيرة)",
+    "sourceId": "usda_fdc",
+    "nameEn": "Whole Milk Ricotta Cheese",
     "nameAr": "ريكوتا6 ملاعق كبيرة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 107.5,
-      "carbsG": 0,
+      "caloriesKcal": 174.0,
+      "carbsG": 3.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 7.5,
-      "fatG": 8.6,
-      "fiberG": null,
+      "proteinG": 11.3,
+      "fatG": 13.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 84.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 71.7,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -12193,53 +12334,54 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "ريكوتا",
+      "جبنة ريكوتا",
+      "ricotta cheese"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 93 جم (حصة معيارية).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 93g (93g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 93g (93g portion).",
+    "sourceRecordId": "01036"
   },
   {
     "id": "food_meat_rp_mt_184",
     "code": "RP-MT-184",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cheese",
+    "sourceId": "usda_fdc",
+    "nameEn": "Feta Cheese",
     "nameAr": "جبنة فيتا",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 204.1,
-      "carbsG": 0,
+      "caloriesKcal": 264.0,
+      "carbsG": 4.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 14.3,
-      "fatG": 16.3,
-      "fiberG": null,
+      "proteinG": 14.2,
+      "fatG": 21.3,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 917.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 55.2,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -12258,53 +12400,54 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "جبنة فيتا",
+      "فيتا",
+      "feta cheese"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 49 جم (49 جم).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 49g (49g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 49g (49g portion).",
+    "sourceRecordId": "01019"
   },
   {
     "id": "food_meat_rp_mt_185",
     "code": "RP-MT-185",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (موتزاريلا)",
+    "sourceId": "usda_fdc",
+    "nameEn": "Whole Milk Mozzarella Cheese",
     "nameAr": "موتزاريلا",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 344.8,
-      "carbsG": 0,
+      "caloriesKcal": 300.0,
+      "carbsG": 2.2,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 24.1,
-      "fatG": 27.6,
-      "fiberG": null,
+      "proteinG": 22.2,
+      "fatG": 22.4,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 627.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 50.0,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -12323,16 +12466,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "موتزاريلا",
+      "جبنة موتزاريلا",
+      "mozzarella"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 29 جم (شريحة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 29g (29g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 29g (29g portion).",
+    "sourceRecordId": "01026"
   },
   {
     "id": "food_meat_rp_mt_186",
     "code": "RP-MT-186",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Cheese",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Egyptian Domiati White Cheese",
     "nameAr": "جبنة بيضاء دمياطي",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12341,13 +12488,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 208.3,
-      "carbsG": 0,
+      "caloriesKcal": 245.0,
+      "carbsG": 2.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 14.6,
-      "fatG": 16.7,
-      "fiberG": null,
+      "proteinG": 15.0,
+      "fatG": 19.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12359,7 +12506,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12388,7 +12534,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "جبنة بيضاء دمياطي",
+      "جبنة دمياطي",
+      "domiati cheese"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 48 جم (48 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 48g (48g portion)."
@@ -12396,8 +12545,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_187",
     "code": "RP-MT-187",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (أومليتبيضة)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Omelet (Cooked Whole Egg)",
     "nameAr": "أومليتبيضة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12406,13 +12555,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 151.5,
-      "carbsG": 0,
+      "caloriesKcal": 154.0,
+      "carbsG": 1.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 10.6,
-      "fatG": 12.1,
-      "fiberG": null,
+      "fatG": 11.7,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12424,7 +12573,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12453,7 +12601,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "أومليت",
+      "بيض",
+      "omelet"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 66 جم (حصة معيارية).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 66g (66g portion)."
@@ -12461,8 +12612,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_188",
     "code": "RP-MT-188",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Egg",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Scrambled Egg",
     "nameAr": "بيض مخفوق",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12471,13 +12622,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 142.9,
-      "carbsG": 0,
+      "caloriesKcal": 149.0,
+      "carbsG": 1.6,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 10,
-      "fatG": 11.4,
-      "fiberG": null,
+      "proteinG": 10.0,
+      "fatG": 11.0,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12489,7 +12640,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12518,7 +12668,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "بيض مخفوق",
+      "بيض",
+      "scrambled egg"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 70 جم (حبة كبيرة  وربع).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 70g (70g portion)."
@@ -12526,8 +12679,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_189",
     "code": "RP-MT-189",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Egg",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Poached Egg",
     "nameAr": "بيض بوشيه",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12536,13 +12689,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 178.6,
-      "carbsG": 0,
+      "caloriesKcal": 143.0,
+      "carbsG": 0.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 12.5,
-      "fatG": 14.3,
-      "fiberG": null,
+      "fatG": 9.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12554,7 +12707,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12583,7 +12735,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "بيض بوشيه",
+      "بيض",
+      "poached egg"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حبة كبيرة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion)."
@@ -12591,8 +12746,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_190",
     "code": "RP-MT-190",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Egg Fried",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Fried Egg",
     "nameAr": "بيض مقلي",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12601,13 +12756,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 196.1,
-      "carbsG": 0,
+      "caloriesKcal": 196.0,
+      "carbsG": 0.8,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 13.7,
-      "fatG": 15.7,
-      "fiberG": null,
+      "proteinG": 13.6,
+      "fatG": 14.8,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12619,7 +12774,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12648,7 +12802,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "fried"
+      "fried",
+      "بيض مقلي",
+      "بيض",
+      "fried egg"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 51 جم (حبة متوسطة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 51g (51g portion)."
@@ -12656,45 +12813,42 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_191",
     "code": "RP-MT-191",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Egg Boiled",
+    "sourceId": "usda_fdc",
+    "nameEn": "Hard-Boiled Whole Egg",
     "nameAr": "بيض مسلوق",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "boiled",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 178.6,
-      "carbsG": 0,
+      "caloriesKcal": 155.0,
+      "carbsG": 1.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.5,
-      "fatG": 14.3,
-      "fiberG": null,
+      "proteinG": 12.6,
+      "fatG": 10.6,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 124.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
-      "waterG": null,
+      "waterG": 74.6,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
-        "ironMg",
-        "waterG"
+        "ironMg"
       ]
     },
     "portions": [
@@ -12713,16 +12867,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "boiled"
+      "boiled",
+      "بيض مسلوق",
+      "بيض",
+      "boiled egg"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حبة كبيرة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion)."
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion).",
+    "sourceRecordId": "01129"
   },
   {
     "id": "food_meat_rp_mt_192",
     "code": "RP-MT-192",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Egg Raw",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Raw Whole Egg",
     "nameAr": "بيض نيء",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12731,13 +12889,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 178.6,
-      "carbsG": 0,
+      "caloriesKcal": 143.0,
+      "carbsG": 0.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.5,
-      "fatG": 14.3,
-      "fiberG": null,
+      "proteinG": 12.6,
+      "fatG": 9.5,
+      "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12749,7 +12907,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12778,7 +12935,10 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "raw"
+      "raw",
+      "بيض نيء",
+      "بيض",
+      "raw egg"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حبة كبيرة).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion)."
@@ -12786,8 +12946,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_193",
     "code": "RP-MT-193",
-    "sourceId": "regimeplan_2026",
-    "nameEn": "Meat Product (فيليه مسك بانيهنصف)",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Breaded Fried Fish Fillet (Pané)",
     "nameAr": "فيليه مسك بانيهنصف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
@@ -12796,13 +12956,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 192.3,
-      "carbsG": 0,
+      "caloriesKcal": 232.0,
+      "carbsG": 16.5,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 13.5,
-      "fatG": 15.4,
-      "fiberG": null,
+      "proteinG": 14.5,
+      "fatG": 12.0,
+      "fiberG": 0.8,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
@@ -12814,7 +12974,6 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
@@ -12843,7 +13002,12 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "cooked"
+      "cooked",
+      "فيليه سمك بانيه",
+      "سمك",
+      "بانيه",
+      "breaded fish",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 52 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 52g (52g portion)."
@@ -13038,7 +13202,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_high_fat",
-      "fried"
+      "fried",
+      "سمك",
+      "fish"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 35 جم (قطعة فيليه).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 35g (35g portion)."

@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+Nutrition Clinic Pro - Legumes Generator
+Applies analytical overrides for confirmed soy, chickpea, lentil, bean, and flour items,
+strictly separating 100g composition from exchange portion definitions.
+"""
+
 import json
 import os
+import re
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/legumes.ts")
@@ -9,7 +16,7 @@ with open(os.path.join(BASE_DIR, "scripts/original_30_grouped.json"), "r", encod
     orig = json.load(f)["legumes"]
 
 # 29 new legume items from PDF p. 7 & 8
-# RegimePlan 2026 p. 1 legume macros: 118 kcal, 15g carb, 10g pro, 2g fat
+# RegimePlan 2026 p. 1 legume exchange reference: 118 kcal, 15g carb, 10g pro, 2g fat
 RAW_LEGUMES = [
     ("فول جاف نيء", "Raw Dry Fava Beans", 35, "3 ملاعق كبيرة ونصف", "3.5 tbsp", "raw", "RP-LEG-001", 7),
     ("عدس بني مطبوخ", "Cooked Brown Lentils (RegimePlan)", 99, "نصف كوب", "1/2 cup", "cooked", "RP-LEG-002", 7),
@@ -44,51 +51,102 @@ RAW_LEGUMES = [
 
 LEG_MACRO = {"caloriesKcal": 118, "carbsG": 15, "proteinG": 10, "fatG": 2}
 
+LEG_ANALYTICAL_OVERRIDES = {
+    "RP-LEG-001": {"caloriesKcal": 341.0, "carbsG": 58.3, "proteinG": 26.1, "fatG": 1.5, "fiberG": 25.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-002": {"caloriesKcal": 116.0, "carbsG": 20.1, "proteinG": 9.0, "fatG": 0.4, "fiberG": 7.9, "sourceId": "usda_fdc", "sourceRecordId": "16070", "verificationStatus": "verified_standard"},
+    "RP-LEG-003": {"caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.9, "fatG": 2.6, "fiberG": 7.6, "sourceId": "usda_fdc", "sourceRecordId": "16057", "verificationStatus": "verified_standard"},
+    "RP-LEG-004": {"caloriesKcal": 132.0, "carbsG": 23.7, "proteinG": 8.9, "fatG": 0.5, "fiberG": 8.7, "sourceId": "usda_fdc", "sourceRecordId": "16034", "verificationStatus": "verified_standard"},
+    "RP-LEG-005": {"caloriesKcal": 127.0, "carbsG": 22.8, "proteinG": 8.7, "fatG": 0.5, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-006": {"caloriesKcal": 172.0, "carbsG": 9.9, "proteinG": 16.6, "fatG": 9.0, "fiberG": 6.0, "sourceId": "usda_fdc", "sourceRecordId": "16109", "verificationStatus": "verified_standard"},
+    "RP-LEG-007": {"caloriesKcal": 352.0, "carbsG": 63.4, "proteinG": 24.6, "fatG": 1.1, "fiberG": 10.7, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-008": {"caloriesKcal": 378.0, "carbsG": 63.0, "proteinG": 20.5, "fatG": 6.0, "fiberG": 12.2, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-011": {"caloriesKcal": 121.0, "carbsG": 8.9, "proteinG": 11.9, "fatG": 5.2, "fiberG": 5.2, "sourceId": "usda_fdc", "sourceRecordId": "11212", "verificationStatus": "verified_standard"},
+    "RP-LEG-016": {"caloriesKcal": 116.0, "carbsG": 20.8, "proteinG": 7.7, "fatG": 0.5, "fiberG": 6.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-017": {"caloriesKcal": 118.0, "carbsG": 21.1, "proteinG": 8.3, "fatG": 0.4, "fiberG": 8.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-018": {"caloriesKcal": 119.0, "carbsG": 9.9, "proteinG": 15.6, "fatG": 2.9, "fiberG": 2.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-023": {"caloriesKcal": 110.0, "carbsG": 19.7, "proteinG": 7.6, "fatG": 0.4, "fiberG": 5.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-026": {"caloriesKcal": 139.0, "carbsG": 22.6, "proteinG": 7.0, "fatG": 2.6, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-LEG-027": {"caloriesKcal": 387.0, "carbsG": 57.8, "proteinG": 22.4, "fatG": 6.7, "fiberG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+}
+
+CORE_KEYS = [
+    "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
+    "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
+    "calciumMg", "ironMg", "waterG"
+]
+
+
 def make_leg_item(raw):
     name_ar, name_en, w, hh_ar, hh_en, prep, code, page = raw
     W = float(w)
-    kcal100 = round((LEG_MACRO["caloriesKcal"] / W) * 100, 1)
-    c100 = round((LEG_MACRO["carbsG"] / W) * 100, 1)
-    p100 = round((LEG_MACRO["proteinG"] / W) * 100, 1)
-    f100 = round((LEG_MACRO["fatG"] / W) * 100, 1)
+    override = LEG_ANALYTICAL_OVERRIDES.get(code)
+    if override:
+        kcal100 = override["caloriesKcal"]
+        c100 = override["carbsG"]
+        p100 = override["proteinG"]
+        f100 = override["fatG"]
+        src_id = override.get("sourceId", "clinic_reviewed")
+        src_rec_id = override.get("sourceRecordId")
+        ver_status = override.get("verificationStatus", "clinic_reviewed")
+    else:
+        kcal100 = round((LEG_MACRO["caloriesKcal"] / W) * 100, 1)
+        c100 = round((LEG_MACRO["carbsG"] / W) * 100, 1)
+        p100 = round((LEG_MACRO["proteinG"] / W) * 100, 1)
+        f100 = round((LEG_MACRO["fatG"] / W) * 100, 1)
+        src_id = "regimeplan_2026"
+        src_rec_id = None
+        ver_status = "clinic_reviewed"
+
+    nutrients = {
+        "basisWeightG": 100,
+        "caloriesKcal": kcal100,
+        "carbsG": c100,
+        "availableCarbsG": None,
+        "carbCalculationBasis": "total_by_difference",
+        "proteinG": p100,
+        "fatG": f100,
+        "fiberG": override.get("fiberG", None) if override else None,
+        "saturatedFatG": None,
+        "transFatG": None,
+        "monounsaturatedFatG": None,
+        "polyunsaturatedFatG": None,
+        "cholesterolMg": None,
+        "sodiumMg": None,
+        "potassiumMg": None,
+        "calciumMg": None,
+        "ironMg": None,
+        "waterG": None,
+    }
+    nutrients["missingNutrientKeys"] = [k for k in CORE_KEYS if nutrients[k] is None]
+
+    if src_id == "usda_fdc":
+        if not src_rec_id or not re.match(r"^\d{5,6}$", str(src_rec_id)):
+            raise ValueError(f"{code}: Invalid USDA NDB ID {src_rec_id!r}")
+        notes_ar = (
+            f"التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB {src_rec_id}). "
+            f"وزن بديل البقوليات من RegimePlan 2026 (ص {page}): {w} جم ({hh_ar})."
+        )
+        notes_en = (
+            f"Analytical 100g composition from USDA SR Legacy (NDB {src_rec_id}). "
+            f"RegimePlan Food Exchange Lists (2026, p. {page}) legume exchange portion: {w}g ({hh_en})."
+        )
+    else:
+        notes_ar = f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar})."
+        notes_en = f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard legume exchange portion: {w}g ({hh_en})."
 
     item_id = f"food_legume_{code.lower().replace('-', '_')}"
-    return {
+    record = {
         "id": item_id,
         "code": code,
-        "sourceId": "regimeplan_2026",
+        "sourceId": src_id,
         "nameEn": name_en,
         "nameAr": name_ar,
         "foodGroupId": "legumes",
         "primaryExchangeCategoryId": "plant_protein_legumes",
         "preparationState": prep,
-        "verificationStatus": "clinic_reviewed",
+        "verificationStatus": ver_status,
         "isCustom": False,
-        "nutrients100g": {
-            "basisWeightG": 100,
-            "caloriesKcal": kcal100,
-            "carbsG": c100,
-            "availableCarbsG": None,
-            "carbCalculationBasis": "total_by_difference",
-            "proteinG": p100,
-            "fatG": f100,
-            "fiberG": None,
-            "saturatedFatG": None,
-            "transFatG": None,
-            "monounsaturatedFatG": None,
-            "polyunsaturatedFatG": None,
-            "cholesterolMg": None,
-            "sodiumMg": None,
-            "potassiumMg": None,
-            "calciumMg": None,
-            "ironMg": None,
-            "waterG": None,
-            "missingNutrientKeys": [
-                "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
-                "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
-                "calciumMg", "ironMg", "waterG"
-            ]
-        },
+        "nutrients100g": nutrients,
         "portions": [{
             "id": f"portion_{item_id}_serving",
             "portionNameEn": f"1 Legume Exchange (~{w}g)",
@@ -101,9 +159,13 @@ def make_leg_item(raw):
             "isDefaultServing": True
         }],
         "tags": ["legumes", "plant_protein_legumes", prep],
-        "notesAr": f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar}).",
-        "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard legume exchange portion: {w}g ({hh_en})."
+        "notesAr": notes_ar,
+        "notesEn": notes_en,
     }
+    if src_rec_id is not None:
+        record["sourceRecordId"] = str(src_rec_id)
+    return record
+
 
 new_legs = [make_leg_item(r) for r in RAW_LEGUMES]
 all_legs = orig + new_legs

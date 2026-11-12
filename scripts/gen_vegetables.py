@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+Nutrition Clinic Pro - Non-Starchy Vegetables Generator
+Replaces severe low-gram-weight and dried-vegetable exchange distortions
+with verified analytical composition while keeping exchange portions intact.
+"""
+
 import json
 import os
+import re
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/vegetables.ts")
@@ -103,51 +110,104 @@ RAW_VEGETABLES = [
     ("صلصة طماطم طبيعية سائلة للطبخ", "Natural Tomato Cooking Sauce", 125, "نصف كوب", "1/2 cup", "cooked", "RP-VG-088", 6),
 ]
 
+VEG_ANALYTICAL_OVERRIDES = {
+    "RP-VG-001": {"caloriesKcal": 34.0, "carbsG": 5.8, "proteinG": 4.0, "fatG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-007": {"caloriesKcal": 23.0, "carbsG": 3.6, "proteinG": 2.9, "fatG": 0.4, "fiberG": 2.2, "sourceId": "usda_fdc", "sourceRecordId": "11457", "verificationStatus": "verified_standard"},
+    "RP-VG-025": {"caloriesKcal": 17.0, "carbsG": 3.3, "proteinG": 1.2, "fatG": 0.3, "fiberG": 2.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-034": {"caloriesKcal": 35.0, "carbsG": 4.4, "proteinG": 2.9, "fatG": 1.5, "fiberG": 3.6, "sourceId": "usda_fdc", "sourceRecordId": "11233", "verificationStatus": "verified_standard"},
+    "RP-VG-036": {"caloriesKcal": 25.0, "carbsG": 3.7, "proteinG": 2.6, "fatG": 0.7, "fiberG": 1.6, "sourceId": "usda_fdc", "sourceRecordId": "11959", "verificationStatus": "verified_standard"},
+    "RP-VG-041": {"caloriesKcal": 52.0, "carbsG": 12.1, "proteinG": 1.2, "fatG": 0.3, "fiberG": 3.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-060": {"caloriesKcal": 19.0, "carbsG": 3.7, "proteinG": 1.8, "fatG": 0.2, "fiberG": 1.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-061": {"caloriesKcal": 32.0, "carbsG": 5.4, "proteinG": 3.0, "fatG": 0.6, "fiberG": 4.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-065": {"caloriesKcal": 72.0, "carbsG": 16.8, "proteinG": 2.5, "fatG": 0.1, "fiberG": 3.2, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-073": {"caloriesKcal": 306.0, "carbsG": 44.3, "proteinG": 41.4, "fatG": 2.8, "fiberG": 34.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-074": {"caloriesKcal": 154.0, "carbsG": 30.0, "proteinG": 18.0, "fatG": 2.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-075": {"caloriesKcal": 145.0, "carbsG": 32.0, "proteinG": 8.0, "fatG": 1.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-079": {"caloriesKcal": 258.0, "carbsG": 55.8, "proteinG": 14.1, "fatG": 3.0, "fiberG": 12.3, "sourceId": "usda_fdc", "sourceRecordId": "11955", "verificationStatus": "verified_standard"},
+    "RP-VG-080": {"caloriesKcal": 220.0, "carbsG": 34.0, "proteinG": 22.0, "fatG": 2.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-081": {"caloriesKcal": 69.0, "carbsG": 11.7, "proteinG": 4.3, "fatG": 2.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-VG-082": {"caloriesKcal": 20.0, "carbsG": 3.4, "proteinG": 2.0, "fatG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+}
+
+CORE_KEYS = [
+    "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
+    "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
+    "calciumMg", "ironMg", "waterG"
+]
+
+
 def make_veg_item(row):
     ar, en, w, hh_ar, hh_en, prep, code, page = row
-    macros = {"caloriesKcal": 28, "carbsG": 5, "proteinG": 2, "fatG": 0}
     W = float(w)
-    kcal100 = round((macros["caloriesKcal"] / W) * 100.0, 1)
-    c100 = round((macros["carbsG"] / W) * 100.0, 1)
-    p100 = round((macros["proteinG"] / W) * 100.0, 1)
+    override = VEG_ANALYTICAL_OVERRIDES.get(code)
+    if override:
+        kcal100 = override["caloriesKcal"]
+        c100 = override["carbsG"]
+        p100 = override["proteinG"]
+        f100 = override["fatG"]
+        src_id = override.get("sourceId", "clinic_reviewed")
+        src_rec_id = override.get("sourceRecordId")
+        ver_status = override.get("verificationStatus", "clinic_reviewed")
+    else:
+        macros = {"caloriesKcal": 28, "carbsG": 5, "proteinG": 2, "fatG": 0}
+        kcal100 = round((macros["caloriesKcal"] / W) * 100.0, 1)
+        c100 = round((macros["carbsG"] / W) * 100.0, 1)
+        p100 = round((macros["proteinG"] / W) * 100.0, 1)
+        f100 = 0.0
+        src_id = "regimeplan_2026"
+        src_rec_id = None
+        ver_status = "clinic_reviewed"
+
+    nutrients = {
+        "basisWeightG": 100,
+        "caloriesKcal": kcal100,
+        "carbsG": c100,
+        "availableCarbsG": None,
+        "carbCalculationBasis": "total_by_difference",
+        "proteinG": p100,
+        "fatG": f100,
+        "fiberG": override.get("fiberG", None) if override else None,
+        "saturatedFatG": None,
+        "transFatG": None,
+        "monounsaturatedFatG": None,
+        "polyunsaturatedFatG": None,
+        "cholesterolMg": None,
+        "sodiumMg": None,
+        "potassiumMg": None,
+        "calciumMg": None,
+        "ironMg": None,
+        "waterG": None,
+    }
+    nutrients["missingNutrientKeys"] = [k for k in CORE_KEYS if nutrients[k] is None]
+
+    if src_id == "usda_fdc":
+        if not src_rec_id or not re.match(r"^\d{5,6}$", str(src_rec_id)):
+            raise ValueError(f"{code}: Invalid USDA NDB ID {src_rec_id!r}")
+        notes_ar = (
+            f"التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB {src_rec_id}). "
+            f"وزن بديل الخضروات من RegimePlan 2026 (ص {page}): {w} جم ({hh_ar})."
+        )
+        notes_en = (
+            f"Analytical 100g composition from USDA SR Legacy (NDB {src_rec_id}). "
+            f"RegimePlan Food Exchange Lists (2026, p. {page}) vegetable exchange portion: {w}g ({hh_en})."
+        )
+    else:
+        notes_ar = f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar})."
+        notes_en = f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard vegetable exchange portion: {w}g ({hh_en})."
 
     item_id = f"food_veg_rp_{code.lower().replace('-', '_')}"
-    return {
+    record = {
         "id": item_id,
         "code": code,
-        "sourceId": "regimeplan_2026",
+        "sourceId": src_id,
         "nameEn": en,
         "nameAr": ar,
         "foodGroupId": "vegetables",
         "primaryExchangeCategoryId": "vegetable_non_starchy",
         "preparationState": prep,
-        "verificationStatus": "clinic_reviewed",
+        "verificationStatus": ver_status,
         "isCustom": False,
-        "nutrients100g": {
-            "basisWeightG": 100,
-            "caloriesKcal": kcal100,
-            "carbsG": c100,
-            "availableCarbsG": None,
-            "carbCalculationBasis": "total_by_difference",
-            "proteinG": p100,
-            "fatG": 0.0,
-            "fiberG": None,
-            "saturatedFatG": None,
-            "transFatG": None,
-            "monounsaturatedFatG": None,
-            "polyunsaturatedFatG": None,
-            "cholesterolMg": None,
-            "sodiumMg": None,
-            "potassiumMg": None,
-            "calciumMg": None,
-            "ironMg": None,
-            "waterG": None,
-            "missingNutrientKeys": [
-                "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
-                "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
-                "calciumMg", "ironMg", "waterG"
-            ]
-        },
+        "nutrients100g": nutrients,
         "portions": [{
             "id": f"portion_{item_id}_serving",
             "portionNameEn": f"1 Vegetable Exchange (~{w}g)",
@@ -160,9 +220,13 @@ def make_veg_item(row):
             "isDefaultServing": True
         }],
         "tags": ["vegetables", "vegetable_non_starchy", prep],
-        "notesAr": f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar}).",
-        "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard vegetable exchange portion: {w}g ({hh_en})."
+        "notesAr": notes_ar,
+        "notesEn": notes_en,
     }
+    if src_rec_id is not None:
+        record["sourceRecordId"] = str(src_rec_id)
+    return record
+
 
 new_vegs = [make_veg_item(r) for r in RAW_VEGETABLES]
 all_vegs = orig + new_vegs

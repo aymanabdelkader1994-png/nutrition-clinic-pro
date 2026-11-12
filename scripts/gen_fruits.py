@@ -89,6 +89,53 @@ FRUIT_ANALYTICAL_OVERRIDES = {
     "RP-FR-011": {"caloriesKcal": 275.0, "carbsG": 71.0, "proteinG": 0.0, "fatG": 0.0},
     "RP-FR-012": {"caloriesKcal": 516.0, "carbsG": 60.5, "proteinG": 12.0, "fatG": 26.0},
     "RP-FR-013": {"caloriesKcal": 479.0, "carbsG": 65.0, "proteinG": 4.5, "fatG": 27.0},
+    # Dried fruits, jams & molasses analytical remediation
+    "RP-FR-001": {
+        "caloriesKcal": 282.0, "carbsG": 72.0, "proteinG": 1.5, "fatG": 0.2,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-004": {
+        "caloriesKcal": 278.0, "carbsG": 68.9, "proteinG": 0.4, "fatG": 0.1,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-005": {
+        "caloriesKcal": 278.0, "carbsG": 68.9, "proteinG": 0.4, "fatG": 0.1,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-006": {
+        "caloriesKcal": 278.0, "carbsG": 68.9, "proteinG": 0.4, "fatG": 0.1,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-014": {
+        "caloriesKcal": 277.0, "carbsG": 75.0, "proteinG": 1.8, "fatG": 0.2,
+        "fiberG": 6.7, "sodiumMg": 1.0, "waterG": 21.3,
+        "sourceId": "usda_fdc", "sourceRecordId": "09421", "verificationStatus": "verified_standard",
+    },
+    "RP-FR-021": {
+        "caloriesKcal": 299.0, "carbsG": 79.2, "proteinG": 3.1, "fatG": 0.5,
+        "fiberG": 3.7, "sodiumMg": 11.0, "waterG": 15.4,
+        "sourceId": "usda_fdc", "sourceRecordId": "09298", "verificationStatus": "verified_standard",
+    },
+    "RP-FR-031": {
+        "caloriesKcal": 249.0, "carbsG": 63.9, "proteinG": 3.3, "fatG": 0.9,
+        "fiberG": 9.8,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-044": {
+        "caloriesKcal": 241.0, "carbsG": 62.6, "proteinG": 3.4, "fatG": 0.5,
+        "fiberG": 7.3,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-056": {
+        "caloriesKcal": 282.0, "carbsG": 75.0, "proteinG": 2.0, "fatG": 0.4,
+        "fiberG": 7.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-FR-057": {
+        "caloriesKcal": 280.0, "carbsG": 68.0, "proteinG": 2.8, "fatG": 0.5,
+        "fiberG": 6.5,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
 }
 
 CONFECTIONERY_CODES = {"RP-FR-002", "RP-FR-003", "RP-FR-007", "RP-FR-008", "RP-FR-012", "RP-FR-013"}
@@ -115,7 +162,6 @@ def make_fruit_item(row):
     is_confectionery = code in CONFECTIONERY_CODES
     food_group = "occasions" if is_confectionery else "fruits"
     exchange_cat = "combination_food" if is_confectionery else "fruit"
-    exchange_factor = 0 if is_confectionery else 1
 
     water100 = override.get("waterG", None)
     fiber100 = override.get("fiberG", None)
@@ -184,16 +230,19 @@ def make_fruit_item(row):
         notes_ar = f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar})."
         notes_en = f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard fruit exchange portion: {w}g ({hh_en})."
 
-    return {
+    source_id = override.get("sourceId", "regimeplan_2026")
+    ver_status = override.get("verificationStatus", "clinic_reviewed")
+
+    record = {
         "id": item_id,
         "code": code,
-        "sourceId": "regimeplan_2026",
+        "sourceId": source_id,
         "nameEn": en,
         "nameAr": ar,
         "foodGroupId": food_group,
         "primaryExchangeCategoryId": exchange_cat,
         "preparationState": prep,
-        "verificationStatus": "clinic_reviewed",
+        "verificationStatus": ver_status,
         "isCustom": False,
         "nutrients100g": nutrients,
         "portions": [portion_def],
@@ -201,6 +250,9 @@ def make_fruit_item(row):
         "notesAr": notes_ar,
         "notesEn": notes_en
     }
+    if override.get("sourceRecordId"):
+        record["sourceRecordId"] = override["sourceRecordId"]
+    return record
 
 new_fruits = [make_fruit_item(r) for r in RAW_FRUITS]
 all_fruits = orig + new_fruits

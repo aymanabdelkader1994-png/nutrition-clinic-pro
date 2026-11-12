@@ -174,6 +174,61 @@ STARCH_ANALYTICAL_OVERRIDES = {
     "RP-ST-049": {"caloriesKcal": 357.0, "carbsG": 84.0, "proteinG": 7.5, "fatG": 0.4},
     "RP-ST-052": {"caloriesKcal": 387.0, "carbsG": 89.8, "proteinG": 6.3, "fatG": 0.5},
     "RP-ST-104": {"caloriesKcal": 387.0, "carbsG": 81.5, "proteinG": 8.2, "fatG": 2.8},
+    # Non-starch / high-fat / severe distortion analytical overrides
+    "RP-ST-090": {
+        "caloriesKcal": 26.0, "carbsG": 6.5, "proteinG": 1.0, "fatG": 0.1,
+        "fiberG": 0.5, "waterG": 91.6,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-ST-091": {
+        "caloriesKcal": 20.0, "carbsG": 4.9, "proteinG": 0.7, "fatG": 0.1,
+        "fiberG": 1.1, "waterG": 93.7,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-ST-103": {
+        "caloriesKcal": 82.0, "carbsG": 18.9, "proteinG": 4.3, "fatG": 0.5,
+        "fiberG": 4.2, "sodiumMg": 59.0, "waterG": 73.5,
+        "sourceId": "usda_fdc", "sourceRecordId": "11546", "verificationStatus": "verified_standard",
+    },
+    "RP-ST-109": {
+        "caloriesKcal": 406.0, "carbsG": 45.8, "proteinG": 8.2, "fatG": 21.0,
+        "fiberG": 2.6,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-ST-110": {
+        "caloriesKcal": 390.0, "carbsG": 42.0, "proteinG": 6.5, "fatG": 22.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "recipe_based",
+    },
+    "RP-ST-114": {
+        "caloriesKcal": 312.0, "carbsG": 41.4, "proteinG": 3.4, "fatG": 14.7,
+        "fiberG": 3.8,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-ST-115": {
+        "caloriesKcal": 409.0, "carbsG": 63.0, "proteinG": 4.5, "fatG": 24.0,
+        "fiberG": 10.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-ST-116": {
+        "caloriesKcal": 321.0, "carbsG": 54.4, "proteinG": 7.9, "fatG": 8.7,
+        "fiberG": 0.0, "sodiumMg": 127.0, "waterG": 27.2,
+        "sourceId": "usda_fdc", "sourceRecordId": "01095", "verificationStatus": "verified_standard",
+    },
+    "RP-ST-117": {
+        "caloriesKcal": 220.0, "carbsG": 44.1, "proteinG": 3.2, "fatG": 3.4,
+        "fiberG": 2.7,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+    },
+    "RP-ST-118": {
+        "caloriesKcal": 89.0, "carbsG": 15.6, "proteinG": 5.9, "fatG": 0.0,
+        "fiberG": 0.1, "sodiumMg": 3833.0, "waterG": 67.6,
+        "sourceId": "usda_fdc", "sourceRecordId": "06112", "verificationStatus": "verified_standard",
+    },
+    "RP-ST-119": {
+        "caloriesKcal": 172.0, "carbsG": 40.8, "proteinG": 0.8, "fatG": 0.6,
+        "fiberG": 0.9, "sodiumMg": 1027.0, "waterG": 55.3,
+        "sourceId": "usda_fdc", "sourceRecordId": "06150", "verificationStatus": "verified_standard",
+    },
 }
 
 def make_starch_item(row):
@@ -231,17 +286,20 @@ def make_starch_item(row):
     ]
     nutrients["missingNutrientKeys"] = [k for k in core_keys if nutrients[k] is None]
 
+    source_id = override.get("sourceId", "regimeplan_2026")
+    ver_status = override.get("verificationStatus", "clinic_reviewed")
+
     item_id = f"food_starch_rp_{code.lower().replace('-', '_')}"
-    return {
+    record = {
         "id": item_id,
         "code": code,
-        "sourceId": "regimeplan_2026",
+        "sourceId": source_id,
         "nameEn": en,
         "nameAr": ar,
         "foodGroupId": "starches",
         "primaryExchangeCategoryId": "starch",
         "preparationState": prep,
-        "verificationStatus": "clinic_reviewed",
+        "verificationStatus": ver_status,
         "isCustom": False,
         "nutrients100g": nutrients,
         "portions": [{
@@ -259,6 +317,9 @@ def make_starch_item(row):
         "notesAr": f"قوائم البدائل الغذائية RegimePlan 2026 (ص {page}). وزن الحصة البديلة: {w} جم ({hh_ar}).",
         "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {page}). Standard starch exchange portion: {w}g ({hh_en})."
     }
+    if override.get("sourceRecordId"):
+        record["sourceRecordId"] = override["sourceRecordId"]
+    return record
 
 new_starches = [make_starch_item(r) for r in RAW_STARCHES]
 all_starches = orig + new_starches

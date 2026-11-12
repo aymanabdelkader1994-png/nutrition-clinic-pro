@@ -179,10 +179,16 @@ export function calculateCustomGramsNutrients(
   // Estimate exchange count based on default portion weight if available
   const defaultPortion = food.portions.find((p) => p.isDefaultServing) || food.portions[0];
   if (defaultPortion && defaultPortion.gramWeight > 0) {
-    scaled.calculatedExchangeCount = roundToPrecision(
-      (customGrams / defaultPortion.gramWeight) * defaultPortion.exchangeEquivalentFactor,
-      2
-    );
+    scaled.isUnclassifiedExchange = defaultPortion.isUnclassifiedExchange;
+    scaled.unclassifiedExchangeNoticeEn = defaultPortion.unclassifiedExchangeNoticeEn;
+    scaled.unclassifiedExchangeNoticeAr = defaultPortion.unclassifiedExchangeNoticeAr;
+    scaled.calculatedExchangeCount =
+      defaultPortion.isUnclassifiedExchange && !defaultPortion.exchangeBreakdown
+        ? undefined
+        : roundToPrecision(
+            (customGrams / defaultPortion.gramWeight) * defaultPortion.exchangeEquivalentFactor,
+            2
+          );
 
     if (defaultPortion.exchangeBreakdown) {
       const ratio = customGrams / defaultPortion.gramWeight;

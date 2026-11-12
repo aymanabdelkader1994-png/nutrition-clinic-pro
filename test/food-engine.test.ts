@@ -39,7 +39,9 @@ import {
   searchFoodCatalog,
   deriveAvailableCarbohydrates,
   FoodNutrientProfile100g,
+  FoodItemRecord,
 } from '../src/clinical/index';
+import { resolveRecallEntry, aggregateRecallEntries } from '../src/clinical/recall/recall-engine';
 
 describe('1. Provenance Separation, NNI Attribution & Recipe Classifications', () => {
   beforeEach(() => {
@@ -451,9 +453,13 @@ describe('10. Phase 4 Catalog Expansion & Cottage Cheese Verification', () => {
   it('ensures unassayed micronutrients are preserved as null without zero imputation', () => {
     const allItems = getAllFoodItems();
     const regimePlanItems = allItems.filter((f) => f.sourceId === 'regimeplan_2026');
-    assert.ok(regimePlanItems.length >= 600);
+    const analyticalOrReviewedItems = allItems.filter(
+      (f) => f.sourceId === 'usda_fdc' || f.sourceId === 'egyptian_nni_2006' || f.sourceId === 'clinic_reviewed'
+    );
+    assert.ok(regimePlanItems.length >= 250, `Expected remaining exchange-derived items >= 250, got ${regimePlanItems.length}`);
+    assert.ok(analyticalOrReviewedItems.length >= 200, `Expected analytical/reviewed items >= 200, got ${analyticalOrReviewedItems.length}`);
 
-    // Verify unassayed nutrients are explicitly null and in missingNutrientKeys
+    // Verify unassayed nutrients are explicitly null and in missingNutrientKeys on exchange-derived items
     for (const item of regimePlanItems) {
       assert.equal(item.nutrients100g.availableCarbsG, null);
       assert.equal(item.nutrients100g.fiberG, null);
@@ -1063,6 +1069,191 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
     }
   });
 });
+
+describe('13. Critical Analytical Composition & Exchange Classification Separation', () => {
+  it('verifies nutrient scaling depends purely on nutrients100g and is independent of exchange classification', () => {
+    const rawPeanuts = getFoodItemById('food_fat_rp_ft_082')!;
+    assert.ok(rawPeanuts, 'Raw peanuts (RP-FT-082) must exist');
+
+    // Clone with altered exchange classification & zero factor (must NOT affect calorie/macro scaling)
+    const mutatedExchangeFood: FoodItemRecord = {
+      ...rawPeanuts,
+      primaryExchangeCategoryId: 'combination_food',
+      portions: [
+        {
+          ...rawPeanuts.portions[0],
+          exchangeCategory: 'combination_food',
+          exchangeEquivalentFactor: 0,
+          isUnclassifiedExchange: true,
+          unclassifiedExchangeNoticeEn: 'Reclassified synthetic test',
+        },
+      ],
+    };
+
+    const origPortion = calculatePortionNutrients(rawPeanuts, rawPeanuts.portions[0].id, 1);
+    const alteredPortion = calculatePortionNutrients(mutatedExchangeFood, mutatedExchangeFood.portions[0].id, 1);
+
+    assert.equal(alteredPortion.caloriesKcal, origPortion.caloriesKcal);
+    assert.equal(alteredPortion.proteinG, origPortion.proteinG);
+    assert.equal(alteredPortion.carbsG, origPortion.carbsG);
+    assert.equal(alteredPortion.fatG, origPortion.fatG);
+    assert.equal(alteredPortion.calculatedExchangeCount, undefined);
+    assert.equal(alteredPortion.isUnclassifiedExchange, true);
+
+    // Custom grams scaling must also propagate unclassified flags while preserving exact 100g-based scaling
+    const customScaled = calculateCustomGramsNutrients(mutatedExchangeFood, 25);
+    const expected25g = scaleNutrientProfile(rawPeanuts.nutrients100g, 25);
+    assert.equal(customScaled.caloriesKcal, expected25g.caloriesKcal);
+    assert.equal(customScaled.proteinG, expected25g.proteinG);
+    assert.equal(customScaled.carbsG, expected25g.carbsG);
+    assert.equal(customScaled.fatG, expected25g.fatG);
+    assert.equal(customScaled.isUnclassifiedExchange, true);
+    assert.equal(customScaled.calculatedExchangeCount, undefined);
+  });
+
+  it('verifies nuts, seeds, spreads, and cheeses in Fats carry authentic analytical composition without FAT_MACRO distortion', () => {
+    const peanutsRaw = getFoodItemById('food_fat_rp_ft_082')!;
+    const peanutsRoasted = getFoodItemById('food_fat_rp_ft_081')!;
+    const peanutsSalted = getFoodItemById('food_fat_rp_ft_080')!;
+    const almondsRaw = getFoodItemById('food_fat_rp_ft_033')!;
+    const almondsRoasted = getFoodItemById('food_fat_rp_ft_032')!;
+    const peanutButter = getFoodItemById('food_fat_rp_ft_035')!;
+    const tahini = getFoodItemById('food_fat_rp_ft_014')!;
+    const sesameSeeds = getFoodItemById('food_fat_rp_ft_010')!;
+    const chiaSeeds = getFoodItemById('food_fat_rp_ft_012')!;
+    const fetaInFats = getFoodItemById('food_fat_rp_ft_028')!;
+    const cheddarInFats = getFoodItemById('food_fat_rp_ft_025')!;
+
+    for (const item of [
+      peanutsRaw, peanutsRoasted, peanutsSalted, almondsRaw, almondsRoasted,
+      peanutButter, tahini, sesameSeeds, chiaSeeds, fetaInFats, cheddarInFats,
+    ]) {
+      assert.ok(item, 'Repaired fats-group record must exist');
+      assert.ok(item.nutrients100g.caloriesKcal < 850, `${item.code} must not carry 900 kcal pure-oil distortion`);
+      assert.ok(item.nutrients100g.proteinG > 0, `${item.code} must carry non-zero protein`);
+      assert.ok(item.nutrients100g.carbsG > 0, `${item.code} must carry non-zero carbohydrates`);
+      assert.equal(item.portions[0].exchangeCategory, 'fat', `${item.code} keeps its fat exchange classification`);
+    }
+
+    // Specific analytical profiles (USDA SR Legacy verified)
+    assert.equal(peanutsRaw.sourceId, 'usda_fdc');
+    assert.equal(peanutsRaw.sourceRecordId, '16087');
+    assert.equal(peanutsRaw.nutrients100g.caloriesKcal, 567.0);
+    assert.equal(peanutsRaw.nutrients100g.proteinG, 25.8);
+    assert.equal(peanutsRaw.nutrients100g.carbsG, 16.1);
+    assert.equal(peanutsRaw.nutrients100g.fatG, 49.2);
+
+    // Distinct raw vs roasted vs salted peanut sodium/calorie variants
+    assert.ok((peanutsSalted.nutrients100g.sodiumMg || 0) > (peanutsRaw.nutrients100g.sodiumMg || 0) * 10);
+    assert.notEqual(peanutsRaw.nutrients100g.caloriesKcal, peanutsRoasted.nutrients100g.caloriesKcal);
+
+    // 10g raw peanuts must scale cleanly to ~56.7 kcal, 2.58g protein, 1.61g carbs, 4.92g fat (not 45 kcal / 0P / 0C!)
+    const scaledPeanut = calculatePortionNutrients(peanutsRaw, peanutsRaw.portions[0].id, 1);
+    assert.equal(scaledPeanut.netWeightG, 10);
+    assert.equal(scaledPeanut.caloriesKcal, 56.7);
+    assert.equal(scaledPeanut.proteinG, 2.58);
+    assert.equal(scaledPeanut.carbsG, 1.61);
+    assert.equal(scaledPeanut.fatG, 4.92);
+    assert.equal(scaledPeanut.calculatedExchangeCount, 1);
+
+    // Pure oils retain genuine ~884 kcal / 100g fat profiles
+    const oliveOil = getFoodItemById('food_fat_rp_ft_067')!;
+    const avocadoOil = getFoodItemById('food_fat_rp_ft_065')!;
+    assert.equal(oliveOil.sourceId, 'usda_fdc');
+    assert.equal(oliveOil.nutrients100g.caloriesKcal, 884.0);
+    assert.equal(oliveOil.nutrients100g.fatG, 100.0);
+    assert.equal(oliveOil.nutrients100g.proteinG, 0.0);
+    assert.equal(oliveOil.nutrients100g.carbsG, 0.0);
+    assert.equal(avocadoOil.nutrients100g.caloriesKcal, 884.0);
+    assert.equal(avocadoOil.nutrients100g.fatG, 100.0);
+  });
+
+  it('verifies multi-category analytical repairs across Dairy, Legumes, Vegetables, Starches, Fruits, and Meats', () => {
+    // Dairy: Nonfat dry milk powder (RP-DA-013) & Nonfat Greek yogurt (RP-DA-015)
+    const skimMilkPowder = getFoodItemById('food_dairy_rp_da_013')!;
+    assert.equal(skimMilkPowder.sourceId, 'usda_fdc');
+    assert.ok(skimMilkPowder.nutrients100g.fatG < 1.5, 'Skim milk powder must not have whole-milk 8.7g fat');
+    assert.ok(skimMilkPowder.nutrients100g.proteinG >= 35);
+
+    const nonfatGreek = getFoodItemById('food_dairy_rp_da_015')!;
+    assert.ok(nonfatGreek.nutrients100g.proteinG >= 10.0, 'Nonfat Greek yogurt must reflect concentrated protein');
+
+    // Legumes: Soybeans (RP-LEG-006) & Edamame (RP-LEG-011)
+    const soybeans = getFoodItemById('food_legume_rp_leg_006')!;
+    assert.equal(soybeans.sourceId, 'usda_fdc');
+    assert.ok(soybeans.nutrients100g.fatG >= 8.0 && soybeans.nutrients100g.proteinG >= 15.0);
+
+    // Vegetables: Low-gram leafy greens (Arugula RP-VG-036, Spinach RP-VG-007) & sun-dried tomatoes (RP-VG-079)
+    const arugula = getFoodItemById('food_veg_rp_rp_vg_036')!;
+    const spinach = getFoodItemById('food_veg_rp_rp_vg_007')!;
+    const sunDriedTomato = getFoodItemById('food_veg_rp_rp_vg_079')!;
+    assert.ok(arugula.nutrients100g.caloriesKcal <= 30, 'Arugula must not carry 140 kcal/100g distortion');
+    assert.ok(spinach.nutrients100g.caloriesKcal <= 30, 'Spinach must not carry 93.3 kcal/100g distortion');
+    assert.ok(sunDriedTomato.nutrients100g.carbsG > 50);
+
+    // Starches: Sweetened condensed milk (RP-ST-116), Teriyaki (RP-ST-118), BBQ (RP-ST-119)
+    const condensedMilk = getFoodItemById('food_starch_rp_rp_st_116')!;
+    assert.equal(condensedMilk.sourceId, 'usda_fdc');
+    assert.ok(condensedMilk.nutrients100g.fatG > 8 && condensedMilk.nutrients100g.proteinG > 7);
+
+    // Fruits: Medjool dates (RP-FR-014) & Raisins (RP-FR-021)
+    const medjool = getFoodItemById('food_fruit_rp_rp_fr_014')!;
+    assert.equal(medjool.sourceId, 'usda_fdc');
+    assert.equal(medjool.nutrients100g.caloriesKcal, 277.0);
+    assert.equal(medjool.nutrients100g.fiberG, 6.7);
+
+    // Meats: TVP (RP-MT-118), Boiled egg (RP-MT-191), Breaded chicken (RP-MT-165), Feta (RP-MT-184), Firm tofu (RP-MT-179)
+    const tvp = getFoodItemById('food_meat_rp_mt_118')!;
+    const boiledEgg = getFoodItemById('food_meat_rp_mt_191')!;
+    const breadedChicken = getFoodItemById('food_meat_rp_mt_165')!;
+    const fetaMeat = getFoodItemById('food_meat_rp_mt_184')!;
+    const firmTofu = getFoodItemById('food_meat_rp_mt_179')!;
+
+    assert.ok(tvp.nutrients100g.carbsG > 30 && tvp.nutrients100g.fatG < 3);
+    assert.ok(boiledEgg.nutrients100g.carbsG > 0.5 && boiledEgg.nutrients100g.fatG < 12);
+    assert.ok(breadedChicken.nutrients100g.carbsG > 10);
+    assert.ok(fetaMeat.nutrients100g.carbsG > 2);
+    assert.ok(firmTofu.nutrients100g.carbsG > 1 && firmTofu.nutrients100g.fatG < 12);
+  });
+
+  it('finds PDF CMap-affected Arabic foods cleanly via normalized bilingual search tags', () => {
+    const all = getAllFoodItems();
+    for (const query of ['سوداني', 'لوز', 'طحينة', 'سمسم', 'مكسرات', 'حمص', 'طعمية', 'جمبري', 'سلمون', 'Peanut']) {
+      const results = searchFoodItems(all, query);
+      assert.ok(results.length >= 1, `Search query "${query}" must match at least one item`);
+    }
+  });
+
+  it('propagates repaired analytical macros through 24-Hour Dietary Recall entries and meal totals', () => {
+    const peanutsRaw = getFoodItemById('food_fat_rp_ft_082')!;
+    const almondsRaw = getFoodItemById('food_fat_rp_ft_033')!;
+    const tahini = getFoodItemById('food_fat_rp_ft_014')!;
+
+    // Add 3x portion (30g) raw peanuts + 2x portion (22g) almonds + 1x portion (9g) tahini
+    const entry1 = resolveRecallEntry({
+      food: peanutsRaw,
+      selectedPortionId: peanutsRaw.portions[0].id,
+      quantity: 3, // 30g
+    });
+    const entry2 = resolveRecallEntry({
+      food: almondsRaw,
+      selectedPortionId: almondsRaw.portions[0].id,
+      quantity: 2, // 22g
+    });
+    const entry3 = resolveRecallEntry({
+      food: tahini,
+      selectedPortionId: tahini.portions[0].id,
+      quantity: 1, // 9g
+    });
+
+    const summary = aggregateRecallEntries([entry1, entry2, entry3]);
+    assert.ok(summary.proteinG.observedTotal > 10, `Expected combined nut/seed snack protein > 10g, got ${summary.proteinG.observedTotal}`);
+    assert.ok(summary.carbsG.observedTotal > 8, `Expected combined nut/seed snack carbs > 8g, got ${summary.carbsG.observedTotal}`);
+    assert.ok(summary.fiberG.observedTotal !== null && summary.fiberG.observedTotal > 4, 'Complete fiber data should aggregate cleanly without null');
+    assert.ok(summary.caloriesKcal.observedTotal > 300 && summary.caloriesKcal.observedTotal < 450);
+  });
+});
+
 
 
 
