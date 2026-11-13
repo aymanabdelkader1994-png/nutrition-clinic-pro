@@ -1294,4 +1294,33 @@ describe('14. Release-Gate USDA Provenance & Preparation State Integrity', () =>
     const eggYolk = getFoodItemById('food_meat_rp_mt_166')!;
     assert.equal(eggYolk.preparationState, 'raw');
   });
+
+  it('ensures dry Chickpea Flour (RP-MT-016) is raw, dry TVP (RP-MT-118) is dried, and no catalog item uses a bare prep-only English name', () => {
+    const besanMeat = getFoodItemById('food_meat_rp_mt_016')!;
+    assert.equal(besanMeat.preparationState, 'raw');
+
+    const dryTvp = getFoodItemById('food_meat_rp_mt_118')!;
+    assert.equal(dryTvp.preparationState, 'dried');
+
+    const flaxOil = getFoodItemById('food_flaxseed_oil_zait_har')!;
+    assert.ok(flaxOil);
+    assert.equal(flaxOil.nutrients100g.caloriesKcal, 884);
+    assert.equal(flaxOil.nutrients100g.fatG, 100);
+    assert.equal(flaxOil.nutrients100g.proteinG, 0);
+    assert.equal(flaxOil.nutrients100g.carbsG, 0);
+
+    const prepOnlyWords = new Set(['raw', 'cooked', 'boiled', 'grilled', 'baked', 'roasted', 'fried', 'canned', 'dried', 'smoked', 'minced', 'ground', '/', 'skinless']);
+    const all = getAllFoodItems();
+    for (const item of all) {
+      const words = item.nameEn.toLowerCase().split(/\s+/).filter(Boolean);
+      assert.equal(words.every((w) => prepOnlyWords.has(w)), false, `${item.code}: nameEn "${item.nameEn}" must include food noun`);
+      assert.equal(item.nameEn.includes('Meat Product ('), false, `${item.code}: must have proper English translation, got "${item.nameEn}"`);
+    }
+
+    // Searchable in English for newly translated seafood & poultry cuts
+    assert.ok(searchFoodCatalog('cod').some((f) => f.code === 'RP-MT-051'));
+    assert.ok(searchFoodCatalog('kofta').some((f) => f.code === 'RP-MT-173'));
+    assert.ok(searchFoodCatalog('lobster').some((f) => f.code === 'RP-MT-091'));
+  });
 });
+

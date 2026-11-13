@@ -501,5 +501,70 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       const warnings = generateRecallSessionWarnings(session, { targetCalories: 2000 });
       assert.ok(warnings.some((w) => w.id.startsWith('warn_incomplete_sodium_')));
     });
+
+    it('marks potassiumMg, ironMg, fiberG, and sodiumMg as incomplete in mixed assays without fabricating complete totals', () => {
+      const peanuts = getFoodItemById('food_fat_rp_ft_082')!; // USDA complete FDC record with fiber & sodium; verify missing K/Fe or add mixed entry
+      const bread = getFoodItemById('food_bread_baladi_baked')!;
+
+      const completeMicroEntry = resolveRecallEntry({
+        food: bread,
+        selectedPortionId: 'grams',
+        quantity: 100,
+      });
+      // Synthesize a fully assayed item vs unassayed item (e.g. RegimePlan item missing K, Fe, fiber, sodium)
+      const completeEntry: RecallEntry = {
+        ...completeMicroEntry,
+        id: 'complete_micro',
+        nutrients: {
+          ...completeMicroEntry.nutrients,
+          potassiumMg: 120,
+          ironMg: 1.5,
+          fiberG: 4.8,
+          sodiumMg: 490,
+        },
+      };
+      const peanutsEntry = resolveRecallEntry({
+        food: peanuts,
+        selectedPortionId: peanuts.portions[0].id,
+        quantity: 2, // 20g -> 113.4 kcal, 5.16g P, 3.22g C, 9.84g F, K/Fe null
+      });
+
+      assert.equal(peanutsEntry.nutrients.potassiumMg, null);
+      assert.equal(peanutsEntry.nutrients.ironMg, null);
+
+      const summary = aggregateRecallEntries([completeEntry, peanutsEntry]);
+      assert.equal(summary.hasIncompleteNutrients, true);
+      assert.equal(summary.potassiumMg.isComplete, false);
+      assert.equal(summary.potassiumMg.completeTotal, null);
+      assert.equal(summary.potassiumMg.observedTotal, 120);
+      assert.equal(summary.ironMg.isComplete, false);
+      assert.equal(summary.ironMg.completeTotal, null);
+      assert.equal(summary.ironMg.observedTotal, 1.5);
+      assert.equal(summary.fiberG.isComplete, true);
+      assert.equal(summary.sodiumMg.isComplete, true);
+
+      const session: RecallSession = {
+        id: 's_mixed_micro',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        targetDays: 1,
+        status: 'in_progress',
+        days: [
+          {
+            id: 'd1_micro',
+            dayIndex: 1,
+            date: '2026-11-10',
+            meals: [{ id: 'm1', mealType: 'snack' as any, entries: [completeEntry, peanutsEntry] }],
+          },
+        ],
+      };
+
+      const multi = calculateMultiDayRecallAnalysis(session);
+      assert.equal(multi.averages.potassiumMg.isComplete, false);
+      assert.equal(multi.averages.potassiumMg.averageValue, null);
+      assert.equal(multi.averages.ironMg.isComplete, false);
+      assert.equal(multi.averages.ironMg.averageValue, null);
+    });
   });
 });
+

@@ -782,9 +782,16 @@ export function RecallWorkbench({
                 </div>
 
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <span className="text-[10px] font-medium text-slate-500">
-                    {isAr ? 'البوتاسيوم' : 'Potassium'}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {isAr ? 'البوتاسيوم' : 'Potassium'}
+                    </span>
+                    {!activeDaySummary.potassiumMg.isComplete && (
+                      <span className="text-[9px] font-bold text-amber-600">
+                        {isAr ? 'جزئي' : 'Partial'}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
                     {activeDaySummary.potassiumMg.observedTotal}{' '}
                     <span className="text-xs font-normal text-slate-400">mg</span>
@@ -792,9 +799,16 @@ export function RecallWorkbench({
                 </div>
 
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <span className="text-[10px] font-medium text-slate-500">
-                    {isAr ? 'الحديد' : 'Iron'}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {isAr ? 'الحديد' : 'Iron'}
+                    </span>
+                    {!activeDaySummary.ironMg.isComplete && (
+                      <span className="text-[9px] font-bold text-amber-600">
+                        {isAr ? 'جزئي' : 'Partial'}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
                     {activeDaySummary.ironMg.observedTotal}{' '}
                     <span className="text-xs font-normal text-slate-400">mg</span>
@@ -937,13 +951,27 @@ export function RecallWorkbench({
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
-                <span className="text-slate-500">{isAr ? 'متوسط الألياف:' : 'Average Fiber:'}</span>
+                <span className="text-slate-500">
+                  {isAr ? 'متوسط الألياف:' : 'Average Fiber:'}{' '}
+                  {multiDayAnalysis.averages.fiberG && !multiDayAnalysis.averages.fiberG.isComplete && (
+                    <span className="text-[10px] font-bold text-amber-600">
+                      ({isAr ? 'جزئي' : 'Partial'})
+                    </span>
+                  )}
+                </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.averages.fiberG?.observedAverage} g/day
                 </strong>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-slate-500">{isAr ? 'متوسط الصوديوم:' : 'Average Sodium:'}</span>
+                <span className="text-slate-500">
+                  {isAr ? 'متوسط الصوديوم:' : 'Average Sodium:'}{' '}
+                  {multiDayAnalysis.averages.sodiumMg && !multiDayAnalysis.averages.sodiumMg.isComplete && (
+                    <span className="text-[10px] font-bold text-amber-600">
+                      ({isAr ? 'جزئي' : 'Partial'})
+                    </span>
+                  )}
+                </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.averages.sodiumMg?.observedAverage} mg/day
                 </strong>

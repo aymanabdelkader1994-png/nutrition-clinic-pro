@@ -151,6 +151,18 @@ def validate_catalog(all_items):
             if src_rec is not None:
                 errors.append(f"{item_id}: clinic_reviewed source must not carry institutional sourceRecordId '{src_rec}'")
 
+    # English name quality guard (no bare prep-only names or raw untranslated fallback strings)
+    prep_only_words = {"raw", "cooked", "boiled", "grilled", "baked", "roasted", "fried", "canned", "dried", "smoked", "minced", "ground", "/", "skinless"}
+    for item in all_items:
+        en = (item.get("nameEn") or "").strip()
+        ar = (item.get("nameAr") or "").strip()
+        if not en or not ar:
+            errors.append(f"{item.get('id')}: missing bilingual nameEn or nameAr")
+            continue
+        words = set(en.lower().split())
+        if words.issubset(prep_only_words) or "Meat Product (" in en:
+            errors.append(f"{item.get('id')} ({item.get('code')}): invalid placeholder/prep-only English name '{en}'")
+
     # Specific clinical sentinel assertions
     by_code = {it.get("code"): it for it in all_items if it.get("code")}
     for sentinel_code, check_fn, msg in [
@@ -161,6 +173,7 @@ def validate_catalog(all_items):
         ("RP-DA-012", lambda x: x["nutrients100g"]["fatG"] < 2.0 and x["nutrients100g"]["carbsG"] >= 4.0, "Nonfat buttermilk must have <2g fat & >=4g carbs"),
         ("RP-MT-191", lambda x: x["nutrients100g"]["carbsG"] > 0 and x["nutrients100g"]["fatG"] < 15, "Boiled egg must have realistic carbs & fat"),
         ("RP-MT-165", lambda x: x["nutrients100g"]["carbsG"] > 10, "Breaded chicken must have >10g/100g carbs"),
+        ("RP-MT-016", lambda x: x.get("preparationState") == "raw", "Dry chickpea flour must have preparationState=raw"),
     ]:
         rec = by_code.get(sentinel_code)
         if not rec or not check_fn(rec):

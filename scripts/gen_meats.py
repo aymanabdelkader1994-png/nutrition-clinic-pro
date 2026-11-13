@@ -92,14 +92,30 @@ MACROS = {
 # Translation helper dictionary for meat foods
 EN_TERMS = {
     "فراخ": "Chicken",
+    "فرخة": "Chicken",
     "دجاج": "Chicken",
+    "كاملة": "Whole",
+    "صدر": "Breast",
+    "ورك": "Thigh",
+    "دبوس": "Drumstick",
+    "جناح": "Wing",
+    "قوانص": "Gizzards",
     "لحم": "Meat / Beef",
+    "لمحة": "Beef",
+    "شاورما": "Shawarma",
+    "كفتة": "Kofta",
+    "ريش": "Ribs",
+    "ستيك": "Steak",
     "بقري": "Beef",
     "ضأن": "Lamb",
+    "ضاني": "Lamb",
     "بتلو": "Veal",
     "ماعز": "Goat",
     "جاموسي": "Buffalo",
+    "مجل": "Camel",
+    "مجلي": "Camel",
     "سمك": "Fish",
+    "مسك": "Fish",
     "سلمون": "Salmon",
     "ساملون": "Salmon",
     "تونة": "Tuna",
@@ -109,17 +125,30 @@ EN_TERMS = {
     "مجبري": "Shrimp",
     "كابوريا": "Crab",
     "إستاكوزا": "Lobster",
+    "استاكوزا": "Lobster",
+    "سكالوب": "Scallops",
     "حبار": "Squid / Calamari",
+    "كالمياري": "Calamari",
     "أخطبوط": "Octopus",
     "محار": "Oysters / Clams",
     "بلطي": "Tilapia",
     "بوري": "Grey Mullet",
     "دنيس": "Sea Bream",
     "وقار": "Grouper",
+    "هامور": "Grouper",
     "قاروص": "Sea Bass",
     "مكرونة": "Saurida / Brushtooth Lizardfish",
     "قشر بياض": "Nile Perch",
     "قد": "Cod Fish",
+    "القد": "Cod",
+    "بولاك": "Pollock",
+    "تراوت": "Trout",
+    "بربوني": "Red Mullet",
+    "كنعد": "Kingfish",
+    "موسى": "Sole",
+    "قرموط": "Catfish",
+    "هاليبوت": "Halibut",
+    "أبو": "Swordfish",
     "رنجة": "Smoked Herring",
     "فسيخ": "Feseekh (Cured Grey Mullet)",
     "أنشوجة": "Anchovies",
@@ -127,8 +156,11 @@ EN_TERMS = {
     "بط": "Duck",
     "وز": "Goose",
     "حمام": "Pigeon / Squab",
+    "محام": "Pigeon / Squab",
     "سمان": "Quail",
+    "مسان": "Quail",
     "ديك رومي": "Turkey",
+    "رومي": "Turkey",
     "أرانب": "Rabbit",
     "نعام": "Ostrich",
     "كبدة": "Liver",
@@ -145,6 +177,7 @@ EN_TERMS = {
     "برجر": "Burger Patty",
     "لانشون": "Luncheon Meat / Mortadella",
     "بسطرمة": "Pastrami",
+    "باسترامي": "Pastrami",
     "بيبروني": "Pepperoni",
     "سلامي": "Salami",
     "جبنة": "Cheese",
@@ -176,17 +209,40 @@ EN_TERMS = {
 }
 
 def translate_name(ar):
+    if "في الفرن" in ar:
+        ar_proc = ar.replace("في الفرن", " baked_placeholder ")
+    else:
+        ar_proc = ar
+    ar_proc = ar_proc.replace("بدون جلد", " skinless_placeholder ")
+    words = ar_proc.split()
     parts = []
-    # simple token-based replacement
-    words = ar.split()
     matched = False
     for w in words:
-        if w in EN_TERMS:
-            parts.append(EN_TERMS[w])
+        w_clean = re.sub(r"[()\[\]،,]+.*$", "", w)
+        for prefix in ("ربع", "نصف", "في", "على"):
+            pass
+        if w_clean == "baked_placeholder":
+            parts.append("Baked")
+        elif w_clean == "skinless_placeholder":
+            parts.append("Skinless")
+        elif w_clean in EN_TERMS:
+            parts.append(EN_TERMS[w_clean])
             matched = True
+        else:
+            # Handle PDF-glued suffixes like مشويمسانة / نيءربع / مشويربع
+            for ar_key, en_val in sorted(EN_TERMS.items(), key=lambda kv: -len(kv[0])):
+                if len(ar_key) >= 3 and w_clean.startswith(ar_key):
+                    parts.append(en_val)
+                    matched = True
+                    break
     if not matched:
         return f"Meat Product ({ar})"
-    return " ".join(parts)
+    # Deduplicate consecutive identical words cleanly
+    dedup = []
+    for p in parts:
+        if not dedup or dedup[-1].lower() != p.lower():
+            dedup.append(p)
+    return " ".join(dedup)
 
 # Parse pages 7 (meat section), 8, 9, 10
 # Current subcategory tracking
@@ -324,16 +380,16 @@ MEAT_ANALYTICAL_OVERRIDES = {
     "RP-MT-003": {"nameEn": "Cooked Chickpeas", "caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.9, "fatG": 2.6, "fiberG": 7.6, "sodiumMg": 7.0, "waterG": 60.2, "sourceId": "usda_fdc", "sourceRecordId": "16057", "verificationStatus": "verified_standard", "tags": ["حمص", "حمص مطبوخ", "chickpeas"]},
     "RP-MT-014": {"nameEn": "Hummus with Tahini", "caloriesKcal": 166.0, "carbsG": 14.3, "proteinG": 7.9, "fatG": 9.6, "fiberG": 6.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص بطحينة", "حمص", "hummus"]},
     "RP-MT-015": {"nameEn": "Egyptian Taameya / Falafel", "caloriesKcal": 333.0, "carbsG": 31.8, "proteinG": 13.3, "fatG": 17.8, "fiberG": 4.9, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["طعمية", "فلافل", "falafel", "taameya"]},
-    "RP-MT-016": {"nameEn": "Chickpea Flour (Besan)", "caloriesKcal": 387.0, "carbsG": 57.8, "proteinG": 22.4, "fatG": 6.7, "fiberG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دقيق حمص", "حمص", "chickpea flour"]},
+    "RP-MT-016": {"nameEn": "Chickpea Flour (Besan)", "prep": "raw", "caloriesKcal": 387.0, "carbsG": 57.8, "proteinG": 22.4, "fatG": 6.7, "fiberG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دقيق حمص", "حمص", "chickpea flour"]},
     "RP-MT-017": {"nameEn": "Canned Chickpeas (Drained)", "caloriesKcal": 139.0, "carbsG": 22.6, "proteinG": 7.1, "fatG": 2.0, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص معلب", "حمص", "chickpeas"]},
     "RP-MT-018": {"nameEn": "Cooked Chana Dal (Split Chickpeas)", "caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.9, "fatG": 2.6, "fiberG": 7.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دال حمص", "حمص", "chana dal"]},
     "RP-MT-019": {"nameEn": "Cooked Urad Dal (Black Gram)", "caloriesKcal": 105.0, "carbsG": 18.4, "proteinG": 7.5, "fatG": 0.5, "fiberG": 6.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دال أوراد", "urad dal"]},
     "RP-MT-020": {"nameEn": "Cooked Toor Dal (Split Pigeon Peas)", "caloriesKcal": 121.0, "carbsG": 23.3, "proteinG": 6.8, "fatG": 0.4, "fiberG": 6.7, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دال توور", "toor dal"]},
-    "RP-MT-021": {"nameEn": "Roasted Chickpeas", "caloriesKcal": 369.0, "carbsG": 58.0, "proteinG": 19.3, "fatG": 6.0, "fiberG": 12.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص محمص", "حمص", "roasted chickpeas"]},
+    "RP-MT-021": {"nameEn": "Roasted Chickpeas", "prep": "roasted", "caloriesKcal": 369.0, "carbsG": 58.0, "proteinG": 19.3, "fatG": 6.0, "fiberG": 12.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص محمص", "حمص", "roasted chickpeas"]},
     "RP-MT-022": {"nameEn": "Cooked Lupini Beans (Termis)", "caloriesKcal": 119.0, "carbsG": 9.9, "proteinG": 15.6, "fatG": 2.9, "fiberG": 2.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["ترمس", "lupini beans"]},
     "RP-MT-023": {"nameEn": "Cooked Split Peas", "caloriesKcal": 118.0, "carbsG": 21.1, "proteinG": 8.3, "fatG": 0.4, "fiberG": 8.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بسلة مجروشة", "split peas"]},
     "RP-MT-117": {"nameEn": "Plant-Based Veggie Burger Patty", "caloriesKcal": 177.0, "carbsG": 14.3, "proteinG": 15.7, "fatG": 6.3, "fiberG": 4.9, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["برجر نباتي", "veggie burger"]},
-    "RP-MT-118": {"nameEn": "Dry Textured Soy Protein (TVP)", "caloriesKcal": 336.0, "carbsG": 33.9, "proteinG": 51.5, "fatG": 1.2, "fiberG": 17.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["لحم صويا", "فول صويا", "textured soy protein", "tvp"]},
+    "RP-MT-118": {"nameEn": "Dry Textured Soy Protein (TVP)", "prep": "dried", "caloriesKcal": 336.0, "carbsG": 33.9, "proteinG": 51.5, "fatG": 1.2, "fiberG": 17.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["لحم صويا", "فول صويا", "textured soy protein", "tvp"]},
     "RP-MT-119": {"nameEn": "Seitan (Wheat Gluten)", "caloriesKcal": 120.0, "carbsG": 4.0, "proteinG": 21.0, "fatG": 1.9, "fiberG": 0.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سيتان", "seitan"]},
     "RP-MT-174": {"nameEn": "Plant-Based Chick'n Strips", "caloriesKcal": 180.0, "carbsG": 8.0, "proteinG": 20.0, "fatG": 7.0, "fiberG": 3.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["شرائح دجاج نباتية", "plant protein"]},
     "RP-MT-175": {"nameEn": "Plant-Based Vegetarian Sausage", "caloriesKcal": 210.0, "carbsG": 9.0, "proteinG": 18.0, "fatG": 11.0, "fiberG": 3.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سجق نباتي", "plant sausage"]},
