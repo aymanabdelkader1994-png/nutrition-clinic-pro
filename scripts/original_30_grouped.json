@@ -231,9 +231,9 @@
     },
     {
       "id": "food_oats_rolled_cooked",
-      "code": "USDA-20077",
+      "code": "USDA-08121",
       "sourceId": "usda_fdc",
-      "sourceRecordId": "20077",
+      "sourceRecordId": "08121",
       "dataSourceId": "usda_fdc",
       "nameEn": "Rolled Oats / Oatmeal, Cooked in Water",
       "nameAr": "شوفان كامل الحبة مطبوخ بالماء",
@@ -1391,9 +1391,9 @@
     },
     {
       "id": "food_beef_flank_lean_cooked",
-      "code": "USDA-13442",
+      "code": "USDA-23654",
       "sourceId": "usda_fdc",
-      "sourceRecordId": "13442",
+      "sourceRecordId": "23654",
       "dataSourceId": "usda_fdc",
       "nameEn": "Beef, Flank Steak, Lean Only, Grilled / Braised",
       "nameAr": "لحم بقري أحمر قليل الدهن (ستيك فلانك مشوي/مطهي)",

@@ -1254,6 +1254,44 @@ describe('13. Critical Analytical Composition & Exchange Classification Separati
   });
 });
 
+describe('14. Release-Gate USDA Provenance & Preparation State Integrity', () => {
+  it('ensures corrected USDA NDB identifiers match verified food identities', () => {
+    const oats = getFoodItemById('food_oats_rolled_cooked')!;
+    assert.equal(oats.sourceId, 'usda_fdc');
+    assert.equal(oats.sourceRecordId, '08121');
 
+    const avocadoOil = getFoodItemById('food_fat_rp_ft_065')!;
+    assert.equal(avocadoOil.sourceId, 'usda_fdc');
+    assert.equal(avocadoOil.sourceRecordId, '04581');
 
+    const blackBeans = getFoodItemById('food_legume_rp_leg_004')!;
+    assert.equal(blackBeans.sourceId, 'usda_fdc');
+    assert.equal(blackBeans.sourceRecordId, '16015');
 
+    const flankSteak = getFoodItemById('food_beef_flank_lean_cooked')!;
+    assert.equal(flankSteak.sourceId, 'usda_fdc');
+    assert.equal(flankSteak.sourceRecordId, '23654');
+
+    const firmTofu = getFoodItemById('food_meat_rp_mt_179')!;
+    assert.equal(firmTofu.sourceId, 'usda_fdc');
+    assert.equal(firmTofu.sourceRecordId, '16426');
+  });
+
+  it('downgrades unverified commercial-label or conflicting USDA claims to clinic_reviewed without sourceRecordId', () => {
+    for (const id of ['food_fat_rp_ft_064', 'food_meat_rp_mt_177', 'food_meat_rp_mt_161']) {
+      const rec = getFoodItemById(id)!;
+      assert.ok(rec, `Missing ${id}`);
+      assert.equal(rec.sourceId, 'clinic_reviewed');
+      assert.equal(rec.verificationStatus, 'clinic_reviewed');
+      assert.equal(rec.sourceRecordId, undefined);
+    }
+  });
+
+  it('ensures raw egg white and egg yolk records declare preparationState=raw', () => {
+    const eggWhite = getFoodItemById('food_meat_rp_mt_122')!;
+    assert.equal(eggWhite.preparationState, 'raw');
+
+    const eggYolk = getFoodItemById('food_meat_rp_mt_166')!;
+    assert.equal(eggYolk.preparationState, 'raw');
+  });
+});

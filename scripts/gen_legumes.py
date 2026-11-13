@@ -55,7 +55,7 @@ LEG_ANALYTICAL_OVERRIDES = {
     "RP-LEG-001": {"caloriesKcal": 341.0, "carbsG": 58.3, "proteinG": 26.1, "fatG": 1.5, "fiberG": 25.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
     "RP-LEG-002": {"caloriesKcal": 116.0, "carbsG": 20.1, "proteinG": 9.0, "fatG": 0.4, "fiberG": 7.9, "sourceId": "usda_fdc", "sourceRecordId": "16070", "verificationStatus": "verified_standard"},
     "RP-LEG-003": {"caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.9, "fatG": 2.6, "fiberG": 7.6, "sourceId": "usda_fdc", "sourceRecordId": "16057", "verificationStatus": "verified_standard"},
-    "RP-LEG-004": {"caloriesKcal": 132.0, "carbsG": 23.7, "proteinG": 8.9, "fatG": 0.5, "fiberG": 8.7, "sourceId": "usda_fdc", "sourceRecordId": "16034", "verificationStatus": "verified_standard"},
+    "RP-LEG-004": {"caloriesKcal": 132.0, "carbsG": 23.7, "proteinG": 8.9, "fatG": 0.5, "fiberG": 8.7, "sourceId": "usda_fdc", "sourceRecordId": "16015", "verificationStatus": "verified_standard"},
     "RP-LEG-005": {"caloriesKcal": 127.0, "carbsG": 22.8, "proteinG": 8.7, "fatG": 0.5, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
     "RP-LEG-006": {"caloriesKcal": 172.0, "carbsG": 9.9, "proteinG": 16.6, "fatG": 9.0, "fiberG": 6.0, "sourceId": "usda_fdc", "sourceRecordId": "16109", "verificationStatus": "verified_standard"},
     "RP-LEG-007": {"caloriesKcal": 352.0, "carbsG": 63.4, "proteinG": 24.6, "fatG": 1.1, "fiberG": 10.7, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},

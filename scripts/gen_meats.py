@@ -338,9 +338,9 @@ MEAT_ANALYTICAL_OVERRIDES = {
     "RP-MT-174": {"nameEn": "Plant-Based Chick'n Strips", "caloriesKcal": 180.0, "carbsG": 8.0, "proteinG": 20.0, "fatG": 7.0, "fiberG": 3.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["شرائح دجاج نباتية", "plant protein"]},
     "RP-MT-175": {"nameEn": "Plant-Based Vegetarian Sausage", "caloriesKcal": 210.0, "carbsG": 9.0, "proteinG": 18.0, "fatG": 11.0, "fiberG": 3.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سجق نباتي", "plant sausage"]},
     "RP-MT-176": {"nameEn": "Soft Tofu", "caloriesKcal": 62.0, "carbsG": 1.8, "proteinG": 6.5, "fatG": 3.5, "fiberG": 0.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["توفو طري", "توفو", "soft tofu"]},
-    "RP-MT-177": {"nameEn": "Silken Tofu", "caloriesKcal": 55.0, "carbsG": 1.9, "proteinG": 4.8, "fatG": 2.7, "fiberG": 0.1, "sodiumMg": 5.0, "waterG": 89.6, "sourceId": "usda_fdc", "sourceRecordId": "16127", "verificationStatus": "verified_standard", "tags": ["توفو حريري", "توفو", "silken tofu"]},
+    "RP-MT-177": {"nameEn": "Silken Tofu", "caloriesKcal": 55.0, "carbsG": 1.9, "proteinG": 4.8, "fatG": 2.7, "fiberG": 0.1, "sodiumMg": 5.0, "waterG": 89.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["توفو حريري", "توفو", "silken tofu"]},
     "RP-MT-178": {"nameEn": "Tempeh", "caloriesKcal": 192.0, "carbsG": 7.6, "proteinG": 20.3, "fatG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["تمبي", "tempeh"]},
-    "RP-MT-179": {"nameEn": "Firm Tofu", "caloriesKcal": 144.0, "carbsG": 2.8, "proteinG": 17.3, "fatG": 8.7, "fiberG": 2.3, "sodiumMg": 14.0, "waterG": 69.8, "sourceId": "usda_fdc", "sourceRecordId": "16126", "verificationStatus": "verified_standard", "tags": ["توفو جامد", "توفو", "firm tofu"]},
+    "RP-MT-179": {"nameEn": "Firm Tofu", "caloriesKcal": 144.0, "carbsG": 2.8, "proteinG": 17.3, "fatG": 8.7, "fiberG": 2.3, "sodiumMg": 14.0, "waterG": 69.8, "sourceId": "usda_fdc", "sourceRecordId": "16426", "verificationStatus": "verified_standard", "tags": ["توفو جامد", "توفو", "firm tofu"]},
     # Cheeses classified as meat substitutes
     "RP-MT-120": {"nameEn": "Light White Cheese (Reduced-Fat Feta)", "caloriesKcal": 145.0, "carbsG": 3.5, "proteinG": 15.0, "fatG": 8.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة بيضاء لايت", "جبنة", "cheese"]},
     "RP-MT-121": {"nameEn": "Egyptian Quraish / Cottage Cheese", "caloriesKcal": 98.0, "carbsG": 3.4, "proteinG": 11.1, "fatG": 4.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة قريش", "جبنة", "quraish"]},
@@ -355,10 +355,10 @@ MEAT_ANALYTICAL_OVERRIDES = {
     "RP-MT-025": {"nameEn": "Raw Beef Liver", "caloriesKcal": 135.0, "carbsG": 3.9, "proteinG": 20.4, "fatG": 3.6, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة بقري", "beef liver"]},
     "RP-MT-047": {"nameEn": "Raw Chicken Liver", "caloriesKcal": 119.0, "carbsG": 0.7, "proteinG": 16.9, "fatG": 4.8, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة فراخ", "chicken liver"]},
     "RP-MT-075": {"nameEn": "Grilled / Braised Beef Liver", "caloriesKcal": 175.0, "carbsG": 5.1, "proteinG": 26.5, "fatG": 4.7, "fiberG": 0.0, "sodiumMg": 79.0, "waterG": 61.9, "sourceId": "usda_fdc", "sourceRecordId": "13326", "verificationStatus": "verified_standard", "tags": ["كبدة بقري", "beef liver"]},
-    "RP-MT-122": {"nameEn": "Egg White (Raw)", "caloriesKcal": 52.0, "carbsG": 0.7, "proteinG": 10.9, "fatG": 0.2, "fiberG": 0.0, "sodiumMg": 166.0, "waterG": 87.6, "sourceId": "usda_fdc", "sourceRecordId": "01124", "verificationStatus": "verified_standard", "tags": ["بياض بيض", "egg white"]},
+    "RP-MT-122": {"nameEn": "Egg White (Raw)", "prep": "raw", "caloriesKcal": 52.0, "carbsG": 0.7, "proteinG": 10.9, "fatG": 0.2, "fiberG": 0.0, "sodiumMg": 166.0, "waterG": 87.6, "sourceId": "usda_fdc", "sourceRecordId": "01124", "verificationStatus": "verified_standard", "tags": ["بياض بيض", "egg white"]},
     "RP-MT-152": {"nameEn": "Pan-Fried Beef Liver", "caloriesKcal": 195.0, "carbsG": 5.2, "proteinG": 26.0, "fatG": 7.2, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة بقري مقلية", "beef liver"]},
-    "RP-MT-161": {"nameEn": "Simmered / Cooked Chicken Liver", "caloriesKcal": 167.0, "carbsG": 0.7, "proteinG": 24.1, "fatG": 6.5, "fiberG": 0.0, "sodiumMg": 76.0, "waterG": 67.1, "sourceId": "usda_fdc", "sourceRecordId": "05028", "verificationStatus": "verified_standard", "tags": ["كبدة فراخ", "chicken liver"]},
-    "RP-MT-166": {"nameEn": "Egg Yolk (Raw)", "caloriesKcal": 322.0, "carbsG": 3.6, "proteinG": 15.9, "fatG": 26.5, "fiberG": 0.0, "sodiumMg": 48.0, "waterG": 52.3, "sourceId": "usda_fdc", "sourceRecordId": "01125", "verificationStatus": "verified_standard", "tags": ["صفار بيض", "egg yolk"]},
+    "RP-MT-161": {"nameEn": "Pan-Cooked / Fried Chicken Liver", "prep": "fried", "caloriesKcal": 167.0, "carbsG": 0.7, "proteinG": 24.1, "fatG": 6.5, "fiberG": 0.0, "sodiumMg": 76.0, "waterG": 67.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة فراخ", "chicken liver"]},
+    "RP-MT-166": {"nameEn": "Egg Yolk (Raw)", "prep": "raw", "caloriesKcal": 322.0, "carbsG": 3.6, "proteinG": 15.9, "fatG": 26.5, "fiberG": 0.0, "sodiumMg": 48.0, "waterG": 52.3, "sourceId": "usda_fdc", "sourceRecordId": "01125", "verificationStatus": "verified_standard", "tags": ["صفار بيض", "egg yolk"]},
     "RP-MT-187": {"nameEn": "Omelet (Cooked Whole Egg)", "caloriesKcal": 154.0, "carbsG": 1.0, "proteinG": 10.6, "fatG": 11.7, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["أومليت", "بيض", "omelet"]},
     "RP-MT-188": {"nameEn": "Scrambled Egg", "caloriesKcal": 149.0, "carbsG": 1.6, "proteinG": 10.0, "fatG": 11.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيض مخفوق", "بيض", "scrambled egg"]},
     "RP-MT-189": {"nameEn": "Poached Egg", "caloriesKcal": 143.0, "carbsG": 0.7, "proteinG": 12.5, "fatG": 9.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيض بوشيه", "بيض", "poached egg"]},
@@ -451,7 +451,8 @@ def make_meat_record(it, seq_num):
     ]
     nutrients["missingNutrientKeys"] = [k for k in core_keys if nutrients[k] is None]
 
-    tags = ["meats", cat, it["prep"]]
+    prep_state = override.get("prep", it["prep"])
+    tags = ["meats", cat, prep_state]
     for extra in override.get("tags", []):
         if extra not in tags:
             tags.append(extra)
@@ -472,7 +473,7 @@ def make_meat_record(it, seq_num):
         "nameAr": it["nameAr"],
         "foodGroupId": "meats",
         "primaryExchangeCategoryId": cat,
-        "preparationState": it["prep"],
+        "preparationState": prep_state,
         "verificationStatus": ver_status,
         "isCustom": False,
         "nutrients100g": nutrients,

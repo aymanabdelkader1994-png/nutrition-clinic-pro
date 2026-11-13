@@ -4394,13 +4394,13 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_fat_rp_ft_064",
     "code": "RP-FT-064",
-    "sourceId": "usda_fdc",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Almond Flour, Blanched",
     "nameAr": "دقيق لوز",
     "foodGroupId": "fats",
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
-    "verificationStatus": "verified_standard",
+    "verificationStatus": "clinic_reviewed",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4455,9 +4455,8 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "almonds",
       "دقيق لوز"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 100273). وزن بديل الدهون القياسي (10 جم، ملعقة كبيرة ونصف) وفق قوائم RegimePlan 2026 (ص 12).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 100273). Exchange portion weight (10g, 10g portion) from RegimePlan Food Exchange Lists (2026, p. 12).",
-    "sourceRecordId": "100273"
+    "notesAr": "تركيبة مرجعية مراجعة سريرياً لكل 100 جم؛ وزن الحصة البديلة (10 جم) وفق RegimePlan 2026 (ص 12).",
+    "notesEn": "Clinically reviewed reference composition per 100g; exchange portion (10g) from RegimePlan 2026 (p. 12)."
   },
   {
     "id": "food_fat_rp_ft_065",
@@ -4520,9 +4519,9 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "avocado oil",
       "زيت أفوكادو"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04585). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 12).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04585). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 12).",
-    "sourceRecordId": "04585"
+    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04581). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 12).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04581). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 12).",
+    "sourceRecordId": "04581"
   },
   {
     "id": "food_fat_rp_ft_066",

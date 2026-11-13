@@ -405,9 +405,9 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16034). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 86 جم (نصف كوب).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16034). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 86g (1/2 cup).",
-    "sourceRecordId": "16034"
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16015). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 86 جم (نصف كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16015). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 86g (1/2 cup).",
+    "sourceRecordId": "16015"
   },
   {
     "id": "food_legume_rp_leg_005",

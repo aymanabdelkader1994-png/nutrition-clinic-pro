@@ -172,7 +172,19 @@ export function FoodEntryModal({
           potassiumMg: null,
           calciumMg: null,
           ironMg: null,
-          missingNutrientKeys: sodiumVal === null ? ['sodiumMg'] : [],
+          missingNutrientKeys: [
+            ...(fiberVal === null ? ['fiberG'] : []),
+            'saturatedFatG',
+            'transFatG',
+            'monounsaturatedFatG',
+            'polyunsaturatedFatG',
+            'cholesterolMg',
+            ...(sodiumVal === null ? ['sodiumMg'] : []),
+            'potassiumMg',
+            'calciumMg',
+            'ironMg',
+            'waterG',
+          ],
         },
         portions: [
           {

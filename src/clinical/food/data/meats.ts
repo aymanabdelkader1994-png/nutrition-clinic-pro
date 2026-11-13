@@ -207,9 +207,9 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   },
   {
     "id": "food_beef_flank_lean_cooked",
-    "code": "USDA-13442",
+    "code": "USDA-23654",
     "sourceId": "usda_fdc",
-    "sourceRecordId": "13442",
+    "sourceRecordId": "23654",
     "dataSourceId": "usda_fdc",
     "nameEn": "Beef, Flank Steak, Lean Only, Grilled / Braised",
     "nameAr": "لحم بقري أحمر قليل الدهن (ستيك فلانك مشوي/مطهي)",
@@ -8333,7 +8333,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameAr": "بياض بيضبياض بيضتين",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
-    "preparationState": "cooked",
+    "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
@@ -8382,7 +8382,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked",
+      "raw",
       "بياض بيض",
       "egg white"
     ],
@@ -10828,13 +10828,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_161",
     "code": "RP-MT-161",
-    "sourceId": "usda_fdc",
-    "nameEn": "Simmered / Cooked Chicken Liver",
+    "sourceId": "clinic_reviewed",
+    "nameEn": "Pan-Cooked / Fried Chicken Liver",
     "nameAr": "كبدة فراخ مقليةكبدة",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
-    "verificationStatus": "verified_standard",
+    "verificationStatus": "clinic_reviewed",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -10887,8 +10887,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "chicken liver"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 27 جم (حصة معيارية).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion).",
-    "sourceRecordId": "05028"
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion)."
   },
   {
     "id": "food_meat_rp_mt_162",
@@ -11160,7 +11159,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameAr": "صفار بيضصفار بيضتين ونصف",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_medium_fat",
-    "preparationState": "cooked",
+    "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "isCustom": false,
     "nutrients100g": {
@@ -11209,7 +11208,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "tags": [
       "meats",
       "meat_medium_fat",
-      "cooked",
+      "raw",
       "صفار بيض",
       "egg yolk"
     ],
@@ -11880,13 +11879,13 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_meat_rp_mt_177",
     "code": "RP-MT-177",
-    "sourceId": "usda_fdc",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Silken Tofu",
     "nameAr": "توفو حريري",
     "foodGroupId": "meats",
     "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
-    "verificationStatus": "verified_standard",
+    "verificationStatus": "clinic_reviewed",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -11940,8 +11939,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "silken tofu"
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 145 جم (145 جم).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 145g (145g portion).",
-    "sourceRecordId": "16127"
+    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 145g (145g portion)."
   },
   {
     "id": "food_meat_rp_mt_178",
@@ -12074,7 +12072,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     ],
     "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 10). وزن الحصة البديلة: 40 جم (40 جم).",
     "notesEn": "RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 40g (40g portion).",
-    "sourceRecordId": "16126"
+    "sourceRecordId": "16426"
   },
   {
     "id": "food_meat_rp_mt_180",

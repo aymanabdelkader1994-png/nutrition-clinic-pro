@@ -718,9 +718,9 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-064": {
         "nameEn": "Almond Flour, Blanched",
         "prep": "raw",
-        "sourceId": "usda_fdc",
-        "sourceRecordId": "100273",
-        "verificationStatus": "verified_standard",
+        "sourceId": "clinic_reviewed",
+        "sourceRecordId": None,
+        "verificationStatus": "clinic_reviewed",
         "nutrients": {"caloriesKcal": 600.0, "carbsG": 20.0, "proteinG": 20.0, "fatG": 50.0, "fiberG": 10.0},
         "tags": ["almond flour", "almonds", "دقيق لوز"],
     },
@@ -728,7 +728,7 @@ FAT_COMPOSITION_MAP = {
         "nameEn": "Avocado Oil",
         "prep": "ready-to-eat",
         "sourceId": "usda_fdc",
-        "sourceRecordId": "04585",
+        "sourceRecordId": "04581",
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,

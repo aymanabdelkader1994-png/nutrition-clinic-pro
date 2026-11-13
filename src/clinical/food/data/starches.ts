@@ -236,9 +236,9 @@ export const STARCH_FOOD_ITEMS: FoodItemRecord[] = [
   },
   {
     "id": "food_oats_rolled_cooked",
-    "code": "USDA-20077",
+    "code": "USDA-08121",
     "sourceId": "usda_fdc",
-    "sourceRecordId": "20077",
+    "sourceRecordId": "08121",
     "dataSourceId": "usda_fdc",
     "nameEn": "Rolled Oats / Oatmeal, Cooked in Water",
     "nameAr": "شوفان كامل الحبة مطبوخ بالماء",
