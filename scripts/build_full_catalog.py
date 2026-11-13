@@ -18,6 +18,10 @@ import os
 import sys
 import subprocess
 import json
+import argparse
+import hashlib
+import shutil
+import tempfile
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SCRIPTS_DIR = os.path.join(BASE_DIR, "scripts")
@@ -151,17 +155,35 @@ def validate_catalog(all_items):
             if src_rec is not None:
                 errors.append(f"{item_id}: clinic_reviewed source must not carry institutional sourceRecordId '{src_rec}'")
 
-    # English name quality guard (no bare prep-only names or raw untranslated fallback strings)
+    # English name quality guard (no bare prep-only names, mistranslated generic placeholders, or fallback strings)
     prep_only_words = {"raw", "cooked", "boiled", "grilled", "baked", "roasted", "fried", "canned", "dried", "smoked", "minced", "ground", "/", "skinless"}
+    duplicate_descriptor_pairs = [
+        ("smoked", "smoked"),
+        ("raw", "raw"),
+        ("cooked", "cooked"),
+        ("grilled", "grilled"),
+        ("fried", "fried"),
+        ("baked", "baked"),
+        ("beef", "beef"),
+    ]
     for item in all_items:
         en = (item.get("nameEn") or "").strip()
         ar = (item.get("nameAr") or "").strip()
         if not en or not ar:
             errors.append(f"{item.get('id')}: missing bilingual nameEn or nameAr")
             continue
-        words = set(en.lower().split())
-        if words.issubset(prep_only_words) or "Meat Product (" in en:
-            errors.append(f"{item.get('id')} ({item.get('code')}): invalid placeholder/prep-only English name '{en}'")
+        words_list = en.lower().split()
+        words = set(words_list)
+        if (
+            words.issubset(prep_only_words)
+            or "Meat Product (" in en
+            or "Untranslated" in en
+            or "Meat / Beef" in en
+        ):
+            errors.append(f"{item.get('id')} ({item.get('code')}): invalid placeholder/mistranslated English name '{en}'")
+        for w1, w2 in duplicate_descriptor_pairs:
+            if words_list.count(w1) > 1 or any(words_list[i] == w1 and words_list[i + 1] == w2 for i in range(len(words_list) - 1)):
+                errors.append(f"{item.get('id')} ({item.get('code')}): duplicate descriptor word '{w1}' in '{en}'")
 
     # Specific clinical sentinel assertions
     by_code = {it.get("code"): it for it in all_items if it.get("code")}
@@ -174,6 +196,7 @@ def validate_catalog(all_items):
         ("RP-MT-191", lambda x: x["nutrients100g"]["carbsG"] > 0 and x["nutrients100g"]["fatG"] < 15, "Boiled egg must have realistic carbs & fat"),
         ("RP-MT-165", lambda x: x["nutrients100g"]["carbsG"] > 10, "Breaded chicken must have >10g/100g carbs"),
         ("RP-MT-016", lambda x: x.get("preparationState") == "raw", "Dry chickpea flour must have preparationState=raw"),
+        ("RP-MT-118", lambda x: x.get("preparationState") == "dried", "Dry TVP must have preparationState=dried"),
     ]:
         rec = by_code.get(sentinel_code)
         if not rec or not check_fn(rec):
@@ -188,74 +211,208 @@ def validate_catalog(all_items):
         sys.exit(1)
 
 
-def run_generators():
+def _snapshot_hashes(target_dir, filenames):
+    hashes = {}
+    for fn in filenames:
+        p = os.path.join(target_dir, fn)
+        if os.path.exists(p):
+            h = hashlib.sha256()
+            with open(p, "rb") as f:
+                h.update(f.read())
+            hashes[fn] = h.hexdigest()
+        else:
+            hashes[fn] = None
+    return hashes
+
+
+def _validate_category_items(out_file, items):
+    if not isinstance(items, list) or len(items) == 0:
+        raise ValueError(f"Generated dataset {out_file} is empty or not a list.")
+    for idx, item in enumerate(items):
+        if not isinstance(item, dict):
+            raise ValueError(f"{out_file}[{idx}]: expected object, got {type(item).__name__}")
+        for req in ("id", "sourceId", "nameEn", "nameAr", "foodGroupId", "primaryExchangeCategoryId", "preparationState", "verificationStatus", "nutrients100g", "portions"):
+            if req not in item:
+                raise ValueError(f"{out_file}[{idx}] ({item.get('id', '?')}): missing required field '{req}'")
+
+
+def publish_catalog_transaction(staging_dir, data_dir, filenames, simulate_fail_after=None):
+    """
+    Publishes all staged catalog files as a single transactional batch.
+    Backs up existing targets and restores the exact prior state if any step fails.
+    """
+    os.makedirs(data_dir, exist_ok=True)
+    backup_dir = tempfile.mkdtemp(prefix="ncp_catalog_backup_")
+    existed_before = {}
+    tmp_paths = []
+    try:
+        # 1. Backup existing production files
+        for fn in filenames:
+            dst = os.path.join(data_dir, fn)
+            existed_before[fn] = os.path.exists(dst)
+            if existed_before[fn]:
+                shutil.copy2(dst, os.path.join(backup_dir, fn))
+
+        # 2. Write temporary files inside target data_dir before replacing
+        for fn in filenames:
+            src = os.path.join(staging_dir, fn)
+            if not os.path.exists(src):
+                raise FileNotFoundError(f"Staged file missing prior to publish: {src}")
+            tmp_dst = os.path.join(data_dir, f".tmp_{fn}")
+            tmp_paths.append(tmp_dst)
+            with open(src, "rb") as rf:
+                payload = rf.read()
+            with open(tmp_dst, "wb") as wf:
+                wf.write(payload)
+                wf.flush()
+                os.fsync(wf.fileno())
+
+        # 3. Promote all files via os.replace; roll back everything if any replace fails
+        for idx, fn in enumerate(filenames):
+            if simulate_fail_after is not None and idx >= simulate_fail_after:
+                raise RuntimeError(f"Simulated transactional publish failure before {fn}")
+            tmp_dst = os.path.join(data_dir, f".tmp_{fn}")
+            dst = os.path.join(data_dir, fn)
+            os.replace(tmp_dst, dst)
+    except Exception as pub_err:
+        print(f"\nPUBLICATION FAILED ({pub_err}); ROLLING BACK ALL CATALOG FILES...")
+        for fn in filenames:
+            dst = os.path.join(data_dir, fn)
+            bak = os.path.join(backup_dir, fn)
+            if existed_before.get(fn) and os.path.exists(bak):
+                shutil.copy2(bak, dst)
+            elif not existed_before.get(fn) and os.path.exists(dst):
+                os.remove(dst)
+        raise
+    finally:
+        for tp in tmp_paths:
+            if os.path.exists(tp):
+                try:
+                    os.remove(tp)
+                except OSError:
+                    pass
+        shutil.rmtree(backup_dir, ignore_errors=True)
+
+
+def run_generators(scripts_dir=SCRIPTS_DIR, data_dir=DATA_DIR, staging_dir_override=None, simulate_publish_fail_after=None):
     print("=" * 70)
-    print("NUTRITION CLINIC PRO — MASTER FOOD CATALOG GENERATION PIPELINE")
+    print("NUTRITION CLINIC PRO — STAGED & TRANSACTIONAL CATALOG PIPELINE")
     print("=" * 70)
 
-    category_counts = {}
-    all_items = []
+    out_files = [item[2] for item in GENERATOR_SCRIPTS]
 
-    for name, script_name, out_file in GENERATOR_SCRIPTS:
-        script_path = os.path.join(SCRIPTS_DIR, script_name)
+    # Pre-flight: ensure all expected generators exist before staging
+    for _, script_name, _ in GENERATOR_SCRIPTS:
+        script_path = os.path.join(scripts_dir, script_name)
         if not os.path.exists(script_path):
             print(f"ERROR: Generator script {script_path} not found.")
             sys.exit(1)
 
-        print(f"\n[Running] {name} ({script_name})...")
-        res = subprocess.run([sys.executable, script_path], cwd=BASE_DIR, capture_output=True, text=True)
-        if res.returncode != 0:
-            print(f"FAILED: {script_name} exited with code {res.returncode}")
-            print(res.stderr)
-            sys.exit(res.returncode)
+    pre_hashes = _snapshot_hashes(data_dir, out_files)
 
-        # Print script output
-        for line in res.stdout.strip().split("\n"):
-            if line:
-                print(f"  {line}")
+    managed_temp = staging_dir_override is None
+    staging_dir = staging_dir_override or tempfile.mkdtemp(prefix="ncp_catalog_stage_")
+    os.makedirs(staging_dir, exist_ok=True)
 
-        out_path = os.path.join(DATA_DIR, out_file)
-        if not os.path.exists(out_path):
-            print(f"ERROR: Output file {out_path} was not generated.")
+    category_counts = {}
+    all_items = []
+
+    try:
+        # Stage 1: Execute all category generators inside isolated staging_dir
+        for name, script_name, out_file in GENERATOR_SCRIPTS:
+            script_path = os.path.join(scripts_dir, script_name)
+            print(f"\n[Staging] {name} ({script_name}) -> {os.path.join(staging_dir, out_file)}")
+            env = os.environ.copy()
+            env["NCP_CATALOG_OUT_DIR"] = staging_dir
+            res = subprocess.run([sys.executable, script_path], cwd=BASE_DIR, env=env, capture_output=True, text=True)
+            if res.returncode != 0:
+                print(f"FAILED: {script_name} exited with code {res.returncode}")
+                if res.stderr:
+                    print(res.stderr)
+                sys.exit(res.returncode)
+
+            for line in res.stdout.strip().split("\n"):
+                if line:
+                    print(f"  {line}")
+
+            staged_path = os.path.join(staging_dir, out_file)
+            if not os.path.exists(staged_path):
+                print(f"ERROR: Expected staged output file {staged_path} was not generated.")
+                sys.exit(1)
+
+            with open(staged_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            marker = "FoodItemRecord[] = "
+            idx = content.find(marker)
+            if idx < 0:
+                print(f"ERROR: Missing expected TypeScript array marker in staged {out_file}")
+                sys.exit(1)
+
+            json_text = content[idx + len(marker):].rstrip().rstrip(";")
+            try:
+                items = json.loads(json_text)
+            except Exception as e:
+                print(f"ERROR: Could not parse JSON items in staged {out_file}: {e}")
+                sys.exit(1)
+
+            try:
+                _validate_category_items(out_file, items)
+            except ValueError as e:
+                print(f"ERROR: Category validation failed for staged {out_file}: {e}")
+                sys.exit(1)
+
+            category_counts[name] = len(items)
+            all_items.extend(items)
+
+        # Ensure no generator bypassed staging to alter production files prematurely
+        mid_hashes = _snapshot_hashes(data_dir, out_files)
+        if mid_hashes != pre_hashes:
+            print("ERROR: A category generator modified production data_dir directly during staged run!")
             sys.exit(1)
 
-        with open(out_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        marker = "FoodItemRecord[] = "
-        idx = content.find(marker)
-        if idx < 0:
-            print(f"ERROR: Missing expected TypeScript array marker in {out_file}")
-            sys.exit(1)
+        # Stage 2: Combined catalog validation BEFORE publishing any file
+        validate_catalog(all_items)
 
-        json_text = content[idx + len(marker):].rstrip().rstrip(";")
+        # Stage 3: Atomic transactional publication into production data_dir
         try:
-            items = json.loads(json_text)
+            publish_catalog_transaction(
+                staging_dir,
+                data_dir,
+                out_files,
+                simulate_fail_after=simulate_publish_fail_after,
+            )
         except Exception as e:
-            print(f"ERROR: Could not parse items in {out_file}: {e}")
+            print(f"ERROR: Transactional publication aborted and rolled back cleanly: {e}")
             sys.exit(1)
 
-        if not isinstance(items, list) or len(items) == 0:
-            print(f"ERROR: Generated dataset {out_file} is empty or not a list.")
-            sys.exit(1)
+        print("\n" + "=" * 70)
+        print("CATALOG PIPELINE REPORT:")
+        print("=" * 70)
+        total_items = 0
+        for name, count in category_counts.items():
+            print(f"  - {name:<32}: {count:>4} items")
+            total_items += count
 
-        category_counts[name] = len(items)
-        all_items.extend(items)
+        print("-" * 70)
+        print(f"  Total Compiled Category Items   : {total_items:>4} items")
+        print("  Stage 1 — Staged Generation     : SUCCEEDED (8/8 modules isolated)")
+        print("  Stage 2 — Catalog Validation    : PASSED (0 errors)")
+        print("  Stage 3 — Safe Publication      : SUCCEEDED (transactional commit)")
+        print("  Stage 4 — Reproducibility Check : NOT EXECUTED (verify separately via dual isolated runs)")
+        print("=" * 70 + "\n")
+    finally:
+        if managed_temp:
+            shutil.rmtree(staging_dir, ignore_errors=True)
 
-    validate_catalog(all_items)
-
-    print("\n" + "=" * 70)
-    print("CATALOG GENERATION SUMMARY:")
-    print("=" * 70)
-    total_items = 0
-    for name, count in category_counts.items():
-        print(f"  - {name:<32}: {count:>4} items")
-        total_items += count
-
-    print("-" * 70)
-    print(f"  Total Compiled Category Items   : {total_items:>4} items")
-    print("  Catalog-Wide Validation         : PASSED (0 errors)")
-    print("=" * 70)
-    print("Deterministic catalog generation completed successfully.\n")
 
 if __name__ == "__main__":
-    run_generators()
+    parser = argparse.ArgumentParser(description="Nutrition Clinic Pro Failure-Safe Catalog Generator")
+    parser.add_argument("--scripts-dir", default=SCRIPTS_DIR, help="Path to generator scripts directory")
+    parser.add_argument("--data-dir", default=DATA_DIR, help="Target publication directory")
+    parser.add_argument("--simulate-publish-fail-after", type=int, default=None, help="Inject simulated publish failure after N files (testing only)")
+    args = parser.parse_args()
+    run_generators(
+        scripts_dir=os.path.abspath(args.scripts_dir),
+        data_dir=os.path.abspath(args.data_dir),
+        simulate_publish_fail_after=args.simulate_publish_fail_after,
+    )

@@ -5,16 +5,11 @@ import json
 import os
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-OUT_PATH = os.path.join(BASE_DIR, "src/clinical/food/data/meats.ts")
+OUT_DIR = os.environ.get("NCP_CATALOG_OUT_DIR") or os.path.join(BASE_DIR, "src", "clinical", "food", "data")
+OUT_PATH = os.path.join(OUT_DIR, "meats.ts")
 
-with open(os.path.join(BASE_DIR, "scripts/original_30_grouped.json"), "r", encoding="utf-8") as f:
-    orig = json.load(f)["meats"]
-
-with open(os.path.join(BASE_DIR, "public/assets/aistudio/regimeplan-food-exchange-list-ar-2026-10-10_1630b277.pdf"), "rb") as f:
-    content = f.read()
-
-streams = re.findall(b"stream[\r\n]+(.*?)[\r\n]+endstream", content, re.DOTALL)
-
+PDF_PATH = os.path.join(BASE_DIR, "public/assets/aistudio/regimeplan-food-exchange-list-ar-2026-10-10_1630b277.pdf")
+ORIG_PATH = os.path.join(BASE_DIR, "scripts/original_30_grouped.json")
 def parse_cmap(cmap_str):
     mapping = {}
     for block in re.findall(r"(\d+)\s+beginbfchar(.*?)endbfchar", cmap_str, re.DOTALL):
@@ -24,7 +19,7 @@ def parse_cmap(cmap_str):
             if m:
                 try:
                     mapping[m.group(1).upper()] = bytes.fromhex(m.group(2)).decode("utf-16-be")
-                except:
+                except Exception:
                     pass
     for block in re.findall(r"(\d+)\s+beginbfrange(.*?)endbfrange", cmap_str, re.DOTALL):
         for m in re.finditer(r"<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>\s*<([0-9a-fA-F]+)>", block[1]):
@@ -34,17 +29,23 @@ def parse_cmap(cmap_str):
             for off in range(end - start + 1):
                 try:
                     mapping[f"{start + off:04X}"] = chr(target + off)
-                except:
+                except Exception:
                     pass
     return mapping
 
-font_maps = {
-    "/F4": parse_cmap(zlib.decompress(streams[27]).decode("latin1")),
-    "/F5": parse_cmap(zlib.decompress(streams[29]).decode("latin1")),
-    "/F9": parse_cmap(zlib.decompress(streams[31]).decode("latin1")),
-    "/F10": parse_cmap(zlib.decompress(streams[33]).decode("latin1")),
-    "/F11": parse_cmap(zlib.decompress(streams[35]).decode("latin1")),
-}
+
+def _build_pdf_context():
+    with open(PDF_PATH, "rb") as f:
+        pdf_content = f.read()
+    pdf_streams = re.findall(b"stream[\r\n]+(.*?)[\r\n]+endstream", pdf_content, re.DOTALL)
+    fmaps = {
+        "/F4": parse_cmap(zlib.decompress(pdf_streams[27]).decode("latin1")),
+        "/F5": parse_cmap(zlib.decompress(pdf_streams[29]).decode("latin1")),
+        "/F9": parse_cmap(zlib.decompress(pdf_streams[31]).decode("latin1")),
+        "/F10": parse_cmap(zlib.decompress(pdf_streams[33]).decode("latin1")),
+        "/F11": parse_cmap(zlib.decompress(pdf_streams[35]).decode("latin1")),
+    }
+    return pdf_streams, fmaps
 
 token_pattern = re.compile(
     r"(/[A-Za-z0-9_]+)\s+[0-9.]+\s+Tf|"
@@ -53,7 +54,7 @@ token_pattern = re.compile(
     r"<([0-9a-fA-F]+)>\s*Tj"
 )
 
-def extract_page_tokens(decomp):
+def extract_page_tokens(decomp, font_maps):
     tokens = []
     curr_font = "/F9"
     curr_x, curr_y = 0.0, 0.0
@@ -89,104 +90,29 @@ MACROS = {
     "meat_high_fat": {"caloriesKcal": 100, "carbsG": 0, "proteinG": 7, "fatG": 8},
 }
 
-# Translation helper dictionary for meat foods
-EN_TERMS = {
-    "فراخ": "Chicken",
-    "فرخة": "Chicken",
-    "دجاج": "Chicken",
-    "كاملة": "Whole",
-    "صدر": "Breast",
-    "ورك": "Thigh",
-    "دبوس": "Drumstick",
-    "جناح": "Wing",
-    "قوانص": "Gizzards",
-    "لحم": "Meat / Beef",
-    "لمحة": "Beef",
-    "شاورما": "Shawarma",
-    "كفتة": "Kofta",
-    "ريش": "Ribs",
-    "ستيك": "Steak",
-    "بقري": "Beef",
-    "ضأن": "Lamb",
-    "ضاني": "Lamb",
-    "بتلو": "Veal",
-    "ماعز": "Goat",
-    "جاموسي": "Buffalo",
-    "مجل": "Camel",
-    "مجلي": "Camel",
-    "سمك": "Fish",
-    "مسك": "Fish",
-    "سلمون": "Salmon",
-    "ساملون": "Salmon",
-    "تونة": "Tuna",
-    "ماكريل": "Mackerel",
-    "سردين": "Sardine",
-    "جمبري": "Shrimp / Prawns",
-    "مجبري": "Shrimp",
-    "كابوريا": "Crab",
-    "إستاكوزا": "Lobster",
-    "استاكوزا": "Lobster",
-    "سكالوب": "Scallops",
-    "حبار": "Squid / Calamari",
-    "كالمياري": "Calamari",
-    "أخطبوط": "Octopus",
-    "محار": "Oysters / Clams",
-    "بلطي": "Tilapia",
-    "بوري": "Grey Mullet",
-    "دنيس": "Sea Bream",
-    "وقار": "Grouper",
-    "هامور": "Grouper",
-    "قاروص": "Sea Bass",
-    "مكرونة": "Saurida / Brushtooth Lizardfish",
-    "قشر بياض": "Nile Perch",
-    "قد": "Cod Fish",
-    "القد": "Cod",
-    "بولاك": "Pollock",
-    "تراوت": "Trout",
-    "بربوني": "Red Mullet",
-    "كنعد": "Kingfish",
-    "موسى": "Sole",
-    "قرموط": "Catfish",
-    "هاليبوت": "Halibut",
-    "أبو": "Swordfish",
-    "رنجة": "Smoked Herring",
-    "فسيخ": "Feseekh (Cured Grey Mullet)",
-    "أنشوجة": "Anchovies",
-    "كافيار": "Caviar",
-    "بط": "Duck",
-    "وز": "Goose",
-    "حمام": "Pigeon / Squab",
-    "محام": "Pigeon / Squab",
-    "سمان": "Quail",
-    "مسان": "Quail",
-    "ديك رومي": "Turkey",
-    "رومي": "Turkey",
-    "أرانب": "Rabbit",
-    "نعام": "Ostrich",
-    "كبدة": "Liver",
-    "قلب": "Heart",
-    "كلاوي": "Kidney",
-    "مخ": "Brain",
-    "كرشة": "Tripe",
-    "طحال": "Spleen",
-    "كوارع": "Trotters",
-    "لسان": "Tongue",
-    "سجق": "Sausage",
-    "هوت دوج": "Hot Dog",
-    "سوسيس": "Frankfurter",
-    "برجر": "Burger Patty",
-    "لانشون": "Luncheon Meat / Mortadella",
-    "بسطرمة": "Pastrami",
-    "باسترامي": "Pastrami",
-    "بيبروني": "Pepperoni",
-    "سلامي": "Salami",
-    "جبنة": "Cheese",
-    "جبن": "Cheese",
-    "بيض": "Egg",
-    "بياض بيض": "Egg White",
-    "صفار بيض": "Egg Yolk",
-    "توفو": "Tofu",
-    "تمبي": "Tempeh",
+# Whole-token PDF CMap typo canonicalization (never partial substring guessing)
+AR_TYPO_NORMALIZATION = {
+    "مسك": "سمك",
+    "مجبري": "جمبري",
+    "ساملون": "سلمون",
+    "كالمياري": "كاليماري",
+    "مسان": "سمان",
+    "محام": "حمام",
+    "مجل": "جمل",
+    "مجلي": "جملي",
+    "لمحة": "لحمة",
+    "باملاء": "بالماء",
+    "طمعية": "طعمية",
+    "ممحص": "محمص",
+    "محص": "حمص",
+    "متبيه": "تمبيه",
+}
+
+# Semantic dictionaries separated cleanly into domain slots
+PREP_MAP = {
+    "مشوية على الفحم": "Charcoal-Grilled",
+    "مشوي على الفحم": "Charcoal-Grilled",
+    "في الفرن": "Baked",
     "نيء": "Raw",
     "نيئة": "Raw",
     "مطبوخ": "Cooked",
@@ -197,181 +123,448 @@ EN_TERMS = {
     "مسلوقة": "Boiled",
     "مقلي": "Fried",
     "مقلية": "Fried",
-    "في الفرن": "Baked / Roasted",
+    "مشوح": "Sautéed",
+    "مشوحة": "Sautéed",
+}
+
+PROCESSING_MAP = {
+    "معلبة بالزيت": "Canned in Oil",
+    "معلب بالزيت": "Canned in Oil",
+    "معلبة بالماء": "Canned in Water",
+    "معلب بالماء": "Canned in Water",
     "معلب": "Canned",
     "معلبة": "Canned",
     "مدخن": "Smoked",
     "مدخنة": "Smoked",
-    "بدون جلد": "Skinless",
-    "بالجلد": "With Skin",
-    "مفروم": "Minced / Ground",
-    "مفرومة": "Minced / Ground",
+    "مملح": "Corned / Salted",
+    "مملحة": "Corned / Salted",
+    "طازج": "Fresh",
+    "طازجة": "Fresh",
+    "نهري": "Freshwater",
+    "نهرية": "Freshwater",
 }
 
-def translate_name(ar):
-    if "في الفرن" in ar:
-        ar_proc = ar.replace("في الفرن", " baked_placeholder ")
-    else:
-        ar_proc = ar
-    ar_proc = ar_proc.replace("بدون جلد", " skinless_placeholder ")
-    words = ar_proc.split()
-    parts = []
-    matched = False
-    for w in words:
-        w_clean = re.sub(r"[()\[\]،,]+.*$", "", w)
-        for prefix in ("ربع", "نصف", "في", "على"):
-            pass
-        if w_clean == "baked_placeholder":
-            parts.append("Baked")
-        elif w_clean == "skinless_placeholder":
-            parts.append("Skinless")
-        elif w_clean in EN_TERMS:
-            parts.append(EN_TERMS[w_clean])
-            matched = True
+DESCRIPTOR_MAP = {
+    "قليل الدهن": "Lean",
+    "قليلة الدهن": "Lean",
+    "بدون جلد": "Skinless",
+    "بالجلد": "With Skin",
+    "مفروم": "Ground",
+    "مفرومة": "Ground",
+    "كاملة": "Whole",
+    "كامل": "Whole",
+}
+
+SPECIES_MAP = {
+    # Mammals & Game
+    "بقري": ("Beef", "mammal"),
+    "ضأن": ("Lamb", "mammal"),
+    "ضاني": ("Lamb", "mammal"),
+    "بتلو": ("Veal", "mammal"),
+    "ماعز": ("Goat", "mammal"),
+    "جاموسي": ("Buffalo", "mammal"),
+    "جمل": ("Camel", "mammal"),
+    "جملي": ("Camel", "mammal"),
+    "أرانب": ("Rabbit", "mammal"),
+    "نعام": ("Ostrich", "mammal"),
+    # Poultry
+    "فراخ": ("Chicken", "poultry"),
+    "فرخة": ("Chicken", "poultry"),
+    "دجاج": ("Chicken", "poultry"),
+    "ديك رومي": ("Turkey", "poultry"),
+    "رومي": ("Turkey", "poultry"),
+    "بط": ("Duck", "poultry"),
+    "وز": ("Goose", "poultry"),
+    "حمام": ("Pigeon / Squab", "poultry"),
+    "سمان": ("Quail", "poultry"),
+    # Fish & Seafood
+    "أبو سيف": ("Swordfish", "fish"),
+    "قشر بياض": ("Nile Perch", "fish"),
+    "بلح البحر": ("Mussels", "seafood"),
+    "القد": ("Cod", "fish"),
+    "قد": ("Cod", "fish"),
+    "بولاك": ("Pollock", "fish"),
+    "سلمون": ("Salmon", "fish"),
+    "تونة": ("Tuna", "fish"),
+    "ماكريل": ("Mackerel", "fish"),
+    "سردين": ("Sardines", "fish"),
+    "بلطي": ("Tilapia", "fish"),
+    "بوري": ("Grey Mullet", "fish"),
+    "دنيس": ("Sea Bream", "fish"),
+    "وقار": ("Grouper", "fish"),
+    "هامور": ("Grouper", "fish"),
+    "قاروص": ("Sea Bass", "fish"),
+    "مكرونة": ("Brushtooth Lizardfish", "fish"),
+    "تراوت": ("Trout", "fish"),
+    "بربوني": ("Red Mullet", "fish"),
+    "كنعد": ("Kingfish", "fish"),
+    "موسى": ("Sole", "fish"),
+    "قرموط": ("Catfish", "fish"),
+    "هاليبوت": ("Halibut", "fish"),
+    "رنجة": ("Herring", "fish"),
+    "فسيخ": ("Feseekh (Cured Grey Mullet)", "fish"),
+    "أنشوجة": ("Anchovies", "fish"),
+    "جمبري": ("Shrimp", "seafood"),
+    "كابوريا": ("Crab", "seafood"),
+    "إستاكوزا": ("Lobster", "seafood"),
+    "استاكوزا": ("Lobster", "seafood"),
+    "سكالوب": ("Scallops", "seafood"),
+    "حبار": ("Calamari", "seafood"),
+    "كاليماري": ("Calamari", "seafood"),
+    "أخطبوط": ("Octopus", "seafood"),
+    "محار": ("Clams / Oysters", "seafood"),
+    "أويستر": ("Oysters", "seafood"),
+}
+
+CUT_OR_FOOD_MAP = {
+    "هوت دوج": "Hot Dog",
+    "بياض بيض": "Egg White",
+    "صفار بيض": "Egg Yolk",
+    "صدر": "Breast",
+    "ورك": "Thigh",
+    "دبوس": "Drumstick",
+    "جناح": "Wing",
+    "قوانص": "Gizzards",
+    "شاورما": "Shawarma",
+    "كفتة": "Kofta",
+    "ريش": "Ribs",
+    "ستيك": "Steak",
+    "كبدة": "Liver",
+    "قلب": "Heart",
+    "كلاوي": "Kidneys",
+    "مخ": "Brain",
+    "كرشة": "Tripe",
+    "طحال": "Spleen",
+    "كوارع": "Trotters",
+    "لسان": "Tongue",
+    "سجق": "Sausage",
+    "سوسيس": "Frankfurter",
+    "برجر": "Burger Patty",
+    "لانشون": "Luncheon Meat",
+    "بسطرمة": "Pastrami",
+    "باسترامي": "Pastrami",
+    "بيبروني": "Pepperoni",
+    "سلامي": "Salami",
+    "جبنة": "Cheese",
+    "جبن": "Cheese",
+    "بيض": "Egg",
+    "توفو": "Tofu",
+    "تمبيه": "Tempeh",
+    "كافيار": "Caviar",
+    "فيليه": "Fillet",
+    "بانيه": "Breaded Cutlet (Pané)",
+}
+
+MULTI_WORD_PHRASES = sorted(
+    [
+        k
+        for d in (PREP_MAP, PROCESSING_MAP, DESCRIPTOR_MAP, SPECIES_MAP, CUT_OR_FOOD_MAP)
+        for k in d.keys()
+        if " " in k
+    ],
+    key=lambda x: -len(x),
+)
+
+GLUED_PORTION_SUFFIX_RE = re.compile(
+    r"(?:\d+\s*(?:شرائح|شريحة|حبات|حبة|قطع|قطعة|مثلثات).*|"
+    r"قرص(?:\s*\)?\s*\d+\s*غ\)?)?.*|"
+    r"(?:ربع|نصف)\s+(?:محامة|بطة|وزة|فرخة|مسانة|سمانة)(?:\s*\)\s*\d+\s*غ\)?)?.*|"
+    r"مسانة(?:\s*\)\s*\d+\s*غ\)?)?.*)$"
+)
+
+
+def _strip_pdf_glued_portions(ar_text: str) -> str:
+    s = (ar_text or "").replace("\u00a0", " ").strip()
+    s = re.sub(r"\s+", " ", s)
+    # Remove glued trailing portion nouns/weights that leaked from the household column
+    s = GLUED_PORTION_SUFFIX_RE.sub("", s).strip()
+    s = re.sub(r"(?<=[\u0621-\u064A])(?:مسكة|سمكة)(?:\s+(?:ونصف|وربع))?$", "", s).strip()
+    s = re.sub(r"\d+$", "", s).strip()
+
+    # Handle single glued suffix tokens (e.g., 'مشويربع', 'نيءنصف', 'مدخنةنصف', 'مطبوخةقانصة', 'مقليةكبدة', 'مشويةريشة', 'مشويحلقتان')
+    tokens = s.split()
+    cleaned = []
+    for idx, tok in enumerate(tokens):
+        t = re.sub(r"[()\[\]،,]+", "", tok)
+        if not t:
+            continue
+        # Only strip glued portion markers attached to the end of another Arabic word
+        m_glued = re.match(r"^([\u0621-\u064A]{2,}?)(حلقتان|حلقات|ريشة|قانصة|كبدة|نصف|ربع)$", t)
+        if m_glued and m_glued.group(1) not in ("لحم", "سمك"):
+            t = m_glued.group(1)
+        elif idx == len(tokens) - 1 and t in ("نصف", "ربع", "وربع") and cleaned:
+            continue
+        cleaned.append(t)
+    # Strip trailing 'ونصف'/'وربع'/'نصف'/'ربع' left after removing glued portion nouns
+    while cleaned and cleaned[-1] in ("نصف", "ربع", "وربع", "ونصف"):
+        cleaned.pop()
+    return " ".join(cleaned)
+
+
+def parse_arabic_meat_name(ar: str) -> dict:
+    cleaned = _strip_pdf_glued_portions(ar)
+    canonical_tokens = [AR_TYPO_NORMALIZATION.get(tok, tok) for tok in cleaned.split()]
+    norm_text = " ".join(canonical_tokens)
+
+    prep = None
+    processing = []
+    descriptors = []
+    species = None
+    species_kind = None
+    cut = None
+    has_generic_meat = False
+    has_generic_fish = False
+    unrecognized = []
+
+    # 1. Extract complete multi-word phrases longest-first
+    working = f" {norm_text} "
+    for phrase in MULTI_WORD_PHRASES:
+        padded = f" {phrase} "
+        if padded in working:
+            working = working.replace(padded, " ", 1)
+            if phrase in PREP_MAP and prep is None:
+                prep = PREP_MAP[phrase]
+            elif phrase in PROCESSING_MAP and PROCESSING_MAP[phrase] not in processing:
+                processing.append(PROCESSING_MAP[phrase])
+            elif phrase in DESCRIPTOR_MAP and DESCRIPTOR_MAP[phrase] not in descriptors:
+                descriptors.append(DESCRIPTOR_MAP[phrase])
+            elif phrase in SPECIES_MAP and species is None:
+                species, species_kind = SPECIES_MAP[phrase]
+            elif phrase in CUT_OR_FOOD_MAP and cut is None:
+                cut = CUT_OR_FOOD_MAP[phrase]
+
+    # 2. Classify every remaining whole token strictly by dictionary (zero prefix guessing)
+    for tok in working.split():
+        if tok in PREP_MAP:
+            if prep is None:
+                prep = PREP_MAP[tok]
+        elif tok in PROCESSING_MAP:
+            val = PROCESSING_MAP[tok]
+            if val not in processing:
+                processing.append(val)
+        elif tok in DESCRIPTOR_MAP:
+            val = DESCRIPTOR_MAP[tok]
+            if val not in descriptors:
+                descriptors.append(val)
+        elif tok in SPECIES_MAP:
+            sp_val, sp_kind = SPECIES_MAP[tok]
+            if species is None:
+                species, species_kind = sp_val, sp_kind
+            elif sp_val != species:
+                unrecognized.append(tok)
+        elif tok in CUT_OR_FOOD_MAP:
+            ct_val = CUT_OR_FOOD_MAP[tok]
+            if cut is None:
+                cut = ct_val
+            elif ct_val != cut:
+                unrecognized.append(tok)
+        elif tok in ("لحم", "لحمة"):
+            has_generic_meat = True
+        elif tok == "سمك":
+            has_generic_fish = True
         else:
-            # Handle PDF-glued suffixes like مشويمسانة / نيءربع / مشويربع
-            for ar_key, en_val in sorted(EN_TERMS.items(), key=lambda kv: -len(kv[0])):
-                if len(ar_key) >= 3 and w_clean.startswith(ar_key):
-                    parts.append(en_val)
-                    matched = True
-                    break
-    if not matched:
-        return f"Meat Product ({ar})"
-    # Deduplicate consecutive identical words cleanly
+            unrecognized.append(tok)
+
+    has_identity = bool(species or cut or has_generic_fish or has_generic_meat)
+    return {
+        "source_ar": ar,
+        "normalized_ar": norm_text,
+        "has_identity": has_identity,
+        "species": species,
+        "species_kind": species_kind,
+        "cut": cut,
+        "preparation": prep,
+        "processing": processing,
+        "descriptors": descriptors,
+        "has_generic_meat": has_generic_meat,
+        "has_generic_fish": has_generic_fish,
+        "unrecognized": unrecognized,
+    }
+
+
+def translate_name(ar: str) -> str:
+    parsed = parse_arabic_meat_name(ar)
+
+    # Transparent fallback if core food identity is missing or unknown words exist
+    if not parsed["has_identity"] or parsed["unrecognized"]:
+        return f"Untranslated Arabic Meat/Seafood Item ({ar})"
+
+    parts = []
+    postfixes = []
+    # Preparation & Processing first
+    if parsed["preparation"]:
+        parts.append(parsed["preparation"])
+    for proc in parsed["processing"]:
+        if proc == "Canned in Oil":
+            parts.append("Canned")
+            postfixes.append("in Oil")
+        elif proc == "Canned in Water":
+            parts.append("Canned")
+            postfixes.append("in Water")
+        else:
+            parts.append(proc)
+
+    # Additional descriptors (Whole, Lean, Skinless, With Skin, Ground)
+    desc_order = ["Whole", "Lean", "Skinless", "With Skin", "Ground"]
+    for d in desc_order:
+        if d in parsed["descriptors"]:
+            parts.append(d)
+    for d in parsed["descriptors"]:
+        if d not in desc_order:
+            parts.append(d)
+
+    # Species vs generic Meat/Fish rules (never confuse Beef & Lamb; never duplicate Fish)
+    species = parsed["species"]
+    cut = parsed["cut"]
+
+    if species:
+        if species in ("Goat", "Camel", "Duck") and parsed["has_generic_meat"] and not cut:
+            parts.append(f"{species} Meat")
+        elif parsed["has_generic_fish"] and parsed["species_kind"] == "fish" and "fish" not in species.lower() and not cut:
+            parts.append(f"{species} Fish")
+        else:
+            parts.append(species)
+    elif parsed["has_generic_meat"]:
+        # Generic un-qualified 'لحم' (e.g., برجر لحم مشوي / شاورما لمحة) represents Beef in clinical Egypt exchange guide
+        parts.append("Beef")
+    elif parsed["has_generic_fish"]:
+        parts.append("Fish")
+
+    if cut:
+        parts.append(cut)
+    parts.extend(postfixes)
+
+    # Deduplicate any identical consecutive tokens without losing meaning
     dedup = []
     for p in parts:
         if not dedup or dedup[-1].lower() != p.lower():
             dedup.append(p)
     return " ".join(dedup)
 
-# Parse pages 7 (meat section), 8, 9, 10
-# Current subcategory tracking
-items = []
-current_cat = "meat_lean"
 
-for p_num in [7, 8, 9, 10]:
-    decomp = zlib.decompress(streams[page_streams[p_num - 1]]).decode("latin1")
-    toks = extract_page_tokens(decomp)
-    
-    # split left and right
-    left = [t for t in toks if t[0] < 390]
-    right = [t for t in toks if t[0] >= 390]
-    
-    for col in [right, left]:
-        rows = {}
-        for x, y, f, text in col:
-            ry = round(y)
-            rows.setdefault(ry, []).append((x, f, text))
-            
-        for ry in sorted(rows.keys(), reverse=True):
-            row_toks = sorted(rows[ry], key=lambda i: -i[0])
-            txt = "".join(t[2] for t in row_toks).strip()
-            
-            # Check for category changes
-            if "متوسطة الدهون" in txt or "73 سعرة" in txt:
-                current_cat = "meat_medium_fat"
-            elif "عالية الدهون" in txt or "001 سعرة" in txt or "100 سعرة" in txt:
-                current_cat = "meat_high_fat"
-            elif "اللحوم وبدائلها" in txt or "46 سعرة" in txt or "قليلة الدهون" in txt:
-                current_cat = "meat_lean"
-                
-            # Ignore headers, branding, descriptions
-            if any(h in txt for h in [
-                "nalPemigeR", "الكمية", "منصة", "سعرة", "المقدار", "tsil-", 
-                "ابدأ", "يحسب", "أخصائي", "اللحوم وبدائلها", "الطعما"
-            ]):
-                continue
-                
-            # Look for line with gram weight
-            # Format typically: <Name><Household><Digits>
-            # The digits at the end are reversed!
-            m = re.search(r"(\d+)\s*$", txt)
-            if not m:
-                continue
-                
-            rev_digits = m.group(1)
-            # Reconstruct gram weight by reversing digits
-            weight_str = rev_digits[::-1]
-            try:
-                weight = float(weight_str)
-            except:
-                continue
-                
-            if weight <= 0 or weight > 500:
-                continue
-                
-            # Extract the remaining text before the digits
-            rest = txt[:m.start()].strip()
-            if not rest or len(rest) < 3:
-                continue
-                
-            # Check household measure vs name
-            # If rest has '—' or 'كوب' or 'شريحة' or 'قطعة'
-            hh_ar = "حصة معيارية"
-            hh_en = "Standard portion"
-            name_ar = rest
-            
-            # Check for common household measures
-            for hm in ["شريحة ونصف", "شريحة", "قطعة فيليه", "قطعة", "نصف كوب", "ثلث كوب", "ربع كوب", "كوب", "ملعقتان كبيرتان", "ملعقة كبيرة", "نصف دبوس", "دبوس", "نصف صدر", "صدر متوسط", "صدر", "ورك متوسط", "ورك", "ربع فرخة", "نصف فرخة", "حبة كبيرة", "حبة متوسطة", "حبة ونصف", "حبة", "حبتان", "3 قطع", "5 أصابع", "إصبع", "علبة", "—"]:
-                if hm in rest:
-                    parts = rest.split(hm, 1)
-                    name_ar = parts[0].strip()
-                    hh_ar = (hm + " " + parts[1]).strip()
-                    break
-                    
-            name_ar = re.sub(r"\s*=\s*\d+.*$", "", name_ar).strip()
-            if not name_ar:
-                continue
-                
-            # Filter out non-meat items (e.g. if legume/dairy slipped in)
-            if any(ex in name_ar for ex in ["لبن", "زبادي", "فول", "عدس", "حمص", "فاصوليا", "لوبيا", "إدامامي"]):
-                continue
-                
-            # Determine prep state
-            prep = "cooked"
-            if "نيء" in name_ar or "نيئة" in name_ar:
-                prep = "raw"
-            elif "معلب" in name_ar or "معلبة" in name_ar or "مدخن" in name_ar or "مدخنة" in name_ar:
-                prep = "ready-to-eat"
-            elif "مشوي" in name_ar or "مشوية" in name_ar:
-                prep = "grilled"
-            elif "مسلوق" in name_ar or "مسلوقة" in name_ar:
-                prep = "boiled"
-            elif "مقلي" in name_ar or "مقلية" in name_ar:
-                prep = "fried"
-            elif "في الفرن" in name_ar:
-                prep = "baked"
-                
-            items.append({
-                "nameAr": name_ar,
-                "hhAr": hh_ar if hh_ar != "—" else f"{int(weight)} جم",
-                "weight": weight,
-                "cat": current_cat,
-                "prep": prep,
-                "page": p_num
-            })
+def _extract_pdf_meat_items(streams, font_maps):
+    items = []
+    current_cat = "meat_lean"
 
-# Deduplicate items by nameAr while preserving original 1-based PDF extraction index
-# (so page footer artifacts at indices 24, 76, 135 keep stable codes for remaining items)
-unique_items = []
-seen_names = set()
-for it in items:
-    if it["nameAr"] not in seen_names:
-        seen_names.add(it["nameAr"])
-        unique_items.append(it)
+    for p_num in [7, 8, 9, 10]:
+        decomp = zlib.decompress(streams[page_streams[p_num - 1]]).decode("latin1")
+        toks = extract_page_tokens(decomp, font_maps)
 
-numbered_items = [
-    (i + 1, it)
-    for i, it in enumerate(unique_items[:196])
-    if "صفحة" not in it["nameAr"]
-]
+        left = [t for t in toks if t[0] < 390]
+        right = [t for t in toks if t[0] >= 390]
 
-print(f"Extracted {len(numbered_items)} unique non-footer meat items from pages 7-10")
-cats = {}
-for _, it in numbered_items:
-    cats[it["cat"]] = cats.get(it["cat"], 0) + 1
-print("Categories:", cats)
-print(f"Selected {len(numbered_items)} new meat items to combine with {len(orig)} original.")
+        for col in [right, left]:
+            rows = {}
+            for x, y, f, text in col:
+                ry = round(y)
+                rows.setdefault(ry, []).append((x, f, text))
+
+            for ry in sorted(rows.keys(), reverse=True):
+                row_toks = sorted(rows[ry], key=lambda i: -i[0])
+                txt = "".join(t[2] for t in row_toks).strip()
+
+                if "متوسطة الدهون" in txt or "73 سعرة" in txt:
+                    current_cat = "meat_medium_fat"
+                elif "عالية الدهون" in txt or "001 سعرة" in txt or "100 سعرة" in txt:
+                    current_cat = "meat_high_fat"
+                elif "اللحوم وبدائلها" in txt or "46 سعرة" in txt or "قليلة الدهون" in txt:
+                    current_cat = "meat_lean"
+
+                if any(h in txt for h in [
+                    "nalPemigeR", "الكمية", "منصة", "سعرة", "المقدار", "tsil-",
+                    "ابدأ", "يحسب", "أخصائي", "اللحوم وبدائلها", "الطعما"
+                ]):
+                    continue
+
+                m = re.search(r"(\d+)\s*$", txt)
+                if not m:
+                    continue
+
+                rev_digits = m.group(1)
+                weight_str = rev_digits[::-1]
+                try:
+                    weight = float(weight_str)
+                except Exception:
+                    continue
+
+                if weight <= 0 or weight > 500:
+                    continue
+
+                rest = txt[:m.start()].strip()
+                if not rest or len(rest) < 3:
+                    continue
+
+                hh_ar = "حصة معيارية"
+                name_ar = rest
+
+                for hm in ["شريحة ونصف", "شريحة", "قطعة فيليه", "قطعة", "نصف كوب", "ثلث كوب", "ربع كوب", "كوب", "ملعقتان كبيرتان", "ملعقة كبيرة", "نصف دبوس", "دبوس", "نصف صدر", "صدر متوسط", "صدر", "ورك متوسط", "ورك", "ربع فرخة", "نصف فرخة", "حبة كبيرة", "حبة متوسطة", "حبة ونصف", "حبة", "حبتان", "3 قطع", "5 أصابع", "إصبع", "علبة", "—"]:
+                    if hm in rest:
+                        parts = rest.split(hm, 1)
+                        name_ar = parts[0].strip()
+                        hh_ar = (hm + " " + parts[1]).strip()
+                        break
+
+                name_ar = re.sub(r"\s*=\s*\d+.*$", "", name_ar).strip()
+                if not name_ar:
+                    continue
+
+                if any(ex in name_ar for ex in ["لبن", "زبادي", "فول", "عدس", "حمص", "فاصوليا", "لوبيا", "إدامامي"]):
+                    continue
+
+                prep = "cooked"
+                if "نيء" in name_ar or "نيئة" in name_ar:
+                    prep = "raw"
+                elif "معلب" in name_ar or "معلبة" in name_ar or "مدخن" in name_ar or "مدخنة" in name_ar:
+                    prep = "ready-to-eat"
+                elif "مشوي" in name_ar or "مشوية" in name_ar:
+                    prep = "grilled"
+                elif "مسلوق" in name_ar or "مسلوقة" in name_ar:
+                    prep = "boiled"
+                elif "مقلي" in name_ar or "مقلية" in name_ar:
+                    prep = "fried"
+                elif "في الفرن" in name_ar:
+                    prep = "baked"
+
+                items.append({
+                    "nameAr": name_ar,
+                    "hhAr": hh_ar if hh_ar != "—" else f"{int(weight)} جم",
+                    "weight": weight,
+                    "cat": current_cat,
+                    "prep": prep,
+                    "page": p_num
+                })
+
+    unique_items = []
+    seen_names = set()
+    for it in items:
+        if it["nameAr"] not in seen_names:
+            seen_names.add(it["nameAr"])
+            unique_items.append(it)
+
+    numbered_items = [
+        (i + 1, it)
+        for i, it in enumerate(unique_items[:196])
+        if "صفحة" not in it["nameAr"]
+    ]
+
+    # Repair post-deduplication PDF column clippings and substring split artifacts without altering RP-MT codes
+    for _, it in numbered_items:
+        if it["nameAr"] == "لحم بقري قليل الدهن في":
+            it["nameAr"] = "لحم بقري قليل الدهن في الفرن"
+            it["prep"] = "baked"
+        elif it["nameAr"] == "دبوس فراخ بدون جلد في":
+            it["nameAr"] = "دبوس فراخ بدون جلد في الفرن"
+            it["prep"] = "baked"
+        elif it["nameAr"] == "تونة م" and "بالزيت" in it["hhAr"]:
+            it["nameAr"] = "تونة معلبة بالزيت"
+            it["hhAr"] = "علبة (130 جم) — 5 حصص"
+            it["prep"] = "ready-to-eat"
+        elif it["nameAr"] == "أنشوجة م" and "بالزيت" in it["hhAr"]:
+            it["nameAr"] = "أنشوجة معلبة بالزيت"
+            it["hhAr"] = "6 قطع فيليه"
+            it["prep"] = "ready-to-eat"
+
+    return numbered_items
 
 MEAT_ANALYTICAL_OVERRIDES = {
     # Legumes & Plant Proteins listed in meat substitutes
@@ -552,10 +745,25 @@ def make_meat_record(it, seq_num):
         record["sourceRecordId"] = override["sourceRecordId"]
     return record
 
-new_records = [make_meat_record(it, seq) for seq, it in numbered_items]
-all_meats = orig + new_records
+def generate_meats_catalog(out_path=None):
+    target_path = out_path or OUT_PATH
+    os.makedirs(os.path.dirname(target_path), exist_ok=True)
+    with open(ORIG_PATH, "r", encoding="utf-8") as f:
+        orig = json.load(f)["meats"]
+    pdf_streams, fmaps = _build_pdf_context()
+    numbered_items = _extract_pdf_meat_items(pdf_streams, fmaps)
 
-header = '''/**
+    print(f"Extracted {len(numbered_items)} unique non-footer meat items from pages 7-10")
+    cats = {}
+    for _, it in numbered_items:
+        cats[it["cat"]] = cats.get(it["cat"], 0) + 1
+    print("Categories:", cats)
+    print(f"Selected {len(numbered_items)} new meat items to combine with {len(orig)} original.")
+
+    new_records = [make_meat_record(it, seq) for seq, it in numbered_items]
+    all_meats = orig + new_records
+
+    header = '''/**
  * Nutrition Clinic Pro - Food Catalog: Meats, Poultry, Fish, Seafood & Cheeses Module
  * Source: Egyptian NNI 2006, USDA FoodData Central & RegimePlan 2026
  */
@@ -564,7 +772,12 @@ import { FoodItemRecord } from '../types';
 
 export const MEAT_FOOD_ITEMS: FoodItemRecord[] = '''
 
-with open(OUT_PATH, "w", encoding="utf-8") as f:
-    f.write(header + json.dumps(all_meats, ensure_ascii=False, indent=2) + ";\n")
+    with open(target_path, "w", encoding="utf-8") as f:
+        f.write(header + json.dumps(all_meats, ensure_ascii=False, indent=2) + ";\n")
 
-print(f"Generated {len(all_meats)} meats in {OUT_PATH} (Original: {len(orig)}, New: {len(new_records)})")
+    print(f"Generated {len(all_meats)} meats in {target_path} (Original: {len(orig)}, New: {len(new_records)})")
+    return all_meats
+
+
+if __name__ == "__main__":
+    generate_meats_catalog()
