@@ -16,6 +16,12 @@ export type VerificationStatus =
   | 'recipe_based'       // Culinary composite recipe based on standardized preparation/proportions (not a single chemical assay)
   | 'user_custom';        // Created by clinic staff or patient; unverified against official laboratory tables
 
+export type CompositionBasis =
+  | 'analytical_table'   // Institutional food composition table assay (USDA SR Legacy, Egyptian NNI 2006)
+  | 'clinic_estimated'   // Clinic-reviewed literature / brand reference composition estimate
+  | 'recipe_based'       // Composite dish estimated from constituent ingredient analytical tables
+  | 'exchange_only';     // Exchange-list portion reference ONLY; analytical nutrients are null (never derived from exchange macros)
+
 export type PreparationState =
   | 'raw'
   | 'cooked'
@@ -101,14 +107,14 @@ export interface ExchangeSystemDefinition {
  */
 export interface FoodNutrientProfile100g {
   basisWeightG: 100;
-  caloriesKcal: number;
+  caloriesKcal: number | null;
   /**
    * Carbohydrates per 100g.
    * CLINICAL NOTICE: In USDA SR Legacy and Egyptian NNI tables, this represents
    * "Total Carbohydrates by Difference" (100 - [water + protein + fat + ash]),
-   * which includes dietary fiber.
+   * which includes dietary fiber. Null for exchange-only records.
    */
-  carbsG: number;
+  carbsG: number | null;
   /**
    * Available / Glycemic Carbohydrates per 100g (chemically available carbohydrates:
    * Total Carbohydrates by Difference minus Dietary Fiber, per FAO/INFOODS guidelines).
@@ -121,8 +127,8 @@ export interface FoodNutrientProfile100g {
    * Documented basis of carbohydrate quantification for this record.
    */
   carbCalculationBasis?: CarbohydrateCalculationBasis;
-  proteinG: number;
-  fatG: number;
+  proteinG: number | null;
+  fatG: number | null;
   fiberG: number | null;
   saturatedFatG: number | null;
   transFatG: number | null;
@@ -148,12 +154,12 @@ export type ExchangeEvidenceStatus =
  */
 export interface ScaledNutrientProfile {
   netWeightG: number;
-  caloriesKcal: number;
-  carbsG: number;
+  caloriesKcal: number | null;
+  carbsG: number | null;
   availableCarbsG?: number | null;
   carbCalculationBasis?: CarbohydrateCalculationBasis;
-  proteinG: number;
-  fatG: number;
+  proteinG: number | null;
+  fatG: number | null;
   fiberG: number | null;
   saturatedFatG: number | null;
   transFatG: number | null;
@@ -232,6 +238,7 @@ export interface FoodItemRecord {
   primaryExchangeCategoryId: ExchangeCategoryId;
   preparationState: PreparationState;
   verificationStatus: VerificationStatus;
+  compositionBasis?: CompositionBasis;
   isCustom: boolean;
   nutrients100g: FoodNutrientProfile100g;
   portions: FoodPortion[];

@@ -156,6 +156,7 @@ export function FoodEntryModal({
         foodGroupId: 'custom',
         primaryExchangeCategoryId: 'combination_food',
         preparationState: 'cooked',
+        compositionBasis: 'clinic_estimated',
         nutrients100g: {
           basisWeightG: 100,
           caloriesKcal: Number(customCalories),
@@ -377,10 +378,15 @@ export function FoodEntryModal({
                           }`}
                         >
                           <div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 flex-wrap">
                               <span className="text-xs font-bold text-slate-900">
                                 {isAr ? food.nameAr : food.nameEn}
                               </span>
+                              {(food.compositionBasis === 'exchange_only' || food.nutrients100g.caloriesKcal === null) && (
+                                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
+                                  {isAr ? 'بديل غذائي فقط (غير محلل)' : 'Exchange-Only (Unassayed)'}
+                                </span>
+                              )}
                               {food.isCustom && (
                                 <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
                                   {isAr ? 'مخصص' : 'Custom'}
@@ -392,14 +398,24 @@ export function FoodEntryModal({
                             </span>
                             <div className="mt-1 flex items-center gap-2 text-[10px] text-slate-400">
                               <span>
-                                {food.nutrients100g.caloriesKcal} kcal / 100g
+                                {food.nutrients100g.caloriesKcal !== null
+                                  ? `${food.nutrients100g.caloriesKcal} kcal / 100g`
+                                  : isAr
+                                  ? '— سعرات (غير محلل)'
+                                  : '— kcal (Unassayed)'}
                               </span>
                               <span>•</span>
-                              <span>P: {food.nutrients100g.proteinG}g</span>
+                              <span>
+                                P: {food.nutrients100g.proteinG !== null ? `${food.nutrients100g.proteinG}g` : '—'}
+                              </span>
                               <span>•</span>
-                              <span>C: {food.nutrients100g.carbsG}g</span>
+                              <span>
+                                C: {food.nutrients100g.carbsG !== null ? `${food.nutrients100g.carbsG}g` : '—'}
+                              </span>
                               <span>•</span>
-                              <span>F: {food.nutrients100g.fatG}g</span>
+                              <span>
+                                F: {food.nutrients100g.fatG !== null ? `${food.nutrients100g.fatG}g` : '—'}
+                              </span>
                             </div>
                           </div>
                           {isSelected && (
@@ -428,19 +444,23 @@ export function FoodEntryModal({
                       <div className="mt-1 text-[10px] text-emerald-800">
                         {isAr
                           ? `التحضير: ${selectedFood.preparationState} | المصدر: ${selectedFood.sourceId} | التصنيف المرجعي: ${
-                              selectedFood.verificationStatus === 'verified_standard'
+                              selectedFood.compositionBasis === 'exchange_only'
+                                ? 'بديل غذائي فقط (غير محلل)'
+                                : selectedFood.verificationStatus === 'verified_standard'
                                 ? 'جدول تحليلي معياري'
                                 : selectedFood.verificationStatus === 'clinic_reviewed'
-                                ? 'مراجع سريرياً / بدائل'
+                                ? 'مراجع سريرياً'
                                 : selectedFood.verificationStatus === 'recipe_based'
                                 ? 'تقدير وصفي'
                                 : 'مخصص غير موثق'
                             }`
                           : `Prep: ${selectedFood.preparationState} | Source: ${selectedFood.sourceId} | Basis: ${
-                              selectedFood.verificationStatus === 'verified_standard'
+                              selectedFood.compositionBasis === 'exchange_only'
+                                ? 'Exchange-Only (Unassayed)'
+                                : selectedFood.verificationStatus === 'verified_standard'
                                 ? 'Analytical Table'
                                 : selectedFood.verificationStatus === 'clinic_reviewed'
-                                ? 'Exchange / Clinic Reviewed'
+                                ? 'Clinic Reviewed Estimate'
                                 : selectedFood.verificationStatus === 'recipe_based'
                                 ? 'Recipe Estimate'
                                 : 'Custom Unverified'
@@ -519,25 +539,25 @@ export function FoodEntryModal({
                           <div>
                             <span className="text-slate-500">{isAr ? 'السعرات:' : 'Calories:'}</span>
                             <span className="font-bold text-slate-800 ms-1">
-                              {previewEntry.nutrients.caloriesKcal} kcal
+                              {previewEntry.nutrients.caloriesKcal !== null ? `${previewEntry.nutrients.caloriesKcal} kcal` : '—'}
                             </span>
                           </div>
                           <div>
                             <span className="text-slate-500">{isAr ? 'البروتين:' : 'Protein:'}</span>
                             <span className="font-bold text-slate-800 ms-1">
-                              {previewEntry.nutrients.proteinG} g
+                              {previewEntry.nutrients.proteinG !== null ? `${previewEntry.nutrients.proteinG} g` : '—'}
                             </span>
                           </div>
                           <div>
                             <span className="text-slate-500">{isAr ? 'الكربوهيدرات:' : 'Carbs:'}</span>
                             <span className="font-bold text-slate-800 ms-1">
-                              {previewEntry.nutrients.carbsG} g
+                              {previewEntry.nutrients.carbsG !== null ? `${previewEntry.nutrients.carbsG} g` : '—'}
                             </span>
                           </div>
                           <div>
                             <span className="text-slate-500">{isAr ? 'الدهون:' : 'Fat:'}</span>
                             <span className="font-bold text-slate-800 ms-1">
-                              {previewEntry.nutrients.fatG} g
+                              {previewEntry.nutrients.fatG !== null ? `${previewEntry.nutrients.fatG} g` : '—'}
                             </span>
                           </div>
                           <div>

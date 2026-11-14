@@ -45,6 +45,21 @@ function scaleOptionalNutrient(value: number | null | undefined, netWeightG: num
   return roundToPrecision((value * netWeightG) / 100.0, decimals);
 }
 
+export function hasAnalyticalMacros(
+  profile: Pick<FoodNutrientProfile100g | ScaledNutrientProfile, 'caloriesKcal' | 'carbsG' | 'proteinG' | 'fatG'>
+): boolean {
+  return (
+    profile.caloriesKcal !== null &&
+    profile.caloriesKcal !== undefined &&
+    profile.carbsG !== null &&
+    profile.carbsG !== undefined &&
+    profile.proteinG !== null &&
+    profile.proteinG !== undefined &&
+    profile.fatG !== null &&
+    profile.fatG !== undefined
+  );
+}
+
 /**
  * Scales a 100g food nutrient profile to an arbitrary net gram weight.
  * 
@@ -62,8 +77,8 @@ export function scaleNutrientProfile(
 
   return {
     netWeightG: roundToPrecision(netWeightG, 2),
-    caloriesKcal: roundToPrecision((nutrients100g.caloriesKcal * netWeightG) / 100.0, 1),
-    carbsG: roundToPrecision((nutrients100g.carbsG * netWeightG) / 100.0, 2),
+    caloriesKcal: scaleOptionalNutrient(nutrients100g.caloriesKcal, netWeightG, 1),
+    carbsG: scaleOptionalNutrient(nutrients100g.carbsG, netWeightG, 2),
     availableCarbsG:
       nutrients100g.availableCarbsG !== undefined && nutrients100g.availableCarbsG !== null
         ? scaleOptionalNutrient(nutrients100g.availableCarbsG, netWeightG, 2)
@@ -71,8 +86,8 @@ export function scaleNutrientProfile(
         ? null
         : undefined,
     carbCalculationBasis: nutrients100g.carbCalculationBasis,
-    proteinG: roundToPrecision((nutrients100g.proteinG * netWeightG) / 100.0, 2),
-    fatG: roundToPrecision((nutrients100g.fatG * netWeightG) / 100.0, 2),
+    proteinG: scaleOptionalNutrient(nutrients100g.proteinG, netWeightG, 2),
+    fatG: scaleOptionalNutrient(nutrients100g.fatG, netWeightG, 2),
     fiberG: scaleOptionalNutrient(nutrients100g.fiberG, netWeightG, 2),
     saturatedFatG: scaleOptionalNutrient(nutrients100g.saturatedFatG, netWeightG, 2),
     transFatG: scaleOptionalNutrient(nutrients100g.transFatG, netWeightG, 2),
@@ -106,7 +121,13 @@ export function deriveAvailableCarbohydrates(
   if (profile.availableCarbsG !== undefined && profile.availableCarbsG !== null) {
     return profile.availableCarbsG;
   }
-  if (profile.carbCalculationBasis === 'total_by_difference' && profile.fiberG !== null && profile.fiberG !== undefined) {
+  if (
+    profile.carbCalculationBasis === 'total_by_difference' &&
+    profile.carbsG !== null &&
+    profile.carbsG !== undefined &&
+    profile.fiberG !== null &&
+    profile.fiberG !== undefined
+  ) {
     const net = profile.carbsG - profile.fiberG;
     return roundToPrecision(Math.max(0, net), 2);
   }
@@ -216,10 +237,10 @@ export function calculateCustomGramsNutrients(
  */
 export interface CompositeNutrientSummary {
   totalNetWeightG: number;
-  totalCaloriesKcal: number;
-  totalCarbsG: number;
-  totalProteinG: number;
-  totalFatG: number;
+  totalCaloriesKcal: number | null;
+  totalCarbsG: number | null;
+  totalProteinG: number | null;
+  totalFatG: number | null;
 
   /** Complete totals (strictly null if ANY item is missing that nutrient) */
   totalFiberG: number | null;
@@ -263,6 +284,10 @@ export interface CompositeNutrientSummary {
 
   /** Per-nutrient completeness flags */
   completeness: {
+    caloriesKcal: boolean;
+    carbsG: boolean;
+    proteinG: boolean;
+    fatG: boolean;
     fiberG: boolean;
     saturatedFatG: boolean;
     sodiumMg: boolean;
@@ -277,10 +302,15 @@ export interface CompositeNutrientSummary {
 
 export function aggregateNutrientProfiles(profiles: ScaledNutrientProfile[]): CompositeNutrientSummary {
   let totalNetWeightG = 0;
-  let totalCaloriesKcal = 0;
-  let totalCarbsG = 0;
-  let totalProteinG = 0;
-  let totalFatG = 0;
+  let totalCaloriesKcal: number | null = 0;
+  let totalCarbsG: number | null = 0;
+  let totalProteinG: number | null = 0;
+  let totalFatG: number | null = 0;
+
+  let observedCaloriesKcal = 0;
+  let observedCarbsG = 0;
+  let observedProteinG = 0;
+  let observedFatG = 0;
 
   // Complete totals (null if any item has null)
   let totalFiberG: number | null = 0;
@@ -303,10 +333,46 @@ export function aggregateNutrientProfiles(profiles: ScaledNutrientProfile[]): Co
 
   for (const p of profiles) {
     totalNetWeightG += p.netWeightG;
-    totalCaloriesKcal += p.caloriesKcal;
-    totalCarbsG += p.carbsG;
-    totalProteinG += p.proteinG;
-    totalFatG += p.fatG;
+
+    // Energy
+    if (p.caloriesKcal === null || p.caloriesKcal === undefined) {
+      totalCaloriesKcal = null;
+      incompleteNutrientKeysSet.add('caloriesKcal');
+      missingKeysSet.add('caloriesKcal');
+    } else {
+      observedCaloriesKcal += p.caloriesKcal;
+      if (totalCaloriesKcal !== null) totalCaloriesKcal += p.caloriesKcal;
+    }
+
+    // Carbs
+    if (p.carbsG === null || p.carbsG === undefined) {
+      totalCarbsG = null;
+      incompleteNutrientKeysSet.add('carbsG');
+      missingKeysSet.add('carbsG');
+    } else {
+      observedCarbsG += p.carbsG;
+      if (totalCarbsG !== null) totalCarbsG += p.carbsG;
+    }
+
+    // Protein
+    if (p.proteinG === null || p.proteinG === undefined) {
+      totalProteinG = null;
+      incompleteNutrientKeysSet.add('proteinG');
+      missingKeysSet.add('proteinG');
+    } else {
+      observedProteinG += p.proteinG;
+      if (totalProteinG !== null) totalProteinG += p.proteinG;
+    }
+
+    // Fat
+    if (p.fatG === null || p.fatG === undefined) {
+      totalFatG = null;
+      incompleteNutrientKeysSet.add('fatG');
+      missingKeysSet.add('fatG');
+    } else {
+      observedFatG += p.fatG;
+      if (totalFatG !== null) totalFatG += p.fatG;
+    }
 
     // Fiber
     if (p.fiberG === null || p.fiberG === undefined) {
@@ -388,10 +454,10 @@ export function aggregateNutrientProfiles(profiles: ScaledNutrientProfile[]): Co
   const hasIncompleteData = incompleteNutrientKeys.length > 0 || missingNutrientKeys.length > 0;
 
   const observedTotals = {
-    caloriesKcal: roundToPrecision(totalCaloriesKcal, 1),
-    carbsG: roundToPrecision(totalCarbsG, 2),
-    proteinG: roundToPrecision(totalProteinG, 2),
-    fatG: roundToPrecision(totalFatG, 2),
+    caloriesKcal: roundToPrecision(observedCaloriesKcal, 1),
+    carbsG: roundToPrecision(observedCarbsG, 2),
+    proteinG: roundToPrecision(observedProteinG, 2),
+    fatG: roundToPrecision(observedFatG, 2),
     fiberG: roundToPrecision(observedFiberG, 2),
     saturatedFatG: roundToPrecision(observedSaturatedFatG, 2),
     sodiumMg: roundToPrecision(observedSodiumMg, 1),
@@ -402,10 +468,10 @@ export function aggregateNutrientProfiles(profiles: ScaledNutrientProfile[]): Co
 
   return {
     totalNetWeightG: roundToPrecision(totalNetWeightG, 2),
-    totalCaloriesKcal: roundToPrecision(totalCaloriesKcal, 1),
-    totalCarbsG: roundToPrecision(totalCarbsG, 2),
-    totalProteinG: roundToPrecision(totalProteinG, 2),
-    totalFatG: roundToPrecision(totalFatG, 2),
+    totalCaloriesKcal: totalCaloriesKcal !== null ? roundToPrecision(totalCaloriesKcal, 1) : null,
+    totalCarbsG: totalCarbsG !== null ? roundToPrecision(totalCarbsG, 2) : null,
+    totalProteinG: totalProteinG !== null ? roundToPrecision(totalProteinG, 2) : null,
+    totalFatG: totalFatG !== null ? roundToPrecision(totalFatG, 2) : null,
 
     totalFiberG: totalFiberG !== null ? roundToPrecision(totalFiberG, 2) : null,
     totalSaturatedFatG: totalSaturatedFatG !== null ? roundToPrecision(totalSaturatedFatG, 2) : null,
@@ -427,6 +493,10 @@ export function aggregateNutrientProfiles(profiles: ScaledNutrientProfile[]): Co
     missingNutrientKeys,
 
     completeness: {
+      caloriesKcal: !incompleteNutrientKeysSet.has('caloriesKcal'),
+      carbsG: !incompleteNutrientKeysSet.has('carbsG'),
+      proteinG: !incompleteNutrientKeysSet.has('proteinG'),
+      fatG: !incompleteNutrientKeysSet.has('fatG'),
       fiberG: !incompleteNutrientKeysSet.has('fiberG'),
       saturatedFatG: !incompleteNutrientKeysSet.has('saturatedFatG'),
       sodiumMg: !incompleteNutrientKeysSet.has('sodiumMg'),
@@ -548,10 +618,15 @@ export function calculateExchangeDivergence(
 
   // Actual scaled analytical values
   const actualProfile = scaleNutrientProfile(food.nutrients100g, portion.gramWeight);
-  const actualKcal = actualProfile.caloriesKcal;
-  const actualCarbsG = actualProfile.carbsG;
-  const actualProteinG = actualProfile.proteinG;
-  const actualFatG = actualProfile.fatG;
+  if (!hasAnalyticalMacros(actualProfile)) {
+    throw new Error(
+      `Cannot compute exchange divergence for exchange-only food "${food.nameEn}" (${food.id}): analytical macronutrient composition is unavailable (null).`
+    );
+  }
+  const actualKcal = actualProfile.caloriesKcal!;
+  const actualCarbsG = actualProfile.carbsG!;
+  const actualProteinG = actualProfile.proteinG!;
+  const actualFatG = actualProfile.fatG!;
 
   const deltaKcal = roundToPrecision(actualKcal - nominalKcal, 1);
   const deltaCarbsG = roundToPrecision(actualCarbsG - nominalCarbsG, 2);

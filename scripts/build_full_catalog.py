@@ -16,12 +16,15 @@ Usage:
 
 import os
 import sys
+import ast
 import subprocess
 import json
 import argparse
 import hashlib
 import shutil
 import tempfile
+import math
+import re
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SCRIPTS_DIR = os.path.join(BASE_DIR, "scripts")
@@ -38,10 +41,8 @@ GENERATOR_SCRIPTS = [
     ("Fats & Oils", "gen_fats.py", "fats.ts"),
 ]
 
-import math
-import re
-
 CORE_TRACKED_KEYS = [
+    "caloriesKcal", "carbsG", "proteinG", "fatG",
     "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
     "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
     "calciumMg", "ironMg", "waterG",
@@ -52,6 +53,57 @@ NUTRIENT_REQUIRED_KEYS = [
 ]
 
 VALID_SOURCE_IDS = {"usda_fdc", "egyptian_nni_2006", "regimeplan_2026", "clinic_reviewed"}
+VALID_COMPOSITION_BASES = {"analytical_table", "clinic_estimated", "recipe_based", "exchange_only"}
+
+FORBIDDEN_MACRO_TABLE_NAMES = {
+    "MACROS", "LEG_MACRO", "FAT_MACRO", "EXCHANGE_MACROS",
+    "STARCH_MACROS", "FRUIT_MACROS", "VEG_MACROS", "DAIRY_MACROS", "MEAT_MACROS",
+}
+MACRO_KEY_LITERALS = {"caloriesKcal", "carbsG", "proteinG", "fatG"}
+WEIGHT_VAR_NAMES = {"W", "w", "weight", "w_gram", "gram_weight"}
+
+
+def _ast_names_and_strs(node):
+    names = set()
+    strs = set()
+    for sub in ast.walk(node):
+        if isinstance(sub, ast.Name):
+            names.add(sub.id)
+        elif isinstance(sub, ast.Constant) and isinstance(sub.value, str):
+            strs.add(sub.value)
+    return names, strs
+
+
+def validate_generator_scripts_ast(scripts_dir):
+    """Static AST guard forbidding exchange-macro division in all category generators."""
+    violations = []
+    for _, script_name, _ in GENERATOR_SCRIPTS:
+        script_path = os.path.join(scripts_dir, script_name)
+        if not os.path.exists(script_path):
+            continue
+        with open(script_path, "r", encoding="utf-8") as f:
+            src = f.read()
+        tree = ast.parse(src, filename=script_name)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Name) and node.id in FORBIDDEN_MACRO_TABLE_NAMES:
+                violations.append(
+                    f"{script_name}:{getattr(node, 'lineno', '?')}: forbidden generic exchange macro identifier '{node.id}'"
+                )
+            elif isinstance(node, ast.BinOp) and isinstance(node.op, (ast.Div, ast.FloorDiv)):
+                left_names, left_strs = _ast_names_and_strs(node.left)
+                right_names, _ = _ast_names_and_strs(node.right)
+                divides_by_weight = bool(right_names & WEIGHT_VAR_NAMES)
+                references_forbidden = bool(left_names & FORBIDDEN_MACRO_TABLE_NAMES)
+                references_macro_key = bool(left_strs & MACRO_KEY_LITERALS)
+                if references_forbidden or (divides_by_weight and references_macro_key):
+                    violations.append(
+                        f"{script_name}:{getattr(node, 'lineno', '?')}: forbidden exchange-macro division expression"
+                    )
+    if violations:
+        print("\nSTATIC AST GUARD FAILED (FORBIDDEN EXCHANGE-MACRO DERIVATION DETECTED):")
+        for v in violations:
+            print(f"  - {v}")
+        sys.exit(1)
 
 
 def validate_catalog(all_items):
@@ -104,18 +156,31 @@ def validate_catalog(all_items):
         if not isinstance(bw, (int, float)) or bw <= 0:
             errors.append(f"{item_id}: basisWeightG must be > 0 (got {bw})")
 
+        comp_basis = item.get("compositionBasis")
+        if comp_basis not in VALID_COMPOSITION_BASES:
+            errors.append(f"{item_id}: invalid or missing compositionBasis {comp_basis!r}")
+
         kcal = n100.get("caloriesKcal")
         carbs = n100.get("carbsG")
         prot = n100.get("proteinG")
         fat = n100.get("fatG")
-        for label, val in [("caloriesKcal", kcal), ("carbsG", carbs), ("proteinG", prot), ("fatG", fat)]:
-            if not isinstance(val, (int, float)) or not math.isfinite(val) or val < 0:
-                errors.append(f"{item_id}: {label} invalid value {val}")
+        avail_carbs = n100.get("availableCarbsG")
 
-        if all(isinstance(v, (int, float)) for v in (carbs, prot, fat)):
-            macro_sum = carbs + prot + fat
-            if macro_sum > 100.5:
-                errors.append(f"{item_id} ({code}): macro sum carbs+protein+fat = {macro_sum:.2f}g exceeds 100.5g/100g")
+        if comp_basis == "exchange_only":
+            if avail_carbs is not None:
+                errors.append(f"{item_id}: exchange_only item must have availableCarbsG=None (got {avail_carbs})")
+            for key in CORE_TRACKED_KEYS:
+                if n100.get(key) is not None:
+                    errors.append(f"{item_id}: exchange_only item must have {key}=None (got {n100.get(key)})")
+        else:
+            for label, val in [("caloriesKcal", kcal), ("carbsG", carbs), ("proteinG", prot), ("fatG", fat)]:
+                if not isinstance(val, (int, float)) or not math.isfinite(val) or val < 0:
+                    errors.append(f"{item_id}: {label} invalid value {val}")
+
+            if all(isinstance(v, (int, float)) for v in (carbs, prot, fat)):
+                macro_sum = carbs + prot + fat
+                if macro_sum > 100.5:
+                    errors.append(f"{item_id} ({code}): macro sum carbs+protein+fat = {macro_sum:.2f}g exceeds 100.5g/100g")
 
         # missingNutrientKeys consistency
         missing_keys = n100.get("missingNutrientKeys")
@@ -132,7 +197,7 @@ def validate_catalog(all_items):
             elif isinstance(val, (int, float)) and ck in missing_set:
                 errors.append(f"{item_id}: core key {ck} has numeric value {val} but is listed in missingNutrientKeys")
 
-        # Provenance checks
+        # Provenance & compositionBasis consistency checks
         src = item.get("sourceId")
         ver = item.get("verificationStatus")
         src_rec = item.get("sourceRecordId")
@@ -144,16 +209,25 @@ def validate_catalog(all_items):
                 errors.append(f"{item_id}: usda_fdc must have verificationStatus in {allowed_ver}, got '{ver}'")
             if not src_rec or not re.match(r"^\d{5,6}$", str(src_rec)):
                 errors.append(f"{item_id}: usda_fdc must have 5-6 digit sourceRecordId, got '{src_rec}'")
+            if comp_basis != "analytical_table":
+                errors.append(f"{item_id}: usda_fdc must have compositionBasis='analytical_table', got '{comp_basis}'")
+        elif src == "egyptian_nni_2006":
+            if comp_basis != "analytical_table":
+                errors.append(f"{item_id}: egyptian_nni_2006 must have compositionBasis='analytical_table', got '{comp_basis}'")
         elif src == "regimeplan_2026":
             if ver != "clinic_reviewed":
                 errors.append(f"{item_id}: regimeplan_2026 must have verificationStatus='clinic_reviewed', got '{ver}'")
             if src_rec is not None:
                 errors.append(f"{item_id}: regimeplan_2026 must not carry institutional sourceRecordId '{src_rec}'")
+            if comp_basis != "exchange_only":
+                errors.append(f"{item_id}: regimeplan_2026 must have compositionBasis='exchange_only', got '{comp_basis}'")
         elif src == "clinic_reviewed":
             if ver not in ("clinic_reviewed", "recipe_based"):
                 errors.append(f"{item_id}: clinic_reviewed source has invalid verificationStatus '{ver}'")
             if src_rec is not None:
                 errors.append(f"{item_id}: clinic_reviewed source must not carry institutional sourceRecordId '{src_rec}'")
+            if comp_basis == "exchange_only":
+                errors.append(f"{item_id}: clinic_reviewed item cannot have compositionBasis='exchange_only'")
 
     # English name quality guard (no bare prep-only names, mistranslated generic placeholders, or fallback strings)
     prep_only_words = {"raw", "cooked", "boiled", "grilled", "baked", "roasted", "fried", "canned", "dried", "smoked", "minced", "ground", "/", "skinless"}
@@ -307,6 +381,9 @@ def run_generators(scripts_dir=SCRIPTS_DIR, data_dir=DATA_DIR, staging_dir_overr
         if not os.path.exists(script_path):
             print(f"ERROR: Generator script {script_path} not found.")
             sys.exit(1)
+
+    # Pre-flight static AST guard against exchange-macro division
+    validate_generator_scripts_ast(scripts_dir)
 
     pre_hashes = _snapshot_hashes(data_dir, out_files)
 

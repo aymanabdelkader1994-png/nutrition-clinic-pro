@@ -62,7 +62,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "whole milk"
     ],
     "notesAr": "حليب بقري مبستر كامل الدسم؛ كوب واحد 240 مل يوفر قرابة 150 سعرة حرارية و8 جم بروتين و8 جم دهون.",
-    "notesEn": "Pasteurized whole cow milk with 3.25% milkfat."
+    "notesEn": "Pasteurized whole cow milk with 3.25% milkfat.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_milk_cow_skim",
@@ -80,19 +81,19 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 35,
+      "caloriesKcal": 34.0,
       "carbsG": 4.96,
       "availableCarbsG": 4.96,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 3.37,
-      "fatG": 0.18,
+      "fatG": 0.08,
       "fiberG": 0,
-      "saturatedFatG": 0.11,
+      "saturatedFatG": 0.056,
       "transFatG": 0.01,
-      "monounsaturatedFatG": 0.05,
-      "polyunsaturatedFatG": 0.01,
+      "monounsaturatedFatG": 0.022,
+      "polyunsaturatedFatG": 0.003,
       "cholesterolMg": 2,
-      "sodiumMg": 44,
+      "sodiumMg": 42.0,
       "potassiumMg": 156,
       "calciumMg": 122,
       "ironMg": 0.03,
@@ -120,7 +121,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "calcium"
     ],
     "notesAr": "حليب بقري خالي الدسم؛ كوب واحد يوفر قرابة 90 سعرة حرارية و8 جم بروتين و12 جم كربوهيدرات (لاكتوز) دون دهون.",
-    "notesEn": "Fat-free skim cow milk; high calcium and protein without saturated fat."
+    "notesEn": "Fat-free skim cow milk; high calcium and protein without saturated fat.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_milk_buffalo_whole_egypt",
@@ -178,7 +180,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "calcium"
     ],
     "notesAr": "الحليب الجاموسي البلدي الشائع في مصر؛ يحتوي على نسبة دهون تفوق الحليب البقري وتصل إلى 7%، مما يرفع سعرات الكوب إلى قرابة 230 سعرة حرارية.",
-    "notesEn": "Traditional Egyptian water buffalo milk with elevated milkfat (6.5-7.5%) and higher calcium density than cow milk."
+    "notesEn": "Traditional Egyptian water buffalo milk with elevated milkfat (6.5-7.5%) and higher calcium density than cow milk.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_yogurt_lowfat_plain",
@@ -247,7 +250,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "low-fat"
     ],
     "notesAr": "زبادي طبيعي قليل الدسم؛ غني بالبكتيريا النافعة (البروبيوتيك) والكالسيوم وسهل الهضم لمن يعانون من حساسية اللاكتوز الجزئية.",
-    "notesEn": "Low-fat plain cultured yogurt with active probiotics."
+    "notesEn": "Low-fat plain cultured yogurt with active probiotics.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_dairy_rp_da_001",
@@ -259,6 +263,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -324,6 +329,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -388,6 +394,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -453,6 +460,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -517,6 +525,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -581,6 +590,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -645,6 +655,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -709,6 +720,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_whole",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -773,6 +785,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -837,6 +850,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -901,6 +915,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -965,6 +980,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1029,6 +1045,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1094,6 +1111,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1158,6 +1176,7 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "milk_skim",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1216,13 +1235,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_016",
     "code": "RP-DA-016",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Unsweetened Almond Milk",
     "nameAr": "لبن لوز بدون سكر",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1281,13 +1301,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_017",
     "code": "RP-DA-017",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Unsweetened Oat Milk",
     "nameAr": "لبن شوفان بدون سكر",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1346,13 +1367,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_018",
     "code": "RP-DA-018",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Unsweetened Soy Milk",
     "nameAr": "لبن صويا بدون سكر",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1411,13 +1433,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_019",
     "code": "RP-DA-019",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Unsweetened Rice Milk",
     "nameAr": "لبن أرز غير محلى",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1476,13 +1499,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_020",
     "code": "RP-DA-020",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Unsweetened Cashew Milk",
     "nameAr": "لبن كاجو غير محلى",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1541,13 +1565,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_021",
     "code": "RP-DA-021",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Hemp Milk",
     "nameAr": "لبن قنب غير محلى",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1606,13 +1631,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_022",
     "code": "RP-DA-022",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Pea Protein Milk",
     "nameAr": "لبن بسلة غير محلى",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1671,13 +1697,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_023",
     "code": "RP-DA-023",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Flax Milk",
     "nameAr": "لبن كتان غير محلى",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1736,13 +1763,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_024",
     "code": "RP-DA-024",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Macadamia Milk",
     "nameAr": "لبن مكاداميا غير محلى",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1801,13 +1829,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_025",
     "code": "RP-DA-025",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Coconut Milk Beverage (Carton)",
     "nameAr": "لبن جوز الهند للشرب",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1866,13 +1895,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_026",
     "code": "RP-DA-026",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Lightly Sweetened Almond Milk",
     "nameAr": "لبن لوز محلى خفيفاً",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1931,13 +1961,14 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_dairy_rp_da_027",
     "code": "RP-DA-027",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "clinic_reviewed",
     "nameEn": "Lightly Sweetened Oat Milk",
     "nameAr": "لبن شوفان محلى خفيفاً",
     "foodGroupId": "dairy",
     "primaryExchangeCategoryId": "milk_lowfat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,

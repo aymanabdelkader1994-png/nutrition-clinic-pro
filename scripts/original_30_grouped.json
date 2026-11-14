@@ -78,7 +78,8 @@
         "fiber"
       ],
       "notesAr": "الخبز البلدي المدعم التقليدي؛ يحتوي على نخالة القمح (الردة) مما يمنحه مؤشراً جلايسيمياً أكثر اعتدالاً ومحتوى ألياف أعلى من الخبز الأبيض الفينو.",
-      "notesEn": "Traditional Egyptian flatbread made from 82% extraction coarse wheat flour with bran."
+      "notesEn": "Traditional Egyptian flatbread made from 82% extraction coarse wheat flour with bran.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_rice_white_raw",
@@ -97,7 +98,7 @@
       "nutrients100g": {
         "basisWeightG": 100,
         "caloriesKcal": 365,
-        "carbsG": 79.95,
+        "carbsG": 80.0,
         "availableCarbsG": null,
         "carbCalculationBasis": "total_by_difference",
         "proteinG": 7.13,
@@ -105,13 +106,13 @@
         "fiberG": 1.3,
         "saturatedFatG": 0.18,
         "transFatG": 0,
-        "monounsaturatedFatG": 0.21,
-        "polyunsaturatedFatG": 0.18,
+        "monounsaturatedFatG": 0.206,
+        "polyunsaturatedFatG": 0.177,
         "cholesterolMg": 0,
         "sodiumMg": 5,
         "potassiumMg": 115,
         "calciumMg": 28,
-        "ironMg": 0.8,
+        "ironMg": 4.31,
         "waterG": 11.6,
         "missingNutrientKeys": []
       },
@@ -147,7 +148,8 @@
         "cereal"
       ],
       "notesAr": "بيانات الأرز الأبيض النيء قبل الطهي. يتمدد وزنه أثناء الطهي لامتصاص ماء بنسبة 2.5 إلى 3 أضعاف.",
-      "notesEn": "Raw dry white rice before cooking hydration."
+      "notesEn": "Raw dry white rice before cooking hydration.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_rice_white_cooked",
@@ -172,16 +174,16 @@
         "proteinG": 2.69,
         "fatG": 0.28,
         "fiberG": 0.4,
-        "saturatedFatG": 0.08,
+        "saturatedFatG": 0.077,
         "transFatG": 0,
-        "monounsaturatedFatG": 0.09,
-        "polyunsaturatedFatG": 0.08,
+        "monounsaturatedFatG": 0.088,
+        "polyunsaturatedFatG": 0.076,
         "cholesterolMg": 0,
         "sodiumMg": 1,
         "potassiumMg": 35,
         "calciumMg": 10,
-        "ironMg": 0.2,
-        "waterG": 68.44,
+        "ironMg": 1.2,
+        "waterG": 68.4,
         "missingNutrientKeys": []
       },
       "portions": [
@@ -227,7 +229,8 @@
         "boiled"
       ],
       "notesAr": "أرز أبيض مسلوق بالماء دون إضافة سمن أو زيت. يحتوي ثلث الكوب (53 جم) على قرابة 15 جم كربوهيدرات ويعادل بديل نشويات واحد.",
-      "notesEn": "Cooked white rice without added oil or butter."
+      "notesEn": "Cooked white rice without added oil or butter.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_oats_rolled_cooked",
@@ -252,14 +255,14 @@
         "proteinG": 2.54,
         "fatG": 1.52,
         "fiberG": 1.7,
-        "saturatedFatG": 0.28,
-        "transFatG": 0,
-        "monounsaturatedFatG": 0.46,
-        "polyunsaturatedFatG": 0.58,
+        "saturatedFatG": 0.31,
+        "transFatG": 0.001,
+        "monounsaturatedFatG": 0.435,
+        "polyunsaturatedFatG": 0.559,
         "cholesterolMg": 0,
-        "sodiumMg": 49,
+        "sodiumMg": 4.0,
         "potassiumMg": 70,
-        "calciumMg": 8,
+        "calciumMg": 9.0,
         "ironMg": 0.9,
         "waterG": 83.6,
         "missingNutrientKeys": []
@@ -297,7 +300,8 @@
         "breakfast"
       ],
       "notesAr": "شوفان مطبوخ بالماء فقط. غني بألياف بيتا جلوكان الذائبة المفيدة لضبط كوليسترول الدم واستجابة الإنسولين.",
-      "notesEn": "Cooked whole oats in water; rich in soluble beta-glucan fiber."
+      "notesEn": "Cooked whole oats in water; rich in soluble beta-glucan fiber.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_sweet_potato_baked",
@@ -355,7 +359,8 @@
         "vitamin a"
       ],
       "notesAr": "البطاطا الحلوة المشوية؛ غنية بفيتامين (أ) في صورة بيتا كاروتين وبالبوتاسيوم.",
-      "notesEn": "Baked sweet potato; high in beta-carotene and potassium."
+      "notesEn": "Baked sweet potato; high in beta-carotene and potassium.",
+      "compositionBasis": "analytical_table"
     }
   ],
   "fruits": [
@@ -426,7 +431,8 @@
         "fresh"
       ],
       "notesAr": "تفاح طازج؛ قشره غني بألياف البكتين والبوليفينول المضادة للأكسدة.",
-      "notesEn": "Raw fresh apple with peel; good source of pectin and flavonoids."
+      "notesEn": "Raw fresh apple with peel; good source of pectin and flavonoids.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_banana_raw",
@@ -495,7 +501,8 @@
         "energy"
       ],
       "notesAr": "موز طازج؛ غني بالبوتاسيوم وفيتامين ب6، مصدر سريع للطاقة.",
-      "notesEn": "Raw peeled banana; rich in potassium and fast-acting carbohydrates."
+      "notesEn": "Raw peeled banana; rich in potassium and fast-acting carbohydrates.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_guava_raw_egyptian",
@@ -552,7 +559,8 @@
         "egyptian"
       ],
       "notesAr": "الجوافة البلدية؛ من أغنى الفواكه الإقليمية بفيتامين ج والألياف مع مؤشر جلايسيمي منخفض.",
-      "notesEn": "Egyptian Baladi guava; extremely high in vitamin C and dietary fiber."
+      "notesEn": "Egyptian Baladi guava; extremely high in vitamin C and dietary fiber.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_dates_semi_dry_siwi",
@@ -610,7 +618,8 @@
         "egyptian"
       ],
       "notesAr": "البلح السيوي النصف جاف؛ غني بالسكريات الطبيعية والبوتاسيوم والمغنيسيوم، 3 حبات صغيرة تعادل بديل فاكهة واحد (15 جم كربوهيدرات و60 سعرة).",
-      "notesEn": "Egyptian semi-dry Siwi dates; 3 dates provide approximately 1 fruit exchange."
+      "notesEn": "Egyptian semi-dry Siwi dates; 3 dates provide approximately 1 fruit exchange.",
+      "compositionBasis": "analytical_table"
     }
   ],
   "vegetables": [
@@ -670,7 +679,8 @@
         "vitamin c"
       ],
       "notesAr": "طماطم طازجة؛ غنية بمضاد الأكسدة الليكوبين وفيتامين ج.",
-      "notesEn": "Fresh ripe raw tomato; rich in antioxidant lycopene."
+      "notesEn": "Fresh ripe raw tomato; rich in antioxidant lycopene.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_cucumber_raw_peel",
@@ -727,7 +737,8 @@
         "low-calorie"
       ],
       "notesAr": "خيار طازج؛ يحتوي على 95% ماء ومنخفض السعرات جداً ومناسب لإرواء العطش.",
-      "notesEn": "Raw cucumber with peel; ultra-hydrating and low energy density."
+      "notesEn": "Raw cucumber with peel; ultra-hydrating and low energy density.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_salad_baladi_green",
@@ -795,7 +806,8 @@
         "vitamins"
       ],
       "notesAr": "طبق السلطة الخضراء المصرية التقليدية؛ نموذج وصفي حسابي مركب معتمد سريرياً مبني على نسب الخضار الطازج غير المتبل بالزيت: ~40% طماطم، ~35% خيار، ~15% جرجير، و~10% بقدونس وليمون. ليس سجلاً رسمياً منفرداً بمعهد التغذية بل تقدير تركيبي محسوب من متوسطات مكوناته.",
-      "notesEn": "Traditional Egyptian mixed green salad; clinical recipe composite estimate based on raw non-oil vegetable proportions: ~40% fresh tomato, ~35% cucumber, ~15% arugula (rocca), and ~10% fresh parsley/lemon. Not an official discrete NNI recipe record; calculated from constituent vegetable averages."
+      "notesEn": "Traditional Egyptian mixed green salad; clinical recipe composite estimate based on raw non-oil vegetable proportions: ~40% fresh tomato, ~35% cucumber, ~15% arugula (rocca), and ~10% fresh parsley/lemon. Not an official discrete NNI recipe record; calculated from constituent vegetable averages.",
+      "compositionBasis": "recipe_based"
     }
   ],
   "dairy": [
@@ -855,7 +867,8 @@
         "whole milk"
       ],
       "notesAr": "حليب بقري مبستر كامل الدسم؛ كوب واحد 240 مل يوفر قرابة 150 سعرة حرارية و8 جم بروتين و8 جم دهون.",
-      "notesEn": "Pasteurized whole cow milk with 3.25% milkfat."
+      "notesEn": "Pasteurized whole cow milk with 3.25% milkfat.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_milk_cow_skim",
@@ -873,19 +886,19 @@
       "isCustom": false,
       "nutrients100g": {
         "basisWeightG": 100,
-        "caloriesKcal": 35,
+        "caloriesKcal": 34.0,
         "carbsG": 4.96,
         "availableCarbsG": 4.96,
         "carbCalculationBasis": "total_by_difference",
         "proteinG": 3.37,
-        "fatG": 0.18,
+        "fatG": 0.08,
         "fiberG": 0,
-        "saturatedFatG": 0.11,
+        "saturatedFatG": 0.056,
         "transFatG": 0.01,
-        "monounsaturatedFatG": 0.05,
-        "polyunsaturatedFatG": 0.01,
+        "monounsaturatedFatG": 0.022,
+        "polyunsaturatedFatG": 0.003,
         "cholesterolMg": 2,
-        "sodiumMg": 44,
+        "sodiumMg": 42.0,
         "potassiumMg": 156,
         "calciumMg": 122,
         "ironMg": 0.03,
@@ -913,7 +926,8 @@
         "calcium"
       ],
       "notesAr": "حليب بقري خالي الدسم؛ كوب واحد يوفر قرابة 90 سعرة حرارية و8 جم بروتين و12 جم كربوهيدرات (لاكتوز) دون دهون.",
-      "notesEn": "Fat-free skim cow milk; high calcium and protein without saturated fat."
+      "notesEn": "Fat-free skim cow milk; high calcium and protein without saturated fat.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_milk_buffalo_whole_egypt",
@@ -971,7 +985,8 @@
         "calcium"
       ],
       "notesAr": "الحليب الجاموسي البلدي الشائع في مصر؛ يحتوي على نسبة دهون تفوق الحليب البقري وتصل إلى 7%، مما يرفع سعرات الكوب إلى قرابة 230 سعرة حرارية.",
-      "notesEn": "Traditional Egyptian water buffalo milk with elevated milkfat (6.5-7.5%) and higher calcium density than cow milk."
+      "notesEn": "Traditional Egyptian water buffalo milk with elevated milkfat (6.5-7.5%) and higher calcium density than cow milk.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_yogurt_lowfat_plain",
@@ -1040,7 +1055,8 @@
         "low-fat"
       ],
       "notesAr": "زبادي طبيعي قليل الدسم؛ غني بالبكتيريا النافعة (البروبيوتيك) والكالسيوم وسهل الهضم لمن يعانون من حساسية اللاكتوز الجزئية.",
-      "notesEn": "Low-fat plain cultured yogurt with active probiotics."
+      "notesEn": "Low-fat plain cultured yogurt with active probiotics.",
+      "compositionBasis": "analytical_table"
     }
   ],
   "legumes": [
@@ -1122,7 +1138,8 @@
         "breakfast"
       ],
       "notesAr": "فول مدمس مصري تقليدي ناضج مسلوق دون إضافة زيت أو ملح؛ مصدر ممتاز للألياف والبروتين النباتي، يحسب كبديل مركب (1 نشويات + 1 لحوم خفيفة).",
-      "notesEn": "Egyptian stewed fava beans cooked in water; classic staple bean dish rich in resistant starch and prebiotic fiber."
+      "notesEn": "Egyptian stewed fava beans cooked in water; classic staple bean dish rich in resistant starch and prebiotic fiber.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_lentils_brown_cooked",
@@ -1186,7 +1203,8 @@
         "plant protein"
       ],
       "notesAr": "عدس مسلوق؛ غني بالألياف الغذائية والحديد وحمض الفوليك. حصة 1/2 كوب مطبوخ (~100 جم) موثقة بجدول بدائل ADA/AND (2014 ص 14 / 2019 ص 16) كبديل نشويات + بديل لحوم خفيفة الدسم.",
-      "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange."
+      "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange.",
+      "compositionBasis": "analytical_table"
     }
   ],
   "meats": [
@@ -1213,16 +1231,16 @@
         "proteinG": 22.5,
         "fatG": 2.62,
         "fiberG": 0,
-        "saturatedFatG": 0.56,
-        "transFatG": 0.01,
-        "monounsaturatedFatG": 0.89,
-        "polyunsaturatedFatG": 0.57,
+        "saturatedFatG": 0.563,
+        "transFatG": 0.007,
+        "monounsaturatedFatG": 0.689,
+        "polyunsaturatedFatG": 0.424,
         "cholesterolMg": 73,
         "sodiumMg": 45,
         "potassiumMg": 334,
-        "calciumMg": 11,
-        "ironMg": 0.72,
-        "waterG": 74,
+        "calciumMg": 5.0,
+        "ironMg": 0.37,
+        "waterG": 73.9,
         "missingNutrientKeys": []
       },
       "portions": [
@@ -1246,7 +1264,8 @@
         "high protein"
       ],
       "notesAr": "صدر دجاج طازج منزوع الجلد قبل الطهي. يفقد قرابة 20-25% من وزنه ماءً أثناء الشي أو السلق.",
-      "notesEn": "Raw skinless chicken breast before cooking shrinkage."
+      "notesEn": "Raw skinless chicken breast before cooking shrinkage.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_chicken_breast_grilled_skinless",
@@ -1326,7 +1345,8 @@
         "poultry"
       ],
       "notesAr": "صدر دجاج مشوي بدون جلد وبدون دهون مضافة. بروتين حيواني عالي القيمة الحيوية ومنخفض الدهون المشبعة.",
-      "notesEn": "Cooked skinless chicken breast; lean high-biological-value protein."
+      "notesEn": "Cooked skinless chicken breast; lean high-biological-value protein.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_chicken_breast_fried_breaded",
@@ -1387,7 +1407,8 @@
         "breaded"
       ],
       "notesAr": "دجاج بانيه مغطى بالبقسماط ومقلي؛ صنف مركب غير مصنف في جداول البدائل الفردية لاحتوائه على كربوهيدرات التغطية (12.15 جم للحصة) ودهون القلي معاً، ولا يجوز احتسابه كبديل لحوم فقط.",
-      "notesEn": "Breaded and deep-fried chicken breast (Pane cutlet); culinary recipe model with unclassified carbohydrate contribution (12.15g per 90g serving) and frying lipid uptake."
+      "notesEn": "Breaded and deep-fried chicken breast (Pane cutlet); culinary recipe model with unclassified carbohydrate contribution (12.15g per 90g serving) and frying lipid uptake.",
+      "compositionBasis": "recipe_based"
     },
     {
       "id": "food_beef_flank_lean_cooked",
@@ -1405,23 +1426,23 @@
       "isCustom": false,
       "nutrients100g": {
         "basisWeightG": 100,
-        "caloriesKcal": 192,
+        "caloriesKcal": 186,
         "carbsG": 0,
         "availableCarbsG": 0,
         "carbCalculationBasis": "total_by_difference",
-        "proteinG": 28.3,
-        "fatG": 8.6,
+        "proteinG": 27.9,
+        "fatG": 7.4,
         "fiberG": 0,
-        "saturatedFatG": 3.65,
+        "saturatedFatG": 3.07,
         "transFatG": 0.42,
-        "monounsaturatedFatG": 3.42,
-        "polyunsaturatedFatG": 0.38,
-        "cholesterolMg": 79,
-        "sodiumMg": 56,
-        "potassiumMg": 345,
+        "monounsaturatedFatG": 2.92,
+        "polyunsaturatedFatG": 0.292,
+        "cholesterolMg": 78.0,
+        "sodiumMg": 57.0,
+        "potassiumMg": 350,
         "calciumMg": 18,
-        "ironMg": 2.6,
-        "waterG": 62.5,
+        "ironMg": 1.74,
+        "waterG": 64.8,
         "missingNutrientKeys": []
       },
       "portions": [
@@ -1457,7 +1478,8 @@
         "medium fat"
       ],
       "notesAr": "لحم بقري أحمر قليل الدهن؛ مصدر ممتاز لحديد الهيم وفيتامين ب12 والزنك.",
-      "notesEn": "Cooked lean beef; rich in bioavailable heme iron and zinc."
+      "notesEn": "Cooked lean beef; rich in bioavailable heme iron and zinc.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_egg_whole_boiled",
@@ -1515,7 +1537,8 @@
         "breakfast"
       ],
       "notesAr": "بيضة كاملة مسلوقة؛ تعتبر المعيار الذهبي للبروتين ذي القيمة الحيوية 100، وغنية بالكولين واللوتين.",
-      "notesEn": "Boiled whole chicken egg; gold reference for high biological value protein."
+      "notesEn": "Boiled whole chicken egg; gold reference for high biological value protein.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_tuna_canned_water",
@@ -1533,23 +1556,23 @@
       "isCustom": false,
       "nutrients100g": {
         "basisWeightG": 100,
-        "caloriesKcal": 116,
+        "caloriesKcal": 86.0,
         "carbsG": 0,
         "availableCarbsG": 0,
         "carbCalculationBasis": "total_by_difference",
-        "proteinG": 25.51,
-        "fatG": 0.82,
+        "proteinG": 19.4,
+        "fatG": 0.96,
         "fiberG": 0,
-        "saturatedFatG": 0.23,
-        "transFatG": 0,
-        "monounsaturatedFatG": 0.15,
-        "polyunsaturatedFatG": 0.28,
+        "saturatedFatG": 0.211,
+        "transFatG": 0.002,
+        "monounsaturatedFatG": 0.107,
+        "polyunsaturatedFatG": 0.277,
         "cholesterolMg": 36,
-        "sodiumMg": 338,
-        "potassiumMg": 237,
-        "calciumMg": 11,
-        "ironMg": 1.54,
-        "waterG": 73.1,
+        "sodiumMg": 247,
+        "potassiumMg": 179,
+        "calciumMg": 17.0,
+        "ironMg": 1.63,
+        "waterG": 78.1,
         "missingNutrientKeys": []
       },
       "portions": [
@@ -1585,7 +1608,8 @@
         "canned"
       ],
       "notesAr": "تونة معلبة في محلول مائي؛ مصدر بروتين عالي النقاوة مع محتوى دهني شبه معدوم، وغنية بالأوميغا-3.",
-      "notesEn": "Canned light tuna packed in spring water and drained."
+      "notesEn": "Canned light tuna packed in spring water and drained.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_cheese_quraish_egyptian",
@@ -1680,7 +1704,8 @@
         "cottage"
       ],
       "notesAr": "الجبن القريش الفلاحي الطبيعي المصنوع من اللبن الخض منزوع القشطة؛ بروتين كازين بطيء الامتصاص وقليل الدهون جداً. تنبيه سريري: تم تصحيح تصنيف الجبن القريش إلى مجموعة اللحوم وبدائلها (Meat Substitutes - Lean) لمطابقة المعايير السريرية للبدائل الغذائية. لوحظ وجود تفاوت بين المراجع في وزن الحصة (56 جم في RegimePlan مقابل 30 جم في الدليل المصور و50 جم في الحصة السريرية الشائعة).",
-      "notesEn": "Traditional Egyptian non-fat fresh acid curd cheese; excellent source of slow-digesting micellar casein. Clinical notice: Corrected to meat substitutes (lean meat). Discrepancy noted between references regarding serving size (56g in RegimePlan vs 30g in Exchange Guide vs 50g clinic piece)."
+      "notesEn": "Traditional Egyptian non-fat fresh acid curd cheese; excellent source of slow-digesting micellar casein. Clinical notice: Corrected to meat substitutes (lean meat). Discrepancy noted between references regarding serving size (56g in RegimePlan vs 30g in Exchange Guide vs 50g clinic piece).",
+      "compositionBasis": "analytical_table"
     }
   ],
   "fats": [
@@ -1751,7 +1776,8 @@
         "mediterranean"
       ],
       "notesAr": "زيت زيتون بكر ممتاز معصور على البارد؛ غني بحمض الأوليك والبوليفينولات الداعمة لصحة القلب والأوعية الدموية.",
-      "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants."
+      "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_tahini_sesame_paste",
@@ -1820,7 +1846,8 @@
         "minerals"
       ],
       "notesAr": "طحينة سمسم خام؛ غنية جداً بالكالسيوم والحديد والدهون غير المشبعة المفيدة، وتعتبر أساسية في المطبخ الإقليمي.",
-      "notesEn": "Pure 100% sesame tahini paste; very high in calcium, plant iron, and lignans."
+      "notesEn": "Pure 100% sesame tahini paste; very high in calcium, plant iron, and lignans.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_flaxseed_oil_zait_har",
@@ -1878,7 +1905,8 @@
         "egyptian"
       ],
       "notesAr": "الزيت الحار المصري التقليدي المضاف للفول والجبن القريش؛ يعتبر من أعلى الزيوت النباتية في حمض ألفا لينولينيك (أوميغا-3 النباتي 53%).",
-      "notesEn": "Traditional Egyptian cold-pressed linseed oil; richest plant source of ALA omega-3."
+      "notesEn": "Traditional Egyptian cold-pressed linseed oil; richest plant source of ALA omega-3.",
+      "compositionBasis": "analytical_table"
     }
   ],
   "occasions": [
@@ -1937,7 +1965,8 @@
         "vitamin c"
       ],
       "notesAr": "عصير ليمون طبيعي؛ يدرج كطعام حر بالكميات المعتدلة، يساعد في زيادة امتصاص الحديد غير الهيمي.",
-      "notesEn": "Fresh lemon juice; counts as a Free Food in typical culinary quantities."
+      "notesEn": "Fresh lemon juice; counts as a Free Food in typical culinary quantities.",
+      "compositionBasis": "analytical_table"
     },
     {
       "id": "food_hibiscus_tea_karkadeh",
@@ -1999,7 +2028,8 @@
         "egyptian"
       ],
       "notesAr": "مشروب الكركديه المصري التقليدي غير المحلى؛ نموذج استخلاص مائي لمشروب حر خالٍ من السعرات مطابق لبيانات وزارة الزراعة الأمريكية FDC 171946 لشاي الكركديه المغلي ومصدر للأنثوسيانين.",
-      "notesEn": "Unsweetened Egyptian hibiscus tea (Karkadeh); culinary aqueous extraction model for a calorie-free herbal beverage corresponding to USDA FoodData Central record 171946 (Tea, hibiscus, brewed)."
+      "notesEn": "Unsweetened Egyptian hibiscus tea (Karkadeh); culinary aqueous extraction model for a calorie-free herbal beverage corresponding to USDA FoodData Central record 171946 (Tea, hibiscus, brewed).",
+      "compositionBasis": "analytical_table"
     }
   ]
 }

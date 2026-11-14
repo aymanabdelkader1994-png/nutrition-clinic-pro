@@ -73,13 +73,14 @@ def make_occasion_item(raw):
     return {
         "id": item_id,
         "code": code,
-        "sourceId": "regimeplan_2026",
+        "sourceId": "clinic_reviewed",
         "nameEn": name_en,
         "nameAr": name_ar,
         "foodGroupId": "occasions",
         "primaryExchangeCategoryId": "combination_food",
         "preparationState": "ready-to-eat",
-        "verificationStatus": "clinic_reviewed",
+        "verificationStatus": "recipe_based",
+        "compositionBasis": "recipe_based",
         "isCustom": False,
         "nutrients100g": {
             "basisWeightG": 100,

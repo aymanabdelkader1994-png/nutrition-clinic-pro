@@ -322,7 +322,9 @@ export function compareIntakeWithPhase1Targets(params: {
   ];
 
   return metrics.map((m) => {
-    const actual = actualAverages[m.nutrientKey]?.observedAverage ?? 0;
+    const avgItem = actualAverages[m.nutrientKey];
+    const actual = avgItem?.observedAverage ?? 0;
+    const isActualIncomplete = avgItem ? !avgItem.isComplete : false;
     const target = m.targetVal && Number.isFinite(m.targetVal) && m.targetVal > 0 ? m.targetVal : null;
 
     if (target === null) {
@@ -332,6 +334,7 @@ export function compareIntakeWithPhase1Targets(params: {
         labelAr: m.labelAr,
         unit: m.unit,
         actualIntake: actual,
+        isActualIncomplete,
         targetValue: null,
         difference: null,
         percentAchieved: null,
@@ -354,6 +357,7 @@ export function compareIntakeWithPhase1Targets(params: {
       labelAr: m.labelAr,
       unit: m.unit,
       actualIntake: actual,
+      isActualIncomplete,
       targetValue: roundToPrecision(target, 1),
       difference: diff,
       percentAchieved: percent,
@@ -410,6 +414,7 @@ export function generateRecallSessionWarnings(
   session.days.forEach((day, dayIdx) => {
     let dayTotalEntries = 0;
     let dayHasCustomFood = false;
+    let dayHasUnassayedMacros = false;
     let dayHasUnassayedSodium = false;
     let dayHasUnassayedFiber = false;
 
@@ -418,6 +423,18 @@ export function generateRecallSessionWarnings(
       meal.entries.forEach((entry) => {
         if (entry.isCustomFood || entry.verificationStatus === 'user_custom') {
           dayHasCustomFood = true;
+        }
+        if (
+          entry.nutrients.caloriesKcal === null ||
+          entry.nutrients.caloriesKcal === undefined ||
+          entry.nutrients.carbsG === null ||
+          entry.nutrients.carbsG === undefined ||
+          entry.nutrients.proteinG === null ||
+          entry.nutrients.proteinG === undefined ||
+          entry.nutrients.fatG === null ||
+          entry.nutrients.fatG === undefined
+        ) {
+          dayHasUnassayedMacros = true;
         }
         if (entry.nutrients.sodiumMg === null || entry.nutrients.sodiumMg === undefined) {
           dayHasUnassayedSodium = true;
@@ -447,6 +464,17 @@ export function generateRecallSessionWarnings(
         targetId: day.id,
         messageEn: `Day ${day.dayIndex} includes custom/unverified food records. Nutrients depend on clinician entry.`,
         messageAr: `اليوم ${day.dayIndex} يتضمن أطعمة مخصصة غير معيارية. دقة العناصر تعتمد على مدخلات العيادة.`,
+      });
+    }
+
+    if (dayHasUnassayedMacros) {
+      warnings.push({
+        id: `warn_incomplete_macros_${day.id}`,
+        severity: 'warning',
+        scope: 'day',
+        targetId: day.id,
+        messageEn: `Day ${day.dayIndex}: Energy/macronutrient assays are missing for one or more exchange-only items. Displayed totals exclude unassayed items and are partial observed totals.`,
+        messageAr: `اليوم ${day.dayIndex}: بيانات الطاقة والماكروز غير متوفرة لبعض أصناف البدائل فقط. الإجمالي المعروض يمثل مجموعاً جزئياً مرصوداً ولا يشمل الأصناف غير المحللة.`,
       });
     }
 

@@ -468,6 +468,7 @@ export function RecallWorkbench({
                     }`}
                   >
                     {daySummary.caloriesKcal.observedTotal} kcal
+                    {!daySummary.caloriesKcal.isComplete ? ` (${isAr ? 'جزئي' : 'Partial'})` : ''}
                   </span>
                 </button>
               );
@@ -513,16 +514,28 @@ export function RecallWorkbench({
               ? meal.customNameAr || def?.defaultNameAr || 'وجبة'
               : meal.customNameEn || def?.defaultNameEn || 'Meal';
 
-            // Calculate meal subtotals
+            // Calculate meal subtotals without coercing null to zero when all entries are unassayed
             let mealKcal = 0;
             let mealPro = 0;
             let mealCarb = 0;
             let mealFat = 0;
+            let mealHasIncompleteMacros = false;
+            let mealHasKnownMacros = false;
             meal.entries.forEach((e) => {
-              mealKcal += e.nutrients.caloriesKcal;
-              mealPro += e.nutrients.proteinG;
-              mealCarb += e.nutrients.carbsG;
-              mealFat += e.nutrients.fatG;
+              if (
+                e.nutrients.caloriesKcal === null ||
+                e.nutrients.proteinG === null ||
+                e.nutrients.carbsG === null ||
+                e.nutrients.fatG === null
+              ) {
+                mealHasIncompleteMacros = true;
+              } else {
+                mealHasKnownMacros = true;
+              }
+              mealKcal += e.nutrients.caloriesKcal ?? 0;
+              mealPro += e.nutrients.proteinG ?? 0;
+              mealCarb += e.nutrients.carbsG ?? 0;
+              mealFat += e.nutrients.fatG ?? 0;
             });
 
             return (
@@ -545,6 +558,11 @@ export function RecallWorkbench({
                         <span className="rounded bg-slate-100 px-1.5 py-0.2 text-[10px] font-semibold text-slate-600">
                           {meal.entries.length} {isAr ? 'أصناف' : 'items'}
                         </span>
+                        {mealHasIncompleteMacros && (
+                          <span className="rounded bg-amber-100 px-1.5 py-0.2 text-[10px] font-bold text-amber-800">
+                            {isAr ? 'جزئي' : 'Partial'}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -552,10 +570,16 @@ export function RecallWorkbench({
                   <div className="flex items-center gap-3">
                     {/* Meal Macro Subtotals */}
                     <div className="hidden text-end text-[11px] sm:block">
-                      <span className="font-bold text-slate-900">{Math.round(mealKcal)} kcal</span>
-                      <span className="text-slate-400 ms-1.5">
-                        (P: {mealPro.toFixed(1)}g • C: {mealCarb.toFixed(1)}g • F: {mealFat.toFixed(1)}g)
-                      </span>
+                      {meal.entries.length > 0 && !mealHasKnownMacros ? (
+                        <span className="font-bold text-amber-700">—</span>
+                      ) : (
+                        <>
+                          <span className="font-bold text-slate-900">{Math.round(mealKcal)} kcal</span>
+                          <span className="text-slate-400 ms-1.5">
+                            (P: {mealPro.toFixed(1)}g • C: {mealCarb.toFixed(1)}g • F: {mealFat.toFixed(1)}g)
+                          </span>
+                        </>
+                      )}
                     </div>
 
                     {/* Add Food Button */}
@@ -639,16 +663,16 @@ export function RecallWorkbench({
                           {/* Nutrients chips */}
                           <div className="flex items-center gap-2 text-[11px]">
                             <span className="rounded bg-slate-50 px-2 py-0.5 font-bold text-slate-800">
-                              {entry.nutrients.caloriesKcal} kcal
+                              {entry.nutrients.caloriesKcal !== null ? `${entry.nutrients.caloriesKcal} kcal` : '—'}
                             </span>
                             <span className="text-slate-500">
-                              P: <strong className="text-slate-800">{entry.nutrients.proteinG}g</strong>
+                              P: <strong className="text-slate-800">{entry.nutrients.proteinG !== null ? `${entry.nutrients.proteinG}g` : '—'}</strong>
                             </span>
                             <span className="text-slate-500">
-                              C: <strong className="text-slate-800">{entry.nutrients.carbsG}g</strong>
+                              C: <strong className="text-slate-800">{entry.nutrients.carbsG !== null ? `${entry.nutrients.carbsG}g` : '—'}</strong>
                             </span>
                             <span className="text-slate-500">
-                              F: <strong className="text-slate-800">{entry.nutrients.fatG}g</strong>
+                              F: <strong className="text-slate-800">{entry.nutrients.fatG !== null ? `${entry.nutrients.fatG}g` : '—'}</strong>
                             </span>
                             {entry.nutrients.sodiumMg !== null && (
                               <span className="text-slate-500 hidden md:inline">
@@ -703,9 +727,16 @@ export function RecallWorkbench({
               {/* Nutrients Grid */}
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <span className="text-[10px] font-medium text-slate-500">
-                    {isAr ? 'السعرات الفعلية' : 'Energy (Calories)'}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {isAr ? 'السعرات الفعلية' : 'Energy (Calories)'}
+                    </span>
+                    {!activeDaySummary.caloriesKcal.isComplete && (
+                      <span className="text-[9px] font-bold text-amber-600">
+                        {isAr ? 'جزئي' : 'Partial'}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
                     {activeDaySummary.caloriesKcal.observedTotal}{' '}
                     <span className="text-xs font-normal text-slate-400">kcal</span>
@@ -713,9 +744,16 @@ export function RecallWorkbench({
                 </div>
 
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <span className="text-[10px] font-medium text-slate-500">
-                    {isAr ? 'البروتين' : 'Protein'}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {isAr ? 'البروتين' : 'Protein'}
+                    </span>
+                    {!activeDaySummary.proteinG.isComplete && (
+                      <span className="text-[9px] font-bold text-amber-600">
+                        {isAr ? 'جزئي' : 'Partial'}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
                     {activeDaySummary.proteinG.observedTotal}{' '}
                     <span className="text-xs font-normal text-slate-400">g</span>
@@ -723,9 +761,16 @@ export function RecallWorkbench({
                 </div>
 
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <span className="text-[10px] font-medium text-slate-500">
-                    {isAr ? 'إجمالي الكربوهيدرات' : 'Total Carbohydrates'}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {isAr ? 'إجمالي الكربوهيدرات' : 'Total Carbohydrates'}
+                    </span>
+                    {!activeDaySummary.carbsG.isComplete && (
+                      <span className="text-[9px] font-bold text-amber-600">
+                        {isAr ? 'جزئي' : 'Partial'}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
                     {activeDaySummary.carbsG.observedTotal}{' '}
                     <span className="text-xs font-normal text-slate-400">g</span>
@@ -738,9 +783,16 @@ export function RecallWorkbench({
                 </div>
 
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
-                  <span className="text-[10px] font-medium text-slate-500">
-                    {isAr ? 'الدهون الكلية' : 'Total Fat'}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-medium text-slate-500">
+                      {isAr ? 'الدهون الكلية' : 'Total Fat'}
+                    </span>
+                    {!activeDaySummary.fatG.isComplete && (
+                      <span className="text-[9px] font-bold text-amber-600">
+                        {isAr ? 'جزئي' : 'Partial'}
+                      </span>
+                    )}
+                  </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
                     {activeDaySummary.fatG.observedTotal}{' '}
                     <span className="text-xs font-normal text-slate-400">g</span>
@@ -876,10 +928,15 @@ export function RecallWorkbench({
                     </div>
 
                     <div className="mt-2 flex items-center justify-between text-xs">
-                      <div>
+                      <div className="flex items-center gap-1">
                         <span className="text-[11px] text-slate-500">{isAr ? 'الفعلي:' : 'Actual:'}</span>{' '}
                         <strong className="text-slate-900">{c.actualIntake}</strong>{' '}
                         <span className="text-[10px] text-slate-400">{c.unit}</span>
+                        {c.isActualIncomplete && (
+                          <span className="rounded bg-amber-100 px-1 py-0.2 text-[9px] font-bold text-amber-800">
+                            {isAr ? 'جزئي' : 'Partial'}
+                          </span>
+                        )}
                       </div>
                       <div>
                         <span className="text-[11px] text-slate-500">{isAr ? 'الهدف:' : 'Target:'}</span>{' '}
@@ -927,25 +984,53 @@ export function RecallWorkbench({
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
-                <span className="text-slate-500">{isAr ? 'متوسط السعرات:' : 'Average Calories:'}</span>
+                <span className="text-slate-500">
+                  {isAr ? 'متوسط السعرات:' : 'Average Calories:'}{' '}
+                  {multiDayAnalysis.averages.caloriesKcal && !multiDayAnalysis.averages.caloriesKcal.isComplete && (
+                    <span className="text-[10px] font-bold text-amber-600">
+                      ({isAr ? 'جزئي' : 'Partial'})
+                    </span>
+                  )}
+                </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.averages.caloriesKcal?.observedAverage} kcal/day
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
-                <span className="text-slate-500">{isAr ? 'متوسط البروتين:' : 'Average Protein:'}</span>
+                <span className="text-slate-500">
+                  {isAr ? 'متوسط البروتين:' : 'Average Protein:'}{' '}
+                  {multiDayAnalysis.averages.proteinG && !multiDayAnalysis.averages.proteinG.isComplete && (
+                    <span className="text-[10px] font-bold text-amber-600">
+                      ({isAr ? 'جزئي' : 'Partial'})
+                    </span>
+                  )}
+                </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.averages.proteinG?.observedAverage} g/day
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
-                <span className="text-slate-500">{isAr ? 'متوسط الكربوهيدرات:' : 'Average Carbs:'}</span>
+                <span className="text-slate-500">
+                  {isAr ? 'متوسط الكربوهيدرات:' : 'Average Carbs:'}{' '}
+                  {multiDayAnalysis.averages.carbsG && !multiDayAnalysis.averages.carbsG.isComplete && (
+                    <span className="text-[10px] font-bold text-amber-600">
+                      ({isAr ? 'جزئي' : 'Partial'})
+                    </span>
+                  )}
+                </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.averages.carbsG?.observedAverage} g/day
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
-                <span className="text-slate-500">{isAr ? 'متوسط الدهون:' : 'Average Fat:'}</span>
+                <span className="text-slate-500">
+                  {isAr ? 'متوسط الدهون:' : 'Average Fat:'}{' '}
+                  {multiDayAnalysis.averages.fatG && !multiDayAnalysis.averages.fatG.isComplete && (
+                    <span className="text-[10px] font-bold text-amber-600">
+                      ({isAr ? 'جزئي' : 'Partial'})
+                    </span>
+                  )}
+                </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.averages.fatG?.observedAverage} g/day
                 </strong>

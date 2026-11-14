@@ -565,6 +565,69 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(multi.averages.ironMg.isComplete, false);
       assert.equal(multi.averages.ironMg.averageValue, null);
     });
+
+    it('propagates incomplete macro state cleanly when a recall session includes exchange_only foods', () => {
+      const chickenBreast = getFoodItemById('food_meat_rp_mt_013')!; // USDA 05062
+      const finoBread = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+
+      const chickenEntry = resolveRecallEntry({
+        food: chickenBreast,
+        selectedPortionId: 'grams',
+        quantity: 100,
+      });
+      const finoEntry = resolveRecallEntry({
+        food: finoBread,
+        selectedPortionId: finoBread.portions[0].id,
+        quantity: 1,
+      });
+
+      assert.equal(finoEntry.nutrients.caloriesKcal, null);
+      assert.equal(finoEntry.nutrients.proteinG, null);
+      assert.equal(finoEntry.nutrients.carbsG, null);
+      assert.equal(finoEntry.nutrients.fatG, null);
+
+      const summary = aggregateRecallEntries([chickenEntry, finoEntry]);
+      assert.equal(summary.caloriesKcal.observedTotal, chickenEntry.nutrients.caloriesKcal);
+      assert.equal(summary.caloriesKcal.completeTotal, null);
+      assert.equal(summary.caloriesKcal.isComplete, false);
+      assert.equal(summary.proteinG.completeTotal, null);
+      assert.equal(summary.proteinG.isComplete, false);
+      assert.equal(summary.carbsG.completeTotal, null);
+      assert.equal(summary.carbsG.isComplete, false);
+      assert.equal(summary.fatG.completeTotal, null);
+      assert.equal(summary.fatG.isComplete, false);
+      assert.equal(summary.hasIncompleteNutrients, true);
+
+      const session: RecallSession = {
+        id: 's_ex_only_mix',
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        targetDays: 1,
+        status: 'in_progress',
+        days: [
+          {
+            id: 'd1_ex_mix',
+            dayIndex: 1,
+            date: '2026-11-12',
+            meals: [{ id: 'm1', mealType: 'lunch', entries: [chickenEntry, finoEntry] }],
+          },
+        ],
+      };
+
+      const analysis = calculateMultiDayRecallAnalysis(session);
+      assert.equal(analysis.averages.caloriesKcal.isComplete, false);
+      assert.equal(analysis.averages.caloriesKcal.averageValue, null);
+      assert.equal(analysis.averages.caloriesKcal.observedAverage, chickenEntry.nutrients.caloriesKcal);
+
+      const comparisons = compareIntakeWithPhase1Targets({
+        actualAverages: analysis.averages,
+        targets: { targetCalories: 2000, targetProteinG: 120, targetCarbsG: 220, targetFatG: 65 },
+      });
+      assert.equal(comparisons.every((c) => c.isActualIncomplete === true), true);
+
+      const warnings = generateRecallSessionWarnings(session, { targetCalories: 2000 });
+      assert.ok(warnings.some((w) => w.id === 'warn_incomplete_macros_d1_ex_mix'));
+    });
   });
 });
 

@@ -29,6 +29,7 @@ import {
   registerCustomFoodItem,
   clearCustomFoodsForTesting,
   scaleNutrientProfile,
+  hasAnalyticalMacros,
   calculatePortionNutrients,
   calculateCustomGramsNutrients,
   aggregateNutrientProfiles,
@@ -450,21 +451,30 @@ describe('10. Phase 4 Catalog Expansion & Cottage Cheese Verification', () => {
     assert.ok(quraish.notesAr?.includes('56') && quraish.notesAr?.includes('30'));
   });
 
-  it('ensures unassayed micronutrients are preserved as null without zero imputation', () => {
+  it('ensures exchange_only items preserve null macros & micronutrients without zero or exchange-macro imputation', () => {
     const allItems = getAllFoodItems();
     const regimePlanItems = allItems.filter((f) => f.sourceId === 'regimeplan_2026');
     const analyticalOrReviewedItems = allItems.filter(
       (f) => f.sourceId === 'usda_fdc' || f.sourceId === 'egyptian_nni_2006' || f.sourceId === 'clinic_reviewed'
     );
-    assert.ok(regimePlanItems.length >= 250, `Expected remaining exchange-derived items >= 250, got ${regimePlanItems.length}`);
-    assert.ok(analyticalOrReviewedItems.length >= 200, `Expected analytical/reviewed items >= 200, got ${analyticalOrReviewedItems.length}`);
+    assert.equal(regimePlanItems.length, 117, `Expected strictly 117 exchange_only items, got ${regimePlanItems.length}`);
+    assert.equal(analyticalOrReviewedItems.length, 559, `Expected 559 analytical/reviewed items, got ${analyticalOrReviewedItems.length}`);
 
-    // Verify unassayed nutrients are explicitly null and in missingNutrientKeys on exchange-derived items
+    // Verify all 4 macros, availableCarbsG, and micronutrients are strictly null on exchange_only items
     for (const item of regimePlanItems) {
+      assert.equal(item.compositionBasis, 'exchange_only');
+      assert.equal(item.nutrients100g.caloriesKcal, null);
+      assert.equal(item.nutrients100g.carbsG, null);
+      assert.equal(item.nutrients100g.proteinG, null);
+      assert.equal(item.nutrients100g.fatG, null);
       assert.equal(item.nutrients100g.availableCarbsG, null);
       assert.equal(item.nutrients100g.fiberG, null);
       assert.equal(item.nutrients100g.sodiumMg, null);
       assert.equal(item.nutrients100g.potassiumMg, null);
+      assert.ok(item.nutrients100g.missingNutrientKeys.includes('caloriesKcal'));
+      assert.ok(item.nutrients100g.missingNutrientKeys.includes('carbsG'));
+      assert.ok(item.nutrients100g.missingNutrientKeys.includes('proteinG'));
+      assert.ok(item.nutrients100g.missingNutrientKeys.includes('fatG'));
       assert.ok(item.nutrients100g.missingNutrientKeys.includes('fiberG'));
       assert.ok(item.nutrients100g.missingNutrientKeys.includes('sodiumMg'));
     }
@@ -715,10 +725,17 @@ describe('11. Catalog Integrity Repair & Analytical Composition Verification', (
       assert.ok(item.nameAr && item.nameAr.trim().length > 0, `Item ${item.id} must have Arabic name`);
     }
 
-    // Check macro sums <= 100.5g
+    // Check macro sums <= 100.5g for items with assayed macros (and nulls for exchange_only)
     for (const item of allItems) {
-      const sum = (item.nutrients100g.carbsG || 0) + (item.nutrients100g.proteinG || 0) + (item.nutrients100g.fatG || 0);
-      assert.ok(sum <= 100.5, `Item ${item.id} (${item.nameEn}) macro sum ${sum} must not exceed 100g`);
+      if (item.compositionBasis === 'exchange_only') {
+        assert.equal(item.nutrients100g.caloriesKcal, null);
+        assert.equal(item.nutrients100g.carbsG, null);
+        assert.equal(item.nutrients100g.proteinG, null);
+        assert.equal(item.nutrients100g.fatG, null);
+      } else {
+        const sum = (item.nutrients100g.carbsG || 0) + (item.nutrients100g.proteinG || 0) + (item.nutrients100g.fatG || 0);
+        assert.ok(sum <= 100.5, `Item ${item.id} (${item.nameEn}) macro sum ${sum} must not exceed 100g`);
+      }
     }
   });
 
@@ -811,7 +828,7 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
       assert.equal(scaled.exchangeCategory, 'combination_food');
       assert.equal(scaled.isUnclassifiedExchange, true);
       assert.strictEqual(scaled.calculatedExchangeCount, undefined, 'Unclassified composite must not produce a nominal exchange count');
-      assert.ok(scaled.caloriesKcal > 50, `${code} portion must preserve its authentic caloric content`);
+      assert.ok(scaled.caloriesKcal !== null && scaled.caloriesKcal > 50, `${code} portion must preserve its authentic caloric content`);
     }
   });
 
@@ -928,15 +945,22 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
     );
   });
 
-  it('validates nutritional plausibility across catalog: all nutrients are finite and non-negative, portion weights positive', () => {
+  it('validates nutritional plausibility across catalog: assayed nutrients are finite and non-negative, exchange_only remain null', () => {
     const allItems = getAllFoodItems();
     for (const item of allItems) {
       assert.ok(item.id, 'Food item must have valid ID');
       assert.ok(item.nutrients100g.basisWeightG > 0, `${item.id}: basisWeightG must be positive`);
-      assert.ok(Number.isFinite(item.nutrients100g.caloriesKcal) && item.nutrients100g.caloriesKcal >= 0, `${item.id}: calories must be finite and >= 0`);
-      assert.ok(Number.isFinite(item.nutrients100g.carbsG) && item.nutrients100g.carbsG >= 0, `${item.id}: carbs must be finite and >= 0`);
-      assert.ok(Number.isFinite(item.nutrients100g.proteinG) && item.nutrients100g.proteinG >= 0, `${item.id}: protein must be finite and >= 0`);
-      assert.ok(Number.isFinite(item.nutrients100g.fatG) && item.nutrients100g.fatG >= 0, `${item.id}: fat must be finite and >= 0`);
+      if (item.compositionBasis === 'exchange_only') {
+        assert.equal(item.nutrients100g.caloriesKcal, null, `${item.id}: exchange_only calories must be null`);
+        assert.equal(item.nutrients100g.carbsG, null, `${item.id}: exchange_only carbs must be null`);
+        assert.equal(item.nutrients100g.proteinG, null, `${item.id}: exchange_only protein must be null`);
+        assert.equal(item.nutrients100g.fatG, null, `${item.id}: exchange_only fat must be null`);
+      } else {
+        assert.ok(item.nutrients100g.caloriesKcal !== null && Number.isFinite(item.nutrients100g.caloriesKcal) && item.nutrients100g.caloriesKcal >= 0, `${item.id}: calories must be finite and >= 0`);
+        assert.ok(item.nutrients100g.carbsG !== null && Number.isFinite(item.nutrients100g.carbsG) && item.nutrients100g.carbsG >= 0, `${item.id}: carbs must be finite and >= 0`);
+        assert.ok(item.nutrients100g.proteinG !== null && Number.isFinite(item.nutrients100g.proteinG) && item.nutrients100g.proteinG >= 0, `${item.id}: protein must be finite and >= 0`);
+        assert.ok(item.nutrients100g.fatG !== null && Number.isFinite(item.nutrients100g.fatG) && item.nutrients100g.fatG >= 0, `${item.id}: fat must be finite and >= 0`);
+      }
 
       // Verify portions
       assert.ok(item.portions.length > 0, `${item.id}: must have at least one portion`);
@@ -1129,9 +1153,9 @@ describe('13. Critical Analytical Composition & Exchange Classification Separati
       peanutButter, tahini, sesameSeeds, chiaSeeds, fetaInFats, cheddarInFats,
     ]) {
       assert.ok(item, 'Repaired fats-group record must exist');
-      assert.ok(item.nutrients100g.caloriesKcal < 850, `${item.code} must not carry 900 kcal pure-oil distortion`);
-      assert.ok(item.nutrients100g.proteinG > 0, `${item.code} must carry non-zero protein`);
-      assert.ok(item.nutrients100g.carbsG > 0, `${item.code} must carry non-zero carbohydrates`);
+      assert.ok(item.nutrients100g.caloriesKcal !== null && item.nutrients100g.caloriesKcal < 850, `${item.code} must not carry 900 kcal pure-oil distortion`);
+      assert.ok(item.nutrients100g.proteinG !== null && item.nutrients100g.proteinG > 0, `${item.code} must carry non-zero protein`);
+      assert.ok(item.nutrients100g.carbsG !== null && item.nutrients100g.carbsG > 0, `${item.code} must carry non-zero carbohydrates`);
       assert.equal(item.portions[0].exchangeCategory, 'fat', `${item.code} keeps its fat exchange classification`);
     }
 
@@ -1172,29 +1196,29 @@ describe('13. Critical Analytical Composition & Exchange Classification Separati
     // Dairy: Nonfat dry milk powder (RP-DA-013) & Nonfat Greek yogurt (RP-DA-015)
     const skimMilkPowder = getFoodItemById('food_dairy_rp_da_013')!;
     assert.equal(skimMilkPowder.sourceId, 'usda_fdc');
-    assert.ok(skimMilkPowder.nutrients100g.fatG < 1.5, 'Skim milk powder must not have whole-milk 8.7g fat');
-    assert.ok(skimMilkPowder.nutrients100g.proteinG >= 35);
+    assert.ok(skimMilkPowder.nutrients100g.fatG !== null && skimMilkPowder.nutrients100g.fatG < 1.5, 'Skim milk powder must not have whole-milk 8.7g fat');
+    assert.ok(skimMilkPowder.nutrients100g.proteinG !== null && skimMilkPowder.nutrients100g.proteinG >= 35);
 
     const nonfatGreek = getFoodItemById('food_dairy_rp_da_015')!;
-    assert.ok(nonfatGreek.nutrients100g.proteinG >= 10.0, 'Nonfat Greek yogurt must reflect concentrated protein');
+    assert.ok(nonfatGreek.nutrients100g.proteinG !== null && nonfatGreek.nutrients100g.proteinG >= 10.0, 'Nonfat Greek yogurt must reflect concentrated protein');
 
     // Legumes: Soybeans (RP-LEG-006) & Edamame (RP-LEG-011)
     const soybeans = getFoodItemById('food_legume_rp_leg_006')!;
     assert.equal(soybeans.sourceId, 'usda_fdc');
-    assert.ok(soybeans.nutrients100g.fatG >= 8.0 && soybeans.nutrients100g.proteinG >= 15.0);
+    assert.ok(soybeans.nutrients100g.fatG !== null && soybeans.nutrients100g.fatG >= 8.0 && soybeans.nutrients100g.proteinG !== null && soybeans.nutrients100g.proteinG >= 15.0);
 
     // Vegetables: Low-gram leafy greens (Arugula RP-VG-036, Spinach RP-VG-007) & sun-dried tomatoes (RP-VG-079)
     const arugula = getFoodItemById('food_veg_rp_rp_vg_036')!;
     const spinach = getFoodItemById('food_veg_rp_rp_vg_007')!;
     const sunDriedTomato = getFoodItemById('food_veg_rp_rp_vg_079')!;
-    assert.ok(arugula.nutrients100g.caloriesKcal <= 30, 'Arugula must not carry 140 kcal/100g distortion');
-    assert.ok(spinach.nutrients100g.caloriesKcal <= 30, 'Spinach must not carry 93.3 kcal/100g distortion');
-    assert.ok(sunDriedTomato.nutrients100g.carbsG > 50);
+    assert.ok(arugula.nutrients100g.caloriesKcal !== null && arugula.nutrients100g.caloriesKcal <= 30, 'Arugula must not carry 140 kcal/100g distortion');
+    assert.ok(spinach.nutrients100g.caloriesKcal !== null && spinach.nutrients100g.caloriesKcal <= 30, 'Spinach must not carry 93.3 kcal/100g distortion');
+    assert.ok(sunDriedTomato.nutrients100g.carbsG !== null && sunDriedTomato.nutrients100g.carbsG > 50);
 
     // Starches: Sweetened condensed milk (RP-ST-116), Teriyaki (RP-ST-118), BBQ (RP-ST-119)
     const condensedMilk = getFoodItemById('food_starch_rp_rp_st_116')!;
     assert.equal(condensedMilk.sourceId, 'usda_fdc');
-    assert.ok(condensedMilk.nutrients100g.fatG > 8 && condensedMilk.nutrients100g.proteinG > 7);
+    assert.ok(condensedMilk.nutrients100g.fatG !== null && condensedMilk.nutrients100g.fatG > 8 && condensedMilk.nutrients100g.proteinG !== null && condensedMilk.nutrients100g.proteinG > 7);
 
     // Fruits: Medjool dates (RP-FR-014) & Raisins (RP-FR-021)
     const medjool = getFoodItemById('food_fruit_rp_rp_fr_014')!;
@@ -1209,11 +1233,11 @@ describe('13. Critical Analytical Composition & Exchange Classification Separati
     const fetaMeat = getFoodItemById('food_meat_rp_mt_184')!;
     const firmTofu = getFoodItemById('food_meat_rp_mt_179')!;
 
-    assert.ok(tvp.nutrients100g.carbsG > 30 && tvp.nutrients100g.fatG < 3);
-    assert.ok(boiledEgg.nutrients100g.carbsG > 0.5 && boiledEgg.nutrients100g.fatG < 12);
-    assert.ok(breadedChicken.nutrients100g.carbsG > 10);
-    assert.ok(fetaMeat.nutrients100g.carbsG > 2);
-    assert.ok(firmTofu.nutrients100g.carbsG > 1 && firmTofu.nutrients100g.fatG < 12);
+    assert.ok(tvp.nutrients100g.carbsG !== null && tvp.nutrients100g.carbsG > 30 && tvp.nutrients100g.fatG !== null && tvp.nutrients100g.fatG < 3);
+    assert.ok(boiledEgg.nutrients100g.carbsG !== null && boiledEgg.nutrients100g.carbsG > 0.5 && boiledEgg.nutrients100g.fatG !== null && boiledEgg.nutrients100g.fatG < 12);
+    assert.ok(breadedChicken.nutrients100g.carbsG !== null && breadedChicken.nutrients100g.carbsG > 10);
+    assert.ok(fetaMeat.nutrients100g.carbsG !== null && fetaMeat.nutrients100g.carbsG > 2);
+    assert.ok(firmTofu.nutrients100g.carbsG !== null && firmTofu.nutrients100g.carbsG > 1 && firmTofu.nutrients100g.fatG !== null && firmTofu.nutrients100g.fatG < 12);
   });
 
   it('finds PDF CMap-affected Arabic foods cleanly via normalized bilingual search tags', () => {
@@ -1321,6 +1345,61 @@ describe('14. Release-Gate USDA Provenance & Preparation State Integrity', () =>
     assert.ok(searchFoodCatalog('cod').some((f) => f.code === 'RP-MT-051'));
     assert.ok(searchFoodCatalog('kofta').some((f) => f.code === 'RP-MT-173'));
     assert.ok(searchFoodCatalog('lobster').some((f) => f.code === 'RP-MT-091'));
+  });
+});
+
+describe('15. Exchange-Only Null Propagation & Integrity Repair Gate', () => {
+  it('enforces strict separation between compositionBasis=exchange_only and assayed records', () => {
+    const all = getAllFoodItems();
+    for (const item of all) {
+      if (item.sourceId === 'regimeplan_2026') {
+        assert.equal(item.compositionBasis, 'exchange_only', `${item.code} regimeplan_2026 must be exchange_only`);
+        assert.equal(hasAnalyticalMacros(item.nutrients100g), false);
+      } else {
+        assert.notEqual(item.compositionBasis, 'exchange_only', `${item.code} non-regimeplan item cannot be exchange_only`);
+        assert.equal(hasAnalyticalMacros(item.nutrients100g), true, `${item.code} assayed item must have complete finite macros`);
+      }
+    }
+
+    // Spot-check freshly promoted USDA SR items (leek, brown shami, skinless chicken breast, lima beans, sweet cherries)
+    const chickenBreast = getFoodItemById('food_meat_rp_mt_013')!;
+    assert.equal(chickenBreast.sourceId, 'usda_fdc');
+    assert.equal(chickenBreast.sourceRecordId, '05062');
+    assert.equal(chickenBreast.compositionBasis, 'analytical_table');
+
+    const freshOrange = getFoodItemById('food_fruit_rp_rp_fr_015')!;
+    assert.equal(freshOrange.sourceId, 'usda_fdc');
+    assert.equal(freshOrange.sourceRecordId, '09200');
+    assert.equal(freshOrange.compositionBasis, 'analytical_table');
+  });
+
+  it('preserves null macros across scaling, mixed composite aggregation, carb derivation, and rejects exchange divergence', () => {
+    const finoBread = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+    const chickenBreast = getFoodItemById('food_meat_rp_mt_013')!; // USDA 05062
+
+    const scaledEx = scaleNutrientProfile(finoBread.nutrients100g, 27);
+    assert.equal(scaledEx.caloriesKcal, null);
+    assert.equal(scaledEx.carbsG, null);
+    assert.equal(scaledEx.proteinG, null);
+    assert.equal(scaledEx.fatG, null);
+    assert.equal(scaledEx.fiberG, null);
+
+    assert.equal(deriveAvailableCarbohydrates(finoBread.nutrients100g), null);
+    assert.throws(() => calculateExchangeDivergence(finoBread, finoBread.portions[0]), /analytical macronutrient composition is unavailable/);
+
+    const scaledChicken = scaleNutrientProfile(chickenBreast.nutrients100g, 100);
+    const mixedComposite = aggregateNutrientProfiles([scaledChicken, scaledEx]);
+
+    assert.equal(mixedComposite.totalCaloriesKcal, null);
+    assert.equal(mixedComposite.totalCarbsG, null);
+    assert.equal(mixedComposite.totalProteinG, null);
+    assert.equal(mixedComposite.totalFatG, null);
+    assert.equal(mixedComposite.completeness.caloriesKcal, false);
+    assert.equal(mixedComposite.completeness.carbsG, false);
+    assert.equal(mixedComposite.completeness.proteinG, false);
+    assert.equal(mixedComposite.completeness.fatG, false);
+    assert.equal(mixedComposite.observedTotals.caloriesKcal, scaledChicken.caloriesKcal);
+    assert.equal(mixedComposite.observedTotals.proteinG, scaledChicken.proteinG);
   });
 });
 

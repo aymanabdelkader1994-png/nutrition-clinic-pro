@@ -125,9 +125,10 @@ def make_dairy_item(raw):
     }
     nutrients["missingNutrientKeys"] = [k for k in CORE_KEYS if nutrients[k] is None]
 
-    src_id = override.get("sourceId", "regimeplan_2026")
+    src_id = override.get("sourceId", "clinic_reviewed")
     src_rec_id = override.get("sourceRecordId")
     ver_status = override.get("verificationStatus", "clinic_reviewed")
+    comp_basis = "analytical_table" if src_id in ("usda_fdc", "egyptian_nni_2006") else "clinic_estimated"
 
     if src_id == "usda_fdc":
         if not src_rec_id or not re.match(r"^\d{5,6}$", str(src_rec_id)):
@@ -155,6 +156,7 @@ def make_dairy_item(raw):
         "primaryExchangeCategoryId": sub_cat,
         "preparationState": prep,
         "verificationStatus": ver_status,
+        "compositionBasis": comp_basis,
         "isCustom": False,
         "nutrients100g": nutrients,
         "portions": [{

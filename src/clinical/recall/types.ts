@@ -180,6 +180,7 @@ export interface TargetComparisonItem {
   labelAr: string;
   unit: string;
   actualIntake: number; // Daily average actual intake
+  isActualIncomplete?: boolean; // True if any entry in the analyzed period lacks energy/macro assay data
   targetValue: number | null; // From Phase 1 assessment
   difference: number | null; // actual - target
   percentAchieved: number | null; // (actual / target) * 100

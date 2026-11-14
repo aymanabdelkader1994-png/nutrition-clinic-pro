@@ -237,6 +237,7 @@ describe('Task A: Catalog Pipeline Failure Isolation & Transactional Rollback', 
           '  "primaryExchangeCategoryId": "combination_food",',
           '  "preparationState": "cooked",',
           '  "verificationStatus": "clinic_reviewed",',
+          '  "compositionBasis": "clinic_estimated",',
           '  "nutrients100g": {"basisWeightG": 100, "caloriesKcal": 100, "carbsG": 10, "fatG": 2, "missingNutrientKeys": []},',
           '  "portions": [{"id": "p1", "gramWeight": 50}]',
           '}]',
@@ -281,6 +282,7 @@ describe('Task A: Catalog Pipeline Failure Isolation & Transactional Rollback', 
           '  "primaryExchangeCategoryId": "combination_food",',
           '  "preparationState": "cooked",',
           '  "verificationStatus": "clinic_reviewed",',
+          '  "compositionBasis": "clinic_estimated",',
           '  "nutrients100g": {"basisWeightG": 100, "caloriesKcal": 100, "carbsG": 10, "proteinG": 5, "fatG": 2, "fiberG": 0, "saturatedFatG": 0, "transFatG": 0, "monounsaturatedFatG": 0, "polyunsaturatedFatG": 0, "cholesterolMg": 0, "sodiumMg": 0, "potassiumMg": 0, "calciumMg": 0, "ironMg": 0, "waterG": 80, "missingNutrientKeys": []},',
           '  "portions": [{"id": "p_dup_1", "gramWeight": 50}]',
           '}',
@@ -342,6 +344,78 @@ describe('Task A: Catalog Pipeline Failure Isolation & Transactional Rollback', 
         false,
         `Leftover temp files found after rollback: ${entries.join(', ')}`
       );
+    } finally {
+      fs.rmSync(sb.root, { recursive: true, force: true });
+    }
+  });
+
+  it('rejects exchange-macro division in any generator via static AST guard before execution', () => {
+    const sb = makeTempSandbox();
+    try {
+      const before = snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES);
+      fs.writeFileSync(
+        path.join(sb.scriptsDir, 'gen_meats.py'),
+        [
+          'MACROS = {"meat_lean": {"caloriesKcal": 46, "carbsG": 0, "proteinG": 7, "fatG": 2}}',
+          'w = 30.0',
+          'kcal100 = (MACROS["meat_lean"]["caloriesKcal"] / w) * 100',
+        ].join('\n'),
+        'utf-8'
+      );
+
+      const res = spawnSync(
+        'python3',
+        [path.join(sb.scriptsDir, 'build_full_catalog.py'), '--scripts-dir', sb.scriptsDir, '--data-dir', sb.dataDir],
+        { cwd: REPO_ROOT, encoding: 'utf-8' }
+      );
+      assert.notEqual(res.status, 0);
+      assert.ok(res.stdout.includes('STATIC AST GUARD FAILED'), `Expected AST guard failure, got:\n${res.stdout}\n${res.stderr}`);
+      assert.deepEqual(snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES), before);
+    } finally {
+      fs.rmSync(sb.root, { recursive: true, force: true });
+    }
+  });
+
+  it('rejects exchange_only records with numeric or zeroed macros in validate_catalog', () => {
+    const sb = makeTempSandbox();
+    try {
+      const before = snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES);
+      fs.writeFileSync(
+        path.join(sb.scriptsDir, 'gen_occasions.py'),
+        [
+          'import os, json',
+          'out = os.path.join(os.environ["NCP_CATALOG_OUT_DIR"], "occasions.ts")',
+          'bad_ex = [{',
+          '  "id": "food_bad_ex_zero",',
+          '  "code": "RP-EX-BAD",',
+          '  "sourceId": "regimeplan_2026",',
+          '  "nameEn": "Invalid Exchange Zero",',
+          '  "nameAr": "بديل غير صالح",',
+          '  "foodGroupId": "occasions",',
+          '  "primaryExchangeCategoryId": "combination_food",',
+          '  "preparationState": "cooked",',
+          '  "verificationStatus": "clinic_reviewed",',
+          '  "compositionBasis": "exchange_only",',
+          '  "nutrients100g": {"basisWeightG": 100, "caloriesKcal": 0, "carbsG": None, "proteinG": None, "fatG": None, "availableCarbsG": None, "fiberG": None, "saturatedFatG": None, "transFatG": None, "monounsaturatedFatG": None, "polyunsaturatedFatG": None, "cholesterolMg": None, "sodiumMg": None, "potassiumMg": None, "calciumMg": None, "ironMg": None, "waterG": None, "missingNutrientKeys": ["carbsG", "proteinG", "fatG", "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG", "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg", "calciumMg", "ironMg", "waterG"]},',
+          '  "portions": [{"id": "p_bad_ex_1", "gramWeight": 30}]',
+          '}]',
+          'with open(out, "w", encoding="utf-8") as f:',
+          '    f.write("export const OCC: FoodItemRecord[] = " + json.dumps(bad_ex) + ";")',
+        ].join('\n'),
+        'utf-8'
+      );
+
+      const res = spawnSync(
+        'python3',
+        [path.join(sb.scriptsDir, 'build_full_catalog.py'), '--scripts-dir', sb.scriptsDir, '--data-dir', sb.dataDir],
+        { cwd: REPO_ROOT, encoding: 'utf-8' }
+      );
+      assert.notEqual(res.status, 0);
+      assert.ok(
+        res.stdout.includes('exchange_only item must have caloriesKcal=None'),
+        `Expected exchange_only rejection, got:\n${res.stdout}\n${res.stderr}`
+      );
+      assert.deepEqual(snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES), before);
     } finally {
       fs.rmSync(sb.root, { recursive: true, force: true });
     }
@@ -438,9 +512,12 @@ describe('Task C & D: Catalog Provenance Counts & Isolated Dual-Run Reproducibil
 
     const bySource: Record<string, number> = {};
     const byVerification: Record<string, number> = {};
+    const byBasis: Record<string, number> = {};
     for (const item of all) {
       bySource[item.sourceId] = (bySource[item.sourceId] || 0) + 1;
       byVerification[item.verificationStatus] = (byVerification[item.verificationStatus] || 0) + 1;
+      const basis = item.compositionBasis ?? 'MISSING';
+      byBasis[basis] = (byBasis[basis] || 0) + 1;
       assert.ok(DATA_SOURCES[item.sourceId]);
       if (item.sourceId === 'usda_fdc') {
         assert.ok(item.sourceRecordId && /^\d{5,6}$/.test(item.sourceRecordId), `${item.code} invalid sourceRecordId`);
@@ -450,28 +527,46 @@ describe('Task C & D: Catalog Provenance Counts & Isolated Dual-Run Reproducibil
     }
 
     assert.deepEqual(bySource, {
-      usda_fdc: 110,
+      usda_fdc: 356,
       egyptian_nni_2006: 8,
-      clinic_reviewed: 122,
-      regimeplan_2026: 436,
+      clinic_reviewed: 195,
+      regimeplan_2026: 117,
     });
     assert.deepEqual(byVerification, {
-      verified_standard: 117,
-      clinic_reviewed: 549,
-      recipe_based: 10,
+      verified_standard: 363,
+      clinic_reviewed: 267,
+      recipe_based: 46,
+    });
+    assert.deepEqual(byBasis, {
+      analytical_table: 364,
+      exchange_only: 117,
+      clinic_estimated: 150,
+      recipe_based: 45,
     });
 
-    // Spot-check pure oil vs tahini vs peanut scaling accuracy
+    // Spot-check pure oil vs tahini vs exchange_only portion scaling
     const tahini = getFoodItemById('food_fat_rp_ft_014')!;
     const scaledTahini = calculatePortionNutrients(tahini, tahini.portions[0].id, 1);
     assert.equal(scaledTahini.netWeightG, 9);
-    assert.ok(scaledTahini.proteinG > 1 && scaledTahini.carbsG > 1);
+    assert.ok((scaledTahini.proteinG ?? 0) > 1 && (scaledTahini.carbsG ?? 0) > 1);
 
     const pureOil = getFoodItemById('food_oil_olive_extra_virgin')!;
     const scaledOil = scaleNutrientProfile(pureOil.nutrients100g, 5);
     assert.equal(scaledOil.caloriesKcal, 44.2);
     assert.equal(scaledOil.fatG, 5.0);
     assert.equal(scaledOil.proteinG, 0);
+
+    const finoBread = getFoodItemById('food_starch_rp_rp_st_007')!;
+    assert.equal(finoBread.compositionBasis, 'exchange_only');
+    assert.equal(finoBread.sourceId, 'regimeplan_2026');
+    const scaledFino = calculatePortionNutrients(finoBread, finoBread.portions[0].id, 1);
+    assert.equal(scaledFino.netWeightG, 27);
+    assert.equal(scaledFino.exchangeCategory, 'starch');
+    assert.equal(scaledFino.calculatedExchangeCount, 1);
+    assert.equal(scaledFino.caloriesKcal, null);
+    assert.equal(scaledFino.carbsG, null);
+    assert.equal(scaledFino.proteinG, null);
+    assert.equal(scaledFino.fatG, null);
   });
 
   it('produces byte-for-byte identical SHA-256 outputs across two independent isolated runs', () => {

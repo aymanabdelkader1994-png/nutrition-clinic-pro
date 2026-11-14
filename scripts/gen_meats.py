@@ -79,15 +79,98 @@ def extract_page_tokens(decomp, font_maps):
 
 page_streams = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25]
 
-# RegimePlan 2026 meat macros:
-# meat_lean: 46 kcal, 0g carb, 7g protein, 2g fat
-# meat_medium_fat: 73 kcal, 0g carb, 7g protein, 5g fat
-# meat_high_fat: 100 kcal, 0g carb, 7g protein, 8g fat
-
-MACROS = {
-    "meat_lean": {"caloriesKcal": 46, "carbsG": 0, "proteinG": 7, "fatG": 2},
-    "meat_medium_fat": {"caloriesKcal": 73, "carbsG": 0, "proteinG": 7, "fatG": 5},
-    "meat_high_fat": {"caloriesKcal": 100, "carbsG": 0, "proteinG": 7, "fatG": 8},
+MEAT_USDA_SR_PROFILES = {
+    "RP-MT-003": {"sourceRecordId": "16057", "nutrients": {"caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.86, "fatG": 2.59, "fiberG": 7.6, "saturatedFatG": 0.269, "transFatG": 0.0, "monounsaturatedFatG": 0.583, "polyunsaturatedFatG": 1.16, "cholesterolMg": 0.0, "sodiumMg": 7.0, "potassiumMg": 291.0, "calciumMg": 49.0, "ironMg": 2.89, "waterG": 60.2}},
+    "RP-MT-004": {"sourceRecordId": "05333", "nutrients": {"caloriesKcal": 189.0, "carbsG": 0.0, "proteinG": 23.3, "fatG": 10.9, "fiberG": 0.0, "saturatedFatG": 3.11, "transFatG": 0.087, "monounsaturatedFatG": 4.88, "polyunsaturatedFatG": 2.08, "cholesterolMg": 107.0, "sodiumMg": 75.0, "potassiumMg": 677.0, "calciumMg": 8.0, "ironMg": 0.93, "waterG": 64.9}},
+    "RP-MT-005": {"sourceRecordId": "05332", "nutrients": {"caloriesKcal": 143.0, "carbsG": 0.04, "proteinG": 17.4, "fatG": 8.1, "fiberG": 0.0, "saturatedFatG": 2.3, "transFatG": 0.065, "monounsaturatedFatG": 3.61, "polyunsaturatedFatG": 1.51, "cholesterolMg": 86.0, "sodiumMg": 60.0, "potassiumMg": 522.0, "calciumMg": 6.0, "ironMg": 0.82, "waterG": 73.2}},
+    "RP-MT-008": {"sourceRecordId": "05098", "nutrients": {"caloriesKcal": 179.0, "carbsG": 0.0, "proteinG": 24.8, "fatG": 8.15, "fiberG": 0.0, "saturatedFatG": 2.31, "transFatG": 0.044, "monounsaturatedFatG": 3.36, "polyunsaturatedFatG": 1.7, "cholesterolMg": 133.0, "sodiumMg": 106.0, "potassiumMg": 269.0, "calciumMg": 9.0, "ironMg": 1.13, "waterG": 67.0}},
+    "RP-MT-009": {"sourceRecordId": "05098", "nutrients": {"caloriesKcal": 179.0, "carbsG": 0.0, "proteinG": 24.8, "fatG": 8.15, "fiberG": 0.0, "saturatedFatG": 2.31, "transFatG": 0.044, "monounsaturatedFatG": 3.36, "polyunsaturatedFatG": 1.7, "cholesterolMg": 133.0, "sodiumMg": 106.0, "potassiumMg": 269.0, "calciumMg": 9.0, "ironMg": 1.13, "waterG": 67.0}},
+    "RP-MT-010": {"sourceRecordId": "05096", "nutrients": {"caloriesKcal": 121.0, "carbsG": 0.0, "proteinG": 19.7, "fatG": 4.12, "fiberG": 0.0, "saturatedFatG": 1.1, "transFatG": 0.02, "monounsaturatedFatG": 1.5, "polyunsaturatedFatG": 0.94, "cholesterolMg": 94.0, "sodiumMg": 95.0, "potassiumMg": 242.0, "calciumMg": 7.0, "ironMg": 0.81, "waterG": 76.2}},
+    "RP-MT-011": {"sourceRecordId": "05064", "nutrients": {"caloriesKcal": 165.0, "carbsG": 0.0, "proteinG": 31.0, "fatG": 3.57, "fiberG": 0.0, "saturatedFatG": 1.01, "monounsaturatedFatG": 1.24, "polyunsaturatedFatG": 0.77, "cholesterolMg": 85.0, "sodiumMg": 74.0, "potassiumMg": 256.0, "calciumMg": 15.0, "ironMg": 1.04, "waterG": 65.3}},
+    "RP-MT-012": {"sourceRecordId": "05064", "nutrients": {"caloriesKcal": 165.0, "carbsG": 0.0, "proteinG": 31.0, "fatG": 3.57, "fiberG": 0.0, "saturatedFatG": 1.01, "monounsaturatedFatG": 1.24, "polyunsaturatedFatG": 0.77, "cholesterolMg": 85.0, "sodiumMg": 74.0, "potassiumMg": 256.0, "calciumMg": 15.0, "ironMg": 1.04, "waterG": 65.3}},
+    "RP-MT-013": {"sourceRecordId": "05062", "nutrients": {"caloriesKcal": 120.0, "carbsG": 0.0, "proteinG": 22.5, "fatG": 2.62, "fiberG": 0.0, "saturatedFatG": 0.563, "transFatG": 0.007, "monounsaturatedFatG": 0.689, "polyunsaturatedFatG": 0.424, "cholesterolMg": 73.0, "sodiumMg": 45.0, "potassiumMg": 334.0, "calciumMg": 5.0, "ironMg": 0.37, "waterG": 73.9}},
+    "RP-MT-026": {"sourceRecordId": "17091", "nutrients": {"caloriesKcal": 196.0, "carbsG": 0.0, "proteinG": 31.9, "fatG": 6.58, "fiberG": 0.0, "saturatedFatG": 1.84, "monounsaturatedFatG": 2.35, "polyunsaturatedFatG": 0.59, "cholesterolMg": 118.0, "sodiumMg": 89.0, "potassiumMg": 338.0, "calciumMg": 24.0, "ironMg": 1.16, "waterG": 60.2}},
+    "RP-MT-027": {"sourceRecordId": "17091", "nutrients": {"caloriesKcal": 196.0, "carbsG": 0.0, "proteinG": 31.9, "fatG": 6.58, "fiberG": 0.0, "saturatedFatG": 1.84, "monounsaturatedFatG": 2.35, "polyunsaturatedFatG": 0.59, "cholesterolMg": 118.0, "sodiumMg": 89.0, "potassiumMg": 338.0, "calciumMg": 24.0, "ironMg": 1.16, "waterG": 60.2}},
+    "RP-MT-028": {"sourceRecordId": "17090", "nutrients": {"caloriesKcal": 112.0, "carbsG": 0.0, "proteinG": 20.2, "fatG": 2.87, "fiberG": 0.0, "saturatedFatG": 0.86, "monounsaturatedFatG": 0.92, "polyunsaturatedFatG": 0.3, "cholesterolMg": 83.0, "sodiumMg": 86.0, "potassiumMg": 328.0, "calciumMg": 15.0, "ironMg": 0.85, "waterG": 75.9}},
+    "RP-MT-032": {"sourceRecordId": "05147", "nutrients": {"caloriesKcal": 305.0, "carbsG": 0.0, "proteinG": 25.2, "fatG": 21.9, "fiberG": 0.0, "saturatedFatG": 6.87, "monounsaturatedFatG": 10.2, "polyunsaturatedFatG": 2.52, "cholesterolMg": 91.0, "sodiumMg": 70.0, "potassiumMg": 329.0, "calciumMg": 13.0, "ironMg": 2.83, "waterG": 52.0}},
+    "RP-MT-033": {"sourceRecordId": "05146", "nutrients": {"caloriesKcal": 371.0, "carbsG": 0.0, "proteinG": 15.9, "fatG": 33.6, "fiberG": 0.0, "saturatedFatG": 9.78, "monounsaturatedFatG": 17.8, "polyunsaturatedFatG": 3.76, "cholesterolMg": 80.0, "sodiumMg": 73.0, "potassiumMg": 308.0, "calciumMg": 12.0, "ironMg": 2.5, "waterG": 49.7}},
+    "RP-MT-035": {"sourceRecordId": "05157", "nutrients": {"caloriesKcal": 192.0, "carbsG": 0.0, "proteinG": 19.6, "fatG": 12.0, "fiberG": 0.0, "saturatedFatG": 3.38, "monounsaturatedFatG": 4.18, "polyunsaturatedFatG": 2.98, "cholesterolMg": 76.0, "sodiumMg": 53.0, "potassiumMg": 216.0, "calciumMg": 13.0, "ironMg": 3.97, "waterG": 69.6}},
+    "RP-MT-037": {"sourceRecordId": "05160", "nutrients": {"caloriesKcal": 294.0, "carbsG": 0.0, "proteinG": 18.5, "fatG": 23.8, "fiberG": 0.0, "saturatedFatG": 8.43, "monounsaturatedFatG": 9.72, "polyunsaturatedFatG": 3.07, "cholesterolMg": 95.0, "sodiumMg": 54.0, "potassiumMg": 199.0, "calciumMg": 12.0, "ironMg": 3.54, "waterG": 56.6}},
+    "RP-MT-038": {"sourceRecordId": "05306", "nutrients": {"caloriesKcal": 203.0, "carbsG": 0.0, "proteinG": 27.4, "fatG": 10.4, "fiberG": 0.0, "saturatedFatG": 2.67, "transFatG": 0.134, "monounsaturatedFatG": 3.46, "polyunsaturatedFatG": 2.92, "cholesterolMg": 93.0, "sodiumMg": 78.0, "potassiumMg": 294.0, "calciumMg": 28.0, "ironMg": 1.52, "waterG": 62.1}},
+    "RP-MT-040": {"sourceRecordId": "05140", "nutrients": {"caloriesKcal": 337.0, "carbsG": 0.0, "proteinG": 19.0, "fatG": 28.4, "fiberG": 0.0, "saturatedFatG": 9.67, "monounsaturatedFatG": 12.9, "polyunsaturatedFatG": 3.65, "cholesterolMg": 84.0, "sodiumMg": 59.0, "potassiumMg": 204.0, "calciumMg": 11.0, "ironMg": 2.7, "waterG": 51.8}},
+    "RP-MT-041": {"sourceRecordId": "05024", "nutrients": {"caloriesKcal": 154.0, "carbsG": 0.0, "proteinG": 30.4, "fatG": 2.68, "fiberG": 0.0, "saturatedFatG": 0.67, "transFatG": 0.13, "monounsaturatedFatG": 0.528, "polyunsaturatedFatG": 0.353, "cholesterolMg": 370.0, "sodiumMg": 56.0, "potassiumMg": 179.0, "calciumMg": 17.0, "ironMg": 3.19, "waterG": 67.9}},
+    "RP-MT-042": {"sourceRecordId": "05023", "nutrients": {"caloriesKcal": 94.0, "carbsG": 0.0, "proteinG": 17.7, "fatG": 2.06, "fiberG": 0.0, "saturatedFatG": 0.529, "transFatG": 0.06, "monounsaturatedFatG": 0.512, "polyunsaturatedFatG": 0.357, "cholesterolMg": 240.0, "sodiumMg": 69.0, "potassiumMg": 237.0, "calciumMg": 11.0, "ironMg": 2.49, "waterG": 79.3}},
+    "RP-MT-043": {"sourceRecordId": "05073", "nutrients": {"caloriesKcal": 155.0, "carbsG": 0.0, "proteinG": 24.2, "fatG": 5.7, "fiberG": 0.0, "saturatedFatG": 1.5, "transFatG": 0.03, "monounsaturatedFatG": 2.18, "polyunsaturatedFatG": 1.2, "cholesterolMg": 130.0, "sodiumMg": 128.0, "potassiumMg": 256.0, "calciumMg": 11.0, "ironMg": 1.14, "waterG": 69.9}},
+    "RP-MT-044": {"sourceRecordId": "05073", "nutrients": {"caloriesKcal": 155.0, "carbsG": 0.0, "proteinG": 24.2, "fatG": 5.7, "fiberG": 0.0, "saturatedFatG": 1.5, "transFatG": 0.03, "monounsaturatedFatG": 2.18, "polyunsaturatedFatG": 1.2, "cholesterolMg": 130.0, "sodiumMg": 128.0, "potassiumMg": 256.0, "calciumMg": 11.0, "ironMg": 1.14, "waterG": 69.9}},
+    "RP-MT-045": {"sourceRecordId": "05099", "nutrients": {"caloriesKcal": 195.0, "carbsG": 0.0, "proteinG": 25.0, "fatG": 9.79, "fiberG": 0.0, "saturatedFatG": 2.71, "monounsaturatedFatG": 3.7, "polyunsaturatedFatG": 2.24, "cholesterolMg": 90.0, "sodiumMg": 75.0, "potassiumMg": 183.0, "calciumMg": 11.0, "ironMg": 1.42, "waterG": 65.6}},
+    "RP-MT-046": {"sourceRecordId": "05065", "nutrients": {"caloriesKcal": 151.0, "carbsG": 0.0, "proteinG": 29.0, "fatG": 3.03, "fiberG": 0.0, "saturatedFatG": 0.85, "monounsaturatedFatG": 1.03, "polyunsaturatedFatG": 0.66, "cholesterolMg": 77.0, "sodiumMg": 63.0, "potassiumMg": 187.0, "calciumMg": 13.0, "ironMg": 0.88, "waterG": 68.3}},
+    "RP-MT-048": {"sourceRecordId": "05305", "nutrients": {"caloriesKcal": 148.0, "carbsG": 0.0, "proteinG": 19.7, "fatG": 7.66, "fiberG": 0.0, "saturatedFatG": 2.02, "transFatG": 0.103, "monounsaturatedFatG": 2.64, "polyunsaturatedFatG": 2.2, "cholesterolMg": 69.0, "sodiumMg": 58.0, "potassiumMg": 237.0, "calciumMg": 19.0, "ironMg": 1.09, "waterG": 72.4}},
+    "RP-MT-049": {"sourceRecordId": "05141", "nutrients": {"caloriesKcal": 135.0, "carbsG": 0.94, "proteinG": 18.3, "fatG": 5.95, "fiberG": 0.0, "saturatedFatG": 2.32, "monounsaturatedFatG": 1.54, "polyunsaturatedFatG": 0.75, "cholesterolMg": 77.0, "sodiumMg": 74.0, "potassiumMg": 271.0, "calciumMg": 11.0, "ironMg": 2.4, "waterG": 73.8}},
+    "RP-MT-050": {"sourceRecordId": "05220", "nutrients": {"caloriesKcal": 147.0, "carbsG": 0.0, "proteinG": 30.1, "fatG": 2.08, "fiberG": 0.0, "saturatedFatG": 0.593, "transFatG": 0.024, "monounsaturatedFatG": 0.626, "polyunsaturatedFatG": 0.528, "cholesterolMg": 80.0, "sodiumMg": 99.0, "potassiumMg": 249.0, "calciumMg": 9.0, "ironMg": 0.71, "waterG": 67.9}},
+    "RP-MT-051": {"sourceRecordId": "15015", "nutrients": {"caloriesKcal": 82.0, "carbsG": 0.0, "proteinG": 17.8, "fatG": 0.67, "fiberG": 0.0, "saturatedFatG": 0.131, "monounsaturatedFatG": 0.094, "polyunsaturatedFatG": 0.231, "cholesterolMg": 43.0, "sodiumMg": 54.0, "potassiumMg": 413.0, "calciumMg": 16.0, "ironMg": 0.38, "waterG": 81.2}},
+    "RP-MT-052": {"sourceRecordId": "15088", "nutrients": {"caloriesKcal": 208.0, "carbsG": 0.0, "proteinG": 24.6, "fatG": 11.4, "fiberG": 0.0, "saturatedFatG": 1.53, "monounsaturatedFatG": 3.87, "polyunsaturatedFatG": 5.15, "cholesterolMg": 142.0, "sodiumMg": 307.0, "potassiumMg": 397.0, "calciumMg": 382.0, "ironMg": 2.92, "waterG": 59.6}},
+    "RP-MT-053": {"sourceRecordId": "15047", "nutrients": {"caloriesKcal": 262.0, "carbsG": 0.0, "proteinG": 23.8, "fatG": 17.8, "fiberG": 0.0, "saturatedFatG": 4.18, "monounsaturatedFatG": 7.01, "polyunsaturatedFatG": 4.3, "cholesterolMg": 75.0, "sodiumMg": 83.0, "potassiumMg": 401.0, "calciumMg": 15.0, "ironMg": 1.57, "waterG": 53.3}},
+    "RP-MT-054": {"sourceRecordId": "15046", "nutrients": {"caloriesKcal": 205.0, "carbsG": 0.0, "proteinG": 18.6, "fatG": 13.9, "fiberG": 0.0, "saturatedFatG": 3.26, "monounsaturatedFatG": 5.46, "polyunsaturatedFatG": 3.35, "cholesterolMg": 70.0, "sodiumMg": 90.0, "potassiumMg": 314.0, "calciumMg": 12.0, "ironMg": 1.63, "waterG": 63.6}},
+    "RP-MT-055": {"sourceRecordId": "15262", "nutrients": {"caloriesKcal": 128.0, "carbsG": 0.0, "proteinG": 26.2, "fatG": 2.65, "fiberG": 0.0, "saturatedFatG": 0.94, "monounsaturatedFatG": 0.955, "polyunsaturatedFatG": 0.6, "cholesterolMg": 57.0, "sodiumMg": 56.0, "potassiumMg": 380.0, "calciumMg": 14.0, "ironMg": 0.69, "waterG": 71.6}},
+    "RP-MT-056": {"sourceRecordId": "15261", "nutrients": {"caloriesKcal": 96.0, "carbsG": 0.0, "proteinG": 20.1, "fatG": 1.7, "fiberG": 0.0, "saturatedFatG": 0.585, "monounsaturatedFatG": 0.498, "polyunsaturatedFatG": 0.363, "cholesterolMg": 50.0, "sodiumMg": 52.0, "potassiumMg": 302.0, "calciumMg": 10.0, "ironMg": 0.56, "waterG": 78.1}},
+    "RP-MT-057": {"sourceRecordId": "15119", "nutrients": {"caloriesKcal": 198.0, "carbsG": 0.0, "proteinG": 29.1, "fatG": 8.21, "fiberG": 0.0, "saturatedFatG": 1.53, "monounsaturatedFatG": 2.95, "polyunsaturatedFatG": 2.88, "cholesterolMg": 18.0, "sodiumMg": 416.0, "potassiumMg": 207.0, "calciumMg": 13.0, "ironMg": 1.39, "waterG": 59.8}},
+    "RP-MT-058": {"sourceRecordId": "15221", "nutrients": {"caloriesKcal": 130.0, "carbsG": 0.0, "proteinG": 29.2, "fatG": 0.59, "fiberG": 0.0, "saturatedFatG": 0.205, "transFatG": 0.02, "monounsaturatedFatG": 0.138, "polyunsaturatedFatG": 0.175, "cholesterolMg": 47.0, "sodiumMg": 54.0, "potassiumMg": 527.0, "calciumMg": 4.0, "ironMg": 0.92, "waterG": 69.0}},
+    "RP-MT-059": {"sourceRecordId": "15127", "nutrients": {"caloriesKcal": 109.0, "carbsG": 0.0, "proteinG": 24.4, "fatG": 0.49, "fiberG": 0.0, "saturatedFatG": 0.172, "transFatG": 0.016, "monounsaturatedFatG": 0.116, "polyunsaturatedFatG": 0.147, "cholesterolMg": 39.0, "sodiumMg": 45.0, "potassiumMg": 441.0, "calciumMg": 4.0, "ironMg": 0.77, "waterG": 74.0}},
+    "RP-MT-060": {"sourceRecordId": "15209", "nutrients": {"caloriesKcal": 182.0, "carbsG": 0.0, "proteinG": 25.4, "fatG": 8.13, "fiberG": 0.0, "saturatedFatG": 1.26, "monounsaturatedFatG": 2.7, "polyunsaturatedFatG": 3.26, "cholesterolMg": 71.0, "sodiumMg": 56.0, "potassiumMg": 628.0, "calciumMg": 15.0, "ironMg": 1.03, "waterG": 59.6}},
+    "RP-MT-061": {"sourceRecordId": "15209", "nutrients": {"caloriesKcal": 182.0, "carbsG": 0.0, "proteinG": 25.4, "fatG": 8.13, "fiberG": 0.0, "saturatedFatG": 1.26, "monounsaturatedFatG": 2.7, "polyunsaturatedFatG": 3.26, "cholesterolMg": 71.0, "sodiumMg": 56.0, "potassiumMg": 628.0, "calciumMg": 15.0, "ironMg": 1.03, "waterG": 59.6}},
+    "RP-MT-062": {"sourceRecordId": "15076", "nutrients": {"caloriesKcal": 142.0, "carbsG": 0.0, "proteinG": 19.8, "fatG": 6.34, "fiberG": 0.0, "saturatedFatG": 0.981, "monounsaturatedFatG": 2.1, "polyunsaturatedFatG": 2.54, "cholesterolMg": 55.0, "sodiumMg": 44.0, "potassiumMg": 490.0, "calciumMg": 12.0, "ironMg": 0.8, "waterG": 68.5}},
+    "RP-MT-064": {"sourceRecordId": "17178", "nutrients": {"caloriesKcal": 197.0, "carbsG": 0.0, "proteinG": 29.1, "fatG": 8.05, "fiberG": 0.0, "saturatedFatG": 2.4, "monounsaturatedFatG": 2.17, "polyunsaturatedFatG": 1.56, "cholesterolMg": 82.0, "sodiumMg": 47.0, "potassiumMg": 383.0, "calciumMg": 19.0, "ironMg": 2.27, "waterG": 60.6}},
+    "RP-MT-065": {"sourceRecordId": "17179", "nutrients": {"caloriesKcal": 206.0, "carbsG": 0.0, "proteinG": 30.4, "fatG": 8.41, "fiberG": 0.0, "saturatedFatG": 2.51, "monounsaturatedFatG": 2.27, "polyunsaturatedFatG": 1.63, "cholesterolMg": 86.0, "sodiumMg": 37.0, "potassiumMg": 300.0, "calciumMg": 20.0, "ironMg": 2.37, "waterG": 58.8}},
+    "RP-MT-066": {"sourceRecordId": "17177", "nutrients": {"caloriesKcal": 136.0, "carbsG": 0.0, "proteinG": 20.0, "fatG": 5.55, "fiberG": 0.0, "saturatedFatG": 1.66, "monounsaturatedFatG": 1.5, "polyunsaturatedFatG": 1.08, "cholesterolMg": 57.0, "sodiumMg": 41.0, "potassiumMg": 330.0, "calciumMg": 13.0, "ironMg": 1.57, "waterG": 72.8}},
+    "RP-MT-069": {"sourceRecordId": "23640", "nutrients": {"caloriesKcal": 94.0, "carbsG": 1.99, "proteinG": 11.7, "fatG": 4.05, "fiberG": 0.0, "saturatedFatG": 1.36, "transFatG": 0.2, "monounsaturatedFatG": 1.6, "polyunsaturatedFatG": 0.208, "cholesterolMg": 157.0, "sodiumMg": 68.0, "potassiumMg": 42.0, "calciumMg": 81.0, "ironMg": 0.66, "waterG": 81.6}},
+    "RP-MT-070": {"sourceRecordId": "13324", "nutrients": {"caloriesKcal": 158.0, "carbsG": 0.0, "proteinG": 27.3, "fatG": 4.65, "fiberG": 0.0, "saturatedFatG": 1.44, "transFatG": 0.27, "monounsaturatedFatG": 0.96, "polyunsaturatedFatG": 1.14, "cholesterolMg": 716.0, "sodiumMg": 94.0, "potassiumMg": 135.0, "calciumMg": 19.0, "ironMg": 5.8, "waterG": 66.9}},
+    "RP-MT-072": {"sourceRecordId": "13355", "nutrients": {"caloriesKcal": 147.0, "carbsG": 0.36, "proteinG": 21.8, "fatG": 5.82, "fiberG": 0.0, "saturatedFatG": 2.68, "monounsaturatedFatG": 2.12, "polyunsaturatedFatG": 0.145, "cholesterolMg": 68.0, "sodiumMg": 1080.0, "potassiumMg": 210.0, "calciumMg": 10.0, "ironMg": 2.22, "waterG": 69.5}},
+    "RP-MT-073": {"sourceRecordId": "17169", "nutrients": {"caloriesKcal": 143.0, "carbsG": 0.0, "proteinG": 27.1, "fatG": 3.03, "fiberG": 0.0, "saturatedFatG": 0.93, "monounsaturatedFatG": 1.36, "polyunsaturatedFatG": 0.23, "cholesterolMg": 75.0, "sodiumMg": 86.0, "potassiumMg": 405.0, "calciumMg": 17.0, "ironMg": 3.73, "waterG": 68.2}},
+    "RP-MT-074": {"sourceRecordId": "17168", "nutrients": {"caloriesKcal": 109.0, "carbsG": 0.0, "proteinG": 20.6, "fatG": 2.31, "fiberG": 0.0, "saturatedFatG": 0.71, "monounsaturatedFatG": 1.03, "polyunsaturatedFatG": 0.17, "cholesterolMg": 57.0, "sodiumMg": 82.0, "potassiumMg": 385.0, "calciumMg": 13.0, "ironMg": 2.83, "waterG": 75.8}},
+    "RP-MT-075": {"sourceRecordId": "13326", "nutrients": {"caloriesKcal": 191.0, "carbsG": 5.13, "proteinG": 29.1, "fatG": 5.26, "fiberG": 0.0, "saturatedFatG": 2.95, "transFatG": 0.365, "monounsaturatedFatG": 1.12, "polyunsaturatedFatG": 1.11, "cholesterolMg": 396.0, "sodiumMg": 79.0, "potassiumMg": 352.0, "calciumMg": 6.0, "ironMg": 6.54, "waterG": 58.8}},
+    "RP-MT-078": {"sourceRecordId": "15084", "nutrients": {"caloriesKcal": 129.0, "carbsG": 0.0, "proteinG": 19.7, "fatG": 4.97, "fiberG": 0.0, "saturatedFatG": 0.862, "transFatG": 0.026, "monounsaturatedFatG": 1.2, "polyunsaturatedFatG": 1.42, "cholesterolMg": 55.0, "sodiumMg": 403.0, "potassiumMg": 344.0, "calciumMg": 215.0, "ironMg": 0.64, "waterG": 74.0}},
+    "RP-MT-079": {"sourceRecordId": "15077", "nutrients": {"caloriesKcal": 117.0, "carbsG": 0.0, "proteinG": 18.3, "fatG": 4.32, "fiberG": 0.0, "saturatedFatG": 0.929, "monounsaturatedFatG": 2.02, "polyunsaturatedFatG": 0.995, "cholesterolMg": 23.0, "sodiumMg": 672.0, "potassiumMg": 175.0, "calciumMg": 11.0, "ironMg": 0.85, "waterG": 72.0}},
+    "RP-MT-082": {"sourceRecordId": "15012", "nutrients": {"caloriesKcal": 264.0, "carbsG": 4.0, "proteinG": 24.6, "fatG": 17.9, "fiberG": 0.0, "saturatedFatG": 4.06, "monounsaturatedFatG": 4.63, "polyunsaturatedFatG": 7.4, "cholesterolMg": 588.0, "sodiumMg": 1500.0, "potassiumMg": 181.0, "calciumMg": 275.0, "ironMg": 11.9, "waterG": 47.5}},
+    "RP-MT-083": {"sourceRecordId": "15001", "nutrients": {"caloriesKcal": 131.0, "carbsG": 0.0, "proteinG": 20.4, "fatG": 4.84, "fiberG": 0.0, "saturatedFatG": 1.28, "monounsaturatedFatG": 1.18, "polyunsaturatedFatG": 1.64, "cholesterolMg": 60.0, "sodiumMg": 104.0, "potassiumMg": 383.0, "calciumMg": 147.0, "ironMg": 3.25, "waterG": 73.4}},
+    "RP-MT-086": {"sourceRecordId": "15110", "nutrients": {"caloriesKcal": 144.0, "carbsG": 0.0, "proteinG": 19.7, "fatG": 6.65, "fiberG": 0.0, "saturatedFatG": 1.61, "transFatG": 0.047, "monounsaturatedFatG": 3.0, "polyunsaturatedFatG": 1.15, "cholesterolMg": 66.0, "sodiumMg": 81.0, "potassiumMg": 418.0, "calciumMg": 5.0, "ironMg": 0.38, "waterG": 73.4}},
+    "RP-MT-087": {"sourceRecordId": "15065", "nutrients": {"caloriesKcal": 92.0, "carbsG": 0.0, "proteinG": 19.4, "fatG": 0.98, "fiberG": 0.0, "saturatedFatG": 0.135, "monounsaturatedFatG": 0.112, "polyunsaturatedFatG": 0.483, "cholesterolMg": 71.0, "sodiumMg": 86.0, "potassiumMg": 356.0, "calciumMg": 60.0, "ironMg": 0.46, "waterG": 78.2}},
+    "RP-MT-088": {"sourceRecordId": "15010", "nutrients": {"caloriesKcal": 95.0, "carbsG": 0.0, "proteinG": 16.4, "fatG": 2.82, "fiberG": 0.0, "saturatedFatG": 0.722, "monounsaturatedFatG": 0.844, "polyunsaturatedFatG": 0.865, "cholesterolMg": 58.0, "sodiumMg": 43.0, "potassiumMg": 358.0, "calciumMg": 14.0, "ironMg": 0.3, "waterG": 80.4}},
+    "RP-MT-089": {"sourceRecordId": "15036", "nutrients": {"caloriesKcal": 91.0, "carbsG": 0.0, "proteinG": 18.6, "fatG": 1.33, "fiberG": 0.0, "saturatedFatG": 0.292, "monounsaturatedFatG": 0.471, "polyunsaturatedFatG": 0.29, "cholesterolMg": 49.0, "sodiumMg": 68.0, "potassiumMg": 435.0, "calciumMg": 7.0, "ironMg": 0.16, "waterG": 80.3}},
+    "RP-MT-090": {"sourceRecordId": "90240", "nutrients": {"caloriesKcal": 111.0, "carbsG": 5.41, "proteinG": 20.5, "fatG": 0.84, "fiberG": 0.0, "saturatedFatG": 0.218, "transFatG": 0.009, "monounsaturatedFatG": 0.082, "polyunsaturatedFatG": 0.222, "cholesterolMg": 41.0, "sodiumMg": 667.0, "potassiumMg": 314.0, "calciumMg": 10.0, "ironMg": 0.58, "waterG": 70.2}},
+    "RP-MT-091": {"sourceRecordId": "15148", "nutrients": {"caloriesKcal": 89.0, "carbsG": 0.0, "proteinG": 19.0, "fatG": 0.86, "fiberG": 0.0, "saturatedFatG": 0.208, "transFatG": 0.013, "monounsaturatedFatG": 0.253, "polyunsaturatedFatG": 0.34, "cholesterolMg": 146.0, "sodiumMg": 486.0, "potassiumMg": 230.0, "calciumMg": 96.0, "ironMg": 0.29, "waterG": 78.1}},
+    "RP-MT-092": {"sourceRecordId": "15040", "nutrients": {"caloriesKcal": 203.0, "carbsG": 0.0, "proteinG": 23.0, "fatG": 11.6, "fiberG": 0.0, "saturatedFatG": 2.62, "monounsaturatedFatG": 4.79, "polyunsaturatedFatG": 2.74, "cholesterolMg": 77.0, "sodiumMg": 115.0, "potassiumMg": 419.0, "calciumMg": 74.0, "ironMg": 1.41, "waterG": 64.2}},
+    "RP-MT-093": {"sourceRecordId": "15039", "nutrients": {"caloriesKcal": 158.0, "carbsG": 0.0, "proteinG": 18.0, "fatG": 9.04, "fiberG": 0.0, "saturatedFatG": 2.04, "monounsaturatedFatG": 3.74, "polyunsaturatedFatG": 2.13, "cholesterolMg": 60.0, "sodiumMg": 90.0, "potassiumMg": 327.0, "calciumMg": 57.0, "ironMg": 1.1, "waterG": 72.0}},
+    "RP-MT-094": {"sourceRecordId": "15002", "nutrients": {"caloriesKcal": 210.0, "carbsG": 0.0, "proteinG": 28.9, "fatG": 9.71, "fiberG": 0.0, "saturatedFatG": 2.2, "monounsaturatedFatG": 3.77, "polyunsaturatedFatG": 2.56, "cholesterolMg": 85.0, "sodiumMg": 3670.0, "potassiumMg": 544.0, "calciumMg": 232.0, "ironMg": 4.63, "waterG": 50.3}},
+    "RP-MT-095": {"sourceRecordId": "15219", "nutrients": {"caloriesKcal": 190.0, "carbsG": 0.0, "proteinG": 26.6, "fatG": 8.47, "fiberG": 0.0, "saturatedFatG": 1.47, "monounsaturatedFatG": 4.17, "polyunsaturatedFatG": 1.92, "cholesterolMg": 74.0, "sodiumMg": 67.0, "potassiumMg": 463.0, "calciumMg": 55.0, "ironMg": 1.92, "waterG": 63.4}},
+    "RP-MT-096": {"sourceRecordId": "15114", "nutrients": {"caloriesKcal": 148.0, "carbsG": 0.0, "proteinG": 20.8, "fatG": 6.61, "fiberG": 0.0, "saturatedFatG": 1.15, "monounsaturatedFatG": 3.25, "polyunsaturatedFatG": 1.5, "cholesterolMg": 58.0, "sodiumMg": 52.0, "potassiumMg": 361.0, "calciumMg": 43.0, "ironMg": 1.5, "waterG": 71.4}},
+    "RP-MT-097": {"sourceRecordId": "15230", "nutrients": {"caloriesKcal": 164.0, "carbsG": 4.4, "proteinG": 29.8, "fatG": 2.08, "fiberG": 0.0, "saturatedFatG": 0.453, "monounsaturatedFatG": 0.324, "polyunsaturatedFatG": 0.477, "cholesterolMg": 96.0, "sodiumMg": 460.0, "potassiumMg": 630.0, "calciumMg": 106.0, "ironMg": 9.54, "waterG": 60.5}},
+    "RP-MT-100": {"sourceRecordId": "15140", "nutrients": {"caloriesKcal": 83.0, "carbsG": 0.0, "proteinG": 17.9, "fatG": 0.74, "fiberG": 0.0, "saturatedFatG": 0.201, "transFatG": 0.014, "monounsaturatedFatG": 0.129, "polyunsaturatedFatG": 0.258, "cholesterolMg": 97.0, "sodiumMg": 395.0, "potassiumMg": 259.0, "calciumMg": 91.0, "ironMg": 0.5, "waterG": 79.7}},
+    "RP-MT-102": {"sourceRecordId": "15175", "nutrients": {"caloriesKcal": 92.0, "carbsG": 3.08, "proteinG": 15.6, "fatG": 1.38, "fiberG": 0.0, "saturatedFatG": 0.358, "monounsaturatedFatG": 0.107, "polyunsaturatedFatG": 0.524, "cholesterolMg": 233.0, "sodiumMg": 44.0, "potassiumMg": 246.0, "calciumMg": 32.0, "ironMg": 0.68, "waterG": 78.6}},
+    "RP-MT-103": {"sourceRecordId": "15271", "nutrients": {"caloriesKcal": 99.0, "carbsG": 0.2, "proteinG": 24.0, "fatG": 0.28, "saturatedFatG": 0.056, "transFatG": 0.002, "monounsaturatedFatG": 0.048, "polyunsaturatedFatG": 0.079, "cholesterolMg": 189.0, "sodiumMg": 111.0, "potassiumMg": 259.0, "calciumMg": 70.0, "ironMg": 0.51, "waterG": 74.3}},
+    "RP-MT-104": {"sourceRecordId": "15271", "nutrients": {"caloriesKcal": 99.0, "carbsG": 0.2, "proteinG": 24.0, "fatG": 0.28, "saturatedFatG": 0.056, "transFatG": 0.002, "monounsaturatedFatG": 0.048, "polyunsaturatedFatG": 0.079, "cholesterolMg": 189.0, "sodiumMg": 111.0, "potassiumMg": 259.0, "calciumMg": 70.0, "ironMg": 0.51, "waterG": 74.3}},
+    "RP-MT-105": {"sourceRecordId": "15270", "nutrients": {"caloriesKcal": 85.0, "carbsG": 0.0, "proteinG": 20.1, "fatG": 0.51, "saturatedFatG": 0.101, "transFatG": 0.004, "monounsaturatedFatG": 0.086, "polyunsaturatedFatG": 0.152, "cholesterolMg": 161.0, "sodiumMg": 119.0, "potassiumMg": 264.0, "calciumMg": 64.0, "ironMg": 0.52, "waterG": 78.4}},
+    "RP-MT-106": {"sourceRecordId": "15092", "nutrients": {"caloriesKcal": 124.0, "carbsG": 0.0, "proteinG": 23.6, "fatG": 2.56, "fiberG": 0.0, "saturatedFatG": 0.655, "monounsaturatedFatG": 0.544, "polyunsaturatedFatG": 0.953, "cholesterolMg": 53.0, "sodiumMg": 87.0, "potassiumMg": 328.0, "calciumMg": 13.0, "ironMg": 0.37, "waterG": 72.1}},
+    "RP-MT-107": {"sourceRecordId": "15091", "nutrients": {"caloriesKcal": 97.0, "carbsG": 0.0, "proteinG": 18.4, "fatG": 2.0, "fiberG": 0.0, "saturatedFatG": 0.511, "monounsaturatedFatG": 0.424, "polyunsaturatedFatG": 0.743, "cholesterolMg": 41.0, "sodiumMg": 68.0, "potassiumMg": 256.0, "calciumMg": 10.0, "ironMg": 0.29, "waterG": 78.3}},
+    "RP-MT-108": {"sourceRecordId": "15016", "nutrients": {"caloriesKcal": 105.0, "carbsG": 0.0, "proteinG": 22.8, "fatG": 0.86, "fiberG": 0.0, "saturatedFatG": 0.168, "monounsaturatedFatG": 0.124, "polyunsaturatedFatG": 0.292, "cholesterolMg": 55.0, "sodiumMg": 78.0, "potassiumMg": 244.0, "calciumMg": 14.0, "ironMg": 0.49, "waterG": 75.9}},
+    "RP-MT-110": {"sourceRecordId": "05009", "nutrients": {"caloriesKcal": 239.0, "carbsG": 0.0, "proteinG": 27.3, "fatG": 13.6, "fiberG": 0.0, "saturatedFatG": 3.79, "monounsaturatedFatG": 5.34, "polyunsaturatedFatG": 2.97, "cholesterolMg": 88.0, "sodiumMg": 82.0, "potassiumMg": 223.0, "calciumMg": 15.0, "ironMg": 1.26, "waterG": 59.4}},
+    "RP-MT-112": {"sourceRecordId": "05103", "nutrients": {"caloriesKcal": 254.0, "carbsG": 0.0, "proteinG": 23.8, "fatG": 16.9, "fiberG": 0.0, "saturatedFatG": 4.98, "transFatG": 0.084, "monounsaturatedFatG": 7.71, "polyunsaturatedFatG": 3.59, "cholesterolMg": 141.0, "sodiumMg": 98.0, "potassiumMg": 212.0, "calciumMg": 18.0, "ironMg": 0.84, "waterG": 59.4}},
+    "RP-MT-113": {"sourceRecordId": "05100", "nutrients": {"caloriesKcal": 191.0, "carbsG": 0.0, "proteinG": 17.5, "fatG": 12.8, "fiberG": 0.0, "saturatedFatG": 3.54, "transFatG": 0.061, "monounsaturatedFatG": 5.42, "polyunsaturatedFatG": 2.5, "cholesterolMg": 111.0, "sodiumMg": 84.0, "potassiumMg": 187.0, "calciumMg": 11.0, "ironMg": 0.46, "waterG": 69.2}},
+    "RP-MT-114": {"sourceRecordId": "05072", "nutrients": {"caloriesKcal": 195.0, "carbsG": 0.0, "proteinG": 28.6, "fatG": 8.08, "fiberG": 0.0, "saturatedFatG": 2.13, "monounsaturatedFatG": 2.94, "polyunsaturatedFatG": 1.97, "cholesterolMg": 94.0, "sodiumMg": 96.0, "potassiumMg": 249.0, "calciumMg": 12.0, "ironMg": 1.32, "waterG": 62.2}},
+    "RP-MT-122": {"sourceRecordId": "01124", "nutrients": {"caloriesKcal": 52.0, "carbsG": 0.73, "proteinG": 10.9, "fatG": 0.17, "fiberG": 0.0, "saturatedFatG": 0.0, "monounsaturatedFatG": 0.0, "polyunsaturatedFatG": 0.0, "cholesterolMg": 0.0, "sodiumMg": 166.0, "potassiumMg": 163.0, "calciumMg": 7.0, "ironMg": 0.08, "waterG": 87.6}},
+    "RP-MT-124": {"sourceRecordId": "15042", "nutrients": {"caloriesKcal": 217.0, "carbsG": 0.0, "proteinG": 24.6, "fatG": 12.4, "fiberG": 0.0, "saturatedFatG": 2.79, "monounsaturatedFatG": 5.11, "polyunsaturatedFatG": 2.92, "cholesterolMg": 82.0, "sodiumMg": 918.0, "potassiumMg": 447.0, "calciumMg": 84.0, "ironMg": 1.51, "waterG": 59.7}},
+    "RP-MT-126": {"sourceRecordId": "15028", "nutrients": {"caloriesKcal": 70.0, "carbsG": 0.0, "proteinG": 12.4, "fatG": 1.93, "fiberG": 0.0, "saturatedFatG": 0.441, "transFatG": 0.011, "monounsaturatedFatG": 0.535, "polyunsaturatedFatG": 0.374, "cholesterolMg": 45.0, "sodiumMg": 296.0, "potassiumMg": 160.0, "calciumMg": 21.0, "ironMg": 0.18, "waterG": 84.6}},
+    "RP-MT-129": {"sourceRecordId": "15032", "nutrients": {"caloriesKcal": 118.0, "carbsG": 0.0, "proteinG": 24.8, "fatG": 1.3, "fiberG": 0.0, "saturatedFatG": 0.299, "monounsaturatedFatG": 0.268, "polyunsaturatedFatG": 0.403, "cholesterolMg": 47.0, "sodiumMg": 53.0, "potassiumMg": 475.0, "calciumMg": 21.0, "ironMg": 1.14, "waterG": 73.4}},
+    "RP-MT-130": {"sourceRecordId": "15031", "nutrients": {"caloriesKcal": 92.0, "carbsG": 0.0, "proteinG": 19.4, "fatG": 1.02, "fiberG": 0.0, "saturatedFatG": 0.233, "monounsaturatedFatG": 0.202, "polyunsaturatedFatG": 0.321, "cholesterolMg": 37.0, "sodiumMg": 53.0, "potassiumMg": 483.0, "calciumMg": 27.0, "ironMg": 0.89, "waterG": 79.2}},
+    "RP-MT-143": {"sourceRecordId": "13340", "nutrients": {"caloriesKcal": 284.0, "carbsG": 0.0, "proteinG": 19.3, "fatG": 22.3, "fiberG": 0.0, "saturatedFatG": 8.12, "transFatG": 0.84, "monounsaturatedFatG": 10.1, "polyunsaturatedFatG": 0.746, "cholesterolMg": 132.0, "sodiumMg": 65.0, "potassiumMg": 184.0, "calciumMg": 5.0, "ironMg": 2.61, "waterG": 57.9}},
+    "RP-MT-147": {"sourceRecordId": "13347", "nutrients": {"caloriesKcal": 251.0, "carbsG": 0.47, "proteinG": 18.2, "fatG": 19.0, "fiberG": 0.0, "saturatedFatG": 6.34, "monounsaturatedFatG": 9.22, "polyunsaturatedFatG": 0.67, "cholesterolMg": 98.0, "sodiumMg": 973.0, "potassiumMg": 145.0, "calciumMg": 8.0, "ironMg": 1.86, "waterG": 59.8}},
+    "RP-MT-163": {"sourceRecordId": "05014", "nutrients": {"caloriesKcal": 177.0, "carbsG": 0.0, "proteinG": 27.3, "fatG": 6.71, "fiberG": 0.0, "saturatedFatG": 1.84, "monounsaturatedFatG": 2.39, "polyunsaturatedFatG": 1.54, "cholesterolMg": 83.0, "sodiumMg": 70.0, "potassiumMg": 180.0, "calciumMg": 14.0, "ironMg": 1.17, "waterG": 66.8}},
+    "RP-MT-164": {"sourceRecordId": "05006", "nutrients": {"caloriesKcal": 215.0, "carbsG": 0.0, "proteinG": 18.6, "fatG": 15.1, "fiberG": 0.0, "saturatedFatG": 4.31, "transFatG": 0.097, "monounsaturatedFatG": 6.24, "polyunsaturatedFatG": 3.23, "cholesterolMg": 75.0, "sodiumMg": 70.0, "potassiumMg": 189.0, "calciumMg": 11.0, "ironMg": 0.9, "waterG": 66.0}},
+    "RP-MT-166": {"sourceRecordId": "01125", "nutrients": {"caloriesKcal": 322.0, "carbsG": 3.59, "proteinG": 15.9, "fatG": 26.5, "fiberG": 0.0, "saturatedFatG": 9.55, "monounsaturatedFatG": 11.7, "polyunsaturatedFatG": 4.2, "cholesterolMg": 1080.0, "sodiumMg": 48.0, "potassiumMg": 109.0, "calciumMg": 129.0, "ironMg": 2.73, "waterG": 52.3}},
+    "RP-MT-179": {"sourceRecordId": "16426", "nutrients": {"caloriesKcal": 144.0, "carbsG": 2.78, "proteinG": 17.3, "fatG": 8.72, "fiberG": 2.3, "saturatedFatG": 1.26, "transFatG": 0.0, "monounsaturatedFatG": 1.92, "polyunsaturatedFatG": 4.92, "cholesterolMg": 0.0, "sodiumMg": 14.0, "potassiumMg": 237.0, "calciumMg": 683.0, "ironMg": 2.66, "waterG": 69.8}},
+    "RP-MT-183": {"sourceRecordId": "01036", "nutrients": {"caloriesKcal": 150.0, "carbsG": 7.27, "proteinG": 7.54, "fatG": 10.2, "fiberG": 0.0, "saturatedFatG": 6.42, "transFatG": 0.333, "monounsaturatedFatG": 2.66, "polyunsaturatedFatG": 0.445, "cholesterolMg": 49.0, "sodiumMg": 110.0, "potassiumMg": 219.0, "calciumMg": 206.0, "ironMg": 0.13, "waterG": 73.7}},
+    "RP-MT-184": {"sourceRecordId": "01019", "nutrients": {"caloriesKcal": 265.0, "carbsG": 3.88, "proteinG": 14.2, "fatG": 21.5, "fiberG": 0.0, "saturatedFatG": 13.3, "monounsaturatedFatG": 4.62, "polyunsaturatedFatG": 0.591, "cholesterolMg": 89.0, "sodiumMg": 1140.0, "potassiumMg": 62.0, "calciumMg": 493.0, "ironMg": 0.65, "waterG": 55.2}},
+    "RP-MT-185": {"sourceRecordId": "01026", "nutrients": {"caloriesKcal": 299.0, "carbsG": 2.4, "proteinG": 22.2, "fatG": 22.1, "fiberG": 0.0, "saturatedFatG": 13.9, "monounsaturatedFatG": 6.57, "polyunsaturatedFatG": 0.765, "cholesterolMg": 79.0, "sodiumMg": 486.0, "potassiumMg": 76.0, "calciumMg": 505.0, "ironMg": 0.44, "waterG": 50.0}},
+    "RP-MT-191": {"sourceRecordId": "01129", "nutrients": {"caloriesKcal": 155.0, "carbsG": 1.12, "proteinG": 12.6, "fatG": 10.6, "fiberG": 0.0, "saturatedFatG": 3.27, "monounsaturatedFatG": 4.08, "polyunsaturatedFatG": 1.41, "cholesterolMg": 373.0, "sodiumMg": 124.0, "potassiumMg": 126.0, "calciumMg": 50.0, "ironMg": 1.19, "waterG": 74.6}},
 }
 
 # Whole-token PDF CMap typo canonicalization (never partial substring guessing)
@@ -644,6 +727,14 @@ SEARCH_TYPO_TAGS = {
     "لمحة": ["لحمة", "شاورما", "shawarma"],
 }
 
+CORE_KEYS = [
+    "caloriesKcal", "carbsG", "proteinG", "fatG",
+    "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
+    "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
+    "calciumMg", "ironMg", "waterG"
+]
+
+
 def make_meat_record(it, seq_num):
     code = f"RP-MT-{seq_num:03d}"
     item_id = f"food_meat_{code.lower().replace('-', '_')}"
@@ -651,54 +742,54 @@ def make_meat_record(it, seq_num):
 
     w = it["weight"]
     cat = it["cat"]
+    usda_prof = MEAT_USDA_SR_PROFILES.get(code)
     override = MEAT_ANALYTICAL_OVERRIDES.get(code, {})
-    m = MACROS[cat]
-    
-    def fmt(n):
-        r = round(n, 1)
-        return int(r) if r == int(r) else r
 
-    if override:
-        kcal100 = override["caloriesKcal"]
-        c100 = override["carbsG"]
-        p100 = override["proteinG"]
-        f100 = override["fatG"]
+    if usda_prof:
+        n_src = usda_prof["nutrients"]
+        source_id = "usda_fdc"
+        src_rec_id = usda_prof["sourceRecordId"]
+        ver_status = "verified_standard"
+        comp_basis = "analytical_table"
+    elif override:
+        n_src = override
+        source_id = override.get("sourceId", "clinic_reviewed")
+        src_rec_id = None
+        ver_status = override.get("verificationStatus", "clinic_reviewed")
+        comp_basis = "recipe_based" if ver_status == "recipe_based" else "clinic_estimated"
     else:
-        kcal100 = fmt((m["caloriesKcal"] / w) * 100)
-        c100 = fmt((m["carbsG"] / w) * 100)
-        p100 = fmt((m["proteinG"] / w) * 100)
-        f100 = fmt((m["fatG"] / w) * 100)
+        n_src = {}
+        source_id = "regimeplan_2026"
+        src_rec_id = None
+        ver_status = "clinic_reviewed"
+        comp_basis = "exchange_only"
+
     w_gram = int(w) if isinstance(w, (int, float)) and w == int(w) else round(w, 1)
-    
+
     name_en = override.get("nameEn") or translate_name(it["nameAr"])
     hh_en = f"{int(w)}g portion"
 
     nutrients = {
         "basisWeightG": 100,
-        "caloriesKcal": kcal100,
-        "carbsG": c100,
+        "caloriesKcal": n_src.get("caloriesKcal", None),
+        "carbsG": n_src.get("carbsG", None),
         "availableCarbsG": None,
         "carbCalculationBasis": "total_by_difference",
-        "proteinG": p100,
-        "fatG": f100,
-        "fiberG": override.get("fiberG", None),
-        "saturatedFatG": override.get("saturatedFatG", None),
-        "transFatG": override.get("transFatG", None),
-        "monounsaturatedFatG": override.get("monounsaturatedFatG", None),
-        "polyunsaturatedFatG": override.get("polyunsaturatedFatG", None),
-        "cholesterolMg": override.get("cholesterolMg", None),
-        "sodiumMg": override.get("sodiumMg", None),
-        "potassiumMg": override.get("potassiumMg", None),
-        "calciumMg": override.get("calciumMg", None),
-        "ironMg": override.get("ironMg", None),
-        "waterG": override.get("waterG", None),
+        "proteinG": n_src.get("proteinG", None),
+        "fatG": n_src.get("fatG", None),
+        "fiberG": n_src.get("fiberG", None),
+        "saturatedFatG": n_src.get("saturatedFatG", None),
+        "transFatG": n_src.get("transFatG", None),
+        "monounsaturatedFatG": n_src.get("monounsaturatedFatG", None),
+        "polyunsaturatedFatG": n_src.get("polyunsaturatedFatG", None),
+        "cholesterolMg": n_src.get("cholesterolMg", None),
+        "sodiumMg": n_src.get("sodiumMg", None),
+        "potassiumMg": n_src.get("potassiumMg", None),
+        "calciumMg": n_src.get("calciumMg", None),
+        "ironMg": n_src.get("ironMg", None),
+        "waterG": n_src.get("waterG", None),
     }
-    core_keys = [
-        "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
-        "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
-        "calciumMg", "ironMg", "waterG"
-    ]
-    nutrients["missingNutrientKeys"] = [k for k in core_keys if nutrients[k] is None]
+    nutrients["missingNutrientKeys"] = [k for k in CORE_KEYS if nutrients[k] is None]
 
     prep_state = override.get("prep", it["prep"])
     tags = ["meats", cat, prep_state]
@@ -711,8 +802,27 @@ def make_meat_record(it, seq_num):
                 if s not in tags:
                     tags.append(s)
 
-    source_id = override.get("sourceId", "regimeplan_2026")
-    ver_status = override.get("verificationStatus", "clinic_reviewed")
+    if source_id == "usda_fdc":
+        notes_ar = (
+            f"التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB {src_rec_id}). "
+            f"وزن بديل اللحوم من RegimePlan 2026 (ص {it['page']}): {int(w)} جم ({it['hhAr']})."
+        )
+        notes_en = (
+            f"Analytical 100g composition from USDA SR Legacy (NDB {src_rec_id}). "
+            f"RegimePlan Food Exchange Lists (2026, p. {it['page']}) meat exchange portion: {int(w)}g ({hh_en})."
+        )
+    elif comp_basis == "exchange_only":
+        notes_ar = (
+            f"سجل بديل غذائي فقط من RegimePlan 2026 (ص {it['page']}). "
+            f"وزن الحصة البديلة: {int(w)} جم ({it['hhAr']}). التركيبة التحليلية لكل 100 جم غير محللة."
+        )
+        notes_en = (
+            f"Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. {it['page']}). "
+            f"Standard meat exchange portion: {int(w)}g ({hh_en}). Analytical 100g composition is unassayed."
+        )
+    else:
+        notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص {it['page']}): {int(w)} جم ({it['hhAr']})."
+        notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {it['page']}) meat exchange portion: {int(w)}g ({hh_en})."
 
     record = {
         "id": item_id,
@@ -724,6 +834,7 @@ def make_meat_record(it, seq_num):
         "primaryExchangeCategoryId": cat,
         "preparationState": prep_state,
         "verificationStatus": ver_status,
+        "compositionBasis": comp_basis,
         "isCustom": False,
         "nutrients100g": nutrients,
         "portions": [{
@@ -738,11 +849,11 @@ def make_meat_record(it, seq_num):
             "isDefaultServing": True
         }],
         "tags": tags,
-        "notesAr": f"قوائم البدائل الغذائية RegimePlan 2026 (ص {it['page']}). وزن الحصة البديلة: {int(w)} جم ({it['hhAr']}).",
-        "notesEn": f"RegimePlan Food Exchange Lists (2026, p. {it['page']}). Standard meat exchange portion: {int(w)}g ({hh_en})."
+        "notesAr": notes_ar,
+        "notesEn": notes_en
     }
-    if override.get("sourceRecordId"):
-        record["sourceRecordId"] = override["sourceRecordId"]
+    if src_rec_id is not None:
+        record["sourceRecordId"] = str(src_rec_id)
     return record
 
 def generate_meats_catalog(out_path=None):

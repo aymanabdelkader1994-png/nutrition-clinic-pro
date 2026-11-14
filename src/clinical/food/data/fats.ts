@@ -73,7 +73,8 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "mediterranean"
     ],
     "notesAr": "زيت زيتون بكر ممتاز معصور على البارد؛ غني بحمض الأوليك والبوليفينولات الداعمة لصحة القلب والأوعية الدموية.",
-    "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants."
+    "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_tahini_sesame_paste",
@@ -142,7 +143,8 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "minerals"
     ],
     "notesAr": "طحينة سمسم خام؛ غنية جداً بالكالسيوم والحديد والدهون غير المشبعة المفيدة، وتعتبر أساسية في المطبخ الإقليمي.",
-    "notesEn": "Pure 100% sesame tahini paste; very high in calcium, plant iron, and lignans."
+    "notesEn": "Pure 100% sesame tahini paste; very high in calcium, plant iron, and lignans.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_flaxseed_oil_zait_har",
@@ -200,7 +202,8 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "egyptian"
     ],
     "notesAr": "الزيت الحار المصري التقليدي المضاف للفول والجبن القريش؛ يعتبر من أعلى الزيوت النباتية في حمض ألفا لينولينيك (أوميغا-3 النباتي 53%).",
-    "notesEn": "Traditional Egyptian cold-pressed linseed oil; richest plant source of ALA omega-3."
+    "notesEn": "Traditional Egyptian cold-pressed linseed oil; richest plant source of ALA omega-3.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_fat_rp_ft_001",
@@ -212,6 +215,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -280,6 +284,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "dried",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -347,6 +352,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -416,6 +422,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -484,6 +491,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -552,6 +560,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -621,6 +630,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -689,6 +699,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -757,6 +768,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -824,6 +836,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "dried",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -891,6 +904,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -959,6 +973,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "dried",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1027,6 +1042,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1095,6 +1111,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1160,6 +1177,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1227,6 +1245,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "recipe_based",
+    "compositionBasis": "recipe_based",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1296,6 +1315,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1364,6 +1384,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1432,25 +1453,26 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 371.0,
-      "carbsG": 1.6,
+      "caloriesKcal": 366.0,
+      "carbsG": 4.78,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 18.5,
-      "fatG": 31.0,
+      "proteinG": 18.1,
+      "fatG": 30.7,
       "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 1670.0,
       "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
+      "calciumMg": 1040.0,
+      "ironMg": 0.63,
       "waterG": null,
       "missingNutrientKeys": [
         "saturatedFatG",
@@ -1458,10 +1480,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
-        "calciumMg",
-        "ironMg",
         "waterG"
       ]
     },
@@ -1501,6 +1520,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1570,6 +1590,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1639,6 +1660,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1708,6 +1730,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1776,6 +1799,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1845,24 +1869,25 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 380.0,
-      "carbsG": 5.4,
+      "caloriesKcal": 393.0,
+      "carbsG": 1.44,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 26.9,
-      "fatG": 27.8,
+      "proteinG": 27.0,
+      "fatG": 31.0,
       "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 187.0,
       "potassiumMg": null,
-      "calciumMg": null,
+      "calciumMg": 890.0,
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
@@ -1871,9 +1896,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
-        "calciumMg",
         "ironMg",
         "waterG"
       ]
@@ -1913,6 +1936,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1982,6 +2006,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2050,24 +2075,25 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 431.0,
-      "carbsG": 4.1,
+      "caloriesKcal": 420.0,
+      "carbsG": 13.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 38.5,
-      "fatG": 28.6,
+      "proteinG": 28.4,
+      "fatG": 27.8,
       "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 1800.0,
       "potassiumMg": null,
-      "calciumMg": null,
+      "calciumMg": 853.0,
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
@@ -2076,9 +2102,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
-        "calciumMg",
         "ironMg",
         "waterG"
       ]
@@ -2119,24 +2143,25 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
       "caloriesKcal": 403.0,
-      "carbsG": 1.3,
+      "carbsG": 3.37,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 24.9,
-      "fatG": 33.1,
+      "proteinG": 22.9,
+      "fatG": 33.3,
       "fiberG": 0.0,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 653.0,
       "potassiumMg": null,
-      "calciumMg": null,
+      "calciumMg": 710.0,
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
@@ -2145,9 +2170,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
-        "calciumMg",
         "ironMg",
         "waterG"
       ]
@@ -2188,6 +2211,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2256,6 +2280,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2271,7 +2296,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": 339.0,
+      "sodiumMg": 234.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
@@ -2324,6 +2349,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2392,6 +2418,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2460,6 +2487,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2527,6 +2555,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2595,6 +2624,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2661,6 +2691,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "canned",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2729,6 +2760,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "canned",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2797,6 +2829,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2865,6 +2898,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "recipe_based",
+    "compositionBasis": "recipe_based",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -2933,6 +2967,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "recipe_based",
+    "compositionBasis": "recipe_based",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3001,6 +3036,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "recipe_based",
+    "compositionBasis": "recipe_based",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3070,6 +3106,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "recipe_based",
+    "compositionBasis": "recipe_based",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3137,6 +3174,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3205,6 +3243,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "recipe_based",
+    "compositionBasis": "recipe_based",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3273,34 +3312,33 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 540.0,
+      "caloriesKcal": 542.0,
       "carbsG": 3.3,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 2.2,
+      "proteinG": 2.17,
       "fatG": 57.8,
-      "fiberG": null,
+      "fiberG": 0.5,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 1210.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "fiberG",
         "saturatedFatG",
         "transFatG",
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
         "ironMg",
@@ -3328,9 +3366,9 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "caesar dressing",
       "صلصة سيزر"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 043015). وزن بديل الدهون القياسي (9 جم، ملعقة كبيرة) وفق قوائم RegimePlan 2026 (ص 11).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 043015). Exchange portion weight (9g, 9g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
-    "sourceRecordId": "043015"
+    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 43015). وزن بديل الدهون القياسي (9 جم، ملعقة كبيرة) وفق قوائم RegimePlan 2026 (ص 11).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 43015). Exchange portion weight (9g, 9g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
+    "sourceRecordId": "43015"
   },
   {
     "id": "food_fat_rp_ft_047",
@@ -3342,6 +3380,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3410,6 +3449,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3478,6 +3518,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3543,6 +3584,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3608,6 +3650,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3675,6 +3718,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3740,6 +3784,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3750,7 +3795,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "proteinG": 0.0,
       "fatG": 100.0,
       "fiberG": 0.0,
-      "saturatedFatG": 7.5,
+      "saturatedFatG": 6.2,
       "transFatG": null,
       "monounsaturatedFatG": 14.4,
       "polyunsaturatedFatG": 74.6,
@@ -3805,6 +3850,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3812,13 +3858,13 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "carbsG": 0.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 0.0,
+      "proteinG": 0.11,
       "fatG": 100.0,
       "fiberG": 0.0,
-      "saturatedFatG": 9.0,
+      "saturatedFatG": 8.98,
       "transFatG": null,
       "monounsaturatedFatG": 18.4,
-      "polyunsaturatedFatG": 67.9,
+      "polyunsaturatedFatG": 67.8,
       "cholesterolMg": null,
       "sodiumMg": null,
       "potassiumMg": null,
@@ -3856,9 +3902,9 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "flaxseed oil",
       "زيت بذر كتان"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 042231). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 11).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 042231). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
-    "sourceRecordId": "042231"
+    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 42231). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 11).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 42231). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
+    "sourceRecordId": "42231"
   },
   {
     "id": "food_fat_rp_ft_055",
@@ -3870,6 +3916,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3935,6 +3982,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -3942,26 +3990,21 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "carbsG": 0.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 0.2,
+      "proteinG": 0.16,
       "fatG": 80.7,
       "fiberG": 0.0,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
+      "saturatedFatG": 15.2,
+      "transFatG": 14.9,
+      "monounsaturatedFatG": 38.9,
+      "polyunsaturatedFatG": 24.3,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 751.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
         "ironMg",
@@ -3988,9 +4031,9 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "margarine",
       "مارجرين"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04132). وزن بديل الدهون القياسي (6 جم، ملعقة كبيرة) وفق قوائم RegimePlan 2026 (ص 11).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04132). Exchange portion weight (6g, 6g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
-    "sourceRecordId": "04132"
+    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04610). وزن بديل الدهون القياسي (6 جم، ملعقة كبيرة) وفق قوائم RegimePlan 2026 (ص 11).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04610). Exchange portion weight (6g, 6g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
+    "sourceRecordId": "04610"
   },
   {
     "id": "food_fat_rp_ft_057",
@@ -4002,6 +4045,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4069,6 +4113,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4134,6 +4179,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4199,6 +4245,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4250,9 +4297,9 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "sunflower oil",
       "زيت عباد الشمس"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04584). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 11).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04584). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
-    "sourceRecordId": "04584"
+    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04506). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 11).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04506). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 11).",
+    "sourceRecordId": "04506"
   },
   {
     "id": "food_fat_rp_ft_061",
@@ -4264,6 +4311,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "dried",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4333,6 +4381,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4401,6 +4450,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4468,6 +4518,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4533,6 +4584,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4598,6 +4650,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4663,22 +4716,23 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 594.0,
-      "carbsG": 25.4,
+      "caloriesKcal": 607.0,
+      "carbsG": 22.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 17.3,
-      "fatG": 51.5,
-      "fiberG": 9.0,
+      "proteinG": 19.5,
+      "fatG": 53.5,
+      "fiberG": 6.4,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": 11.0,
+      "sodiumMg": 4.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
@@ -4730,6 +4784,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4798,6 +4853,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4866,6 +4922,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -4933,6 +4990,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5000,6 +5058,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5068,22 +5127,23 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 656.0,
-      "carbsG": 12.3,
+      "caloriesKcal": 659.0,
+      "carbsG": 11.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 14.3,
-      "fatG": 66.4,
+      "fatG": 67.1,
       "fiberG": 7.5,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": null,
+      "sodiumMg": 3.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
@@ -5094,7 +5154,6 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
         "monounsaturatedFatG",
         "polyunsaturatedFatG",
         "cholesterolMg",
-        "sodiumMg",
         "potassiumMg",
         "calciumMg",
         "ironMg",
@@ -5136,6 +5195,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5204,6 +5264,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5272,6 +5333,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5339,6 +5401,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5406,6 +5469,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5473,22 +5537,23 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 597.0,
-      "carbsG": 21.0,
+      "caloriesKcal": 599.0,
+      "carbsG": 15.3,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 25.5,
-      "fatG": 51.6,
-      "fiberG": 8.4,
+      "proteinG": 28.0,
+      "fatG": 52.5,
+      "fiberG": 9.4,
       "saturatedFatG": null,
       "transFatG": null,
       "monounsaturatedFatG": null,
       "polyunsaturatedFatG": null,
       "cholesterolMg": null,
-      "sodiumMg": 319.0,
+      "sodiumMg": 320.0,
       "potassiumMg": null,
       "calciumMg": null,
       "ironMg": null,
@@ -5541,6 +5606,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5609,6 +5675,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5677,6 +5744,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -5744,6 +5812,7 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "fat",
     "preparationState": "roasted",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,

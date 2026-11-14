@@ -84,7 +84,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "breakfast"
     ],
     "notesAr": "فول مدمس مصري تقليدي ناضج مسلوق دون إضافة زيت أو ملح؛ مصدر ممتاز للألياف والبروتين النباتي، يحسب كبديل مركب (1 نشويات + 1 لحوم خفيفة).",
-    "notesEn": "Egyptian stewed fava beans cooked in water; classic staple bean dish rich in resistant starch and prebiotic fiber."
+    "notesEn": "Egyptian stewed fava beans cooked in water; classic staple bean dish rich in resistant starch and prebiotic fiber.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_lentils_brown_cooked",
@@ -148,7 +149,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant protein"
     ],
     "notesAr": "عدس مسلوق؛ غني بالألياف الغذائية والحديد وحمض الفوليك. حصة 1/2 كوب مطبوخ (~100 جم) موثقة بجدول بدائل ADA/AND (2014 ص 14 / 2019 ص 16) كبديل نشويات + بديل لحوم خفيفة الدسم.",
-    "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange."
+    "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange.",
+    "compositionBasis": "analytical_table"
   },
   {
     "id": "food_legume_rp_leg_001",
@@ -160,6 +162,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -211,8 +214,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 35 جم (3 ملاعق كبيرة ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 35g (3.5 tbsp)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 35 جم (3 ملاعق كبيرة ونصف).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 35g (3.5 tbsp)."
   },
   {
     "id": "food_legume_rp_leg_002",
@@ -224,6 +227,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -231,31 +235,20 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "carbsG": 20.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 9.0,
-      "fatG": 0.4,
+      "proteinG": 9.02,
+      "fatG": 0.38,
       "fiberG": 7.9,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "saturatedFatG": 0.053,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.064,
+      "polyunsaturatedFatG": 0.175,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 369.0,
+      "calciumMg": 19.0,
+      "ironMg": 3.33,
+      "waterG": 69.6,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -289,6 +282,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -296,31 +290,20 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "carbsG": 27.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 8.9,
-      "fatG": 2.6,
+      "proteinG": 8.86,
+      "fatG": 2.59,
       "fiberG": 7.6,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "saturatedFatG": 0.269,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.583,
+      "polyunsaturatedFatG": 1.16,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 7.0,
+      "potassiumMg": 291.0,
+      "calciumMg": 49.0,
+      "ironMg": 2.89,
+      "waterG": 60.2,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -354,6 +337,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -361,31 +345,20 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "carbsG": 23.7,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 8.9,
-      "fatG": 0.5,
+      "proteinG": 8.86,
+      "fatG": 0.54,
       "fiberG": 8.7,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "saturatedFatG": 0.139,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.047,
+      "polyunsaturatedFatG": 0.231,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 355.0,
+      "calciumMg": 27.0,
+      "ironMg": 2.1,
+      "waterG": 65.7,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -419,6 +392,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -470,8 +444,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 89 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 89g (1/2 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 89 جم (نصف كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 89g (1/2 cup)."
   },
   {
     "id": "food_legume_rp_leg_006",
@@ -483,38 +457,28 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
       "caloriesKcal": 172.0,
-      "carbsG": 9.9,
+      "carbsG": 8.36,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 16.6,
-      "fatG": 9.0,
+      "proteinG": 18.2,
+      "fatG": 8.97,
       "fiberG": 6.0,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "saturatedFatG": 1.3,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 1.98,
+      "polyunsaturatedFatG": 5.06,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 515.0,
+      "calciumMg": 102.0,
+      "ironMg": 5.14,
+      "waterG": 62.6,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -548,6 +512,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -599,8 +564,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ملعقتان كبيرتان ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (2.5 tbsp)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 32 جم (ملعقتان كبيرتان ونصف).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 32g (2.5 tbsp)."
   },
   {
     "id": "food_legume_rp_leg_008",
@@ -612,6 +577,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -663,52 +629,41 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 35 جم (ملعقتان كبيرتان ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 35g (2.5 tbsp)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 35 جم (ملعقتان كبيرتان ونصف).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 35g (2.5 tbsp)."
   },
   {
     "id": "food_legume_rp_leg_009",
     "code": "RP-LEG-009",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Cooked Lima Beans",
     "nameAr": "فاصوليا ليما مطبوخة",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 122.9,
-      "carbsG": 15.6,
+      "caloriesKcal": 115.0,
+      "carbsG": 20.9,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 10.4,
-      "fatG": 2.1,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "proteinG": 7.8,
+      "fatG": 0.38,
+      "fiberG": 7.0,
+      "saturatedFatG": 0.089,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.034,
+      "polyunsaturatedFatG": 0.171,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 508.0,
+      "calciumMg": 17.0,
+      "ironMg": 2.39,
+      "waterG": 69.8,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -728,51 +683,43 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 96 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 96g (1/2 cup)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16072). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 96 جم (نصف كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16072). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 96g (1/2 cup).",
+    "sourceRecordId": "16072"
   },
   {
     "id": "food_legume_rp_leg_010",
     "code": "RP-LEG-010",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Cooked Small Navy Beans",
     "nameAr": "فاصوليا بيضاء صغيرة مطبوخة",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 140.5,
-      "carbsG": 17.9,
+      "caloriesKcal": 140.0,
+      "carbsG": 26.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 11.9,
-      "fatG": 2.4,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
+      "proteinG": 8.23,
+      "fatG": 0.62,
+      "fiberG": 10.5,
+      "saturatedFatG": 0.098,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.142,
+      "polyunsaturatedFatG": 0.49,
       "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
+      "sodiumMg": 0.0,
+      "potassiumMg": 389.0,
+      "calciumMg": 69.0,
+      "ironMg": 2.36,
+      "waterG": 63.8,
       "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
+        "cholesterolMg"
       ]
     },
     "portions": [
@@ -793,8 +740,9 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 84 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 84g (1/2 cup)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16038). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 84 جم (نصف كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16038). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 84g (1/2 cup).",
+    "sourceRecordId": "16038"
   },
   {
     "id": "food_legume_rp_leg_011",
@@ -806,38 +754,28 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
       "caloriesKcal": 121.0,
-      "carbsG": 8.9,
+      "carbsG": 8.91,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
       "proteinG": 11.9,
       "fatG": 5.2,
       "fiberG": 5.2,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "saturatedFatG": 0.62,
+      "transFatG": 0.009,
+      "monounsaturatedFatG": 1.28,
+      "polyunsaturatedFatG": 2.16,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 436.0,
+      "calciumMg": 63.0,
+      "ironMg": 2.27,
+      "waterG": 72.8,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -864,46 +802,35 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
   {
     "id": "food_legume_rp_leg_012",
     "code": "RP-LEG-012",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Cooked Mung Beans",
     "nameAr": "ماش مطبوخ",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 112.4,
-      "carbsG": 14.3,
+      "caloriesKcal": 105.0,
+      "carbsG": 19.2,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 9.5,
-      "fatG": 1.9,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "proteinG": 7.02,
+      "fatG": 0.38,
+      "fiberG": 7.6,
+      "saturatedFatG": 0.116,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.054,
+      "polyunsaturatedFatG": 0.128,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 2.0,
+      "potassiumMg": 266.0,
+      "calciumMg": 27.0,
+      "ironMg": 1.4,
+      "waterG": 72.7,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -923,8 +850,9 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 105g (1/2 cup)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16081). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 105 جم (نصف كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16081). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 105g (1/2 cup).",
+    "sourceRecordId": "16081"
   },
   {
     "id": "food_legume_rp_leg_013",
@@ -936,15 +864,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 151.3,
-      "carbsG": 19.2,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.8,
-      "fatG": 2.6,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -957,6 +886,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -988,52 +921,41 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (6 ملاعق كبيرة ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (6.5 tbsp)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (6 ملاعق كبيرة ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (6.5 tbsp). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_014",
     "code": "RP-LEG-014",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Cooked Pinto Beans",
     "nameAr": "فاصوليا بينتو مطبوخة",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 147.5,
-      "carbsG": 18.8,
+      "caloriesKcal": 143.0,
+      "carbsG": 26.2,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.5,
-      "fatG": 2.5,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "proteinG": 9.01,
+      "fatG": 0.65,
+      "fiberG": 9.0,
+      "saturatedFatG": 0.136,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.133,
+      "polyunsaturatedFatG": 0.235,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 1.0,
+      "potassiumMg": 436.0,
+      "calciumMg": 46.0,
+      "ironMg": 2.09,
+      "waterG": 63.0,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -1053,52 +975,42 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 80 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 80g (1/2 cup)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16043). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 80 جم (نصف كوب).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16043). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 80g (1/2 cup).",
+    "sourceRecordId": "16043"
   },
   {
     "id": "food_legume_rp_leg_015",
     "code": "RP-LEG-015",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Cooked Cannellini White Beans",
     "nameAr": "فاصوليا بيضاء كانيليني مطبوخة",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 151.3,
-      "carbsG": 19.2,
+      "caloriesKcal": 139.0,
+      "carbsG": 25.1,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.8,
-      "fatG": 2.6,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "proteinG": 9.73,
+      "fatG": 0.35,
+      "fiberG": 6.3,
+      "saturatedFatG": 0.091,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.031,
+      "polyunsaturatedFatG": 0.152,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 6.0,
+      "potassiumMg": 561.0,
+      "calciumMg": 90.0,
+      "ironMg": 3.7,
+      "waterG": 63.1,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -1118,8 +1030,9 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (7 ملاعق كبيرة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (7 tbsp)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16050). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 78 جم (7 ملاعق كبيرة).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16050). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 78g (7 tbsp).",
+    "sourceRecordId": "16050"
   },
   {
     "id": "food_legume_rp_leg_016",
@@ -1131,6 +1044,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1182,8 +1096,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 97 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 97g (1/2 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 97 جم (نصف كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 97g (1/2 cup)."
   },
   {
     "id": "food_legume_rp_leg_017",
@@ -1195,6 +1109,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1246,8 +1161,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 93 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 93g (1/2 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 93 جم (نصف كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 93g (1/2 cup)."
   },
   {
     "id": "food_legume_rp_leg_018",
@@ -1259,6 +1174,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1310,8 +1226,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 100 جم (ثلثا كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 100g (2/3 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 100 جم (ثلثا كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 100g (2/3 cup)."
   },
   {
     "id": "food_legume_rp_leg_019",
@@ -1323,15 +1239,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 368.8,
-      "carbsG": 46.9,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 31.2,
-      "fatG": 6.2,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -1344,6 +1261,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -1375,8 +1296,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (1/3 cup)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (1/3 cup). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_020",
@@ -1388,15 +1309,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 120.4,
-      "carbsG": 15.3,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 10.2,
-      "fatG": 2.0,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -1409,6 +1331,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -1440,8 +1366,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (1/2 cup)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (1/2 cup). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_021",
@@ -1453,15 +1379,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 112.4,
-      "carbsG": 14.3,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 9.5,
-      "fatG": 1.9,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -1474,6 +1401,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -1505,8 +1436,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 105g (1/2 cup)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 105g (1/2 cup). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_022",
@@ -1518,15 +1449,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 151.3,
-      "carbsG": 19.2,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 12.8,
-      "fatG": 2.6,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -1539,6 +1471,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -1570,8 +1506,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (7 ملاعق كبيرة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (7 tbsp)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (7 ملاعق كبيرة). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (7 tbsp). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_023",
@@ -1583,6 +1519,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1634,8 +1571,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 150 جم (نصف كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 150g (1/2 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 150 جم (نصف كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 150g (1/2 cup)."
   },
   {
     "id": "food_legume_rp_leg_024",
@@ -1647,15 +1584,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 78.7,
-      "carbsG": 10.0,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 6.7,
-      "fatG": 1.3,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -1668,6 +1606,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -1699,8 +1641,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 150 جم (كوب ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 150g (1.5 cup)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 150 جم (كوب ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 150g (1.5 cup). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_025",
@@ -1712,15 +1654,16 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "exchange_only",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 368.8,
-      "carbsG": 46.9,
+      "caloriesKcal": null,
+      "carbsG": null,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 31.2,
-      "fatG": 6.2,
+      "proteinG": null,
+      "fatG": null,
       "fiberG": null,
       "saturatedFatG": null,
       "transFatG": null,
@@ -1733,6 +1676,10 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "ironMg": null,
       "waterG": null,
       "missingNutrientKeys": [
+        "caloriesKcal",
+        "carbsG",
+        "proteinG",
+        "fatG",
         "fiberG",
         "saturatedFatG",
         "transFatG",
@@ -1764,8 +1711,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ملعقتان كبيرتان ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (2.5 tbsp)."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ملعقتان كبيرتان ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (2.5 tbsp). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_legume_rp_leg_026",
@@ -1777,6 +1724,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1828,8 +1776,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "ready-to-eat"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (ثلثا كوب).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (2/3 cup)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 98 جم (ثلثا كوب).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 98g (2/3 cup)."
   },
   {
     "id": "food_legume_rp_leg_027",
@@ -1841,6 +1789,7 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
+    "compositionBasis": "clinic_estimated",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
@@ -1892,52 +1841,41 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (6 ملاعق كبيرة).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 34g (6 tbsp)."
+    "notesAr": "تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص 7): 34 جم (6 ملاعق كبيرة).",
+    "notesEn": "Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 34g (6 tbsp)."
   },
   {
     "id": "food_legume_rp_leg_028",
     "code": "RP-LEG-028",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Raw Dry Black Beans",
     "nameAr": "فاصوليا سوداء نيئة",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 368.8,
-      "carbsG": 46.9,
+      "caloriesKcal": 341.0,
+      "carbsG": 62.4,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 31.2,
-      "fatG": 6.2,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "proteinG": 21.6,
+      "fatG": 1.42,
+      "fiberG": 15.5,
+      "saturatedFatG": 0.366,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.123,
+      "polyunsaturatedFatG": 0.61,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 5.0,
+      "potassiumMg": 1480.0,
+      "calciumMg": 123.0,
+      "ironMg": 5.02,
+      "waterG": 11.0,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -1957,52 +1895,42 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 32 جم (ملعقتان كبيرتان ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard legume exchange portion: 32g (2.5 tbsp)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16014). وزن بديل البقوليات من RegimePlan 2026 (ص 8): 32 جم (ملعقتان كبيرتان ونصف).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16014). RegimePlan Food Exchange Lists (2026, p. 8) legume exchange portion: 32g (2.5 tbsp).",
+    "sourceRecordId": "16014"
   },
   {
     "id": "food_legume_rp_leg_029",
     "code": "RP-LEG-029",
-    "sourceId": "regimeplan_2026",
+    "sourceId": "usda_fdc",
     "nameEn": "Raw Dry Red Kidney Beans",
     "nameAr": "فاصوليا حمراء نيئة",
     "foodGroupId": "legumes",
     "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
-    "verificationStatus": "clinic_reviewed",
+    "verificationStatus": "verified_standard",
+    "compositionBasis": "analytical_table",
     "isCustom": false,
     "nutrients100g": {
       "basisWeightG": 100,
-      "caloriesKcal": 357.6,
-      "carbsG": 45.5,
+      "caloriesKcal": 333.0,
+      "carbsG": 60.0,
       "availableCarbsG": null,
       "carbCalculationBasis": "total_by_difference",
-      "proteinG": 30.3,
-      "fatG": 6.1,
-      "fiberG": null,
-      "saturatedFatG": null,
-      "transFatG": null,
-      "monounsaturatedFatG": null,
-      "polyunsaturatedFatG": null,
-      "cholesterolMg": null,
-      "sodiumMg": null,
-      "potassiumMg": null,
-      "calciumMg": null,
-      "ironMg": null,
-      "waterG": null,
-      "missingNutrientKeys": [
-        "fiberG",
-        "saturatedFatG",
-        "transFatG",
-        "monounsaturatedFatG",
-        "polyunsaturatedFatG",
-        "cholesterolMg",
-        "sodiumMg",
-        "potassiumMg",
-        "calciumMg",
-        "ironMg",
-        "waterG"
-      ]
+      "proteinG": 23.6,
+      "fatG": 0.83,
+      "fiberG": 24.9,
+      "saturatedFatG": 0.12,
+      "transFatG": 0.0,
+      "monounsaturatedFatG": 0.064,
+      "polyunsaturatedFatG": 0.457,
+      "cholesterolMg": 0.0,
+      "sodiumMg": 24.0,
+      "potassiumMg": 1410.0,
+      "calciumMg": 143.0,
+      "ironMg": 8.2,
+      "waterG": 11.8,
+      "missingNutrientKeys": []
     },
     "portions": [
       {
@@ -2022,7 +1950,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "قوائم البدائل الغذائية RegimePlan 2026 (ص 8). وزن الحصة البديلة: 33 جم (ملعقتان كبيرتان ونصف).",
-    "notesEn": "RegimePlan Food Exchange Lists (2026, p. 8). Standard legume exchange portion: 33g (2.5 tbsp)."
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16027). وزن بديل البقوليات من RegimePlan 2026 (ص 8): 33 جم (ملعقتان كبيرتان ونصف).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16027). RegimePlan Food Exchange Lists (2026, p. 8) legume exchange portion: 33g (2.5 tbsp).",
+    "sourceRecordId": "16027"
   }
 ];

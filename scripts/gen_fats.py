@@ -286,7 +286,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01042",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 371.0, "carbsG": 1.6, "proteinG": 18.5, "fatG": 31.0, "fiberG": 0.0},
+        "nutrients": {"caloriesKcal": 366.0, "carbsG": 4.78, "proteinG": 18.1, "fatG": 30.7, "fiberG": 0.0, "sodiumMg": 1670.0, "calciumMg": 1040.0, "ironMg": 0.63},
         "tags": ["cheese", "processed cheese", "جبنة شرائح", "جبنة معالجة"],
     },
     "RP-FT-020": {
@@ -340,7 +340,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01040",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 380.0, "carbsG": 5.4, "proteinG": 26.9, "fatG": 27.8, "fiberG": 0.0},
+        "nutrients": {"caloriesKcal": 393.0, "carbsG": 1.44, "proteinG": 27.0, "fatG": 31.0, "fiberG": 0.0, "sodiumMg": 187.0, "calciumMg": 890.0},
         "tags": ["cheese", "swiss cheese", "جبنة سويسرية"],
     },
     "RP-FT-026": {
@@ -369,7 +369,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01032",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 431.0, "carbsG": 4.1, "proteinG": 38.5, "fatG": 28.6, "fiberG": 0.0},
+        "nutrients": {"caloriesKcal": 420.0, "carbsG": 13.9, "proteinG": 28.4, "fatG": 27.8, "fiberG": 0.0, "sodiumMg": 1800.0, "calciumMg": 853.0},
         "tags": ["cheese", "parmesan", "بارميزان", "جبنة بارميزان"],
     },
     "RP-FT-029": {
@@ -378,7 +378,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01009",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 403.0, "carbsG": 1.3, "proteinG": 24.9, "fatG": 33.1, "fiberG": 0.0},
+        "nutrients": {"caloriesKcal": 403.0, "carbsG": 3.37, "proteinG": 22.9, "fatG": 33.3, "fiberG": 0.0, "sodiumMg": 653.0, "calciumMg": 710.0},
         "tags": ["cheese", "cheddar", "شيدر", "جبنة شيدر"],
     },
     "RP-FT-030": {
@@ -396,7 +396,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12563",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 598.0, "carbsG": 21.0, "proteinG": 21.0, "fatG": 52.5, "fiberG": 10.9, "sodiumMg": 339.0},
+        "nutrients": {"caloriesKcal": 598.0, "carbsG": 21.0, "proteinG": 21.0, "fatG": 52.5, "fiberG": 10.9, "sodiumMg": 234.0},
         "tags": ["nuts", "almonds", "لوز مملح", "مكسرات"],
     },
     "RP-FT-032": {
@@ -541,9 +541,9 @@ FAT_COMPOSITION_MAP = {
         "nameEn": "Caesar Salad Dressing, Regular",
         "prep": "ready-to-eat",
         "sourceId": "usda_fdc",
-        "sourceRecordId": "043015",
+        "sourceRecordId": "43015",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 540.0, "carbsG": 3.3, "proteinG": 2.2, "fatG": 57.8},
+        "nutrients": {"caloriesKcal": 542.0, "carbsG": 3.3, "proteinG": 2.17, "fatG": 57.8, "fiberG": 0.5, "sodiumMg": 1210.0},
         "tags": ["dressing", "caesar dressing", "صلصة سيزر"],
     },
     "RP-FT-047": {
@@ -617,7 +617,7 @@ FAT_COMPOSITION_MAP = {
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
-            "saturatedFatG": 7.5, "monounsaturatedFatG": 14.4, "polyunsaturatedFatG": 74.6,
+            "saturatedFatG": 6.2, "monounsaturatedFatG": 14.4, "polyunsaturatedFatG": 74.6,
         },
         "tags": ["oil", "safflower oil", "زيت عصفر"],
     },
@@ -625,11 +625,11 @@ FAT_COMPOSITION_MAP = {
         "nameEn": "Flaxseed Oil, Cold Pressed",
         "prep": "ready-to-eat",
         "sourceId": "usda_fdc",
-        "sourceRecordId": "042231",
+        "sourceRecordId": "42231",
         "verificationStatus": "verified_standard",
         "nutrients": {
-            "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
-            "saturatedFatG": 9.0, "monounsaturatedFatG": 18.4, "polyunsaturatedFatG": 67.9,
+            "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.11, "fatG": 100.0, "fiberG": 0.0,
+            "saturatedFatG": 8.98, "monounsaturatedFatG": 18.4, "polyunsaturatedFatG": 67.8,
         },
         "tags": ["oil", "flaxseed oil", "زيت بذر كتان"],
     },
@@ -649,9 +649,13 @@ FAT_COMPOSITION_MAP = {
         "nameEn": "Margarine, Regular, Salted",
         "prep": "ready-to-eat",
         "sourceId": "usda_fdc",
-        "sourceRecordId": "04132",
+        "sourceRecordId": "04610",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 717.0, "carbsG": 0.7, "proteinG": 0.2, "fatG": 80.7, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 717.0, "carbsG": 0.7, "proteinG": 0.16, "fatG": 80.7, "fiberG": 0.0,
+            "saturatedFatG": 15.2, "transFatG": 14.9, "monounsaturatedFatG": 38.9, "polyunsaturatedFatG": 24.3,
+            "sodiumMg": 751.0,
+        },
         "tags": ["margarine", "مارجرين"],
     },
     "RP-FT-057": {
@@ -691,7 +695,7 @@ FAT_COMPOSITION_MAP = {
         "nameEn": "Sunflower Oil",
         "prep": "ready-to-eat",
         "sourceId": "usda_fdc",
-        "sourceRecordId": "04584",
+        "sourceRecordId": "04506",
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
@@ -768,7 +772,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12135",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 594.0, "carbsG": 25.4, "proteinG": 17.3, "fatG": 51.5, "fiberG": 9.0, "sodiumMg": 11.0},
+        "nutrients": {"caloriesKcal": 607.0, "carbsG": 22.4, "proteinG": 19.5, "fatG": 53.5, "fiberG": 6.4, "sodiumMg": 4.0},
         "tags": ["nuts", "mixed nuts", "مكسرات مشكلة محمصة"],
     },
     "RP-FT-069": {
@@ -824,7 +828,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12078",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 656.0, "carbsG": 12.3, "proteinG": 14.3, "fatG": 66.4, "fiberG": 7.5},
+        "nutrients": {"caloriesKcal": 659.0, "carbsG": 11.7, "proteinG": 14.3, "fatG": 67.1, "fiberG": 7.5, "sodiumMg": 3.0},
         "tags": ["nuts", "brazil nuts", "جوز برازيلي"],
     },
     "RP-FT-075": {
@@ -878,7 +882,7 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "16089",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 597.0, "carbsG": 21.0, "proteinG": 25.5, "fatG": 51.6, "fiberG": 8.4, "sodiumMg": 319.0},
+        "nutrients": {"caloriesKcal": 599.0, "carbsG": 15.3, "proteinG": 28.0, "fatG": 52.5, "fiberG": 9.4, "sodiumMg": 320.0},
         "tags": ["peanuts", "nuts", "فول سوداني مملح", "سوداني"],
     },
     "RP-FT-081": {
@@ -1071,6 +1075,14 @@ def make_fat_record(it, seq_num):
         notes_en = review_en
         notes_ar = review_ar
 
+    ver_status = spec["verificationStatus"]
+    if src_id in ("usda_fdc", "egyptian_nni_2006"):
+        comp_basis = "analytical_table"
+    elif ver_status == "recipe_based":
+        comp_basis = "recipe_based"
+    else:
+        comp_basis = "clinic_estimated"
+
     record = {
         "id": item_id,
         "code": code,
@@ -1080,7 +1092,8 @@ def make_fat_record(it, seq_num):
         "foodGroupId": "fats",
         "primaryExchangeCategoryId": "fat",
         "preparationState": spec["prep"],
-        "verificationStatus": spec["verificationStatus"],
+        "verificationStatus": ver_status,
+        "compositionBasis": comp_basis,
         "isCustom": False,
         "nutrients100g": nutrients,
         "portions": [{
