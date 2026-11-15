@@ -3,7 +3,7 @@
  * Phase 3 Implementation
  */
 
-import { FoodItemRecord, ScaledNutrientProfile } from '../food/types';
+import { CompositionBasis, FoodItemRecord, ScaledNutrientProfile } from '../food/types';
 
 export type RecallPeriodDays = 1 | 2 | 3;
 
@@ -83,6 +83,7 @@ export interface RecallEntry {
   nutrients: ScaledNutrientProfile;
   isCustomFood: boolean;
   verificationStatus: string;
+  compositionBasis?: CompositionBasis;
   notes?: string;
 }
 
@@ -154,8 +155,8 @@ export interface MultiDayNutrientAverageItem {
   nameEn: string;
   nameAr: string;
   unit: string;
-  averageValue: number | null; // Complete average (null if any recorded day is incomplete)
-  observedAverage: number; // Average of available observed totals across recorded days
+  averageValue: number | null; // Complete average (null if no recorded days or any recorded day is incomplete)
+  observedAverage: number | null; // Average of available observed totals across recorded days (null if no recorded days)
   completeDaysCount: number;
   totalRecordedDays: number;
   denominator: number;
@@ -179,7 +180,7 @@ export interface TargetComparisonItem {
   labelEn: string;
   labelAr: string;
   unit: string;
-  actualIntake: number; // Daily average actual intake
+  actualIntake: number | null; // Daily average actual intake (null if no recorded days)
   isActualIncomplete?: boolean; // True if any entry in the analyzed period lacks energy/macro assay data
   targetValue: number | null; // From Phase 1 assessment
   difference: number | null; // actual - target

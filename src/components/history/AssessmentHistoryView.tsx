@@ -249,8 +249,8 @@ export function AssessmentHistoryView({
             </div>
             <p className="text-xs text-slate-500">
               {isAr
-                ? 'تتبع التغير الزمني في الوزن، مؤشر كتلة الجسم (BMI)، والاحتياجات اليومية من السعرات الحرارية عبر التخزين المحلي (LocalStorage)'
-                : 'Track trajectories in weight, BMI, and caloric requirements over time using secure browser LocalStorage'}
+                ? 'تتبع التغير الزمني في الوزن، مؤشر كتلة الجسم (BMI)، والاحتياجات اليومية (يُحفظ محلياً في هذا المتصفح فقط — يُنصح بتصدير نسخة احتياطية JSON دورياً)'
+                : 'Track trajectories in weight, BMI, and caloric requirements over time (stored locally in this browser only — export JSON backups regularly)'}
             </p>
           </div>
         </div>

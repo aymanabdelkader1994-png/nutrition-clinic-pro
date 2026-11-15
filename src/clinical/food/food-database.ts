@@ -27,9 +27,9 @@ export const DATA_SOURCES: Record<string, FoodDataSource> = {
   usda_fdc: {
     id: 'usda_fdc',
     code: 'USDA-FDC',
-    nameEn: 'USDA FoodData Central / Standard Reference Legacy',
-    nameAr: 'قاعدة بيانات وزارة الزراعة الأمريكية (USDA FoodData Central)',
-    citation: 'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central, 2019. fdc.nal.usda.gov.',
+    nameEn: 'USDA FoodData Central / Standard Reference Legacy (Embedded Reference)',
+    nameAr: 'مرجع وزارة الزراعة الأمريكية (USDA FoodData Central / SR Legacy)',
+    citation: 'U.S. Department of Agriculture, Agricultural Research Service. FoodData Central / SR Legacy, 2019 (fdc.nal.usda.gov). Embedded 100g composition records keyed by historical NDB/FDC IDs.',
     countryOrRegion: 'United States / International',
     publicationYear: 2019,
     isStandardReference: true,

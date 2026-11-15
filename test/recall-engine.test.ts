@@ -492,6 +492,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(emptyAnalysis.averages.caloriesKcal.denominator, 0);
       assert.equal(emptyAnalysis.averages.caloriesKcal.isComplete, false);
       assert.equal(emptyAnalysis.averages.caloriesKcal.averageValue, null);
+      assert.equal(emptyAnalysis.averages.caloriesKcal.observedAverage, null);
 
       const zeroDayComps = compareIntakeWithPhase1Targets({
         actualAverages: emptyAnalysis.averages,
@@ -499,6 +500,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       });
       for (const comp of zeroDayComps) {
         assert.equal(comp.status, 'incomplete_intake');
+        assert.equal(comp.actualIntake, null);
         assert.equal(comp.isActualIncomplete, true);
         assert.equal(comp.difference, null);
         assert.equal(comp.percentAchieved, null);
@@ -523,6 +525,108 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(analysis.averages.caloriesKcal.isComplete, true);
       assert.equal(analysis.averages.caloriesKcal.observedAverage, 252.0);
       assert.equal(analysis.averages.caloriesKcal.averageValue, 252.0);
+    });
+
+    it('Issue A regression suite: handles all empty days, partial 3-day sessions, valid zero nutrients, and target comparisons', () => {
+      const targets: Phase1TargetInputs = {
+        targetCalories: 1000,
+        targetProteinG: 50,
+        targetCarbsG: 120,
+        targetFatG: 30,
+      };
+
+      // Scenario 1: All days empty (1-day & 3-day) -> observedAverage & actualIntake MUST be null (not 0)
+      for (const daysCount of [1, 3] as const) {
+        const empty = createNewRecallSession({ targetDays: daysCount, startDate: '2026-11-15' });
+        const analysis = calculateMultiDayRecallAnalysis(empty);
+        assert.equal(analysis.sessionTargetDays, daysCount);
+        assert.equal(analysis.recordedDaysCount, 0);
+        assert.equal(analysis.isSessionComplete, false);
+        assert.equal(analysis.dailySummaries.length, daysCount);
+        assert.ok(analysis.dailySummaries.every((d) => d.summary.totalEntriesCount === 0));
+        for (const item of Object.values(analysis.averages)) {
+          assert.equal(item.denominator, 0);
+          assert.equal(item.observedAverage, null);
+          assert.equal(item.averageValue, null);
+          assert.equal(item.isComplete, false);
+        }
+        const comps = compareIntakeWithPhase1Targets({ actualAverages: analysis.averages, targets });
+        for (const c of comps) {
+          assert.equal(c.actualIntake, null);
+          assert.equal(c.status, 'incomplete_intake');
+          assert.equal(c.difference, null);
+          assert.equal(c.percentAchieved, null);
+        }
+        const noTargetComps = compareIntakeWithPhase1Targets({ actualAverages: analysis.averages, targets: {} });
+        for (const c of noTargetComps) {
+          assert.equal(c.actualIntake, null);
+          assert.equal(c.status, 'target_unavailable');
+        }
+      }
+
+      // Scenario 2 & 3: 2 recorded days + 1 empty day in a 3-day session -> denominator 2, not 3
+      const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal, 52.8C, 9.1P, 1.2F per 100g
+      const session2of3 = createNewRecallSession({ targetDays: 3, startDate: '2026-11-15' });
+      session2of3.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 100, selectedPortionId: 'grams' }));
+      session2of3.days[2].meals[1].entries.push(resolveRecallEntry({ food: bread, quantity: 200, selectedPortionId: 'grams' }));
+      // Day 2 remains empty
+      const analysis2of3 = calculateMultiDayRecallAnalysis(session2of3);
+      assert.equal(analysis2of3.sessionTargetDays, 3);
+      assert.equal(analysis2of3.recordedDaysCount, 2);
+      assert.equal(analysis2of3.isSessionComplete, false);
+      assert.equal(analysis2of3.dailySummaries[1].summary.totalEntriesCount, 0);
+      assert.equal(analysis2of3.averages.caloriesKcal.denominator, 2);
+      assert.equal(analysis2of3.averages.caloriesKcal.observedAverage, 378.0);
+      assert.equal(analysis2of3.averages.caloriesKcal.averageValue, 378.0);
+
+      // Scenario 4: Valid 0 nutrient observation on a recorded day MUST remain 0 (not null)
+      const karkadeh = getFoodItemById('food_hibiscus_tea_karkadeh')!; // 0 kcal, 0C, 0P, 0F, 0 fiber
+      const oil = getFoodItemById('food_oil_olive_extra_virgin')!; // 884 kcal, 0C, 0P, 100F, 0 fiber
+      const zeroObsSession = createNewRecallSession({ targetDays: 3, startDate: '2026-11-15' });
+      zeroObsSession.days[0].meals[0].entries.push(resolveRecallEntry({ food: karkadeh, quantity: 200, selectedPortionId: 'grams' }));
+      zeroObsSession.days[0].meals[1].entries.push(resolveRecallEntry({ food: oil, quantity: 10, selectedPortionId: 'grams' }));
+      const zeroObsAnalysis = calculateMultiDayRecallAnalysis(zeroObsSession);
+      assert.equal(zeroObsAnalysis.recordedDaysCount, 1);
+      assert.equal(zeroObsAnalysis.averages.carbsG.observedAverage, 0);
+      assert.equal(zeroObsAnalysis.averages.carbsG.averageValue, 0);
+      assert.equal(zeroObsAnalysis.averages.carbsG.isComplete, true);
+      assert.equal(zeroObsAnalysis.averages.proteinG.observedAverage, 0);
+      assert.equal(zeroObsAnalysis.averages.proteinG.averageValue, 0);
+      assert.equal(zeroObsAnalysis.averages.fiberG.observedAverage, 0);
+      assert.equal(zeroObsAnalysis.averages.fiberG.averageValue, 0);
+      assert.equal(zeroObsAnalysis.averages.caloriesKcal.observedAverage, 88.4);
+
+      // Scenario 5 & 6: Incomplete day (exchange_only) -> averageValue null, observedAverage preserved, target comparison withheld
+      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const mixedSession = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
+      mixedSession.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 100, selectedPortionId: 'grams' }));
+      mixedSession.days[1].meals[0].entries.push(resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 }));
+      const mixedAnalysis = calculateMultiDayRecallAnalysis(mixedSession);
+      assert.equal(mixedAnalysis.recordedDaysCount, 2);
+      assert.equal(mixedAnalysis.averages.caloriesKcal.isComplete, false);
+      assert.equal(mixedAnalysis.averages.caloriesKcal.averageValue, null);
+      assert.equal(mixedAnalysis.averages.caloriesKcal.observedAverage, 126.0); // (252 + 0 observed) / 2
+      const incompleteTargetComps = compareIntakeWithPhase1Targets({ actualAverages: mixedAnalysis.averages, targets });
+      const energyInc = incompleteTargetComps.find((c) => c.metric === 'energy')!;
+      assert.equal(energyInc.status, 'incomplete_intake');
+      assert.equal(energyInc.actualIntake, 126.0);
+      assert.equal(energyInc.difference, null);
+      assert.equal(energyInc.percentAchieved, null);
+
+      // Scenario 7: Complete intake vs Phase 1 targets -> exact comparison classification
+      const completeSession = createNewRecallSession({ targetDays: 1, startDate: '2026-11-15' });
+      completeSession.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 400, selectedPortionId: 'grams' })); // 1008 kcal, 36.4P, 211.2C, 4.8F
+      const completeAnalysis = calculateMultiDayRecallAnalysis(completeSession);
+      const completeComps = compareIntakeWithPhase1Targets({ actualAverages: completeAnalysis.averages, targets });
+      const energyDone = completeComps.find((c) => c.metric === 'energy')!;
+      assert.equal(energyDone.actualIntake, 1008.0);
+      assert.equal(energyDone.status, 'achieved');
+      assert.equal(energyDone.difference, 8.0);
+      assert.equal(energyDone.percentAchieved, 100.8);
+      const carbsOver = completeComps.find((c) => c.metric === 'carbs')!;
+      assert.equal(carbsOver.status, 'over');
+      const proteinUnder = completeComps.find((c) => c.metric === 'protein')!;
+      assert.equal(proteinUnder.status, 'under');
     });
   });
 

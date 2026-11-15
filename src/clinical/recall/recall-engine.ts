@@ -106,6 +106,7 @@ export function resolveRecallEntry(params: {
     nutrients: scaledNutrients,
     isCustomFood: food.isCustom,
     verificationStatus: food.verificationStatus,
+    compositionBasis: food.compositionBasis,
     notes,
   };
 }
@@ -242,7 +243,7 @@ export function calculateMultiDayRecallAnalysis(session: RecallSession): MultiDa
 
     const denominator = recordedDaysCount;
     const observedAverage =
-      denominator > 0 ? roundToPrecision(sumOfObservedDailyTotals / denominator, 2) : 0;
+      denominator > 0 ? roundToPrecision(sumOfObservedDailyTotals / denominator, 2) : null;
     const isComplete = recordedDaysCount > 0 && completeDaysCount === recordedDaysCount;
 
     averages[def.key] = {
@@ -328,8 +329,8 @@ export function compareIntakeWithPhase1Targets(params: {
   return metrics.map((m) => {
     const avgItem = actualAverages[m.nutrientKey];
     const hasRecordedDays = avgItem ? avgItem.totalRecordedDays > 0 : false;
-    const actual = hasRecordedDays ? (avgItem?.observedAverage ?? 0) : 0;
-    const isActualIncomplete = !hasRecordedDays || !avgItem?.isComplete;
+    const actual = hasRecordedDays && avgItem ? avgItem.observedAverage : null;
+    const isActualIncomplete = !hasRecordedDays || actual === null || !avgItem?.isComplete;
     const target = m.targetVal && Number.isFinite(m.targetVal) && m.targetVal > 0 ? m.targetVal : null;
 
     if (target === null) {
@@ -349,7 +350,7 @@ export function compareIntakeWithPhase1Targets(params: {
       };
     }
 
-    if (isActualIncomplete) {
+    if (isActualIncomplete || actual === null) {
       return {
         metric: m.metric,
         labelEn: m.labelEn,

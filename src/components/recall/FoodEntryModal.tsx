@@ -387,6 +387,16 @@ export function FoodEntryModal({
                                   {isAr ? 'بديل غذائي فقط (غير محلل)' : 'Exchange-Only (Unassayed)'}
                                 </span>
                               )}
+                              {food.compositionBasis === 'clinic_estimated' && !food.isCustom && (
+                                <span className="rounded bg-sky-100 px-1.5 py-0.5 text-[10px] font-bold text-sky-800">
+                                  {isAr ? 'تركيبة تقديرية' : 'Estimated Composition'}
+                                </span>
+                              )}
+                              {(food.compositionBasis === 'recipe_based' || food.verificationStatus === 'recipe_based') && (
+                                <span className="rounded bg-purple-100 px-1.5 py-0.5 text-[10px] font-bold text-purple-800">
+                                  {isAr ? 'تقدير وصفي مركب' : 'Recipe Estimate'}
+                                </span>
+                              )}
                               {food.isCustom && (
                                 <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
                                   {isAr ? 'مخصص' : 'Custom'}
@@ -443,29 +453,44 @@ export function FoodEntryModal({
                       </div>
                       <div className="mt-1 text-[10px] text-emerald-800">
                         {isAr
-                          ? `التحضير: ${selectedFood.preparationState} | المصدر: ${selectedFood.sourceId} | التصنيف المرجعي: ${
+                          ? `التحضير: ${selectedFood.preparationState} | المصدر: ${selectedFood.sourceId}${
+                              selectedFood.sourceRecordId ? ` (مرجع #${selectedFood.sourceRecordId})` : ''
+                            } | الأساس: ${
                               selectedFood.compositionBasis === 'exchange_only'
                                 ? 'بديل غذائي فقط (غير محلل)'
+                                : selectedFood.compositionBasis === 'clinic_estimated'
+                                ? 'تركيبة تقديرية (مراجعة سريرياً)'
+                                : selectedFood.compositionBasis === 'recipe_based' ||
+                                  selectedFood.verificationStatus === 'recipe_based'
+                                ? 'تقدير وصفي مركب (غير محلل معملياً)'
                                 : selectedFood.verificationStatus === 'verified_standard'
                                 ? 'جدول تحليلي معياري'
                                 : selectedFood.verificationStatus === 'clinic_reviewed'
-                                ? 'مراجع سريرياً'
-                                : selectedFood.verificationStatus === 'recipe_based'
-                                ? 'تقدير وصفي'
+                                ? 'تركيبة تقديرية (مراجعة سريرياً)'
                                 : 'مخصص غير موثق'
                             }`
-                          : `Prep: ${selectedFood.preparationState} | Source: ${selectedFood.sourceId} | Basis: ${
+                          : `Prep: ${selectedFood.preparationState} | Source: ${selectedFood.sourceId}${
+                              selectedFood.sourceRecordId ? ` (Ref #${selectedFood.sourceRecordId})` : ''
+                            } | Basis: ${
                               selectedFood.compositionBasis === 'exchange_only'
                                 ? 'Exchange-Only (Unassayed)'
+                                : selectedFood.compositionBasis === 'clinic_estimated'
+                                ? 'Estimated Composition (Clinic-Reviewed)'
+                                : selectedFood.compositionBasis === 'recipe_based' ||
+                                  selectedFood.verificationStatus === 'recipe_based'
+                                ? 'Recipe Estimate (Not Lab-Assayed)'
                                 : selectedFood.verificationStatus === 'verified_standard'
                                 ? 'Analytical Table'
                                 : selectedFood.verificationStatus === 'clinic_reviewed'
-                                ? 'Clinic Reviewed Estimate'
-                                : selectedFood.verificationStatus === 'recipe_based'
-                                ? 'Recipe Estimate'
+                                ? 'Estimated Composition (Clinic-Reviewed)'
                                 : 'Custom Unverified'
                             }`}
                       </div>
+                      {(isAr ? selectedFood.notesAr : selectedFood.notesEn) && (
+                        <p className="mt-1.5 border-t border-emerald-200/70 pt-1.5 text-[10px] leading-relaxed text-emerald-900/80">
+                          {isAr ? selectedFood.notesAr : selectedFood.notesEn}
+                        </p>
+                      )}
                     </div>
 
                     {/* Portion Selector */}

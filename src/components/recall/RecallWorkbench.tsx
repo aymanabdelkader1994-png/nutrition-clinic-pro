@@ -90,9 +90,10 @@ export function RecallWorkbench({
     if (newTarget > currentDays.length) {
       // Add missing days
       const lastDate = new Date(currentDays[currentDays.length - 1].date);
-      for (let i = currentDays.length + 1; i <= newTarget; i++) {
+      const baseLen = currentDays.length;
+      for (let i = baseLen + 1; i <= newTarget; i++) {
         const nextDate = new Date(lastDate);
-        nextDate.setDate(lastDate.getDate() + 1);
+        nextDate.setDate(lastDate.getDate() + (i - baseLen));
         const dateStr = nextDate.toISOString().split('T')[0];
 
         currentDays.push({
@@ -643,6 +644,21 @@ export function RecallWorkbench({
                                   {isAr ? 'مخصص' : 'Custom'}
                                 </span>
                               )}
+                              {!entry.isCustomFood && entry.compositionBasis === 'clinic_estimated' && (
+                                <span className="rounded bg-sky-100 px-1.5 py-0.2 text-[9px] font-bold text-sky-800">
+                                  {isAr ? 'تقديري' : 'Estimated'}
+                                </span>
+                              )}
+                              {(entry.compositionBasis === 'recipe_based' || entry.verificationStatus === 'recipe_based') && (
+                                <span className="rounded bg-purple-100 px-1.5 py-0.2 text-[9px] font-bold text-purple-800">
+                                  {isAr ? 'تقدير وصفي' : 'Recipe Estimate'}
+                                </span>
+                              )}
+                              {entry.compositionBasis === 'exchange_only' && (
+                                <span className="rounded bg-amber-100 px-1.5 py-0.2 text-[9px] font-bold text-amber-800">
+                                  {isAr ? 'بديل فقط' : 'Exchange-Only'}
+                                </span>
+                              )}
                             </div>
                             <div className="flex flex-wrap items-center gap-2 text-[11px] text-slate-500">
                               <span>
@@ -996,7 +1012,7 @@ export function RecallWorkbench({
                     <div className="mt-2 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-1">
                         <span className="text-[11px] text-slate-500">{isAr ? 'الفعلي:' : 'Actual:'}</span>{' '}
-                        {multiDayAnalysis.recordedDaysCount === 0 ? (
+                        {multiDayAnalysis.recordedDaysCount === 0 || c.actualIntake === null ? (
                           <strong className="text-slate-900">—</strong>
                         ) : (
                           <>
@@ -1067,9 +1083,9 @@ export function RecallWorkbench({
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.recordedDaysCount === 0
+                  {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.caloriesKcal?.observedAverage == null
                     ? '—'
-                    : `${multiDayAnalysis.averages.caloriesKcal?.observedAverage} kcal/day`}
+                    : `${multiDayAnalysis.averages.caloriesKcal.observedAverage} kcal/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
@@ -1082,9 +1098,9 @@ export function RecallWorkbench({
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.recordedDaysCount === 0
+                  {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.proteinG?.observedAverage == null
                     ? '—'
-                    : `${multiDayAnalysis.averages.proteinG?.observedAverage} g/day`}
+                    : `${multiDayAnalysis.averages.proteinG.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
@@ -1097,9 +1113,9 @@ export function RecallWorkbench({
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.recordedDaysCount === 0
+                  {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.carbsG?.observedAverage == null
                     ? '—'
-                    : `${multiDayAnalysis.averages.carbsG?.observedAverage} g/day`}
+                    : `${multiDayAnalysis.averages.carbsG.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
@@ -1112,9 +1128,9 @@ export function RecallWorkbench({
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.recordedDaysCount === 0
+                  {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.fatG?.observedAverage == null
                     ? '—'
-                    : `${multiDayAnalysis.averages.fatG?.observedAverage} g/day`}
+                    : `${multiDayAnalysis.averages.fatG.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
@@ -1127,9 +1143,9 @@ export function RecallWorkbench({
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.recordedDaysCount === 0
+                  {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.fiberG?.observedAverage == null
                     ? '—'
-                    : `${multiDayAnalysis.averages.fiberG?.observedAverage} g/day`}
+                    : `${multiDayAnalysis.averages.fiberG.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1">
@@ -1142,9 +1158,9 @@ export function RecallWorkbench({
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.recordedDaysCount === 0
+                  {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.sodiumMg?.observedAverage == null
                     ? '—'
-                    : `${multiDayAnalysis.averages.sodiumMg?.observedAverage} mg/day`}
+                    : `${multiDayAnalysis.averages.sodiumMg.observedAverage} mg/day`}
                 </strong>
               </div>
             </div>
