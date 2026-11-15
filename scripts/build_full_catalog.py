@@ -52,7 +52,13 @@ NUTRIENT_REQUIRED_KEYS = [
     "basisWeightG", "caloriesKcal", "carbsG", "proteinG", "fatG", "missingNutrientKeys",
 ]
 
-VALID_SOURCE_IDS = {"usda_fdc", "egyptian_nni_2006", "regimeplan_2026", "clinic_reviewed"}
+VALID_SOURCE_IDS = {
+    "usda_fdc",
+    "egyptian_nni_2006",
+    "regimeplan_2026",
+    "egyptian_exchange_guide_2026",
+    "clinic_reviewed",
+}
 VALID_COMPOSITION_BASES = {"analytical_table", "clinic_estimated", "recipe_based", "exchange_only"}
 
 FORBIDDEN_MACRO_TABLE_NAMES = {
@@ -111,6 +117,7 @@ def validate_catalog(all_items):
     seen_ids = set()
     seen_codes = set()
     seen_portion_ids = set()
+    seen_non_ref_macro_tuples = {}
 
     if len(all_items) != 676:
         errors.append(f"Expected 676 total catalog records, got {len(all_items)}")
@@ -204,9 +211,8 @@ def validate_catalog(all_items):
         if src not in VALID_SOURCE_IDS:
             errors.append(f"{item_id}: unknown sourceId {src}")
         if src == "usda_fdc":
-            allowed_ver = ("verified_standard", "recipe_based") if not str(code or "").startswith("RP-") else ("verified_standard",)
-            if ver not in allowed_ver:
-                errors.append(f"{item_id}: usda_fdc must have verificationStatus in {allowed_ver}, got '{ver}'")
+            if ver != "verified_standard":
+                errors.append(f"{item_id}: usda_fdc must have verificationStatus='verified_standard', got '{ver}'")
             if not src_rec or not re.match(r"^\d{5,6}$", str(src_rec)):
                 errors.append(f"{item_id}: usda_fdc must have 5-6 digit sourceRecordId, got '{src_rec}'")
             if comp_basis != "analytical_table":
@@ -221,6 +227,13 @@ def validate_catalog(all_items):
                 errors.append(f"{item_id}: regimeplan_2026 must not carry institutional sourceRecordId '{src_rec}'")
             if comp_basis != "exchange_only":
                 errors.append(f"{item_id}: regimeplan_2026 must have compositionBasis='exchange_only', got '{comp_basis}'")
+        elif src == "egyptian_exchange_guide_2026":
+            if ver != "clinic_reviewed":
+                errors.append(f"{item_id}: egyptian_exchange_guide_2026 must have verificationStatus='clinic_reviewed', got '{ver}'")
+            if src_rec is not None:
+                errors.append(f"{item_id}: egyptian_exchange_guide_2026 must not carry institutional sourceRecordId '{src_rec}'")
+            if comp_basis != "exchange_only":
+                errors.append(f"{item_id}: egyptian_exchange_guide_2026 must have compositionBasis='exchange_only', got '{comp_basis}'")
         elif src == "clinic_reviewed":
             if ver not in ("clinic_reviewed", "recipe_based"):
                 errors.append(f"{item_id}: clinic_reviewed source has invalid verificationStatus '{ver}'")
@@ -228,6 +241,35 @@ def validate_catalog(all_items):
                 errors.append(f"{item_id}: clinic_reviewed source must not carry institutional sourceRecordId '{src_rec}'")
             if comp_basis == "exchange_only":
                 errors.append(f"{item_id}: clinic_reviewed item cannot have compositionBasis='exchange_only'")
+
+        # Strict provenance, rationale, Atwater, and uniqueness guards for non-table assayed compositions
+        if comp_basis in ("clinic_estimated", "recipe_based"):
+            notes_en = (item.get("notesEn") or "").strip()
+            notes_ar = (item.get("notesAr") or "").strip()
+            generic_notes = {
+                "clinically reviewed 100g composition",
+                "clinically reviewed 100g composition.",
+                "clinically reviewed 100g dairy composition",
+                "clinically reviewed 100g dairy composition.",
+            }
+            if not notes_en or not notes_ar or notes_en.lower() in generic_notes or len(notes_en) < 25:
+                errors.append(f"{item_id} ({code}): {comp_basis} item requires explicit clinical rationale in notesEn/notesAr")
+            if comp_basis == "recipe_based" and "%" not in notes_en:
+                errors.append(f"{item_id} ({code}): recipe_based item must document % constituent breakdown in notesEn")
+            if all(isinstance(v, (int, float)) for v in (kcal, carbs, prot, fat)):
+                atwater = 4.0 * carbs + 4.0 * prot + 9.0 * fat
+                if abs(kcal - atwater) > 15.0:
+                    errors.append(
+                        f"{item_id} ({code}): {comp_basis} Atwater mismatch kcal={kcal} vs 4C+4P+9F={atwater:.1f} (|d|={abs(kcal-atwater):.1f} > 15)"
+                    )
+                fg = item.get("foodGroupId") or "unknown"
+                macro_sig = (fg, round(float(kcal), 2), round(float(carbs), 2), round(float(prot), 2), round(float(fat), 2))
+                if macro_sig in seen_non_ref_macro_tuples:
+                    errors.append(
+                        f"{item_id} ({code}): duplicate {comp_basis} macro tuple {macro_sig} already used by {seen_non_ref_macro_tuples[macro_sig]}"
+                    )
+                else:
+                    seen_non_ref_macro_tuples[macro_sig] = f"{item_id} ({code})"
 
     # English name quality guard (no bare prep-only names, mistranslated generic placeholders, or fallback strings)
     prep_only_words = {"raw", "cooked", "boiled", "grilled", "baked", "roasted", "fried", "canned", "dried", "smoked", "minced", "ground", "/", "skinless"}
@@ -268,7 +310,8 @@ def validate_catalog(all_items):
         ("RP-DA-013", lambda x: x["nutrients100g"]["fatG"] < 2.0 and x["nutrients100g"]["proteinG"] >= 30, "Nonfat dry milk powder must have <2g fat & >=30g protein"),
         ("RP-DA-012", lambda x: x["nutrients100g"]["fatG"] < 2.0 and x["nutrients100g"]["carbsG"] >= 4.0, "Nonfat buttermilk must have <2g fat & >=4g carbs"),
         ("RP-MT-191", lambda x: x["nutrients100g"]["carbsG"] > 0 and x["nutrients100g"]["fatG"] < 15, "Boiled egg must have realistic carbs & fat"),
-        ("RP-MT-165", lambda x: x["nutrients100g"]["carbsG"] > 10, "Breaded chicken must have >10g/100g carbs"),
+        ("RECIPE-PANE-001", lambda x: x["nutrients100g"]["carbsG"] > 10 and x["primaryExchangeCategoryId"] == "combination_food", "Breaded fried chicken recipe must have >10g/100g carbs and combination_food exchange"),
+        ("RP-MT-165", lambda x: x.get("compositionBasis") == "exchange_only" and x["nutrients100g"]["caloriesKcal"] is None, "RegimePlan breaded chicken exchange record must remain exchange_only"),
         ("RP-MT-016", lambda x: x.get("preparationState") == "raw", "Dry chickpea flour must have preparationState=raw"),
         ("RP-MT-118", lambda x: x.get("preparationState") == "dried", "Dry TVP must have preparationState=dried"),
     ]:

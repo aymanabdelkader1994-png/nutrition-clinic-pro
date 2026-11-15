@@ -214,14 +214,17 @@ export function calculateDayNutrientSummary(day: RecallDay): RecallNutrientSumma
  */
 export function calculateMultiDayRecallAnalysis(session: RecallSession): MultiDayRecallAnalysis {
   const targetDays = session.targetDays;
-  const recordedDays = session.days.slice(0, targetDays);
-  const recordedDaysCount = recordedDays.length;
+  const candidateDays = session.days.slice(0, targetDays);
 
-  const dailySummaries = recordedDays.map((day) => ({
+  const dailySummaries = candidateDays.map((day) => ({
     dayIndex: day.dayIndex,
     date: day.date,
     summary: calculateDayNutrientSummary(day),
   }));
+
+  // Only days with at least one recorded food entry belong in multi-day averages/denominators
+  const activeRecordedDaySummaries = dailySummaries.filter((d) => d.summary.totalEntriesCount > 0);
+  const recordedDaysCount = activeRecordedDaySummaries.length;
 
   const averages: Record<string, MultiDayNutrientAverageItem> = {};
 
@@ -229,7 +232,7 @@ export function calculateMultiDayRecallAnalysis(session: RecallSession): MultiDa
     let sumOfObservedDailyTotals = 0;
     let completeDaysCount = 0;
 
-    for (const daySummary of dailySummaries) {
+    for (const daySummary of activeRecordedDaySummaries) {
       const item = daySummary.summary[def.key as keyof RecallNutrientSummary] as NutrientAggregationItem;
       sumOfObservedDailyTotals += item.observedTotal;
       if (item.isComplete) {
@@ -237,8 +240,9 @@ export function calculateMultiDayRecallAnalysis(session: RecallSession): MultiDa
       }
     }
 
-    const denominator = recordedDaysCount > 0 ? recordedDaysCount : 1;
-    const observedAverage = roundToPrecision(sumOfObservedDailyTotals / denominator, 2);
+    const denominator = recordedDaysCount;
+    const observedAverage =
+      denominator > 0 ? roundToPrecision(sumOfObservedDailyTotals / denominator, 2) : 0;
     const isComplete = recordedDaysCount > 0 && completeDaysCount === recordedDaysCount;
 
     averages[def.key] = {
@@ -256,8 +260,8 @@ export function calculateMultiDayRecallAnalysis(session: RecallSession): MultiDa
   }
 
   const isSessionComplete =
-    recordedDaysCount === targetDays &&
-    dailySummaries.every((d) => d.summary.totalEntriesCount > 0);
+    dailySummaries.length === targetDays &&
+    recordedDaysCount === targetDays;
 
   return {
     sessionTargetDays: targetDays,
@@ -323,8 +327,9 @@ export function compareIntakeWithPhase1Targets(params: {
 
   return metrics.map((m) => {
     const avgItem = actualAverages[m.nutrientKey];
-    const actual = avgItem?.observedAverage ?? 0;
-    const isActualIncomplete = avgItem ? !avgItem.isComplete : false;
+    const hasRecordedDays = avgItem ? avgItem.totalRecordedDays > 0 : false;
+    const actual = hasRecordedDays ? (avgItem?.observedAverage ?? 0) : 0;
+    const isActualIncomplete = !hasRecordedDays || !avgItem?.isComplete;
     const target = m.targetVal && Number.isFinite(m.targetVal) && m.targetVal > 0 ? m.targetVal : null;
 
     if (target === null) {
@@ -344,6 +349,27 @@ export function compareIntakeWithPhase1Targets(params: {
       };
     }
 
+    if (isActualIncomplete) {
+      return {
+        metric: m.metric,
+        labelEn: m.labelEn,
+        labelAr: m.labelAr,
+        unit: m.unit,
+        actualIntake: actual,
+        isActualIncomplete: true,
+        targetValue: roundToPrecision(target, 1),
+        difference: null,
+        percentAchieved: null,
+        status: 'incomplete_intake',
+        clinicalNoteEn: !hasRecordedDays
+          ? 'Target adequacy classification is withheld until at least one food entry is recorded.'
+          : 'Target adequacy classification and % achieved are withheld because one or more recorded items lack assayed macronutrient/energy data (partial observed intake only).',
+        clinicalNoteAr: !hasRecordedDays
+          ? 'تم تعليق تقييم مطابقة الهدف حتى يتم تسجيل صنف غذائي واحد على الأقل.'
+          : 'تم تعليق تصنيف مطابقة الهدف ونسبة التحقيق لأن بعض الأصناف المسجلة تفتقر إلى بيانات الطاقة/الماكروز المعملية (المعروض مجموع جزئي مرصود فقط).',
+      };
+    }
+
     const diff = roundToPrecision(actual - target, 1);
     const percent = roundToPrecision((actual / target) * 100, 1);
 
@@ -357,7 +383,7 @@ export function compareIntakeWithPhase1Targets(params: {
       labelAr: m.labelAr,
       unit: m.unit,
       actualIntake: actual,
-      isActualIncomplete,
+      isActualIncomplete: false,
       targetValue: roundToPrecision(target, 1),
       difference: diff,
       percentAchieved: percent,

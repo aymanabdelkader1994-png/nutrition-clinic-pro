@@ -184,7 +184,7 @@ export interface TargetComparisonItem {
   targetValue: number | null; // From Phase 1 assessment
   difference: number | null; // actual - target
   percentAchieved: number | null; // (actual / target) * 100
-  status: 'achieved' | 'over' | 'under' | 'target_unavailable';
+  status: 'achieved' | 'over' | 'under' | 'target_unavailable' | 'incomplete_intake';
   clinicalNoteEn?: string;
   clinicalNoteAr?: string;
 }

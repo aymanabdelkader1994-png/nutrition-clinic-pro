@@ -650,70 +650,71 @@ def _extract_pdf_meat_items(streams, font_maps):
     return numbered_items
 
 MEAT_ANALYTICAL_OVERRIDES = {
+    # Metadata overrides (nameEn, prep, tags) preserved cleanly; analytical nutrients are included ONLY for verified USDA FDC records.
     # Legumes & Plant Proteins listed in meat substitutes
-    "RP-MT-001": {"nameEn": "Cooked Mung Beans", "caloriesKcal": 105.0, "carbsG": 19.2, "proteinG": 7.0, "fatG": 0.4, "fiberG": 7.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["ماش", "mung beans"]},
-    "RP-MT-002": {"nameEn": "Raw Dried Chickpeas", "caloriesKcal": 378.0, "carbsG": 63.0, "proteinG": 20.5, "fatG": 6.0, "fiberG": 12.2, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص", "حمص نيء", "chickpeas"]},
+    "RP-MT-001": {"nameEn": "Cooked Mung Beans", "tags": ["ماش", "mung beans"]},
+    "RP-MT-002": {"nameEn": "Raw Dried Chickpeas", "tags": ["حمص", "حمص نيء", "chickpeas"]},
     "RP-MT-003": {"nameEn": "Cooked Chickpeas", "caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.9, "fatG": 2.6, "fiberG": 7.6, "sodiumMg": 7.0, "waterG": 60.2, "sourceId": "usda_fdc", "sourceRecordId": "16057", "verificationStatus": "verified_standard", "tags": ["حمص", "حمص مطبوخ", "chickpeas"]},
-    "RP-MT-014": {"nameEn": "Hummus with Tahini", "caloriesKcal": 166.0, "carbsG": 14.3, "proteinG": 7.9, "fatG": 9.6, "fiberG": 6.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص بطحينة", "حمص", "hummus"]},
-    "RP-MT-015": {"nameEn": "Egyptian Taameya / Falafel", "caloriesKcal": 333.0, "carbsG": 31.8, "proteinG": 13.3, "fatG": 17.8, "fiberG": 4.9, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["طعمية", "فلافل", "falafel", "taameya"]},
-    "RP-MT-016": {"nameEn": "Chickpea Flour (Besan)", "prep": "raw", "caloriesKcal": 387.0, "carbsG": 57.8, "proteinG": 22.4, "fatG": 6.7, "fiberG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دقيق حمص", "حمص", "chickpea flour"]},
-    "RP-MT-017": {"nameEn": "Canned Chickpeas (Drained)", "caloriesKcal": 139.0, "carbsG": 22.6, "proteinG": 7.1, "fatG": 2.0, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص معلب", "حمص", "chickpeas"]},
-    "RP-MT-018": {"nameEn": "Cooked Chana Dal (Split Chickpeas)", "caloriesKcal": 164.0, "carbsG": 27.4, "proteinG": 8.9, "fatG": 2.6, "fiberG": 7.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دال حمص", "حمص", "chana dal"]},
-    "RP-MT-019": {"nameEn": "Cooked Urad Dal (Black Gram)", "caloriesKcal": 105.0, "carbsG": 18.4, "proteinG": 7.5, "fatG": 0.5, "fiberG": 6.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دال أوراد", "urad dal"]},
-    "RP-MT-020": {"nameEn": "Cooked Toor Dal (Split Pigeon Peas)", "caloriesKcal": 121.0, "carbsG": 23.3, "proteinG": 6.8, "fatG": 0.4, "fiberG": 6.7, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["دال توور", "toor dal"]},
-    "RP-MT-021": {"nameEn": "Roasted Chickpeas", "prep": "roasted", "caloriesKcal": 369.0, "carbsG": 58.0, "proteinG": 19.3, "fatG": 6.0, "fiberG": 12.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["حمص محمص", "حمص", "roasted chickpeas"]},
-    "RP-MT-022": {"nameEn": "Cooked Lupini Beans (Termis)", "caloriesKcal": 119.0, "carbsG": 9.9, "proteinG": 15.6, "fatG": 2.9, "fiberG": 2.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["ترمس", "lupini beans"]},
-    "RP-MT-023": {"nameEn": "Cooked Split Peas", "caloriesKcal": 118.0, "carbsG": 21.1, "proteinG": 8.3, "fatG": 0.4, "fiberG": 8.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بسلة مجروشة", "split peas"]},
-    "RP-MT-117": {"nameEn": "Plant-Based Veggie Burger Patty", "caloriesKcal": 177.0, "carbsG": 14.3, "proteinG": 15.7, "fatG": 6.3, "fiberG": 4.9, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["برجر نباتي", "veggie burger"]},
-    "RP-MT-118": {"nameEn": "Dry Textured Soy Protein (TVP)", "prep": "dried", "caloriesKcal": 336.0, "carbsG": 33.9, "proteinG": 51.5, "fatG": 1.2, "fiberG": 17.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["لحم صويا", "فول صويا", "textured soy protein", "tvp"]},
-    "RP-MT-119": {"nameEn": "Seitan (Wheat Gluten)", "caloriesKcal": 120.0, "carbsG": 4.0, "proteinG": 21.0, "fatG": 1.9, "fiberG": 0.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سيتان", "seitan"]},
-    "RP-MT-174": {"nameEn": "Plant-Based Chick'n Strips", "caloriesKcal": 180.0, "carbsG": 8.0, "proteinG": 20.0, "fatG": 7.0, "fiberG": 3.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["شرائح دجاج نباتية", "plant protein"]},
-    "RP-MT-175": {"nameEn": "Plant-Based Vegetarian Sausage", "caloriesKcal": 210.0, "carbsG": 9.0, "proteinG": 18.0, "fatG": 11.0, "fiberG": 3.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سجق نباتي", "plant sausage"]},
-    "RP-MT-176": {"nameEn": "Soft Tofu", "caloriesKcal": 62.0, "carbsG": 1.8, "proteinG": 6.5, "fatG": 3.5, "fiberG": 0.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["توفو طري", "توفو", "soft tofu"]},
-    "RP-MT-177": {"nameEn": "Silken Tofu", "caloriesKcal": 55.0, "carbsG": 1.9, "proteinG": 4.8, "fatG": 2.7, "fiberG": 0.1, "sodiumMg": 5.0, "waterG": 89.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["توفو حريري", "توفو", "silken tofu"]},
-    "RP-MT-178": {"nameEn": "Tempeh", "caloriesKcal": 192.0, "carbsG": 7.6, "proteinG": 20.3, "fatG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["تمبي", "tempeh"]},
+    "RP-MT-014": {"nameEn": "Hummus with Tahini", "tags": ["حمص بطحينة", "حمص", "hummus"]},
+    "RP-MT-015": {"nameEn": "Egyptian Taameya / Falafel", "tags": ["طعمية", "فلافل", "falafel", "taameya"]},
+    "RP-MT-016": {"nameEn": "Chickpea Flour (Besan)", "prep": "raw", "tags": ["دقيق حمص", "حمص", "chickpea flour"]},
+    "RP-MT-017": {"nameEn": "Canned Chickpeas (Drained)", "tags": ["حمص معلب", "حمص", "chickpeas"]},
+    "RP-MT-018": {"nameEn": "Cooked Chana Dal (Split Chickpeas)", "tags": ["دال حمص", "حمص", "chana dal"]},
+    "RP-MT-019": {"nameEn": "Cooked Urad Dal (Black Gram)", "tags": ["دال أوراد", "urad dal"]},
+    "RP-MT-020": {"nameEn": "Cooked Toor Dal (Split Pigeon Peas)", "tags": ["دال توور", "toor dal"]},
+    "RP-MT-021": {"nameEn": "Roasted Chickpeas", "prep": "roasted", "tags": ["حمص محمص", "حمص", "roasted chickpeas"]},
+    "RP-MT-022": {"nameEn": "Cooked Lupini Beans (Termis)", "tags": ["ترمس", "lupini beans"]},
+    "RP-MT-023": {"nameEn": "Cooked Split Peas", "tags": ["بسلة مجروشة", "split peas"]},
+    "RP-MT-117": {"nameEn": "Plant-Based Veggie Burger Patty", "tags": ["برجر نباتي", "veggie burger"]},
+    "RP-MT-118": {"nameEn": "Dry Textured Soy Protein (TVP)", "prep": "dried", "tags": ["لحم صويا", "فول صويا", "textured soy protein", "tvp"]},
+    "RP-MT-119": {"nameEn": "Seitan (Wheat Gluten)", "tags": ["سيتان", "seitan"]},
+    "RP-MT-174": {"nameEn": "Plant-Based Chick'n Strips", "tags": ["شرائح دجاج نباتية", "plant protein"]},
+    "RP-MT-175": {"nameEn": "Plant-Based Vegetarian Sausage", "tags": ["سجق نباتي", "plant sausage"]},
+    "RP-MT-176": {"nameEn": "Soft Tofu", "tags": ["توفو طري", "توفو", "soft tofu"]},
+    "RP-MT-177": {"nameEn": "Silken Tofu", "tags": ["توفو حريري", "توفو", "silken tofu"]},
+    "RP-MT-178": {"nameEn": "Tempeh", "tags": ["تمبي", "tempeh"]},
     "RP-MT-179": {"nameEn": "Firm Tofu", "caloriesKcal": 144.0, "carbsG": 2.8, "proteinG": 17.3, "fatG": 8.7, "fiberG": 2.3, "sodiumMg": 14.0, "waterG": 69.8, "sourceId": "usda_fdc", "sourceRecordId": "16426", "verificationStatus": "verified_standard", "tags": ["توفو جامد", "توفو", "firm tofu"]},
     # Cheeses classified as meat substitutes
-    "RP-MT-120": {"nameEn": "Light White Cheese (Reduced-Fat Feta)", "caloriesKcal": 145.0, "carbsG": 3.5, "proteinG": 15.0, "fatG": 8.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة بيضاء لايت", "جبنة", "cheese"]},
-    "RP-MT-121": {"nameEn": "Egyptian Quraish / Cottage Cheese", "caloriesKcal": 98.0, "carbsG": 3.4, "proteinG": 11.1, "fatG": 4.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة قريش", "جبنة", "quraish"]},
-    "RP-MT-180": {"nameEn": "Akkawi Cheese", "caloriesKcal": 289.0, "carbsG": 1.8, "proteinG": 22.0, "fatG": 21.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة عكاوي", "عكاوي", "akkawi cheese"]},
-    "RP-MT-181": {"nameEn": "Processed Triangle Cheese Wedges", "caloriesKcal": 285.0, "carbsG": 4.5, "proteinG": 11.0, "fatG": 25.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة مثلثات", "جبنة", "processed cheese"]},
-    "RP-MT-182": {"nameEn": "Paneer Cheese", "caloriesKcal": 296.0, "carbsG": 3.6, "proteinG": 18.3, "fatG": 23.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة بانير", "بانير", "paneer"]},
+    "RP-MT-120": {"nameEn": "Light White Cheese (Reduced-Fat Feta)", "tags": ["جبنة بيضاء لايت", "جبنة", "cheese"]},
+    "RP-MT-121": {"nameEn": "Egyptian Quraish / Cottage Cheese", "tags": ["جبنة قريش", "جبنة", "quraish"]},
+    "RP-MT-180": {"nameEn": "Akkawi Cheese", "tags": ["جبنة عكاوي", "عكاوي", "akkawi cheese"]},
+    "RP-MT-181": {"nameEn": "Processed Triangle Cheese Wedges", "tags": ["جبنة مثلثات", "جبنة", "processed cheese"]},
+    "RP-MT-182": {"nameEn": "Paneer Cheese", "tags": ["جبنة بانير", "بانير", "paneer"]},
     "RP-MT-183": {"nameEn": "Whole Milk Ricotta Cheese", "caloriesKcal": 174.0, "carbsG": 3.0, "proteinG": 11.3, "fatG": 13.0, "fiberG": 0.0, "sodiumMg": 84.0, "waterG": 71.7, "sourceId": "usda_fdc", "sourceRecordId": "01036", "verificationStatus": "verified_standard", "tags": ["ريكوتا", "جبنة ريكوتا", "ricotta cheese"]},
     "RP-MT-184": {"nameEn": "Feta Cheese", "caloriesKcal": 264.0, "carbsG": 4.1, "proteinG": 14.2, "fatG": 21.3, "fiberG": 0.0, "sodiumMg": 917.0, "waterG": 55.2, "sourceId": "usda_fdc", "sourceRecordId": "01019", "verificationStatus": "verified_standard", "tags": ["جبنة فيتا", "فيتا", "feta cheese"]},
     "RP-MT-185": {"nameEn": "Whole Milk Mozzarella Cheese", "caloriesKcal": 300.0, "carbsG": 2.2, "proteinG": 22.2, "fatG": 22.4, "fiberG": 0.0, "sodiumMg": 627.0, "waterG": 50.0, "sourceId": "usda_fdc", "sourceRecordId": "01026", "verificationStatus": "verified_standard", "tags": ["موتزاريلا", "جبنة موتزاريلا", "mozzarella"]},
-    "RP-MT-186": {"nameEn": "Egyptian Domiati White Cheese", "caloriesKcal": 245.0, "carbsG": 2.8, "proteinG": 15.0, "fatG": 19.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جبنة بيضاء دمياطي", "جبنة دمياطي", "domiati cheese"]},
+    "RP-MT-186": {"nameEn": "Egyptian Domiati White Cheese", "tags": ["جبنة بيضاء دمياطي", "جبنة دمياطي", "domiati cheese"]},
     # Organ Meats & Eggs
-    "RP-MT-025": {"nameEn": "Raw Beef Liver", "caloriesKcal": 135.0, "carbsG": 3.9, "proteinG": 20.4, "fatG": 3.6, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة بقري", "beef liver"]},
-    "RP-MT-047": {"nameEn": "Raw Chicken Liver", "caloriesKcal": 119.0, "carbsG": 0.7, "proteinG": 16.9, "fatG": 4.8, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة فراخ", "chicken liver"]},
+    "RP-MT-025": {"nameEn": "Raw Beef Liver", "tags": ["كبدة بقري", "beef liver"]},
+    "RP-MT-047": {"nameEn": "Raw Chicken Liver", "tags": ["كبدة فراخ", "chicken liver"]},
     "RP-MT-075": {"nameEn": "Grilled / Braised Beef Liver", "caloriesKcal": 175.0, "carbsG": 5.1, "proteinG": 26.5, "fatG": 4.7, "fiberG": 0.0, "sodiumMg": 79.0, "waterG": 61.9, "sourceId": "usda_fdc", "sourceRecordId": "13326", "verificationStatus": "verified_standard", "tags": ["كبدة بقري", "beef liver"]},
     "RP-MT-122": {"nameEn": "Egg White (Raw)", "prep": "raw", "caloriesKcal": 52.0, "carbsG": 0.7, "proteinG": 10.9, "fatG": 0.2, "fiberG": 0.0, "sodiumMg": 166.0, "waterG": 87.6, "sourceId": "usda_fdc", "sourceRecordId": "01124", "verificationStatus": "verified_standard", "tags": ["بياض بيض", "egg white"]},
-    "RP-MT-152": {"nameEn": "Pan-Fried Beef Liver", "caloriesKcal": 195.0, "carbsG": 5.2, "proteinG": 26.0, "fatG": 7.2, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة بقري مقلية", "beef liver"]},
-    "RP-MT-161": {"nameEn": "Pan-Cooked / Fried Chicken Liver", "prep": "fried", "caloriesKcal": 167.0, "carbsG": 0.7, "proteinG": 24.1, "fatG": 6.5, "fiberG": 0.0, "sodiumMg": 76.0, "waterG": 67.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كبدة فراخ", "chicken liver"]},
+    "RP-MT-152": {"nameEn": "Pan-Fried Beef Liver", "tags": ["كبدة بقري مقلية", "beef liver"]},
+    "RP-MT-161": {"nameEn": "Pan-Cooked / Fried Chicken Liver", "prep": "fried", "tags": ["كبدة فراخ", "chicken liver"]},
     "RP-MT-166": {"nameEn": "Egg Yolk (Raw)", "prep": "raw", "caloriesKcal": 322.0, "carbsG": 3.6, "proteinG": 15.9, "fatG": 26.5, "fiberG": 0.0, "sodiumMg": 48.0, "waterG": 52.3, "sourceId": "usda_fdc", "sourceRecordId": "01125", "verificationStatus": "verified_standard", "tags": ["صفار بيض", "egg yolk"]},
-    "RP-MT-187": {"nameEn": "Omelet (Cooked Whole Egg)", "caloriesKcal": 154.0, "carbsG": 1.0, "proteinG": 10.6, "fatG": 11.7, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["أومليت", "بيض", "omelet"]},
-    "RP-MT-188": {"nameEn": "Scrambled Egg", "caloriesKcal": 149.0, "carbsG": 1.6, "proteinG": 10.0, "fatG": 11.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيض مخفوق", "بيض", "scrambled egg"]},
-    "RP-MT-189": {"nameEn": "Poached Egg", "caloriesKcal": 143.0, "carbsG": 0.7, "proteinG": 12.5, "fatG": 9.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيض بوشيه", "بيض", "poached egg"]},
-    "RP-MT-190": {"nameEn": "Fried Egg", "caloriesKcal": 196.0, "carbsG": 0.8, "proteinG": 13.6, "fatG": 14.8, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيض مقلي", "بيض", "fried egg"]},
+    "RP-MT-187": {"nameEn": "Omelet (Cooked Whole Egg)", "tags": ["أومليت", "بيض", "omelet"]},
+    "RP-MT-188": {"nameEn": "Scrambled Egg", "tags": ["بيض مخفوق", "بيض", "scrambled egg"]},
+    "RP-MT-189": {"nameEn": "Poached Egg", "tags": ["بيض بوشيه", "بيض", "poached egg"]},
+    "RP-MT-190": {"nameEn": "Fried Egg", "tags": ["بيض مقلي", "بيض", "fried egg"]},
     "RP-MT-191": {"nameEn": "Hard-Boiled Whole Egg", "caloriesKcal": 155.0, "carbsG": 1.1, "proteinG": 12.6, "fatG": 10.6, "fiberG": 0.0, "sodiumMg": 124.0, "waterG": 74.6, "sourceId": "usda_fdc", "sourceRecordId": "01129", "verificationStatus": "verified_standard", "tags": ["بيض مسلوق", "بيض", "boiled egg"]},
-    "RP-MT-192": {"nameEn": "Raw Whole Egg", "caloriesKcal": 143.0, "carbsG": 0.7, "proteinG": 12.6, "fatG": 9.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيض نيء", "بيض", "raw egg"]},
+    "RP-MT-192": {"nameEn": "Raw Whole Egg", "tags": ["بيض نيء", "بيض", "raw egg"]},
     # Surimi, Shellfish, Breaded & Processed Meats
-    "RP-MT-077": {"nameEn": "Imitation Crab (Surimi)", "caloriesKcal": 95.0, "carbsG": 15.0, "proteinG": 7.6, "fatG": 0.5, "fiberG": 0.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كابوريا مقلدة", "surimi"]},
-    "RP-MT-084": {"nameEn": "Raw Oysters", "caloriesKcal": 68.0, "carbsG": 3.9, "proteinG": 7.0, "fatG": 2.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["أويستر", "محار", "oysters"]},
-    "RP-MT-098": {"nameEn": "Cooked Clams / Oysters", "caloriesKcal": 140.0, "carbsG": 5.1, "proteinG": 18.0, "fatG": 3.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["محار", "clams"]},
-    "RP-MT-099": {"nameEn": "Cooked Mussels", "caloriesKcal": 172.0, "carbsG": 7.4, "proteinG": 23.8, "fatG": 4.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بلح البحر", "mussels"]},
-    "RP-MT-136": {"nameEn": "Fried Breaded Calamari", "caloriesKcal": 175.0, "carbsG": 7.8, "proteinG": 17.9, "fatG": 7.5, "fiberG": 0.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["كاليماري مقلي", "calamari"]},
-    "RP-MT-137": {"nameEn": "Fried Breaded Shrimp", "caloriesKcal": 242.0, "carbsG": 11.5, "proteinG": 21.4, "fatG": 12.3, "fiberG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["جمبري مقلي", "جمبري", "fried shrimp"]},
-    "RP-MT-138": {"nameEn": "Fried Breaded Cod Fillet", "caloriesKcal": 200.0, "carbsG": 9.5, "proteinG": 18.0, "fatG": 9.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سمك القد مقلي", "سمك", "fried cod"]},
-    "RP-MT-142": {"nameEn": "Beef Luncheon Meat", "caloriesKcal": 240.0, "carbsG": 3.8, "proteinG": 13.5, "fatG": 18.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["لانشون بقري", "لانشون", "luncheon meat"]},
-    "RP-MT-144": {"nameEn": "Breaded Beef Escalope (Pané)", "caloriesKcal": 265.0, "carbsG": 14.5, "proteinG": 18.5, "fatG": 14.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["إسكالوب بانيه", "بانيه", "beef escalope"]},
-    "RP-MT-148": {"nameEn": "Beef Salami", "caloriesKcal": 336.0, "carbsG": 2.4, "proteinG": 21.7, "fatG": 26.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["سلامي بقري", "سلامي", "salami"]},
-    "RP-MT-159": {"nameEn": "Chicken Luncheon Meat", "caloriesKcal": 210.0, "carbsG": 4.0, "proteinG": 14.0, "fatG": 15.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["لانشون فراخ", "لانشون", "chicken luncheon"]},
-    "RP-MT-160": {"nameEn": "Chicken Nuggets", "caloriesKcal": 296.0, "carbsG": 15.0, "proteinG": 15.5, "fatG": 19.0, "fiberG": 0.9, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["ناجتس فراخ", "ناجتس", "chicken nuggets"]},
-    "RP-MT-165": {"nameEn": "Breaded Chicken Cutlet (Pané)", "caloriesKcal": 268.0, "carbsG": 14.2, "proteinG": 19.5, "fatG": 14.5, "fiberG": 0.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["فراخ بانيه", "بانيه", "breaded chicken"]},
-    "RP-MT-167": {"nameEn": "Beef Hot Dog / Frankfurter", "caloriesKcal": 315.0, "carbsG": 2.5, "proteinG": 11.7, "fatG": 28.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["هوت دوج", "سوسيس", "hot dog"]},
-    "RP-MT-169": {"nameEn": "Beef Pepperoni", "caloriesKcal": 466.0, "carbsG": 2.0, "proteinG": 22.0, "fatG": 40.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["بيبروني", "pepperoni"]},
-    "RP-MT-193": {"nameEn": "Breaded Fried Fish Fillet (Pané)", "caloriesKcal": 232.0, "carbsG": 16.5, "proteinG": 14.5, "fatG": 12.0, "fiberG": 0.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed", "tags": ["فيليه سمك بانيه", "سمك", "بانيه", "breaded fish"]},
+    "RP-MT-077": {"nameEn": "Imitation Crab (Surimi)", "tags": ["كابوريا مقلدة", "surimi"]},
+    "RP-MT-084": {"nameEn": "Raw Oysters", "tags": ["أويستر", "محار", "oysters"]},
+    "RP-MT-098": {"nameEn": "Cooked Clams / Oysters", "tags": ["محار", "clams"]},
+    "RP-MT-099": {"nameEn": "Cooked Mussels", "tags": ["بلح البحر", "mussels"]},
+    "RP-MT-136": {"nameEn": "Fried Breaded Calamari", "tags": ["كاليماري مقلي", "calamari"]},
+    "RP-MT-137": {"nameEn": "Fried Breaded Shrimp", "tags": ["جمبري مقلي", "جمبري", "fried shrimp"]},
+    "RP-MT-138": {"nameEn": "Fried Breaded Cod Fillet", "tags": ["سمك القد مقلي", "سمك", "fried cod"]},
+    "RP-MT-142": {"nameEn": "Beef Luncheon Meat", "tags": ["لانشون بقري", "لانشون", "luncheon meat"]},
+    "RP-MT-144": {"nameEn": "Breaded Beef Escalope (Pané)", "tags": ["إسكالوب بانيه", "بانيه", "beef escalope"]},
+    "RP-MT-148": {"nameEn": "Beef Salami", "tags": ["سلامي بقري", "سلامي", "salami"]},
+    "RP-MT-159": {"nameEn": "Chicken Luncheon Meat", "tags": ["لانشون فراخ", "لانشون", "chicken luncheon"]},
+    "RP-MT-160": {"nameEn": "Chicken Nuggets", "tags": ["ناجتس فراخ", "ناجتس", "chicken nuggets"]},
+    "RP-MT-165": {"nameEn": "Breaded Chicken Cutlet (Pané)", "tags": ["فراخ بانيه", "بانيه", "breaded chicken"]},
+    "RP-MT-167": {"nameEn": "Beef Hot Dog / Frankfurter", "tags": ["هوت دوج", "سوسيس", "hot dog"]},
+    "RP-MT-169": {"nameEn": "Beef Pepperoni", "tags": ["بيبروني", "pepperoni"]},
+    "RP-MT-193": {"nameEn": "Breaded Fried Fish Fillet (Pané)", "tags": ["فيليه سمك بانيه", "سمك", "بانيه", "breaded fish"]},
 }
 
 SEARCH_TYPO_TAGS = {
@@ -751,12 +752,15 @@ def make_meat_record(it, seq_num):
         src_rec_id = usda_prof["sourceRecordId"]
         ver_status = "verified_standard"
         comp_basis = "analytical_table"
-    elif override:
+    elif override and "caloriesKcal" in override:
         n_src = override
         source_id = override.get("sourceId", "clinic_reviewed")
-        src_rec_id = None
+        src_rec_id = override.get("sourceRecordId")
         ver_status = override.get("verificationStatus", "clinic_reviewed")
-        comp_basis = "recipe_based" if ver_status == "recipe_based" else "clinic_estimated"
+        if source_id == "usda_fdc":
+            comp_basis = "analytical_table"
+        else:
+            comp_basis = "recipe_based" if ver_status == "recipe_based" else "clinic_estimated"
     else:
         n_src = {}
         source_id = "regimeplan_2026"

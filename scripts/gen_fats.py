@@ -97,32 +97,31 @@ def extract_page_tokens(decomp):
 page_streams = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25]
 
 CORE_TRACKED_KEYS = [
+    "caloriesKcal", "carbsG", "proteinG", "fatG",
     "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
     "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
     "calciumMg", "ironMg", "waterG",
 ]
 
-# Complete analytical & evidence-backed composition map per 100g for every RP-FT-* item.
-# Zero exchange-macro substitution is permitted.
+# Complete analytical & exchange-only map for every RP-FT-* item.
+# Non-USDA items without verified institutional assay tables are stored strictly as exchange_only (nutrients=None).
 FAT_COMPOSITION_MAP = {
     "RP-FT-001": {
         "nameEn": "Sunflower Seed Butter",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 617.0, "carbsG": 23.3, "proteinG": 17.3, "fatG": 55.2, "fiberG": 5.7},
+        "nutrients": None,
         "tags": ["seeds", "sunflower seed butter", "زبدة عباد الشمس", "بذور"],
-        "reviewNoteEn": "Clinically reviewed commercial sunflower seed butter estimate per 100g; requires product-label verification when brand varies.",
-        "reviewNoteAr": "تقدير سريري لتركيبة زبدة بذور عباد الشمس التجارية لكل 100 جم؛ يُنصح بالتحقق من البطاقة الغذائية للمنتج.",
     },
     "RP-FT-002": {
         "nameEn": "Poppy Seeds, Dried",
         "prep": "dried",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 525.0, "carbsG": 28.1, "proteinG": 17.6, "fatG": 41.6, "fiberG": 19.5},
+        "nutrients": None,
         "tags": ["seeds", "poppy seeds", "بذور خشخاش"],
     },
     "RP-FT-003": {
@@ -146,10 +145,10 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-005": {
         "nameEn": "Pumpkin Seeds, Roasted",
         "prep": "roasted",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 574.0, "carbsG": 14.7, "proteinG": 29.8, "fatG": 49.0, "fiberG": 6.5},
+        "nutrients": None,
         "tags": ["seeds", "pumpkin seeds", "لب قرع محمص", "بذور يقطين"],
     },
     "RP-FT-006": {
@@ -164,10 +163,10 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-007": {
         "nameEn": "Sunflower Seed Kernels, Roasted Salted",
         "prep": "roasted",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 582.0, "carbsG": 24.1, "proteinG": 19.3, "fatG": 49.8, "fiberG": 9.0},
+        "nutrients": None,
         "tags": ["seeds", "sunflower seeds", "لب عباد الشمس مملح", "لب سوري"],
     },
     "RP-FT-008": {
@@ -239,46 +238,38 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-015": {
         "nameEn": "Plant-Based Butter Spread",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 717.0, "carbsG": 0.7, "proteinG": 0.2, "fatG": 80.0, "fiberG": 0.0},
+        "nutrients": None,
         "tags": ["butter", "plant butter", "زبدة نباتية"],
-        "reviewNoteEn": "Clinically reviewed vegetable/plant butter estimate per 100g; exact fatty-acid profile depends on formulation.",
-        "reviewNoteAr": "تقدير سريري للزبدة النباتية لكل 100 جم؛ يختلف محتوى الأحماض الدهنية حسب التركيبة التجارية.",
     },
     "RP-FT-016": {
         "nameEn": "Vegan Parmesan Alternative",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
-        "verificationStatus": "recipe_based",
-        "nutrients": {"caloriesKcal": 390.0, "carbsG": 35.0, "proteinG": 10.0, "fatG": 24.0},
+        "verificationStatus": "clinic_reviewed",
+        "nutrients": None,
         "tags": ["vegan cheese", "parmesan", "بارميزان نباتي", "جبنة"],
-        "reviewNoteEn": "Estimated vegan parmesan composition (starch/oil/nutritional yeast base); requires label verification for specific brand.",
-        "reviewNoteAr": "تقدير لتركيبة بديل البارميزان النباتي؛ يلزم التحقق من الملصق الغذائي للمنتج الفعلي.",
     },
     "RP-FT-017": {
         "nameEn": "Kashkaval Cheese",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 375.0, "carbsG": 1.5, "proteinG": 25.0, "fatG": 30.0, "fiberG": 0.0},
+        "nutrients": None,
         "tags": ["cheese", "kashkaval", "جبنة قشقوان", "جبن"],
-        "reviewNoteEn": "Clinically reviewed Mediterranean semi-hard Kashkaval cheese composition; grouped under fat exchange in RegimePlan source table.",
-        "reviewNoteAr": "تركيبة مراجعة سريرياً لجبنة القشقوان؛ مصنفة تحت قائمة بدائل الدهون في مرجع RegimePlan.",
     },
     "RP-FT-018": {
         "nameEn": "Egyptian Rumi Cheese (Aged Hard Cheese)",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 395.0, "carbsG": 1.5, "proteinG": 26.5, "fatG": 31.5, "fiberG": 0.0},
+        "nutrients": None,
         "tags": ["cheese", "rumi cheese", "جبنة رومي", "جبن"],
-        "reviewNoteEn": "Clinically reviewed Egyptian aged Rumi cheese composition; grouped under fat exchange in RegimePlan source table.",
-        "reviewNoteAr": "تركيبة مراجعة سريرياً للجبنة الرومي المصرية؛ مصنفة تحت قائمة بدائل الدهون في مرجع RegimePlan.",
     },
     "RP-FT-019": {
         "nameEn": "Processed Cheese Slices (American Type)",
@@ -355,13 +346,11 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-027": {
         "nameEn": "Halloumi Cheese",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 321.0, "carbsG": 2.2, "proteinG": 21.5, "fatG": 25.0, "fiberG": 0.0},
+        "nutrients": None,
         "tags": ["cheese", "halloumi", "جبنة حلوم", "حلوم"],
-        "reviewNoteEn": "Clinically reviewed Halloumi cheese reference composition; grouped under fat exchange in RegimePlan source table.",
-        "reviewNoteAr": "تركيبة مراجعة سريرياً لجبنة الحلوم؛ مصنفة تحت قائمة بدائل الدهون في مرجع RegimePlan.",
     },
     "RP-FT-028": {
         "nameEn": "Parmesan Cheese, Grated",
@@ -465,57 +454,47 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-039": {
         "nameEn": "Oat Culinary Cream",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 175.0, "carbsG": 6.5, "proteinG": 0.8, "fatG": 16.0},
+        "nutrients": None,
         "tags": ["cream", "oat cream", "كريمة شوفان"],
-        "reviewNoteEn": "Estimated oat cooking cream composition; confirm brand label for exact fat and carbohydrate content.",
-        "reviewNoteAr": "تقدير سريري لتركيبة كريمة الشوفان؛ يُنصح بمراجعة الملصق الغذائي للعلامة التجارية.",
     },
     "RP-FT-040": {
         "nameEn": "Cashew Cream (Blended Recipe)",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
-        "verificationStatus": "recipe_based",
-        "nutrients": {"caloriesKcal": 240.0, "carbsG": 12.5, "proteinG": 7.5, "fatG": 18.5},
+        "verificationStatus": "clinic_reviewed",
+        "nutrients": None,
         "tags": ["cashews", "cashew cream", "كريمة كاجو"],
-        "reviewNoteEn": "Recipe-based estimate (~43% soaked cashews, ~57% water) per 100g.",
-        "reviewNoteAr": "تقدير وصفي (نحو 43% كاجو منقوع و57% ماء) لكل 100 جم.",
     },
     "RP-FT-041": {
         "nameEn": "Cashew Cheese Spread (Cultured Recipe)",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
-        "verificationStatus": "recipe_based",
-        "nutrients": {"caloriesKcal": 320.0, "carbsG": 15.0, "proteinG": 10.5, "fatG": 25.0},
+        "verificationStatus": "clinic_reviewed",
+        "nutrients": None,
         "tags": ["cashews", "cashew cheese", "جبنة كاجو"],
-        "reviewNoteEn": "Recipe-based cultured cashew spread estimate; composition varies with water dilution and additions.",
-        "reviewNoteAr": "تقدير وصفي لجبنة الكاجو النباتية؛ تختلف القيم حسب نسبة الماء والإضافات.",
     },
     "RP-FT-042": {
         "nameEn": "Toum (Middle Eastern Garlic Sauce)",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
-        "verificationStatus": "recipe_based",
-        "nutrients": {"caloriesKcal": 575.0, "carbsG": 4.5, "proteinG": 1.0, "fatG": 62.0},
+        "verificationStatus": "clinic_reviewed",
+        "nutrients": None,
         "tags": ["garlic sauce", "toum", "ثومية", "تومية"],
-        "reviewNoteEn": "Recipe-based emulsified vegetable oil, garlic, and lemon juice composition; varies significantly across recipes.",
-        "reviewNoteAr": "تقدير وصفي لصلصة الثومية بالزيت النباتي والثوم وعصير الليمون.",
     },
     "RP-FT-043": {
         "nameEn": "Seasoned Tahini Dressing (Tahini with Vinegar)",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
-        "verificationStatus": "recipe_based",
-        "nutrients": {"caloriesKcal": 280.0, "carbsG": 10.0, "proteinG": 8.0, "fatG": 24.0, "fiberG": 4.2},
+        "verificationStatus": "clinic_reviewed",
+        "nutrients": None,
         "tags": ["tahini", "طحينة بالخل", "سلطة طحينة"],
-        "reviewNoteEn": "Recipe-based Egyptian diluted tahini with vinegar and water (~45% tahini, ~55% water/vinegar).",
-        "reviewNoteAr": "تقدير وصفي لسلطة الطحينة المخففة بالخل والماء (نحو 45% طحينة خام).",
     },
     "RP-FT-044": {
         "nameEn": "Thousand Island Salad Dressing, Regular",
@@ -529,13 +508,11 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-045": {
         "nameEn": "Oil & Vinegar Vinaigrette Dressing",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
-        "verificationStatus": "recipe_based",
-        "nutrients": {"caloriesKcal": 450.0, "carbsG": 2.5, "proteinG": 0.1, "fatG": 49.0},
+        "verificationStatus": "clinic_reviewed",
+        "nutrients": None,
         "tags": ["dressing", "vinaigrette", "صلصة خل وزيت"],
-        "reviewNoteEn": "Standard culinary vinaigrette estimate (~2:1 to 3:1 oil-to-vinegar emulsion).",
-        "reviewNoteAr": "تقدير وصفي لصلصة الخل والزيت القياسية.",
     },
     "RP-FT-046": {
         "nameEn": "Caesar Salad Dressing, Regular",
@@ -591,10 +568,10 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-051": {
         "nameEn": "Pumpkin Seed Oil",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0},
+        "nutrients": None,
         "tags": ["oil", "pumpkin seed oil", "زيت بذور اليقطين"],
     },
     "RP-FT-052": {
@@ -661,10 +638,10 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-057": {
         "nameEn": "Vegetable Oil (Blended Cooking Oil)",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0},
+        "nutrients": None,
         "tags": ["oil", "vegetable oil", "زيت نباتي"],
     },
     "RP-FT-058": {
@@ -715,19 +692,19 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-062": {
         "nameEn": "Walnuts, Roasted",
         "prep": "roasted",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 654.0, "carbsG": 13.7, "proteinG": 15.2, "fatG": 65.2, "fiberG": 6.7},
+        "nutrients": None,
         "tags": ["nuts", "walnuts", "عين جمل محمص", "جوز"],
     },
     "RP-FT-064": {
         "nameEn": "Almond Flour, Blanched",
         "prep": "raw",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 600.0, "carbsG": 20.0, "proteinG": 20.0, "fatG": 50.0, "fiberG": 10.0},
+        "nutrients": None,
         "tags": ["almond flour", "almonds", "دقيق لوز"],
     },
     "RP-FT-065": {
@@ -796,13 +773,11 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-071": {
         "nameEn": "Pistachio Butter",
         "prep": "ready-to-eat",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 590.0, "carbsG": 24.0, "proteinG": 19.0, "fatG": 49.0, "fiberG": 8.5},
+        "nutrients": None,
         "tags": ["pistachio butter", "pistachios", "زبدة فستق"],
-        "reviewNoteEn": "Clinically reviewed pure pistachio butter composition estimate per 100g.",
-        "reviewNoteAr": "تقدير سريري لتركيبة زبدة الفستق الصافية لكل 100 جم.",
     },
     "RP-FT-072": {
         "nameEn": "Cashew Butter, Plain",
@@ -915,10 +890,10 @@ FAT_COMPOSITION_MAP = {
     "RP-FT-084": {
         "nameEn": "Cashews, Dry Roasted, Unsalted",
         "prep": "roasted",
-        "sourceId": "clinic_reviewed",
+        "sourceId": "regimeplan_2026",
         "sourceRecordId": None,
         "verificationStatus": "clinic_reviewed",
-        "nutrients": {"caloriesKcal": 574.0, "carbsG": 32.7, "proteinG": 15.3, "fatG": 46.4, "fiberG": 3.0},
+        "nutrients": None,
         "tags": ["nuts", "cashews", "كاجو محمص"],
     },
 }
@@ -1026,37 +1001,69 @@ def make_fat_record(it, seq_num):
     w_gram = int(w) if isinstance(w, (int, float)) and w == int(w) else round(w, 1)
     hh_en = f"{w_gram}g portion"
 
-    n_spec = spec["nutrients"]
-    nutrients = {
-        "basisWeightG": 100,
-        "caloriesKcal": n_spec["caloriesKcal"],
-        "carbsG": n_spec["carbsG"],
-        "availableCarbsG": None,
-        "carbCalculationBasis": "total_by_difference",
-        "proteinG": n_spec["proteinG"],
-        "fatG": n_spec["fatG"],
-        "fiberG": n_spec.get("fiberG", None),
-        "saturatedFatG": n_spec.get("saturatedFatG", None),
-        "transFatG": n_spec.get("transFatG", None),
-        "monounsaturatedFatG": n_spec.get("monounsaturatedFatG", None),
-        "polyunsaturatedFatG": n_spec.get("polyunsaturatedFatG", None),
-        "cholesterolMg": n_spec.get("cholesterolMg", None),
-        "sodiumMg": n_spec.get("sodiumMg", None),
-        "potassiumMg": n_spec.get("potassiumMg", None),
-        "calciumMg": n_spec.get("calciumMg", None),
-        "ironMg": n_spec.get("ironMg", None),
-        "waterG": n_spec.get("waterG", None),
-    }
-    nutrients["missingNutrientKeys"] = [k for k in CORE_TRACKED_KEYS if nutrients[k] is None]
-
-    macro_sum = nutrients["carbsG"] + nutrients["proteinG"] + nutrients["fatG"]
-    if macro_sum > 100.5:
-        raise ValueError(f"{code}: Macro sum {macro_sum}g exceeds 100.5g per 100g.")
-
-    tags = list(dict.fromkeys(["fats", "fat", spec["prep"]] + spec.get("tags", [])))
-
+    n_spec = spec.get("nutrients")
     src_id = spec["sourceId"]
     src_rec_id = spec.get("sourceRecordId")
+    ver_status = spec["verificationStatus"]
+
+    if n_spec is None or src_id == "regimeplan_2026":
+        comp_basis = "exchange_only"
+        nutrients = {
+            "basisWeightG": 100,
+            "caloriesKcal": None,
+            "carbsG": None,
+            "availableCarbsG": None,
+            "carbCalculationBasis": "total_by_difference",
+            "proteinG": None,
+            "fatG": None,
+            "fiberG": None,
+            "saturatedFatG": None,
+            "transFatG": None,
+            "monounsaturatedFatG": None,
+            "polyunsaturatedFatG": None,
+            "cholesterolMg": None,
+            "sodiumMg": None,
+            "potassiumMg": None,
+            "calciumMg": None,
+            "ironMg": None,
+            "waterG": None,
+        }
+        nutrients["missingNutrientKeys"] = list(CORE_TRACKED_KEYS)
+    else:
+        nutrients = {
+            "basisWeightG": 100,
+            "caloriesKcal": n_spec["caloriesKcal"],
+            "carbsG": n_spec["carbsG"],
+            "availableCarbsG": None,
+            "carbCalculationBasis": "total_by_difference",
+            "proteinG": n_spec["proteinG"],
+            "fatG": n_spec["fatG"],
+            "fiberG": n_spec.get("fiberG", None),
+            "saturatedFatG": n_spec.get("saturatedFatG", None),
+            "transFatG": n_spec.get("transFatG", None),
+            "monounsaturatedFatG": n_spec.get("monounsaturatedFatG", None),
+            "polyunsaturatedFatG": n_spec.get("polyunsaturatedFatG", None),
+            "cholesterolMg": n_spec.get("cholesterolMg", None),
+            "sodiumMg": n_spec.get("sodiumMg", None),
+            "potassiumMg": n_spec.get("potassiumMg", None),
+            "calciumMg": n_spec.get("calciumMg", None),
+            "ironMg": n_spec.get("ironMg", None),
+            "waterG": n_spec.get("waterG", None),
+        }
+        nutrients["missingNutrientKeys"] = [k for k in CORE_TRACKED_KEYS if nutrients[k] is None]
+
+        macro_sum = nutrients["carbsG"] + nutrients["proteinG"] + nutrients["fatG"]
+        if macro_sum > 100.5:
+            raise ValueError(f"{code}: Macro sum {macro_sum}g exceeds 100.5g per 100g.")
+
+        if src_id in ("usda_fdc", "egyptian_nni_2006"):
+            comp_basis = "analytical_table"
+        elif ver_status == "recipe_based":
+            comp_basis = "recipe_based"
+        else:
+            comp_basis = "clinic_estimated"
+
+    tags = list(dict.fromkeys(["fats", "fat", spec["prep"]] + spec.get("tags", [])))
 
     if src_id == "usda_fdc":
         if not src_rec_id or not re.match(r"^\d{5,6}$", str(src_rec_id)):
@@ -1069,19 +1076,20 @@ def make_fat_record(it, seq_num):
             f"التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB {src_rec_id}). "
             f"وزن بديل الدهون القياسي ({w_gram} جم، {it['hhAr']}) وفق قوائم RegimePlan 2026 (ص {it['page']})."
         )
+    elif comp_basis == "exchange_only":
+        notes_en = (
+            f"Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. {it['page']}). "
+            f"Standard fat exchange portion: {w_gram}g ({hh_en}). Analytical 100g composition is unassayed."
+        )
+        notes_ar = (
+            f"سجل بديل غذائي فقط من RegimePlan 2026 (ص {it['page']}). "
+            f"وزن الحصة البديلة: {w_gram} جم ({it['hhAr']}). التركيبة التحليلية لكل 100 جم غير محللة."
+        )
     else:
         review_en = spec.get("reviewNoteEn", f"Clinically reviewed reference composition per 100g; exchange portion ({w_gram}g) from RegimePlan 2026 (p. {it['page']}).")
         review_ar = spec.get("reviewNoteAr", f"تركيبة مرجعية مراجعة سريرياً لكل 100 جم؛ وزن الحصة البديلة ({w_gram} جم) وفق RegimePlan 2026 (ص {it['page']}).")
         notes_en = review_en
         notes_ar = review_ar
-
-    ver_status = spec["verificationStatus"]
-    if src_id in ("usda_fdc", "egyptian_nni_2006"):
-        comp_basis = "analytical_table"
-    elif ver_status == "recipe_based":
-        comp_basis = "recipe_based"
-    else:
-        comp_basis = "clinic_estimated"
 
     record = {
         "id": item_id,

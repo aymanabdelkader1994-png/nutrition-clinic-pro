@@ -124,54 +124,9 @@ FRUIT_USDA_SR_PROFILES = {
     "RP-FR-061": {"sourceRecordId": "14242", "nutrients": {"caloriesKcal": 54.0, "carbsG": 13.5, "proteinG": 0.0, "fatG": 0.1, "fiberG": 0.0, "saturatedFatG": 0.009, "transFatG": 0.0, "monounsaturatedFatG": 0.019, "polyunsaturatedFatG": 0.059, "cholesterolMg": 0.0, "sodiumMg": 2.0, "potassiumMg": 14.0, "calciumMg": 3.0, "ironMg": 0.1, "waterG": 86.2}},
 }
 
-FRUIT_ANALYTICAL_OVERRIDES = {
-    "RP-FR-008": {"caloriesKcal": 541.0, "carbsG": 57.5, "proteinG": 6.0, "fatG": 30.9, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-009": {"caloriesKcal": 286.0, "carbsG": 77.4, "proteinG": 0.0, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-002": {"caloriesKcal": 598.0, "carbsG": 45.9, "proteinG": 7.8, "fatG": 42.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-003": {"caloriesKcal": 535.0, "carbsG": 59.4, "proteinG": 7.7, "fatG": 29.7, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-007": {"caloriesKcal": 457.0, "carbsG": 53.0, "proteinG": 8.5, "fatG": 25.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-010": {"caloriesKcal": 290.0, "carbsG": 71.0, "proteinG": 1.2, "fatG": 0.2, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-011": {"caloriesKcal": 275.0, "carbsG": 71.0, "proteinG": 0.0, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-012": {"caloriesKcal": 516.0, "carbsG": 60.5, "proteinG": 12.0, "fatG": 26.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-FR-013": {"caloriesKcal": 479.0, "carbsG": 65.0, "proteinG": 4.5, "fatG": 27.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    # Dried fruits, jams & molasses analytical remediation
-    "RP-FR-001": {
-        "caloriesKcal": 282.0, "carbsG": 72.0, "proteinG": 1.5, "fatG": 0.2,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-004": {
-        "caloriesKcal": 278.0, "carbsG": 68.9, "proteinG": 0.4, "fatG": 0.1,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-005": {
-        "caloriesKcal": 278.0, "carbsG": 68.9, "proteinG": 0.4, "fatG": 0.1,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-006": {
-        "caloriesKcal": 278.0, "carbsG": 68.9, "proteinG": 0.4, "fatG": 0.1,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-031": {
-        "caloriesKcal": 249.0, "carbsG": 63.9, "proteinG": 3.3, "fatG": 0.9,
-        "fiberG": 9.8,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-044": {
-        "caloriesKcal": 241.0, "carbsG": 62.6, "proteinG": 3.4, "fatG": 0.5,
-        "fiberG": 7.3,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-056": {
-        "caloriesKcal": 282.0, "carbsG": 75.0, "proteinG": 2.0, "fatG": 0.4,
-        "fiberG": 7.0,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-FR-057": {
-        "caloriesKcal": 280.0, "carbsG": 68.0, "proteinG": 2.8, "fatG": 0.5,
-        "fiberG": 6.5,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-}
+# All unverified commercial/duplicate fruit & confectionery overrides are intentionally kept empty
+# so only institutional USDA FDC records carry analytical nutrients; unassayed items remain exchange_only (null).
+FRUIT_ANALYTICAL_OVERRIDES = {}
 
 CONFECTIONERY_CODES = {"RP-FR-002", "RP-FR-003", "RP-FR-007", "RP-FR-008", "RP-FR-012", "RP-FR-013"}
 
@@ -253,8 +208,12 @@ def make_fruit_item(row):
             "isDefaultServing": True
         }
         tags = ["occasions", "confectionery", "sweets", prep]
-        notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar}). صنف مركب يتطلب مراجعة سريرية للبدائل."
-        notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {page}) serving weight: {w}g ({hh_en}). Composite item requiring clinical review."
+        if comp_basis == "exchange_only":
+            notes_ar = f"سجل بديل غذائي فقط من RegimePlan 2026 (ص {page}). وزن الحصة: {w} جم ({hh_ar}). التركيبة التحليلية لكل 100 جم غير محللة؛ صنف حلويات مركب يتطلب مراجعة سريرية للبدائل."
+            notes_en = f"Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. {page}). Serving weight: {w}g ({hh_en}). Analytical 100g composition is unassayed; composite confectionery item requiring clinical review."
+        else:
+            notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar}). صنف مركب يتطلب مراجعة سريرية للبدائل."
+            notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {page}) serving weight: {w}g ({hh_en}). Composite item requiring clinical review."
     else:
         portion_def = {
             "id": f"portion_{item_id}_serving",

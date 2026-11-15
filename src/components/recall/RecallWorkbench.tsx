@@ -467,8 +467,11 @@ export function RecallWorkbench({
                       isActive ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700'
                     }`}
                   >
-                    {daySummary.caloriesKcal.observedTotal} kcal
-                    {!daySummary.caloriesKcal.isComplete ? ` (${isAr ? 'جزئي' : 'Partial'})` : ''}
+                    {daySummary.totalEntriesCount === 0
+                      ? isAr ? 'لا توجد سجلات' : 'No entries'
+                      : `${daySummary.caloriesKcal.observedTotal} kcal${
+                          !daySummary.caloriesKcal.isComplete ? ` (${isAr ? 'جزئي' : 'Partial'})` : ''
+                        }`}
                   </span>
                 </button>
               );
@@ -711,7 +714,12 @@ export function RecallWorkbench({
                       : `Daily Actual Intake Summary - Day ${activeDay?.dayIndex} (${activeDay?.date}):`}
                   </h3>
                 </div>
-                {activeDaySummary.hasIncompleteNutrients ? (
+                {activeDaySummary.totalEntriesCount === 0 ? (
+                  <span className="flex items-center gap-1 rounded-md bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600 border border-slate-200">
+                    <Info className="h-3 w-3" />
+                    {isAr ? 'لا توجد أطعمة مسجلة' : 'No Entries Recorded'}
+                  </span>
+                ) : activeDaySummary.hasIncompleteNutrients ? (
                   <span className="flex items-center gap-1 rounded-md bg-amber-50 px-2 py-0.5 text-[10px] font-bold text-amber-700 border border-amber-200">
                     <AlertTriangle className="h-3 w-3" />
                     {isAr ? 'بيانات معملية جزئية' : 'Partial Lab Assay Data'}
@@ -731,15 +739,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'السعرات الفعلية' : 'Energy (Calories)'}
                     </span>
-                    {!activeDaySummary.caloriesKcal.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.caloriesKcal.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.caloriesKcal.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">kcal</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.caloriesKcal.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">kcal</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -748,15 +762,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'البروتين' : 'Protein'}
                     </span>
-                    {!activeDaySummary.proteinG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.proteinG.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.proteinG.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">g</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.proteinG.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">g</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -765,17 +785,23 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'إجمالي الكربوهيدرات' : 'Total Carbohydrates'}
                     </span>
-                    {!activeDaySummary.carbsG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.carbsG.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.carbsG.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">g</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.carbsG.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">g</span>
+                      </>
+                    )}
                   </div>
-                  {activeDaySummary.availableCarbsG.observedTotal > 0 && (
+                  {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.availableCarbsG.observedTotal > 0 && (
                     <span className="text-[10px] text-slate-400">
                       {isAr ? 'المتاحة:' : 'Avail:'} {activeDaySummary.availableCarbsG.observedTotal}g
                     </span>
@@ -787,15 +813,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الدهون الكلية' : 'Total Fat'}
                     </span>
-                    {!activeDaySummary.fatG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.fatG.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.fatG.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">g</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.fatG.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">g</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -804,15 +836,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الألياف الغذائية' : 'Dietary Fiber'}
                     </span>
-                    {!activeDaySummary.fiberG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.fiberG.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.fiberG.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">g</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.fiberG.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">g</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -821,15 +859,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الصوديوم' : 'Sodium'}
                     </span>
-                    {!activeDaySummary.sodiumMg.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.sodiumMg.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.sodiumMg.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">mg</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.sodiumMg.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">mg</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -838,15 +882,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'البوتاسيوم' : 'Potassium'}
                     </span>
-                    {!activeDaySummary.potassiumMg.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.potassiumMg.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.potassiumMg.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">mg</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.potassiumMg.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">mg</span>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -855,15 +905,21 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الحديد' : 'Iron'}
                     </span>
-                    {!activeDaySummary.ironMg.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.ironMg.isComplete && (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
                     )}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.ironMg.observedTotal}{' '}
-                    <span className="text-xs font-normal text-slate-400">mg</span>
+                    {activeDaySummary.totalEntriesCount === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {activeDaySummary.ironMg.observedTotal}{' '}
+                        <span className="text-xs font-normal text-slate-400">mg</span>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -882,7 +938,11 @@ export function RecallWorkbench({
                   {isAr ? 'مقارنة المأخوذ مع أهداف المرحلة الأولى' : 'Intake vs Phase 1 Targets'}
                 </h3>
                 <p className="text-[11px] text-slate-400">
-                  {isAr
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? isAr
+                      ? 'لا توجد أيام مسجلة بعد'
+                      : 'No recorded intake days yet'
+                    : isAr
                     ? `مبني على متوسط ${multiDayAnalysis.recordedDaysCount} يوم مسجل`
                     : `Based on ${multiDayAnalysis.recordedDaysCount}-day recorded average`}
                 </p>
@@ -892,9 +952,11 @@ export function RecallWorkbench({
             <div className="mt-4 space-y-4">
               {targetComparisons.map((c) => {
                 const isUnavailable = c.status === 'target_unavailable';
+                const isIncompleteIntake = c.status === 'incomplete_intake';
+                const isWithheld = isUnavailable || isIncompleteIntake;
                 const percent = c.percentAchieved ?? 0;
                 const barColor =
-                  isUnavailable
+                  isWithheld
                     ? 'bg-slate-300'
                     : percent >= 90 && percent <= 110
                     ? 'bg-emerald-500'
@@ -911,6 +973,10 @@ export function RecallWorkbench({
                       {isUnavailable ? (
                         <span className="rounded bg-slate-200 px-2 py-0.5 text-[10px] font-semibold text-slate-600">
                           {isAr ? 'الهدف غير متوفر' : 'Target unavailable'}
+                        </span>
+                      ) : isIncompleteIntake ? (
+                        <span className="rounded bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-800">
+                          {isAr ? 'المقارنة معلّقة (غير مكتمل)' : 'Comparison Withheld (Incomplete)'}
                         </span>
                       ) : (
                         <span
@@ -930,12 +996,20 @@ export function RecallWorkbench({
                     <div className="mt-2 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-1">
                         <span className="text-[11px] text-slate-500">{isAr ? 'الفعلي:' : 'Actual:'}</span>{' '}
-                        <strong className="text-slate-900">{c.actualIntake}</strong>{' '}
-                        <span className="text-[10px] text-slate-400">{c.unit}</span>
-                        {c.isActualIncomplete && (
-                          <span className="rounded bg-amber-100 px-1 py-0.2 text-[9px] font-bold text-amber-800">
-                            {isAr ? 'جزئي' : 'Partial'}
-                          </span>
+                        {multiDayAnalysis.recordedDaysCount === 0 ? (
+                          <strong className="text-slate-900">—</strong>
+                        ) : (
+                          <>
+                            <strong className="text-slate-900">
+                              {c.isActualIncomplete ? `~${c.actualIntake}` : c.actualIntake}
+                            </strong>{' '}
+                            <span className="text-[10px] text-slate-400">{c.unit}</span>
+                            {c.isActualIncomplete && (
+                              <span className="rounded bg-amber-100 px-1 py-0.2 text-[9px] font-bold text-amber-800">
+                                {isAr ? 'جزئي' : 'Partial'}
+                              </span>
+                            )}
+                          </>
                         )}
                       </div>
                       <div>
@@ -947,7 +1021,7 @@ export function RecallWorkbench({
                     </div>
 
                     {/* Progress Bar */}
-                    {!isUnavailable && (
+                    {!isWithheld && (
                       <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-200">
                         <div
                           className={`h-full ${barColor} transition-all duration-300`}
@@ -986,79 +1060,91 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط السعرات:' : 'Average Calories:'}{' '}
-                  {multiDayAnalysis.averages.caloriesKcal && !multiDayAnalysis.averages.caloriesKcal.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.caloriesKcal && !multiDayAnalysis.averages.caloriesKcal.isComplete && (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.averages.caloriesKcal?.observedAverage} kcal/day
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? '—'
+                    : `${multiDayAnalysis.averages.caloriesKcal?.observedAverage} kcal/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط البروتين:' : 'Average Protein:'}{' '}
-                  {multiDayAnalysis.averages.proteinG && !multiDayAnalysis.averages.proteinG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.proteinG && !multiDayAnalysis.averages.proteinG.isComplete && (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.averages.proteinG?.observedAverage} g/day
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? '—'
+                    : `${multiDayAnalysis.averages.proteinG?.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الكربوهيدرات:' : 'Average Carbs:'}{' '}
-                  {multiDayAnalysis.averages.carbsG && !multiDayAnalysis.averages.carbsG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.carbsG && !multiDayAnalysis.averages.carbsG.isComplete && (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.averages.carbsG?.observedAverage} g/day
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? '—'
+                    : `${multiDayAnalysis.averages.carbsG?.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الدهون:' : 'Average Fat:'}{' '}
-                  {multiDayAnalysis.averages.fatG && !multiDayAnalysis.averages.fatG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fatG && !multiDayAnalysis.averages.fatG.isComplete && (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.averages.fatG?.observedAverage} g/day
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? '—'
+                    : `${multiDayAnalysis.averages.fatG?.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الألياف:' : 'Average Fiber:'}{' '}
-                  {multiDayAnalysis.averages.fiberG && !multiDayAnalysis.averages.fiberG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fiberG && !multiDayAnalysis.averages.fiberG.isComplete && (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.averages.fiberG?.observedAverage} g/day
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? '—'
+                    : `${multiDayAnalysis.averages.fiberG?.observedAverage} g/day`}
                 </strong>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الصوديوم:' : 'Average Sodium:'}{' '}
-                  {multiDayAnalysis.averages.sodiumMg && !multiDayAnalysis.averages.sodiumMg.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.sodiumMg && !multiDayAnalysis.averages.sodiumMg.isComplete && (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
                   )}
                 </span>
                 <strong className="text-slate-900">
-                  {multiDayAnalysis.averages.sodiumMg?.observedAverage} mg/day
+                  {multiDayAnalysis.recordedDaysCount === 0
+                    ? '—'
+                    : `${multiDayAnalysis.averages.sodiumMg?.observedAverage} mg/day`}
                 </strong>
               </div>
             </div>

@@ -1406,8 +1406,8 @@
         "high fat",
         "breaded"
       ],
-      "notesAr": "دجاج بانيه مغطى بالبقسماط ومقلي؛ صنف مركب غير مصنف في جداول البدائل الفردية لاحتوائه على كربوهيدرات التغطية (12.15 جم للحصة) ودهون القلي معاً، ولا يجوز احتسابه كبديل لحوم فقط.",
-      "notesEn": "Breaded and deep-fried chicken breast (Pane cutlet); culinary recipe model with unclassified carbohydrate contribution (12.15g per 90g serving) and frying lipid uptake.",
+      "notesAr": "صدر دجاج بانيه مغطى بالبقسماط ومقلي؛ نموذج وصفي مركب (~70% لحم صدر دجاج مطهو، ~20% تغطية قمح وبقسماط/بيض، ~10% زيت قلي ممتص) يفسر 260 سعرة و13.5 جم كربوهيدرات و22.1 جم بروتين و13.2 جم دهون لكل 100 جم (تحقق أتواتر: 261.2 سعرة). لا يجوز احتسابه كبديل لحوم فقط.",
+      "notesEn": "Breaded and deep-fried chicken breast (Pane cutlet); composite culinary recipe model (~70% cooked skinless chicken breast, ~20% wheat breading/egg coating, ~10% absorbed frying oil) accounting for ~260 kcal, 13.5g carbs (12.15g per 90g serving), 22.1g protein, and 13.2g fat per 100g (Atwater check: 261.2 kcal). Unclassified composite exchange.",
       "compositionBasis": "recipe_based"
     },
     {
@@ -1980,7 +1980,7 @@
       "foodGroupId": "free_foods",
       "primaryExchangeCategoryId": "free_food",
       "preparationState": "boiled",
-      "verificationStatus": "recipe_based",
+      "verificationStatus": "verified_standard",
       "isCustom": false,
       "nutrients100g": {
         "basisWeightG": 100,

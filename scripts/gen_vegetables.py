@@ -172,20 +172,9 @@ VEG_USDA_SR_PROFILES = {
     "RP-VG-088": {"sourceRecordId": "11549", "nutrients": {"caloriesKcal": 24.0, "carbsG": 5.31, "proteinG": 1.2, "fatG": 0.3, "fiberG": 1.5, "saturatedFatG": 0.041, "transFatG": 0.0, "monounsaturatedFatG": 0.045, "polyunsaturatedFatG": 0.121, "cholesterolMg": 0.0, "sodiumMg": 474.0, "potassiumMg": 297.0, "calciumMg": 14.0, "ironMg": 0.96, "waterG": 91.3}},
 }
 
-VEG_ANALYTICAL_OVERRIDES = {
-    "RP-VG-001": {"caloriesKcal": 34.0, "carbsG": 5.8, "proteinG": 4.0, "fatG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-025": {"caloriesKcal": 17.0, "carbsG": 3.3, "proteinG": 1.2, "fatG": 0.3, "fiberG": 2.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-041": {"caloriesKcal": 52.0, "carbsG": 12.1, "proteinG": 1.2, "fatG": 0.3, "fiberG": 3.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-060": {"caloriesKcal": 19.0, "carbsG": 3.7, "proteinG": 1.8, "fatG": 0.2, "fiberG": 1.6, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-061": {"caloriesKcal": 32.0, "carbsG": 5.4, "proteinG": 3.0, "fatG": 0.6, "fiberG": 4.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-065": {"caloriesKcal": 72.0, "carbsG": 16.8, "proteinG": 2.5, "fatG": 0.1, "fiberG": 3.2, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-073": {"caloriesKcal": 306.0, "carbsG": 44.3, "proteinG": 41.4, "fatG": 2.8, "fiberG": 34.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-074": {"caloriesKcal": 154.0, "carbsG": 30.0, "proteinG": 18.0, "fatG": 2.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-075": {"caloriesKcal": 145.0, "carbsG": 32.0, "proteinG": 8.0, "fatG": 1.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-080": {"caloriesKcal": 220.0, "carbsG": 34.0, "proteinG": 22.0, "fatG": 2.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-081": {"caloriesKcal": 69.0, "carbsG": 11.7, "proteinG": 4.3, "fatG": 2.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-VG-082": {"caloriesKcal": 20.0, "carbsG": 3.4, "proteinG": 2.0, "fatG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-}
+# All unverified vegetable overrides without institutional FDC provenance are intentionally kept empty
+# so only verified USDA FDC records carry analytical nutrients; remaining items stay exchange_only (null).
+VEG_ANALYTICAL_OVERRIDES = {}
 
 CORE_KEYS = [
     "caloriesKcal", "carbsG", "proteinG", "fatG",

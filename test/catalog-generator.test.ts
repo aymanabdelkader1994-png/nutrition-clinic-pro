@@ -529,19 +529,20 @@ describe('Task C & D: Catalog Provenance Counts & Isolated Dual-Run Reproducibil
     assert.deepEqual(bySource, {
       usda_fdc: 356,
       egyptian_nni_2006: 8,
-      clinic_reviewed: 195,
-      regimeplan_2026: 117,
+      clinic_reviewed: 14,
+      regimeplan_2026: 262,
+      egyptian_exchange_guide_2026: 36,
     });
     assert.deepEqual(byVerification, {
-      verified_standard: 363,
-      clinic_reviewed: 267,
-      recipe_based: 46,
+      verified_standard: 364,
+      clinic_reviewed: 310,
+      recipe_based: 2,
     });
     assert.deepEqual(byBasis, {
       analytical_table: 364,
-      exchange_only: 117,
-      clinic_estimated: 150,
-      recipe_based: 45,
+      exchange_only: 298,
+      clinic_estimated: 12,
+      recipe_based: 2,
     });
 
     // Spot-check pure oil vs tahini vs exchange_only portion scaling

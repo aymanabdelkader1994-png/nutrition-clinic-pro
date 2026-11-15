@@ -70,10 +70,11 @@ describe('1. Provenance Separation, NNI Attribution & Recipe Classifications', (
     }
   });
 
-  it('correctly classifies unsweetened hibiscus tea as recipe_based with verified USDA FDC 171946 record', () => {
+  it('correctly classifies unsweetened hibiscus tea as verified_standard with USDA FDC 171946 record', () => {
     const hibiscus = getFoodItemById('food_hibiscus_tea_karkadeh')!;
     assert.ok(hibiscus);
-    assert.equal(hibiscus.verificationStatus, 'recipe_based');
+    assert.equal(hibiscus.verificationStatus, 'verified_standard');
+    assert.equal(hibiscus.compositionBasis, 'analytical_table');
     assert.equal(hibiscus.sourceId, 'usda_fdc');
     assert.equal(hibiscus.sourceRecordId, '171946');
     assert.equal(hibiscus.code, 'USDA-171946');
@@ -453,15 +454,17 @@ describe('10. Phase 4 Catalog Expansion & Cottage Cheese Verification', () => {
 
   it('ensures exchange_only items preserve null macros & micronutrients without zero or exchange-macro imputation', () => {
     const allItems = getAllFoodItems();
-    const regimePlanItems = allItems.filter((f) => f.sourceId === 'regimeplan_2026');
+    const exchangeOnlyItems = allItems.filter(
+      (f) => f.sourceId === 'regimeplan_2026' || f.sourceId === 'egyptian_exchange_guide_2026'
+    );
     const analyticalOrReviewedItems = allItems.filter(
       (f) => f.sourceId === 'usda_fdc' || f.sourceId === 'egyptian_nni_2006' || f.sourceId === 'clinic_reviewed'
     );
-    assert.equal(regimePlanItems.length, 117, `Expected strictly 117 exchange_only items, got ${regimePlanItems.length}`);
-    assert.equal(analyticalOrReviewedItems.length, 559, `Expected 559 analytical/reviewed items, got ${analyticalOrReviewedItems.length}`);
+    assert.equal(exchangeOnlyItems.length, 298, `Expected strictly 298 exchange_only items, got ${exchangeOnlyItems.length}`);
+    assert.equal(analyticalOrReviewedItems.length, 378, `Expected 378 analytical/reviewed items, got ${analyticalOrReviewedItems.length}`);
 
     // Verify all 4 macros, availableCarbsG, and micronutrients are strictly null on exchange_only items
-    for (const item of regimePlanItems) {
+    for (const item of exchangeOnlyItems) {
       assert.equal(item.compositionBasis, 'exchange_only');
       assert.equal(item.nutrients100g.caloriesKcal, null);
       assert.equal(item.nutrients100g.carbsG, null);
@@ -524,180 +527,90 @@ describe('11. Catalog Integrity Repair & Analytical Composition Verification', (
     assert.equal(scaled.fatG, 0.0);
   });
 
-  it('verifies pure sugars, syrups, and starches have defensible analytical composition', () => {
+  it('verifies refined sucrose sugars retain clinic_estimated composition while unverified syrups/starches remain exchange_only', () => {
     const allItems = getAllFoodItems();
-    
-    // Granulated sugar (RP-ST-121)
+
+    // Granulated sugar (RP-ST-121) - documented sucrose standard
     const whiteSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_121');
     assert.ok(whiteSugar);
+    assert.equal(whiteSugar?.compositionBasis, 'clinic_estimated');
     assert.equal(whiteSugar?.nutrients100g.carbsG, 100.0);
     assert.equal(whiteSugar?.nutrients100g.proteinG, 0.0);
     assert.equal(whiteSugar?.nutrients100g.fatG, 0.0);
     assert.equal(whiteSugar?.nutrients100g.caloriesKcal, 387.0);
 
-    // Brown sugar (RP-ST-127)
+    // Brown sugar (RP-ST-127) - documented sucrose standard
     const brownSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_127');
     assert.ok(brownSugar);
+    assert.equal(brownSugar?.compositionBasis, 'clinic_estimated');
     assert.equal(brownSugar?.nutrients100g.carbsG, 98.1);
     assert.equal(brownSugar?.nutrients100g.proteinG, 0.1);
     assert.equal(brownSugar?.nutrients100g.fatG, 0.0);
 
-    // Pure Bee Honey (RP-ST-122)
-    const honey = allItems.find((f) => f.id === 'food_starch_rp_rp_st_122');
-    assert.ok(honey);
-    assert.equal(honey?.nutrients100g.carbsG, 82.4);
-    assert.equal(honey?.nutrients100g.proteinG, 0.3);
-    assert.equal(honey?.nutrients100g.fatG, 0.0);
-    assert.equal(honey?.nutrients100g.caloriesKcal, 304.0);
-
-    // Maple Syrup (RP-ST-123)
-    const maple = allItems.find((f) => f.id === 'food_starch_rp_rp_st_123');
-    assert.ok(maple);
-    assert.equal(maple?.nutrients100g.carbsG, 67.0);
-    assert.equal(maple?.nutrients100g.proteinG, 0.0);
-    assert.equal(maple?.nutrients100g.fatG, 0.1);
-
-    // Agave (RP-ST-124)
-    const agave = allItems.find((f) => f.id === 'food_starch_rp_rp_st_124');
-    assert.ok(agave);
-    assert.equal(agave?.nutrients100g.carbsG, 76.4);
-    assert.equal(agave?.nutrients100g.proteinG, 0.1);
-
-    // Egyptian Black Honey / Molasses (RP-ST-125)
-    const molasses = allItems.find((f) => f.id === 'food_starch_rp_rp_st_125');
-    assert.ok(molasses);
-    assert.equal(molasses?.nutrients100g.carbsG, 74.7);
-    assert.equal(molasses?.nutrients100g.proteinG, 0.0);
-
-    // Coconut Palm Sugar (RP-ST-126)
-    const coconutSugar = allItems.find((f) => f.id === 'food_starch_rp_rp_st_126');
-    assert.ok(coconutSugar);
-    assert.equal(coconutSugar?.nutrients100g.carbsG, 93.4);
-    assert.equal(coconutSugar?.nutrients100g.proteinG, 1.1);
-
-    // Pomegranate Molasses (RP-ST-120)
-    const pomeMolasses = allItems.find((f) => f.id === 'food_starch_rp_rp_st_120');
-    assert.ok(pomeMolasses);
-    assert.equal(pomeMolasses?.nutrients100g.carbsG, 65.0);
-    assert.equal(pomeMolasses?.nutrients100g.proteinG, 0.0);
-
-    // Cornstarch (RP-ST-071)
-    const cornstarch = allItems.find((f) => f.id === 'food_starch_rp_rp_st_071');
-    assert.ok(cornstarch);
-    assert.equal(cornstarch?.nutrients100g.carbsG, 91.3);
-    assert.equal(cornstarch?.nutrients100g.proteinG, 0.3);
-    assert.equal(cornstarch?.nutrients100g.fatG, 0.1);
-
-    // Potato Starch (RP-ST-081)
-    const potatoStarch = allItems.find((f) => f.id === 'food_starch_rp_rp_st_081');
-    assert.ok(potatoStarch);
-    assert.equal(potatoStarch?.nutrients100g.carbsG, 83.1);
-    assert.equal(potatoStarch?.nutrients100g.proteinG, 6.9);
-    assert.equal(potatoStarch?.nutrients100g.fatG, 0.3);
-
-    // Dry Roqaq Flatbread (RP-ST-020)
-    const roqaq = allItems.find((f) => f.id === 'food_starch_rp_rp_st_020');
-    assert.ok(roqaq);
-    assert.equal(roqaq?.nutrients100g.carbsG, 76.5);
-    assert.equal(roqaq?.nutrients100g.proteinG, 11.2);
-    assert.equal(roqaq?.nutrients100g.fatG, 1.8);
-
-    // Cornflakes (RP-ST-049)
-    const cornflakes = allItems.find((f) => f.id === 'food_starch_rp_rp_st_049');
-    assert.ok(cornflakes);
-    assert.equal(cornflakes?.nutrients100g.carbsG, 84.0);
-    assert.equal(cornflakes?.nutrients100g.proteinG, 7.5);
-    assert.equal(cornflakes?.nutrients100g.fatG, 0.4);
-
-    // Puffed Rice Cakes (RP-ST-104)
-    const riceCakes = allItems.find((f) => f.id === 'food_starch_rp_rp_st_104');
-    assert.ok(riceCakes);
-    assert.equal(riceCakes?.nutrients100g.carbsG, 81.5);
-    assert.equal(riceCakes?.nutrients100g.proteinG, 8.2);
-    assert.equal(riceCakes?.nutrients100g.fatG, 2.8);
+    // Unverified or variable syrups, flours, and commercial starches remain exchange_only with null nutrients
+    for (const code of [
+      'RP-ST-122',
+      'RP-ST-123',
+      'RP-ST-124',
+      'RP-ST-125',
+      'RP-ST-126',
+      'RP-ST-120',
+      'RP-ST-071',
+      'RP-ST-081',
+      'RP-ST-020',
+      'RP-ST-049',
+      'RP-ST-104',
+    ]) {
+      const rec = allItems.find((f) => f.code === code);
+      assert.ok(rec, `${code} must exist in catalog`);
+      assert.equal(rec?.sourceId, 'regimeplan_2026');
+      assert.equal(rec?.compositionBasis, 'exchange_only');
+      assert.equal(rec?.nutrients100g.caloriesKcal, null);
+      assert.equal(rec?.nutrients100g.carbsG, null);
+      assert.equal(rec?.nutrients100g.proteinG, null);
+      assert.equal(rec?.nutrients100g.fatG, null);
+    }
   });
 
-  it('verifies Confectioneries in fruits category reflect authentic lipids and proteins', () => {
+  it('downgrades unverified Confectioneries in fruits category to exchange_only while preserving occasions & combination_food safeguards', () => {
     const allItems = getAllFoodItems();
-    
-    // Hazelnut Cocoa Spread (RP-FR-008)
-    const hazelnut = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_008');
-    assert.ok(hazelnut);
-    assert.equal(hazelnut?.nutrients100g.fatG, 30.9);
-    assert.equal(hazelnut?.nutrients100g.proteinG, 6.0);
-    assert.equal(hazelnut?.nutrients100g.caloriesKcal, 541.0);
-
-    // Dark Chocolate 70% (RP-FR-002)
-    const darkChoc = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_002');
-    assert.ok(darkChoc);
-    assert.equal(darkChoc?.nutrients100g.fatG, 42.6);
-    assert.equal(darkChoc?.nutrients100g.proteinG, 7.8);
-    assert.equal(darkChoc?.nutrients100g.caloriesKcal, 598.0);
-
-    // Milk Chocolate (RP-FR-003)
-    const milkChoc = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_003');
-    assert.ok(milkChoc);
-    assert.equal(milkChoc?.nutrients100g.fatG, 29.7);
-    assert.equal(milkChoc?.nutrients100g.proteinG, 7.7);
-
-    // Sesame Halva (RP-FR-012)
-    const halva = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_012');
-    assert.ok(halva);
-    assert.equal(halva?.nutrients100g.fatG, 26.0);
-    assert.equal(halva?.nutrients100g.proteinG, 12.0);
-
-    // Almond Marzipan (RP-FR-007)
-    const marzipan = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_007');
-    assert.ok(marzipan);
-    assert.equal(marzipan?.nutrients100g.fatG, 25.5);
-    assert.equal(marzipan?.nutrients100g.proteinG, 8.5);
-
-    // Corn Syrup (RP-FR-009)
-    const cornSyrup = allItems.find((f) => f.id === 'food_fruit_rp_rp_fr_009');
-    assert.ok(cornSyrup);
-    assert.equal(cornSyrup?.nutrients100g.carbsG, 77.4);
-    assert.equal(cornSyrup?.nutrients100g.proteinG, 0.0);
-    assert.equal(cornSyrup?.nutrients100g.fatG, 0.0);
+    for (const code of ['RP-FR-008', 'RP-FR-002', 'RP-FR-003', 'RP-FR-012', 'RP-FR-007', 'RP-FR-009']) {
+      const item = allItems.find((f) => f.code === code);
+      assert.ok(item, `${code} must exist`);
+      assert.equal(item?.sourceId, 'regimeplan_2026');
+      assert.equal(item?.compositionBasis, 'exchange_only');
+      assert.equal(item?.nutrients100g.caloriesKcal, null);
+      assert.equal(item?.nutrients100g.carbsG, null);
+      assert.equal(item?.nutrients100g.proteinG, null);
+      assert.equal(item?.nutrients100g.fatG, null);
+    }
   });
 
-  it('verifies Plant Milks reflect authentic analytical composition across variants', () => {
+  it('downgrades variable commercial Plant Milks to exchange_only while preserving bovine milk tier standards', () => {
     const allItems = getAllFoodItems();
-    
-    // Unsweetened Almond Milk (RP-DA-016)
-    const almondMilk = allItems.find((f) => f.id === 'food_dairy_rp_da_016');
-    assert.ok(almondMilk);
-    assert.equal(almondMilk?.nutrients100g.caloriesKcal, 15.0);
-    assert.equal(almondMilk?.nutrients100g.carbsG, 0.3);
-    assert.equal(almondMilk?.nutrients100g.proteinG, 0.6);
-    assert.equal(almondMilk?.nutrients100g.fatG, 1.1);
+    for (const id of [
+      'food_dairy_rp_da_016',
+      'food_dairy_rp_da_017',
+      'food_dairy_rp_da_018',
+      'food_dairy_rp_da_026',
+      'food_dairy_rp_da_027',
+    ]) {
+      const plantMilk = allItems.find((f) => f.id === id);
+      assert.ok(plantMilk, `${id} must exist`);
+      assert.equal(plantMilk?.sourceId, 'regimeplan_2026');
+      assert.equal(plantMilk?.compositionBasis, 'exchange_only');
+      assert.equal(plantMilk?.nutrients100g.caloriesKcal, null);
+      assert.equal(plantMilk?.nutrients100g.carbsG, null);
+      assert.equal(plantMilk?.nutrients100g.proteinG, null);
+      assert.equal(plantMilk?.nutrients100g.fatG, null);
+    }
 
-    // Unsweetened Oat Milk (RP-DA-017)
-    const oatMilk = allItems.find((f) => f.id === 'food_dairy_rp_da_017');
-    assert.ok(oatMilk);
-    assert.equal(oatMilk?.nutrients100g.caloriesKcal, 48.0);
-    assert.equal(oatMilk?.nutrients100g.carbsG, 6.7);
-    assert.equal(oatMilk?.nutrients100g.proteinG, 0.8);
-    assert.equal(oatMilk?.nutrients100g.fatG, 1.5);
-
-    // Unsweetened Soy Milk (RP-DA-018)
-    const soyMilk = allItems.find((f) => f.id === 'food_dairy_rp_da_018');
-    assert.ok(soyMilk);
-    assert.equal(soyMilk?.nutrients100g.caloriesKcal, 33.0);
-    assert.equal(soyMilk?.nutrients100g.carbsG, 1.7);
-    assert.equal(soyMilk?.nutrients100g.proteinG, 2.8);
-    assert.equal(soyMilk?.nutrients100g.fatG, 1.6);
-
-    // Sweetened Almond Milk (RP-DA-026)
-    const sweetAlmond = allItems.find((f) => f.id === 'food_dairy_rp_da_026');
-    assert.ok(sweetAlmond);
-    assert.equal(sweetAlmond?.nutrients100g.caloriesKcal, 30.0);
-    assert.equal(sweetAlmond?.nutrients100g.carbsG, 3.4);
-
-    // Sweetened Oat Milk (RP-DA-027)
-    const sweetOat = allItems.find((f) => f.id === 'food_dairy_rp_da_027');
-    assert.ok(sweetOat);
-    assert.equal(sweetOat?.nutrients100g.caloriesKcal, 60.0);
-    assert.equal(sweetOat?.nutrients100g.carbsG, 9.2);
+    // Standard bovine milk reference tiers remain clinic_estimated with documented clinical notes
+    const buttermilk = allItems.find((f) => f.code === 'RP-DA-012');
+    assert.ok(buttermilk);
+    assert.equal(buttermilk?.sourceId, 'clinic_reviewed');
+    assert.equal(buttermilk?.compositionBasis, 'clinic_estimated');
+    assert.equal(buttermilk?.nutrients100g.caloriesKcal, 40.0);
   });
 
   it('ensures all pagination artifacts are eliminated and catalog has 676 valid items', () => {
@@ -822,22 +735,25 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
       assert.equal(defaultPortion.isUnclassifiedExchange, true);
       assert.equal(defaultPortion.exchangeEvidenceStatus, 'unclassified_composite');
 
-      // Scaled nutrients via calculation engine
+      // Scaled nutrients via calculation engine (downgraded to exchange_only)
       const scaled = calculatePortionNutrients(item, defaultPortion.id, 1);
       assert.notEqual(scaled.exchangeCategory, 'fruit');
       assert.equal(scaled.exchangeCategory, 'combination_food');
       assert.equal(scaled.isUnclassifiedExchange, true);
       assert.strictEqual(scaled.calculatedExchangeCount, undefined, 'Unclassified composite must not produce a nominal exchange count');
-      assert.ok(scaled.caloriesKcal !== null && scaled.caloriesKcal > 50, `${code} portion must preserve its authentic caloric content`);
+      assert.equal(item.compositionBasis, 'exchange_only');
+      assert.equal(scaled.caloriesKcal, null, `${code} downgraded exchange_only portion must preserve null caloriesKcal`);
     }
   });
 
-  it('ensures Occasion foods are not globally assigned free_food and RP-OCC-001 calculates accurately', () => {
+  it('ensures Occasion foods are not globally assigned free_food and RP-OCC-001 preserves leaflet reference without unverified macro estimates', () => {
     const allItems = getAllFoodItems();
     const rpOccasions = allItems.filter((f) => f.code && f.code.startsWith('RP-OCC-'));
     assert.equal(rpOccasions.length, 36, 'Expected exactly 36 RP-OCC occasion items');
 
     for (const item of rpOccasions) {
+      assert.equal(item.sourceId, 'egyptian_exchange_guide_2026');
+      assert.equal(item.compositionBasis, 'exchange_only');
       assert.notEqual(
         item.primaryExchangeCategoryId,
         'free_food',
@@ -855,12 +771,15 @@ describe('12. Phase 1 Critical Food Catalog & UI Integrity Repair', () => {
     // Specific test for RP-OCC-001 (Ramadan Dates with Milk Drink)
     const datesMilk = allItems.find((f) => f.code === 'RP-OCC-001')!;
     assert.ok(datesMilk);
+    assert.equal(datesMilk.sourceId, 'egyptian_exchange_guide_2026');
+    assert.equal(datesMilk.compositionBasis, 'exchange_only');
+    assert.ok(datesMilk.portions[0].portionNameEn.includes('200 kcal'));
     const scaledPortion = calculatePortionNutrients(datesMilk, datesMilk.portions[0].id, 1);
     assert.equal(scaledPortion.netWeightG, 250);
-    assert.equal(scaledPortion.caloriesKcal, 200.0, '250g serving must scale to exactly 200 kcal');
-    assert.equal(scaledPortion.carbsG, 38.0, '250g serving must scale to exactly 38g carbs');
-    assert.equal(scaledPortion.proteinG, 6.0, '250g serving must scale to exactly 6g protein');
-    assert.equal(scaledPortion.fatG, 3.0, '250g serving must scale to exactly 3g fat');
+    assert.equal(scaledPortion.caloriesKcal, null);
+    assert.equal(scaledPortion.carbsG, null);
+    assert.equal(scaledPortion.proteinG, null);
+    assert.equal(scaledPortion.fatG, null);
     assert.notEqual(scaledPortion.exchangeCategory, 'free_food');
     assert.equal(scaledPortion.exchangeCategory, 'combination_food');
     assert.equal(scaledPortion.isUnclassifiedExchange, true);
@@ -1226,16 +1145,24 @@ describe('13. Critical Analytical Composition & Exchange Classification Separati
     assert.equal(medjool.nutrients100g.caloriesKcal, 277.0);
     assert.equal(medjool.nutrients100g.fiberG, 6.7);
 
-    // Meats: TVP (RP-MT-118), Boiled egg (RP-MT-191), Breaded chicken (RP-MT-165), Feta (RP-MT-184), Firm tofu (RP-MT-179)
+    // Meats: USDA items retain analytical assays (Boiled egg RP-MT-191, Feta RP-MT-184, Firm tofu RP-MT-179);
+    // Recipe-based Breaded Chicken (RECIPE-PANE-001) retains documented recipe carbs > 10g;
+    // Unverified non-USDA RP-MT-118 (TVP) and RP-MT-165 are downgraded to exchange_only.
     const tvp = getFoodItemById('food_meat_rp_mt_118')!;
     const boiledEgg = getFoodItemById('food_meat_rp_mt_191')!;
-    const breadedChicken = getFoodItemById('food_meat_rp_mt_165')!;
+    const rpBreadedChicken = getFoodItemById('food_meat_rp_mt_165')!;
+    const recipePane = getFoodItemById('food_chicken_breast_fried_breaded')!;
     const fetaMeat = getFoodItemById('food_meat_rp_mt_184')!;
     const firmTofu = getFoodItemById('food_meat_rp_mt_179')!;
 
-    assert.ok(tvp.nutrients100g.carbsG !== null && tvp.nutrients100g.carbsG > 30 && tvp.nutrients100g.fatG !== null && tvp.nutrients100g.fatG < 3);
+    assert.equal(tvp.compositionBasis, 'exchange_only');
+    assert.equal(tvp.preparationState, 'dried');
+    assert.equal(tvp.nutrients100g.caloriesKcal, null);
+    assert.equal(rpBreadedChicken.compositionBasis, 'exchange_only');
+    assert.equal(rpBreadedChicken.nutrients100g.caloriesKcal, null);
+    assert.equal(recipePane.compositionBasis, 'recipe_based');
+    assert.ok(recipePane.nutrients100g.carbsG !== null && recipePane.nutrients100g.carbsG > 10);
     assert.ok(boiledEgg.nutrients100g.carbsG !== null && boiledEgg.nutrients100g.carbsG > 0.5 && boiledEgg.nutrients100g.fatG !== null && boiledEgg.nutrients100g.fatG < 12);
-    assert.ok(breadedChicken.nutrients100g.carbsG !== null && breadedChicken.nutrients100g.carbsG > 10);
     assert.ok(fetaMeat.nutrients100g.carbsG !== null && fetaMeat.nutrients100g.carbsG > 2);
     assert.ok(firmTofu.nutrients100g.carbsG !== null && firmTofu.nutrients100g.carbsG > 1 && firmTofu.nutrients100g.fatG !== null && firmTofu.nutrients100g.fatG < 12);
   });
@@ -1301,12 +1228,14 @@ describe('14. Release-Gate USDA Provenance & Preparation State Integrity', () =>
     assert.equal(firmTofu.sourceRecordId, '16426');
   });
 
-  it('downgrades unverified commercial-label or conflicting USDA claims to clinic_reviewed without sourceRecordId', () => {
+  it('downgrades unverified commercial-label or conflicting USDA claims to exchange_only without sourceRecordId', () => {
     for (const id of ['food_fat_rp_ft_064', 'food_meat_rp_mt_177', 'food_meat_rp_mt_161']) {
       const rec = getFoodItemById(id)!;
       assert.ok(rec, `Missing ${id}`);
-      assert.equal(rec.sourceId, 'clinic_reviewed');
+      assert.equal(rec.sourceId, 'regimeplan_2026');
       assert.equal(rec.verificationStatus, 'clinic_reviewed');
+      assert.equal(rec.compositionBasis, 'exchange_only');
+      assert.equal(rec.nutrients100g.caloriesKcal, null);
       assert.equal(rec.sourceRecordId, undefined);
     }
   });
@@ -1352,11 +1281,11 @@ describe('15. Exchange-Only Null Propagation & Integrity Repair Gate', () => {
   it('enforces strict separation between compositionBasis=exchange_only and assayed records', () => {
     const all = getAllFoodItems();
     for (const item of all) {
-      if (item.sourceId === 'regimeplan_2026') {
-        assert.equal(item.compositionBasis, 'exchange_only', `${item.code} regimeplan_2026 must be exchange_only`);
+      if (item.sourceId === 'regimeplan_2026' || item.sourceId === 'egyptian_exchange_guide_2026') {
+        assert.equal(item.compositionBasis, 'exchange_only', `${item.code} exchange-source item must be exchange_only`);
         assert.equal(hasAnalyticalMacros(item.nutrients100g), false);
       } else {
-        assert.notEqual(item.compositionBasis, 'exchange_only', `${item.code} non-regimeplan item cannot be exchange_only`);
+        assert.notEqual(item.compositionBasis, 'exchange_only', `${item.code} analytical/reviewed item cannot be exchange_only`);
         assert.equal(hasAnalyticalMacros(item.nutrients100g), true, `${item.code} assayed item must have complete finite macros`);
       }
     }

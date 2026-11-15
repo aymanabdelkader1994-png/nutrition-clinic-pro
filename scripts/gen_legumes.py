@@ -66,18 +66,9 @@ LEG_USDA_SR_PROFILES = {
     "RP-LEG-029": {"sourceRecordId": "16027", "nutrients": {"caloriesKcal": 333.0, "carbsG": 60.0, "proteinG": 23.6, "fatG": 0.83, "fiberG": 24.9, "saturatedFatG": 0.12, "transFatG": 0.0, "monounsaturatedFatG": 0.064, "polyunsaturatedFatG": 0.457, "cholesterolMg": 0.0, "sodiumMg": 24.0, "potassiumMg": 1410.0, "calciumMg": 143.0, "ironMg": 8.2, "waterG": 11.8}},
 }
 
-LEG_ANALYTICAL_OVERRIDES = {
-    "RP-LEG-001": {"caloriesKcal": 341.0, "carbsG": 58.3, "proteinG": 26.1, "fatG": 1.5, "fiberG": 25.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-005": {"caloriesKcal": 127.0, "carbsG": 22.8, "proteinG": 8.7, "fatG": 0.5, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-007": {"caloriesKcal": 352.0, "carbsG": 63.4, "proteinG": 24.6, "fatG": 1.1, "fiberG": 10.7, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-008": {"caloriesKcal": 378.0, "carbsG": 63.0, "proteinG": 20.5, "fatG": 6.0, "fiberG": 12.2, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-016": {"caloriesKcal": 116.0, "carbsG": 20.8, "proteinG": 7.7, "fatG": 0.5, "fiberG": 6.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-017": {"caloriesKcal": 118.0, "carbsG": 21.1, "proteinG": 8.3, "fatG": 0.4, "fiberG": 8.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-018": {"caloriesKcal": 119.0, "carbsG": 9.9, "proteinG": 15.6, "fatG": 2.9, "fiberG": 2.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-023": {"caloriesKcal": 110.0, "carbsG": 19.7, "proteinG": 7.6, "fatG": 0.4, "fiberG": 5.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-026": {"caloriesKcal": 139.0, "carbsG": 22.6, "proteinG": 7.0, "fatG": 2.6, "fiberG": 6.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-LEG-027": {"caloriesKcal": 387.0, "carbsG": 57.8, "proteinG": 22.4, "fatG": 6.7, "fiberG": 10.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-}
+# Unverified legume overrides without institutional FDC provenance are intentionally kept empty
+# so unassayed items remain exchange_only (null nutrients100g) and do not duplicate meats.ts estimates.
+LEG_ANALYTICAL_OVERRIDES = {}
 
 CORE_KEYS = [
     "caloriesKcal", "carbsG", "proteinG", "fatG",

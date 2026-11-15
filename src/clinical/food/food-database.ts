@@ -54,6 +54,16 @@ export const DATA_SOURCES: Record<string, FoodDataSource> = {
     publicationYear: 2026,
     isStandardReference: true,
   },
+  egyptian_exchange_guide_2026: {
+    id: 'egyptian_exchange_guide_2026',
+    code: 'EGY-OCC-GUIDE-2026',
+    nameEn: 'Egyptian Holiday & Occasions Food Exchange Guide (Visual Leaflet)',
+    nameAr: 'الدليل المصري المصور لأطعمة المناسبات والحلويات والأعياد',
+    citation: 'Egyptian Clinical Holiday & Traditional Occasions Visual Exchange Leaflet (Ramadan & Eid). Documents household portion weights and calorie guides; unassayed macronutrients remain strictly null (exchange_only).',
+    countryOrRegion: 'Egypt',
+    publicationYear: 2026,
+    isStandardReference: false,
+  },
   clinic_reviewed: {
     id: 'clinic_reviewed',
     code: 'NCP-CLINIC-REV',
@@ -67,7 +77,7 @@ export const DATA_SOURCES: Record<string, FoodDataSource> = {
 
 /**
  * The standard compiled database containing 676 food records across analytical food tables
- * (verified_standard), clinic-reviewed / exchange-only records (clinic_reviewed),
+ * (verified_standard), clinic-reviewed reference / exchange-only records (clinic_reviewed),
  * and standardized composite recipes (recipe_based).
  */
 export const STANDARD_FOOD_DATABASE: FoodItemRecord[] = ALL_EXPANDED_FOOD_ITEMS;

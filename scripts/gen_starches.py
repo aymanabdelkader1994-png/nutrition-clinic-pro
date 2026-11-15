@@ -231,56 +231,23 @@ STARCH_USDA_SR_PROFILES = {
 }
 
 STARCH_ANALYTICAL_OVERRIDES = {
-    "RP-ST-128": {"caloriesKcal": 389.0, "carbsG": 99.5, "proteinG": 0.0, "fatG": 0.0, "waterG": 0.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-121": {"caloriesKcal": 387.0, "carbsG": 100.0, "proteinG": 0.0, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-127": {"caloriesKcal": 380.0, "carbsG": 98.1, "proteinG": 0.1, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-122": {"caloriesKcal": 304.0, "carbsG": 82.4, "proteinG": 0.3, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-123": {"caloriesKcal": 260.0, "carbsG": 67.0, "proteinG": 0.0, "fatG": 0.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-124": {"caloriesKcal": 310.0, "carbsG": 76.4, "proteinG": 0.1, "fatG": 0.5, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-125": {"caloriesKcal": 290.0, "carbsG": 74.7, "proteinG": 0.0, "fatG": 0.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-126": {"caloriesKcal": 375.0, "carbsG": 93.4, "proteinG": 1.1, "fatG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-120": {"caloriesKcal": 260.0, "carbsG": 65.0, "proteinG": 0.0, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-071": {"caloriesKcal": 381.0, "carbsG": 91.3, "proteinG": 0.3, "fatG": 0.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-080": {"caloriesKcal": 358.0, "carbsG": 88.7, "proteinG": 0.2, "fatG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-081": {"caloriesKcal": 357.0, "carbsG": 83.1, "proteinG": 6.9, "fatG": 0.3, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-082": {"caloriesKcal": 357.0, "carbsG": 88.2, "proteinG": 0.3, "fatG": 0.1, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-020": {"caloriesKcal": 370.0, "carbsG": 76.5, "proteinG": 11.2, "fatG": 1.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-049": {"caloriesKcal": 357.0, "carbsG": 84.0, "proteinG": 7.5, "fatG": 0.4, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-ST-104": {"caloriesKcal": 387.0, "carbsG": 81.5, "proteinG": 8.2, "fatG": 2.8, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    # Non-starch / high-fat / severe distortion analytical overrides
-    "RP-ST-090": {
-        "caloriesKcal": 26.0, "carbsG": 6.5, "proteinG": 1.0, "fatG": 0.1,
-        "fiberG": 0.5, "waterG": 91.6,
+    "RP-ST-128": {
+        "caloriesKcal": 389.0, "carbsG": 99.5, "proteinG": 0.0, "fatG": 0.0, "waterG": 0.5,
         "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed refined confectioners sugar (~97% sucrose + ~3% anticaking cornstarch, ~0.5g moisture); energy follows pure sucrose Atwater specific factor (3.87 kcal/g -> ~389 kcal/100g).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للسكر البودرة (~99.5 جم كربوهيدرات تشمل ~3% نشا مانع للتكتل، 0.5 جم رطوبة) بمعامل طاقة السكروز النوعي 3.87 سعرة/جم.",
     },
-    "RP-ST-091": {
-        "caloriesKcal": 20.0, "carbsG": 4.9, "proteinG": 0.7, "fatG": 0.1,
-        "fiberG": 1.1, "waterG": 93.7,
+    "RP-ST-121": {
+        "caloriesKcal": 387.0, "carbsG": 100.0, "proteinG": 0.0, "fatG": 0.0,
         "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed refined granulated white sucrose (~100% pure disaccharide carbohydrate); energy reflects specific sucrose Atwater factor of 3.87 kcal/g (387 kcal/100g).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للسكر الأبيض المكرر (سكروز نقي ~100%) بمعامل طاقة السكروز النوعي 3.87 سعرة/جم (387 سعرة/100 جم).",
     },
-    "RP-ST-109": {
-        "caloriesKcal": 406.0, "carbsG": 45.8, "proteinG": 8.2, "fatG": 21.0,
-        "fiberG": 2.6,
+    "RP-ST-127": {
+        "caloriesKcal": 380.0, "carbsG": 98.1, "proteinG": 0.1, "fatG": 0.0,
         "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-ST-110": {
-        "caloriesKcal": 390.0, "carbsG": 42.0, "proteinG": 6.5, "fatG": 22.0,
-        "sourceId": "clinic_reviewed", "verificationStatus": "recipe_based",
-    },
-    "RP-ST-114": {
-        "caloriesKcal": 312.0, "carbsG": 41.4, "proteinG": 3.4, "fatG": 14.7,
-        "fiberG": 3.8,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-ST-115": {
-        "caloriesKcal": 409.0, "carbsG": 63.0, "proteinG": 4.5, "fatG": 24.0,
-        "fiberG": 10.0,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
-    },
-    "RP-ST-117": {
-        "caloriesKcal": 220.0, "carbsG": 44.1, "proteinG": 3.2, "fatG": 3.4,
-        "fiberG": 2.7,
-        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed brown sucrose sugar (~98.1g sucrose with trace molasses solids and ~1.8% moisture); energy follows 3.87 kcal/g sucrose specific factor (~380 kcal/100g).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للسكر البني (~98.1 جم سكروز ودبس، ~1.8% رطوبة) بمعامل طاقة السكروز النوعي 3.87 سعرة/جم.",
     },
 }
 
@@ -358,8 +325,10 @@ def make_starch_item(row):
             f"Standard starch exchange portion: {w}g ({hh_en}). Analytical 100g composition is unassayed."
         )
     else:
-        notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar})."
-        notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {page}) starch exchange portion: {w}g ({hh_en})."
+        rev_ar = override.get("reviewNoteAr", "")
+        rev_en = override.get("reviewNoteEn", "")
+        notes_ar = f"{rev_ar} وزن الحصة البديلة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar}).".strip()
+        notes_en = f"{rev_en} RegimePlan Food Exchange Lists (2026, p. {page}) starch exchange portion: {w}g ({hh_en}).".strip()
 
     item_id = f"food_starch_rp_{code.lower().replace('-', '_')}"
     record = {

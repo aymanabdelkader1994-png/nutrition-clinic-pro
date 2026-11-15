@@ -57,35 +57,67 @@ RAW_DAIRY = [
 
 DAIRY_ANALYTICAL_OVERRIDES = {
     "RP-DA-001": {"caloriesKcal": 61.0, "carbsG": 4.8, "proteinG": 3.2, "fatG": 3.3, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01211", "verificationStatus": "verified_standard"},
-    "RP-DA-002": {"caloriesKcal": 61.0, "carbsG": 4.7, "proteinG": 3.5, "fatG": 3.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-DA-002": {
+        "caloriesKcal": 61.0, "carbsG": 4.7, "proteinG": 3.5, "fatG": 3.3, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed unflavored whole-milk yogurt standard (~3.3% milkfat, ~4.7% lactose/galactose, ~3.5% dairy protein; Atwater check: 62.5 kcal vs 61.0 kcal, delta -1.5 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للزبادي السادة كامل الدسم (~3.3% دهون، ~4.7% لاكتوز، ~3.5% بروتين ألبان).",
+    },
     "RP-DA-003": {"caloriesKcal": 97.0, "carbsG": 4.0, "proteinG": 9.0, "fatG": 5.0, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01293", "verificationStatus": "verified_standard"},
-    "RP-DA-004": {"caloriesKcal": 134.0, "carbsG": 10.0, "proteinG": 6.8, "fatG": 7.6, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-005": {"caloriesKcal": 60.0, "carbsG": 4.5, "proteinG": 3.3, "fatG": 3.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-006": {"caloriesKcal": 58.0, "carbsG": 4.6, "proteinG": 3.3, "fatG": 3.0, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-007": {"caloriesKcal": 61.0, "carbsG": 4.7, "proteinG": 3.5, "fatG": 3.3, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-008": {"caloriesKcal": 496.0, "carbsG": 38.4, "proteinG": 26.3, "fatG": 26.7, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-009": {"caloriesKcal": 47.0, "carbsG": 4.9, "proteinG": 3.3, "fatG": 1.5, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-010": {"caloriesKcal": 63.0, "carbsG": 7.0, "proteinG": 5.3, "fatG": 1.6, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-011": {"caloriesKcal": 34.0, "carbsG": 5.0, "proteinG": 3.4, "fatG": 0.1, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
-    "RP-DA-012": {"caloriesKcal": 40.0, "carbsG": 4.8, "proteinG": 3.3, "fatG": 0.9, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
+    "RP-DA-004": {
+        "caloriesKcal": 134.0, "carbsG": 10.0, "proteinG": 6.8, "fatG": 7.6, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed ~2.1x concentrated unsweetened evaporated whole cow milk (~7.6% milkfat, ~10.0% lactose, ~6.8% protein; Atwater check: 135.6 kcal vs 134.0 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للحليب المبخر غير المحلى كامل الدسم (~2.1 ضعف تركيز الحليب الكامل).",
+    },
+    "RP-DA-005": {
+        "caloriesKcal": 60.0, "carbsG": 4.5, "proteinG": 3.3, "fatG": 3.3, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed cultured whole-milk kefir standard (~3.3% milkfat, ~4.5% fermented lactose, ~3.3% dairy protein; Atwater delta -0.9 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً لمشروب الكيفير السادة كامل الدسم (~3.3% دهون، ~4.5% كربوهيدرات، ~3.3% بروتين).",
+    },
+    "RP-DA-006": {
+        "caloriesKcal": 58.0, "carbsG": 4.6, "proteinG": 3.3, "fatG": 3.0, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed Egyptian whole fermented Rayeb milk (~3.0% milkfat, ~4.6% lactose, ~3.3% dairy protein; Atwater delta -0.6 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للبن الرايب المصري كامل الدسم (~3.0% دهون، ~4.6% لاكتوز، ~3.3% بروتين).",
+    },
+    "RP-DA-008": {
+        "caloriesKcal": 496.0, "carbsG": 38.4, "proteinG": 26.3, "fatG": 26.7, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed spray-dried whole cow milk powder (~26.7% milkfat, ~38.4% lactose, ~26.3% milk protein, low moisture; Atwater delta -3.1 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للحليب البودرة كامل الدسم المجفف (~26.7% دهون، ~38.4% لاكتوز، ~26.3% بروتين).",
+    },
+    "RP-DA-009": {
+        "caloriesKcal": 47.0, "carbsG": 4.9, "proteinG": 3.3, "fatG": 1.5, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed 1.5% reduced-fat fluid cow milk midpoint (~1.5% milkfat, ~4.9% lactose, ~3.3% dairy protein; Atwater delta +0.7 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للحليب البقري قليل الدسم (~1.5% دهون، ~4.9% لاكتوز، ~3.3% بروتين).",
+    },
+    "RP-DA-010": {
+        "caloriesKcal": 63.0, "carbsG": 7.0, "proteinG": 5.3, "fatG": 1.6, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed plain low-fat yogurt standard (~1.6% milkfat, concentrated milk solids ~7.0% lactose, ~5.3% dairy protein; Atwater delta -0.6 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للزبادي قليل الدسم (~1.6% دهون، ~7.0% كربوهيدرات، ~5.3% بروتين).",
+    },
+    "RP-DA-011": {
+        "caloriesKcal": 34.0, "carbsG": 5.0, "proteinG": 3.4, "fatG": 0.1, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed fat-free fluid skim cow milk (~0.1% residual milkfat, ~5.0% lactose, ~3.4% dairy protein; Atwater delta -0.5 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للحليب الفرز خالي الدسم (~0.1% دهون، ~5.0% لاكتوز، ~3.4% بروتين).",
+    },
+    "RP-DA-012": {
+        "caloriesKcal": 40.0, "carbsG": 4.8, "proteinG": 3.3, "fatG": 0.9, "fiberG": 0.0,
+        "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
+        "reviewNoteEn": "Clinically reviewed cultured low-fat/nonfat buttermilk (~0.9% residual milkfat, ~4.8% lactose, ~3.3% dairy protein; Atwater delta -0.5 kcal).",
+        "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للبن المخيض منخفض/خالي الدسم (~0.9% دهون، ~4.8% لاكتوز، ~3.3% بروتين).",
+    },
     "RP-DA-013": {"caloriesKcal": 362.0, "carbsG": 52.0, "proteinG": 36.2, "fatG": 0.8, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01091", "verificationStatus": "verified_standard"},
-    "RP-DA-014": {"caloriesKcal": 34.0, "carbsG": 5.0, "proteinG": 3.4, "fatG": 0.1, "fiberG": 0.0, "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed"},
     "RP-DA-015": {"caloriesKcal": 59.0, "carbsG": 3.6, "proteinG": 10.2, "fatG": 0.4, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01256", "verificationStatus": "verified_standard"},
-    "RP-DA-016": {"caloriesKcal": 15, "carbsG": 0.3, "proteinG": 0.6, "fatG": 1.1},
-    "RP-DA-017": {"caloriesKcal": 48, "carbsG": 6.7, "proteinG": 0.8, "fatG": 1.5},
-    "RP-DA-018": {"caloriesKcal": 33, "carbsG": 1.7, "proteinG": 2.8, "fatG": 1.6},
-    "RP-DA-019": {"caloriesKcal": 47, "carbsG": 9.2, "proteinG": 0.3, "fatG": 1},
-    "RP-DA-020": {"caloriesKcal": 25, "carbsG": 1.5, "proteinG": 0.7, "fatG": 2},
-    "RP-DA-021": {"caloriesKcal": 30, "carbsG": 0.4, "proteinG": 0.8, "fatG": 2.9},
-    "RP-DA-022": {"caloriesKcal": 40, "carbsG": 0, "proteinG": 3.3, "fatG": 1.9},
-    "RP-DA-023": {"caloriesKcal": 25, "carbsG": 0.4, "proteinG": 0, "fatG": 1},
-    "RP-DA-024": {"caloriesKcal": 20, "carbsG": 0.4, "proteinG": 0.4, "fatG": 2},
-    "RP-DA-025": {"caloriesKcal": 20, "carbsG": 0.8, "proteinG": 0.2, "fatG": 2},
-    "RP-DA-026": {"caloriesKcal": 30, "carbsG": 3.4, "proteinG": 0.5, "fatG": 1.1},
-    "RP-DA-027": {"caloriesKcal": 60, "carbsG": 9.2, "proteinG": 1, "fatG": 1.5},
 }
 
 CORE_KEYS = [
+    "caloriesKcal", "carbsG", "proteinG", "fatG",
     "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
     "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg",
     "calciumMg", "ironMg", "waterG"
@@ -94,14 +126,27 @@ CORE_KEYS = [
 
 def make_dairy_item(raw):
     name_ar, name_en, w, hh_ar, hh_en, prep, sub_cat, code, page = raw
-    if code not in DAIRY_ANALYTICAL_OVERRIDES:
-        raise ValueError(f"CRITICAL DATA INTEGRITY ERROR: {code} missing from DAIRY_ANALYTICAL_OVERRIDES.")
+    override = DAIRY_ANALYTICAL_OVERRIDES.get(code)
 
-    override = DAIRY_ANALYTICAL_OVERRIDES[code]
-    kcal100 = override["caloriesKcal"]
-    c100 = override["carbsG"]
-    p100 = override["proteinG"]
-    f100 = override["fatG"]
+    if override:
+        kcal100 = override["caloriesKcal"]
+        c100 = override["carbsG"]
+        p100 = override["proteinG"]
+        f100 = override["fatG"]
+        src_id = override.get("sourceId", "clinic_reviewed")
+        src_rec_id = override.get("sourceRecordId")
+        ver_status = override.get("verificationStatus", "clinic_reviewed")
+        comp_basis = "analytical_table" if src_id in ("usda_fdc", "egyptian_nni_2006") else "clinic_estimated"
+    else:
+        override = {}
+        kcal100 = None
+        c100 = None
+        p100 = None
+        f100 = None
+        src_id = "regimeplan_2026"
+        src_rec_id = None
+        ver_status = "clinic_reviewed"
+        comp_basis = "exchange_only"
 
     nutrients = {
         "basisWeightG": 100,
@@ -125,11 +170,6 @@ def make_dairy_item(raw):
     }
     nutrients["missingNutrientKeys"] = [k for k in CORE_KEYS if nutrients[k] is None]
 
-    src_id = override.get("sourceId", "clinic_reviewed")
-    src_rec_id = override.get("sourceRecordId")
-    ver_status = override.get("verificationStatus", "clinic_reviewed")
-    comp_basis = "analytical_table" if src_id in ("usda_fdc", "egyptian_nni_2006") else "clinic_estimated"
-
     if src_id == "usda_fdc":
         if not src_rec_id or not re.match(r"^\d{5,6}$", str(src_rec_id)):
             raise ValueError(f"{code}: Invalid USDA NDB ID {src_rec_id!r}")
@@ -141,9 +181,20 @@ def make_dairy_item(raw):
             f"Analytical 100g composition from USDA SR Legacy (NDB {src_rec_id}). "
             f"RegimePlan Food Exchange Lists (2026, p. {page}) exchange portion: {w}g ({hh_en})."
         )
+    elif comp_basis == "exchange_only":
+        notes_ar = (
+            f"سجل بديل غذائي فقط من RegimePlan 2026 (ص {page}). "
+            f"وزن الحصة البديلة: {w} جم ({hh_ar}). التركيبة التحليلية لكل 100 جم غير محللة نظراً لاختلاف العلامات التجارية."
+        )
+        notes_en = (
+            f"Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. {page}). "
+            f"Standard dairy/milk-substitute exchange portion: {w}g ({hh_en}). Analytical 100g composition is unassayed due to formulation/brand variability."
+        )
     else:
-        notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar})."
-        notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {page}) exchange portion: {w}g ({hh_en})."
+        rev_ar = override.get("reviewNoteAr", "")
+        rev_en = override.get("reviewNoteEn", "")
+        notes_ar = f"{rev_ar} وزن الحصة البديلة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar}).".strip()
+        notes_en = f"{rev_en} RegimePlan Food Exchange Lists (2026, p. {page}) exchange portion: {w}g ({hh_en}).".strip()
 
     item_id = f"food_dairy_{code.lower().replace('-', '_')}"
     record = {
