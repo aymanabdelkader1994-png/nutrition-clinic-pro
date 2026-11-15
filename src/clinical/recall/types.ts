@@ -127,7 +127,7 @@ export interface NutrientAggregationItem {
   nameEn: string;
   nameAr: string;
   unit: string;
-  observedTotal: number;
+  observedTotal: number | null; // null when no constituent entry has an analytical observation
   completeTotal: number | null; // null if any constituent entry has missing data
   isComplete: boolean;
   knownEntriesCount: number;
@@ -156,7 +156,7 @@ export interface MultiDayNutrientAverageItem {
   nameAr: string;
   unit: string;
   averageValue: number | null; // Complete average (null if no recorded days or any recorded day is incomplete)
-  observedAverage: number | null; // Average of available observed totals across recorded days (null if no recorded days)
+  observedAverage: number | null; // Average of available observed totals across days with valid analytical observations (null if none)
   completeDaysCount: number;
   totalRecordedDays: number;
   denominator: number;
@@ -180,7 +180,7 @@ export interface TargetComparisonItem {
   labelEn: string;
   labelAr: string;
   unit: string;
-  actualIntake: number | null; // Daily average actual intake (null if no recorded days)
+  actualIntake: number | null; // Daily average actual intake (null if no valid analytical observations)
   isActualIncomplete?: boolean; // True if any entry in the analyzed period lacks energy/macro assay data
   targetValue: number | null; // From Phase 1 assessment
   difference: number | null; // actual - target

@@ -39,6 +39,7 @@ import {
 import {
   createNewRecallSession,
   resolveRecallEntry,
+  aggregateRecallEntries,
   calculateDayNutrientSummary,
   calculateMultiDayRecallAnalysis,
   compareIntakeWithPhase1Targets,
@@ -470,6 +471,8 @@ export function RecallWorkbench({
                   >
                     {daySummary.totalEntriesCount === 0
                       ? isAr ? 'لا توجد سجلات' : 'No entries'
+                      : daySummary.caloriesKcal.observedTotal === null
+                      ? isAr ? '— (غير محلل)' : '— (Unassayed)'
                       : `${daySummary.caloriesKcal.observedTotal} kcal${
                           !daySummary.caloriesKcal.isComplete ? ` (${isAr ? 'جزئي' : 'Partial'})` : ''
                         }`}
@@ -518,29 +521,19 @@ export function RecallWorkbench({
               ? meal.customNameAr || def?.defaultNameAr || 'وجبة'
               : meal.customNameEn || def?.defaultNameEn || 'Meal';
 
-            // Calculate meal subtotals without coercing null to zero when all entries are unassayed
-            let mealKcal = 0;
-            let mealPro = 0;
-            let mealCarb = 0;
-            let mealFat = 0;
-            let mealHasIncompleteMacros = false;
-            let mealHasKnownMacros = false;
-            meal.entries.forEach((e) => {
-              if (
-                e.nutrients.caloriesKcal === null ||
-                e.nutrients.proteinG === null ||
-                e.nutrients.carbsG === null ||
-                e.nutrients.fatG === null
-              ) {
-                mealHasIncompleteMacros = true;
-              } else {
-                mealHasKnownMacros = true;
-              }
-              mealKcal += e.nutrients.caloriesKcal ?? 0;
-              mealPro += e.nutrients.proteinG ?? 0;
-              mealCarb += e.nutrients.carbsG ?? 0;
-              mealFat += e.nutrients.fatG ?? 0;
-            });
+            // Calculate meal subtotals using aggregateRecallEntries so null vs 0 semantics are preserved
+            const mealSummary = aggregateRecallEntries(meal.entries);
+            const mealHasIncompleteMacros =
+              meal.entries.length > 0 &&
+              (!mealSummary.caloriesKcal.isComplete ||
+                !mealSummary.proteinG.isComplete ||
+                !mealSummary.carbsG.isComplete ||
+                !mealSummary.fatG.isComplete);
+            const mealHasAnyMacro =
+              mealSummary.caloriesKcal.observedTotal !== null ||
+              mealSummary.proteinG.observedTotal !== null ||
+              mealSummary.carbsG.observedTotal !== null ||
+              mealSummary.fatG.observedTotal !== null;
 
             return (
               <div
@@ -574,13 +567,17 @@ export function RecallWorkbench({
                   <div className="flex items-center gap-3">
                     {/* Meal Macro Subtotals */}
                     <div className="hidden text-end text-[11px] sm:block">
-                      {meal.entries.length > 0 && !mealHasKnownMacros ? (
-                        <span className="font-bold text-amber-700">—</span>
+                      {meal.entries.length === 0 || !mealHasAnyMacro ? (
+                        <span className={`font-bold ${meal.entries.length > 0 ? 'text-amber-700' : 'text-slate-400'}`}>—</span>
                       ) : (
                         <>
-                          <span className="font-bold text-slate-900">{Math.round(mealKcal)} kcal</span>
+                          <span className="font-bold text-slate-900">
+                            {mealSummary.caloriesKcal.observedTotal !== null
+                              ? `${Math.round(mealSummary.caloriesKcal.observedTotal)} kcal`
+                              : '—'}
+                          </span>
                           <span className="text-slate-400 ms-1.5">
-                            (P: {mealPro.toFixed(1)}g • C: {mealCarb.toFixed(1)}g • F: {mealFat.toFixed(1)}g)
+                            (P: {mealSummary.proteinG.observedTotal !== null ? `${mealSummary.proteinG.observedTotal.toFixed(1)}g` : '—'} • C: {mealSummary.carbsG.observedTotal !== null ? `${mealSummary.carbsG.observedTotal.toFixed(1)}g` : '—'} • F: {mealSummary.fatG.observedTotal !== null ? `${mealSummary.fatG.observedTotal.toFixed(1)}g` : '—'})
                           </span>
                         </>
                       )}
@@ -682,18 +679,20 @@ export function RecallWorkbench({
                           {/* Nutrients chips */}
                           <div className="flex items-center gap-2 text-[11px]">
                             <span className="rounded bg-slate-50 px-2 py-0.5 font-bold text-slate-800">
-                              {entry.nutrients.caloriesKcal !== null ? `${entry.nutrients.caloriesKcal} kcal` : '—'}
+                              {entry.compositionBasis !== 'exchange_only' && entry.nutrients.caloriesKcal !== null
+                                ? `${entry.nutrients.caloriesKcal} kcal`
+                                : '—'}
                             </span>
                             <span className="text-slate-500">
-                              P: <strong className="text-slate-800">{entry.nutrients.proteinG !== null ? `${entry.nutrients.proteinG}g` : '—'}</strong>
+                              P: <strong className="text-slate-800">{entry.compositionBasis !== 'exchange_only' && entry.nutrients.proteinG !== null ? `${entry.nutrients.proteinG}g` : '—'}</strong>
                             </span>
                             <span className="text-slate-500">
-                              C: <strong className="text-slate-800">{entry.nutrients.carbsG !== null ? `${entry.nutrients.carbsG}g` : '—'}</strong>
+                              C: <strong className="text-slate-800">{entry.compositionBasis !== 'exchange_only' && entry.nutrients.carbsG !== null ? `${entry.nutrients.carbsG}g` : '—'}</strong>
                             </span>
                             <span className="text-slate-500">
-                              F: <strong className="text-slate-800">{entry.nutrients.fatG !== null ? `${entry.nutrients.fatG}g` : '—'}</strong>
+                              F: <strong className="text-slate-800">{entry.compositionBasis !== 'exchange_only' && entry.nutrients.fatG !== null ? `${entry.nutrients.fatG}g` : '—'}</strong>
                             </span>
-                            {entry.nutrients.sodiumMg !== null && (
+                            {entry.compositionBasis !== 'exchange_only' && entry.nutrients.sodiumMg !== null && (
                               <span className="text-slate-500 hidden md:inline">
                                 Na: {entry.nutrients.sodiumMg}mg
                               </span>
@@ -755,14 +754,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'السعرات الفعلية' : 'Energy (Calories)'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.caloriesKcal.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.caloriesKcal.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.caloriesKcal.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.caloriesKcal.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -778,14 +781,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'البروتين' : 'Protein'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.proteinG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.proteinG.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.proteinG.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.proteinG.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -801,14 +808,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'إجمالي الكربوهيدرات' : 'Total Carbohydrates'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.carbsG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.carbsG.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.carbsG.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.carbsG.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -817,11 +828,13 @@ export function RecallWorkbench({
                       </>
                     )}
                   </div>
-                  {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.availableCarbsG.observedTotal > 0 && (
-                    <span className="text-[10px] text-slate-400">
-                      {isAr ? 'المتاحة:' : 'Avail:'} {activeDaySummary.availableCarbsG.observedTotal}g
-                    </span>
-                  )}
+                  {activeDaySummary.totalEntriesCount > 0 &&
+                    activeDaySummary.availableCarbsG.observedTotal !== null &&
+                    activeDaySummary.availableCarbsG.observedTotal > 0 && (
+                      <span className="text-[10px] text-slate-400">
+                        {isAr ? 'المتاحة:' : 'Avail:'} {activeDaySummary.availableCarbsG.observedTotal}g
+                      </span>
+                    )}
                 </div>
 
                 <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3">
@@ -829,14 +842,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الدهون الكلية' : 'Total Fat'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.fatG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.fatG.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.fatG.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-lg font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.fatG.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -852,14 +869,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الألياف الغذائية' : 'Dietary Fiber'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.fiberG.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.fiberG.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.fiberG.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.fiberG.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -875,14 +896,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الصوديوم' : 'Sodium'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.sodiumMg.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.sodiumMg.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.sodiumMg.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.sodiumMg.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -898,14 +923,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'البوتاسيوم' : 'Potassium'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.potassiumMg.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.potassiumMg.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.potassiumMg.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.potassiumMg.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -921,14 +950,18 @@ export function RecallWorkbench({
                     <span className="text-[10px] font-medium text-slate-500">
                       {isAr ? 'الحديد' : 'Iron'}
                     </span>
-                    {activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.ironMg.isComplete && (
+                    {activeDaySummary.totalEntriesCount > 0 && activeDaySummary.ironMg.observedTotal === null ? (
+                      <span className="text-[9px] font-bold text-slate-500">
+                        {isAr ? 'غير متوفر' : 'Unavailable'}
+                      </span>
+                    ) : activeDaySummary.totalEntriesCount > 0 && !activeDaySummary.ironMg.isComplete ? (
                       <span className="text-[9px] font-bold text-amber-600">
                         {isAr ? 'جزئي' : 'Partial'}
                       </span>
-                    )}
+                    ) : null}
                   </div>
                   <div className="mt-0.5 text-base font-bold text-slate-900">
-                    {activeDaySummary.totalEntriesCount === 0 ? (
+                    {activeDaySummary.totalEntriesCount === 0 || activeDaySummary.ironMg.observedTotal === null ? (
                       '—'
                     ) : (
                       <>
@@ -1076,11 +1109,15 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط السعرات:' : 'Average Calories:'}{' '}
-                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.caloriesKcal && !multiDayAnalysis.averages.caloriesKcal.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.caloriesKcal?.observedAverage == null ? (
+                    <span className="text-[10px] font-bold text-slate-500">
+                      ({isAr ? 'غير متوفر' : 'Unavailable'})
+                    </span>
+                  ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.caloriesKcal && !multiDayAnalysis.averages.caloriesKcal.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
-                  )}
+                  ) : null}
                 </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.caloriesKcal?.observedAverage == null
@@ -1091,11 +1128,15 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط البروتين:' : 'Average Protein:'}{' '}
-                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.proteinG && !multiDayAnalysis.averages.proteinG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.proteinG?.observedAverage == null ? (
+                    <span className="text-[10px] font-bold text-slate-500">
+                      ({isAr ? 'غير متوفر' : 'Unavailable'})
+                    </span>
+                  ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.proteinG && !multiDayAnalysis.averages.proteinG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
-                  )}
+                  ) : null}
                 </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.proteinG?.observedAverage == null
@@ -1106,11 +1147,15 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الكربوهيدرات:' : 'Average Carbs:'}{' '}
-                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.carbsG && !multiDayAnalysis.averages.carbsG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.carbsG?.observedAverage == null ? (
+                    <span className="text-[10px] font-bold text-slate-500">
+                      ({isAr ? 'غير متوفر' : 'Unavailable'})
+                    </span>
+                  ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.carbsG && !multiDayAnalysis.averages.carbsG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
-                  )}
+                  ) : null}
                 </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.carbsG?.observedAverage == null
@@ -1121,11 +1166,15 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الدهون:' : 'Average Fat:'}{' '}
-                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fatG && !multiDayAnalysis.averages.fatG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fatG?.observedAverage == null ? (
+                    <span className="text-[10px] font-bold text-slate-500">
+                      ({isAr ? 'غير متوفر' : 'Unavailable'})
+                    </span>
+                  ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fatG && !multiDayAnalysis.averages.fatG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
-                  )}
+                  ) : null}
                 </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.fatG?.observedAverage == null
@@ -1136,11 +1185,15 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1 border-b border-slate-50">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الألياف:' : 'Average Fiber:'}{' '}
-                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fiberG && !multiDayAnalysis.averages.fiberG.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fiberG?.observedAverage == null ? (
+                    <span className="text-[10px] font-bold text-slate-500">
+                      ({isAr ? 'غير متوفر' : 'Unavailable'})
+                    </span>
+                  ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fiberG && !multiDayAnalysis.averages.fiberG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
-                  )}
+                  ) : null}
                 </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.fiberG?.observedAverage == null
@@ -1151,11 +1204,15 @@ export function RecallWorkbench({
               <div className="flex justify-between py-1">
                 <span className="text-slate-500">
                   {isAr ? 'متوسط الصوديوم:' : 'Average Sodium:'}{' '}
-                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.sodiumMg && !multiDayAnalysis.averages.sodiumMg.isComplete && (
+                  {multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.sodiumMg?.observedAverage == null ? (
+                    <span className="text-[10px] font-bold text-slate-500">
+                      ({isAr ? 'غير متوفر' : 'Unavailable'})
+                    </span>
+                  ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.sodiumMg && !multiDayAnalysis.averages.sodiumMg.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
                       ({isAr ? 'جزئي' : 'Partial'})
                     </span>
-                  )}
+                  ) : null}
                 </span>
                 <strong className="text-slate-900">
                   {multiDayAnalysis.recordedDaysCount === 0 || multiDayAnalysis.averages.sodiumMg?.observedAverage == null

@@ -1198,10 +1198,10 @@ describe('13. Critical Analytical Composition & Exchange Classification Separati
     });
 
     const summary = aggregateRecallEntries([entry1, entry2, entry3]);
-    assert.ok(summary.proteinG.observedTotal > 10, `Expected combined nut/seed snack protein > 10g, got ${summary.proteinG.observedTotal}`);
-    assert.ok(summary.carbsG.observedTotal > 8, `Expected combined nut/seed snack carbs > 8g, got ${summary.carbsG.observedTotal}`);
+    assert.ok(summary.proteinG.observedTotal !== null && summary.proteinG.observedTotal > 10, `Expected combined nut/seed snack protein > 10g, got ${summary.proteinG.observedTotal}`);
+    assert.ok(summary.carbsG.observedTotal !== null && summary.carbsG.observedTotal > 8, `Expected combined nut/seed snack carbs > 8g, got ${summary.carbsG.observedTotal}`);
     assert.ok(summary.fiberG.observedTotal !== null && summary.fiberG.observedTotal > 4, 'Complete fiber data should aggregate cleanly without null');
-    assert.ok(summary.caloriesKcal.observedTotal > 300 && summary.caloriesKcal.observedTotal < 450);
+    assert.ok(summary.caloriesKcal.observedTotal !== null && summary.caloriesKcal.observedTotal > 300 && summary.caloriesKcal.observedTotal < 450);
   });
 });
 

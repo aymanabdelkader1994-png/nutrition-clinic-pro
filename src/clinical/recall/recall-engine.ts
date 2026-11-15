@@ -142,18 +142,20 @@ export function aggregateRecallEntries(entries: RecallEntry[]): RecallNutrientSu
   let hasIncompleteNutrients = false;
 
   for (const def of TRACKED_NUTRIENTS) {
-    let observedTotal = 0;
+    let observedSum = 0;
     let completeTotal: number | null = 0;
     let knownEntriesCount = 0;
     let missingEntriesCount = 0;
 
     for (const entry of entries) {
-      const val = entry.nutrients[def.key] as number | null | undefined;
-      if (val === null || val === undefined) {
+      const isExchangeOnly = entry.compositionBasis === 'exchange_only';
+      const rawVal = entry.nutrients[def.key] as number | null | undefined;
+      const val = isExchangeOnly ? null : rawVal;
+      if (val === null || val === undefined || !Number.isFinite(val)) {
         completeTotal = null;
         missingEntriesCount++;
       } else {
-        observedTotal += val;
+        observedSum += val;
         knownEntriesCount++;
         if (completeTotal !== null) {
           completeTotal += val;
@@ -161,8 +163,8 @@ export function aggregateRecallEntries(entries: RecallEntry[]): RecallNutrientSu
       }
     }
 
-    const isComplete = missingEntriesCount === 0;
-    if (!isComplete) {
+    const isComplete = knownEntriesCount > 0 && missingEntriesCount === 0;
+    if (missingEntriesCount > 0) {
       hasIncompleteNutrients = true;
     }
 
@@ -171,8 +173,8 @@ export function aggregateRecallEntries(entries: RecallEntry[]): RecallNutrientSu
       nameEn: def.nameEn,
       nameAr: def.nameAr,
       unit: def.unit,
-      observedTotal: roundToPrecision(observedTotal, 2),
-      completeTotal: completeTotal !== null ? roundToPrecision(completeTotal, 2) : null,
+      observedTotal: knownEntriesCount > 0 ? roundToPrecision(observedSum, 2) : null,
+      completeTotal: isComplete && completeTotal !== null ? roundToPrecision(completeTotal, 2) : null,
       isComplete,
       knownEntriesCount,
       missingEntriesCount,
@@ -231,20 +233,27 @@ export function calculateMultiDayRecallAnalysis(session: RecallSession): MultiDa
 
   for (const def of TRACKED_NUTRIENTS) {
     let sumOfObservedDailyTotals = 0;
+    let observedDaysCount = 0;
     let completeDaysCount = 0;
 
     for (const daySummary of activeRecordedDaySummaries) {
       const item = daySummary.summary[def.key as keyof RecallNutrientSummary] as NutrientAggregationItem;
-      sumOfObservedDailyTotals += item.observedTotal;
-      if (item.isComplete) {
-        completeDaysCount++;
+      if (item.observedTotal !== null && item.knownEntriesCount > 0) {
+        sumOfObservedDailyTotals += item.observedTotal;
+        observedDaysCount++;
+        if (item.isComplete) {
+          completeDaysCount++;
+        }
       }
     }
 
-    const denominator = recordedDaysCount;
+    const denominator = observedDaysCount;
     const observedAverage =
       denominator > 0 ? roundToPrecision(sumOfObservedDailyTotals / denominator, 2) : null;
-    const isComplete = recordedDaysCount > 0 && completeDaysCount === recordedDaysCount;
+    const isComplete =
+      recordedDaysCount > 0 &&
+      observedDaysCount === recordedDaysCount &&
+      completeDaysCount === recordedDaysCount;
 
     averages[def.key] = {
       nutrientKey: def.key,
@@ -364,9 +373,13 @@ export function compareIntakeWithPhase1Targets(params: {
         status: 'incomplete_intake',
         clinicalNoteEn: !hasRecordedDays
           ? 'Target adequacy classification is withheld until at least one food entry is recorded.'
+          : actual === null
+          ? 'Target adequacy classification and % achieved are withheld because no recorded items have assayed data for this nutrient.'
           : 'Target adequacy classification and % achieved are withheld because one or more recorded items lack assayed macronutrient/energy data (partial observed intake only).',
         clinicalNoteAr: !hasRecordedDays
           ? 'تم تعليق تقييم مطابقة الهدف حتى يتم تسجيل صنف غذائي واحد على الأقل.'
+          : actual === null
+          ? 'تم تعليق تصنيف مطابقة الهدف ونسبة التحقيق لعدم توفر بيانات تحليلية مسجلة لهذا العنصر.'
           : 'تم تعليق تصنيف مطابقة الهدف ونسبة التحقيق لأن بعض الأصناف المسجلة تفتقر إلى بيانات الطاقة/الماكروز المعملية (المعروض مجموع جزئي مرصود فقط).',
       };
     }
