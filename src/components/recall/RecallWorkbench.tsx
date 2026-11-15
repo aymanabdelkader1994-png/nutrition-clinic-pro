@@ -53,16 +53,27 @@ interface RecallWorkbenchProps {
   isAr: boolean;
   phase1Targets?: Phase1TargetInputs;
   patientName?: string;
+  initialSession?: RecallSession;
 }
+
+const METRIC_TO_NUTRIENT_KEY: Record<'energy' | 'protein' | 'carbs' | 'fat', string> = {
+  energy: 'caloriesKcal',
+  protein: 'proteinG',
+  carbs: 'carbsG',
+  fat: 'fatG',
+};
 
 export function RecallWorkbench({
   isAr,
   phase1Targets = {},
   patientName,
+  initialSession,
 }: RecallWorkbenchProps) {
   // Session State (held in memory so switching tabs/language preserves all inputs)
-  const [session, setSession] = useState<RecallSession>(() =>
-    createNewRecallSession({ targetDays: 1, startDate: new Date().toISOString().split('T')[0] })
+  const [session, setSession] = useState<RecallSession>(
+    () =>
+      initialSession ??
+      createNewRecallSession({ targetDays: 1, startDate: new Date().toISOString().split('T')[0] })
   );
 
   // Active day index (0, 1, or 2)
@@ -991,6 +1002,10 @@ export function RecallWorkbench({
                     ? isAr
                       ? 'لا توجد أيام مسجلة بعد'
                       : 'No recorded intake days yet'
+                    : targetComparisons.some((c) => c.isActualIncomplete)
+                    ? isAr
+                      ? `مرصود عبر ${multiDayAnalysis.recordedDaysCount} أيام مسجلة (التغطية الجزئية موضحة لكل عنصر)`
+                      : `Observed across ${multiDayAnalysis.recordedDaysCount} recorded day(s) (partial coverage noted below)`
                     : isAr
                     ? `مبني على متوسط ${multiDayAnalysis.recordedDaysCount} يوم مسجل`
                     : `Based on ${multiDayAnalysis.recordedDaysCount}-day recorded average`}
@@ -1003,6 +1018,7 @@ export function RecallWorkbench({
                 const isUnavailable = c.status === 'target_unavailable';
                 const isIncompleteIntake = c.status === 'incomplete_intake';
                 const isWithheld = isUnavailable || isIncompleteIntake;
+                const avgMetric = multiDayAnalysis.averages[METRIC_TO_NUTRIENT_KEY[c.metric]];
                 const percent = c.percentAchieved ?? 0;
                 const barColor =
                   isWithheld
@@ -1042,8 +1058,8 @@ export function RecallWorkbench({
                       )}
                     </div>
 
-                    <div className="mt-2 flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-1">
+                    <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-xs">
+                      <div className="flex flex-wrap items-center gap-1">
                         <span className="text-[11px] text-slate-500">{isAr ? 'الفعلي:' : 'Actual:'}</span>{' '}
                         {multiDayAnalysis.recordedDaysCount === 0 || c.actualIntake === null ? (
                           <strong className="text-slate-900">—</strong>
@@ -1054,8 +1070,14 @@ export function RecallWorkbench({
                             </strong>{' '}
                             <span className="text-[10px] text-slate-400">{c.unit}</span>
                             {c.isActualIncomplete && (
-                              <span className="rounded bg-amber-100 px-1 py-0.2 text-[9px] font-bold text-amber-800">
-                                {isAr ? 'جزئي' : 'Partial'}
+                              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[9px] font-bold text-amber-800">
+                                {avgMetric
+                                  ? isAr
+                                    ? `جزئي · ${avgMetric.denominator}/${avgMetric.totalRecordedDays} أيام مسجلة`
+                                    : `Partial · ${avgMetric.denominator}/${avgMetric.totalRecordedDays} recorded days`
+                                  : isAr
+                                  ? 'جزئي'
+                                  : 'Partial'}
                               </span>
                             )}
                           </>
@@ -1115,7 +1137,9 @@ export function RecallWorkbench({
                     </span>
                   ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.caloriesKcal && !multiDayAnalysis.averages.caloriesKcal.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
-                      ({isAr ? 'جزئي' : 'Partial'})
+                      ({isAr
+                        ? `جزئي · ${multiDayAnalysis.averages.caloriesKcal.denominator}/${multiDayAnalysis.averages.caloriesKcal.totalRecordedDays} أيام مسجلة`
+                        : `Partial · ${multiDayAnalysis.averages.caloriesKcal.denominator}/${multiDayAnalysis.averages.caloriesKcal.totalRecordedDays} recorded days`})
                     </span>
                   ) : null}
                 </span>
@@ -1134,7 +1158,9 @@ export function RecallWorkbench({
                     </span>
                   ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.proteinG && !multiDayAnalysis.averages.proteinG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
-                      ({isAr ? 'جزئي' : 'Partial'})
+                      ({isAr
+                        ? `جزئي · ${multiDayAnalysis.averages.proteinG.denominator}/${multiDayAnalysis.averages.proteinG.totalRecordedDays} أيام مسجلة`
+                        : `Partial · ${multiDayAnalysis.averages.proteinG.denominator}/${multiDayAnalysis.averages.proteinG.totalRecordedDays} recorded days`})
                     </span>
                   ) : null}
                 </span>
@@ -1153,7 +1179,9 @@ export function RecallWorkbench({
                     </span>
                   ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.carbsG && !multiDayAnalysis.averages.carbsG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
-                      ({isAr ? 'جزئي' : 'Partial'})
+                      ({isAr
+                        ? `جزئي · ${multiDayAnalysis.averages.carbsG.denominator}/${multiDayAnalysis.averages.carbsG.totalRecordedDays} أيام مسجلة`
+                        : `Partial · ${multiDayAnalysis.averages.carbsG.denominator}/${multiDayAnalysis.averages.carbsG.totalRecordedDays} recorded days`})
                     </span>
                   ) : null}
                 </span>
@@ -1172,7 +1200,9 @@ export function RecallWorkbench({
                     </span>
                   ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fatG && !multiDayAnalysis.averages.fatG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
-                      ({isAr ? 'جزئي' : 'Partial'})
+                      ({isAr
+                        ? `جزئي · ${multiDayAnalysis.averages.fatG.denominator}/${multiDayAnalysis.averages.fatG.totalRecordedDays} أيام مسجلة`
+                        : `Partial · ${multiDayAnalysis.averages.fatG.denominator}/${multiDayAnalysis.averages.fatG.totalRecordedDays} recorded days`})
                     </span>
                   ) : null}
                 </span>
@@ -1191,7 +1221,9 @@ export function RecallWorkbench({
                     </span>
                   ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.fiberG && !multiDayAnalysis.averages.fiberG.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
-                      ({isAr ? 'جزئي' : 'Partial'})
+                      ({isAr
+                        ? `جزئي · ${multiDayAnalysis.averages.fiberG.denominator}/${multiDayAnalysis.averages.fiberG.totalRecordedDays} أيام مسجلة`
+                        : `Partial · ${multiDayAnalysis.averages.fiberG.denominator}/${multiDayAnalysis.averages.fiberG.totalRecordedDays} recorded days`})
                     </span>
                   ) : null}
                 </span>
@@ -1210,7 +1242,9 @@ export function RecallWorkbench({
                     </span>
                   ) : multiDayAnalysis.recordedDaysCount > 0 && multiDayAnalysis.averages.sodiumMg && !multiDayAnalysis.averages.sodiumMg.isComplete ? (
                     <span className="text-[10px] font-bold text-amber-600">
-                      ({isAr ? 'جزئي' : 'Partial'})
+                      ({isAr
+                        ? `جزئي · ${multiDayAnalysis.averages.sodiumMg.denominator}/${multiDayAnalysis.averages.sodiumMg.totalRecordedDays} أيام مسجلة`
+                        : `Partial · ${multiDayAnalysis.averages.sodiumMg.denominator}/${multiDayAnalysis.averages.sodiumMg.totalRecordedDays} recorded days`})
                     </span>
                   ) : null}
                 </span>

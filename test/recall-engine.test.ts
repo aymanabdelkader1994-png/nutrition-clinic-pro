@@ -5,6 +5,9 @@
 
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { RecallWorkbench } from '../src/components/recall/RecallWorkbench';
 
 import {
   getAllFoodItems,
@@ -1018,6 +1021,162 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(energy.difference, -1166.0);
       assert.equal(energy.percentAchieved, 41.7);
     });
+
+    it('Case 7: 3-day session partial coverage counts (2/3 and 0/2) compute accurate denominators and withhold target classification', () => {
+      const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal per 100g
+      const chicken = getFoodItemById('food_chicken_breast_grilled_skinless')!; // 165 kcal per 100g
+      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const peanuts = getFoodItemById('food_fat_rp_ft_082')!; // analytical macros, null potassiumMg & ironMg
+
+      // 2 analytical days + 1 exchange_only day -> denominator 2 of 3 recorded days
+      const session3 = createNewRecallSession({ targetDays: 3, startDate: '2026-11-15' });
+      session3.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 100, selectedPortionId: 'grams' }));
+      session3.days[1].meals[0].entries.push(resolveRecallEntry({ food: chicken, quantity: 100, selectedPortionId: 'grams' }));
+      session3.days[2].meals[0].entries.push(resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 }));
+
+      const analysis3 = calculateMultiDayRecallAnalysis(session3);
+      assert.equal(analysis3.recordedDaysCount, 3);
+      assert.equal(analysis3.averages.caloriesKcal.denominator, 2);
+      assert.equal(analysis3.averages.caloriesKcal.totalRecordedDays, 3);
+      assert.equal(analysis3.averages.caloriesKcal.observedAverage, 208.5); // (252 + 165) / 2
+      assert.equal(analysis3.averages.caloriesKcal.averageValue, null);
+      assert.equal(analysis3.averages.caloriesKcal.isComplete, false);
+
+      const comps3 = compareIntakeWithPhase1Targets({ actualAverages: analysis3.averages, targets });
+      for (const c of comps3) {
+        assert.equal(c.status, 'incomplete_intake');
+        assert.equal(c.difference, null);
+        assert.equal(c.percentAchieved, null);
+      }
+
+      // 0/2 analytical coverage for unassayed micronutrients (potassiumMg) across 2 recorded days
+      const session0of2 = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
+      session0of2.days[0].meals[0].entries.push(resolveRecallEntry({ food: peanuts, quantity: 30, selectedPortionId: 'grams' }));
+      session0of2.days[1].meals[0].entries.push(resolveRecallEntry({ food: peanuts, quantity: 30, selectedPortionId: 'grams' }));
+      const analysis0of2 = calculateMultiDayRecallAnalysis(session0of2);
+      assert.equal(analysis0of2.recordedDaysCount, 2);
+      assert.equal(analysis0of2.averages.potassiumMg.denominator, 0);
+      assert.equal(analysis0of2.averages.potassiumMg.totalRecordedDays, 2);
+      assert.equal(analysis0of2.averages.potassiumMg.observedAverage, null);
+      assert.equal(analysis0of2.averages.potassiumMg.isComplete, false);
+    });
+  });
+
+  describe('8. RecallWorkbench UI Presentation of Partial Coverage, Unavailable Values & Genuine Zero', () => {
+    const targets: Phase1TargetInputs = {
+      targetCalories: 2000,
+      targetProteinG: 100,
+      targetCarbsG: 250,
+      targetFatG: 65,
+    };
+
+    it('renders Unavailable and — (never 0 kcal/day) and withholds target comparison when all entries are exchange_only', () => {
+      const fino = getFoodItemById('food_starch_rp_rp_st_007')!;
+      const session = createNewRecallSession({ targetDays: 1, startDate: '2026-11-15' });
+      session.days[0].meals[0].entries.push(
+        resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 })
+      );
+
+      const html = renderToStaticMarkup(
+        React.createElement(RecallWorkbench, {
+          isAr: false,
+          phase1Targets: targets,
+          initialSession: session,
+        })
+      );
+
+      assert.ok(html.includes('— (Unassayed)'));
+      assert.ok(html.includes('Unavailable'));
+      assert.ok(html.includes('Comparison Withheld (Incomplete)'));
+      assert.ok(!html.includes('>0 kcal<'));
+      assert.ok(!html.includes(' 0 kcal'));
+      assert.ok(!html.includes('0 kcal/day'));
+    });
+
+    it('renders exact partial coverage count (1/2 recorded days) in English and Arabic and does not dilute average across unknown days', () => {
+      const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal per 100g
+      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+
+      const session = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
+      session.days[0].meals[0].entries.push(
+        resolveRecallEntry({ food: bread, quantity: 100, selectedPortionId: 'grams' })
+      );
+      session.days[1].meals[0].entries.push(
+        resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 })
+      );
+
+      const htmlEn = renderToStaticMarkup(
+        React.createElement(RecallWorkbench, {
+          isAr: false,
+          phase1Targets: targets,
+          initialSession: session,
+        })
+      );
+
+      assert.ok(htmlEn.includes('Partial · 1/2 recorded days'));
+      assert.ok(htmlEn.includes('252 kcal/day'));
+      assert.ok(htmlEn.includes('Observed across 2 recorded day(s) (partial coverage noted below)'));
+      assert.ok(htmlEn.includes('Comparison Withheld (Incomplete)'));
+      assert.ok(!htmlEn.includes('126 kcal'));
+
+      const htmlAr = renderToStaticMarkup(
+        React.createElement(RecallWorkbench, {
+          isAr: true,
+          phase1Targets: targets,
+          initialSession: session,
+        })
+      );
+
+      assert.ok(htmlAr.includes('جزئي · 1/2 أيام مسجلة'));
+      assert.ok(htmlAr.includes('مرصود عبر 2 أيام مسجلة (التغطية الجزئية موضحة لكل عنصر)'));
+      assert.ok(htmlAr.includes('المقارنة معلّقة (غير مكتمل)'));
+    });
+
+    it('renders genuine analytical zero (0 kcal, 0 kcal/day, 0 g/day) cleanly without treating it as unavailable', () => {
+      const karkadeh = getFoodItemById('food_hibiscus_tea_karkadeh')!;
+      const session = createNewRecallSession({ targetDays: 1, startDate: '2026-11-15' });
+      session.days[0].meals[0].entries.push(
+        resolveRecallEntry({ food: karkadeh, quantity: 250, selectedPortionId: 'grams' })
+      );
+
+      const html = renderToStaticMarkup(
+        React.createElement(RecallWorkbench, {
+          isAr: false,
+          phase1Targets: targets,
+          initialSession: session,
+        })
+      );
+
+      assert.ok(html.includes('0 kcal'));
+      assert.ok(html.includes('0 kcal/day'));
+      assert.ok(html.includes('0 g/day'));
+      assert.ok(html.includes('100% Complete Assays'));
+      assert.ok(!html.includes('Average Calories: <!-- -->(<span class="text-[10px] font-bold text-slate-500">(Unavailable)'));
+      assert.ok(!html.includes('Energy (Calories)</span><span class="text-[9px] font-bold text-slate-500">Unavailable</span>'));
+    });
+
+    it('renders fully analytical multi-day averages without partial qualifiers', () => {
+      const bread = getFoodItemById('food_bread_baladi_baked')!;
+      const chicken = getFoodItemById('food_chicken_breast_grilled_skinless')!;
+      const session = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
+      session.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 200, selectedPortionId: 'grams' }));
+      session.days[0].meals[1].entries.push(resolveRecallEntry({ food: chicken, quantity: 200, selectedPortionId: 'grams' }));
+      session.days[1].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 200, selectedPortionId: 'grams' }));
+      session.days[1].meals[1].entries.push(resolveRecallEntry({ food: chicken, quantity: 200, selectedPortionId: 'grams' }));
+
+      const html = renderToStaticMarkup(
+        React.createElement(RecallWorkbench, {
+          isAr: false,
+          phase1Targets: targets,
+          initialSession: session,
+        })
+      );
+
+      assert.ok(html.includes('Based on 2-day recorded average'));
+      assert.ok(html.includes('834 kcal/day'));
+      assert.ok(!html.includes('Partial ·'));
+    });
   });
 });
+
 
