@@ -37,6 +37,8 @@ interface FoodEntryModalProps {
   isAr: boolean;
   mealNameEn: string;
   mealNameAr: string;
+  mode?: 'add' | 'replace';
+  replacingFoodName?: string;
 }
 
 export function FoodEntryModal({
@@ -46,6 +48,8 @@ export function FoodEntryModal({
   isAr,
   mealNameEn,
   mealNameAr,
+  mode = 'add',
+  replacingFoodName,
 }: FoodEntryModalProps) {
   // Tabs: 'search_database' | 'custom_food'
   const [activeTab, setActiveTab] = useState<'database' | 'custom'>('database');
@@ -251,7 +255,13 @@ export function FoodEntryModal({
             </div>
             <div>
               <h2 id="modal-title" className="text-base font-bold text-slate-900 sm:text-lg">
-                {isAr ? `إضافة طعام إلى: ${mealNameAr}` : `Add Food to: ${mealNameEn}`}
+                {mode === 'replace'
+                  ? isAr
+                    ? `استبدال الصنف في ${mealNameAr}${replacingFoodName ? `: ${replacingFoodName}` : ''}`
+                    : `Replace Food in ${mealNameEn}${replacingFoodName ? `: ${replacingFoodName}` : ''}`
+                  : isAr
+                  ? `إضافة طعام إلى: ${mealNameAr}`
+                  : `Add Food to: ${mealNameEn}`}
               </h2>
               <p className="text-xs text-slate-500">
                 {isAr
@@ -609,7 +619,13 @@ export function FoodEntryModal({
                       className="mt-auto flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-3 text-xs font-bold text-white shadow-md shadow-emerald-200 hover:bg-emerald-700 disabled:opacity-50"
                     >
                       <Plus className="h-4 w-4" />
-                      {isAr ? 'تأكيد إضافة الصنف للوجبة' : 'Confirm Add to Meal'}
+                      {mode === 'replace'
+                        ? isAr
+                          ? 'تأكيد استبدال الصنف'
+                          : 'Confirm Replace Food'
+                        : isAr
+                        ? 'تأكيد إضافة الصنف للوجبة'
+                        : 'Confirm Add to Meal'}
                     </button>
                   </div>
                 ) : (

@@ -31,6 +31,7 @@ import {
   RotateCcw,
   Check,
   X,
+  CalendarDays,
 } from 'lucide-react';
 
 import {
@@ -51,6 +52,7 @@ import {
   getSavedAssessments,
 } from './clinical/index';
 import { RecallWorkbench } from './components/recall/RecallWorkbench';
+import { MealPlannerWorkbench } from './components/planner/MealPlannerWorkbench';
 import { AssessmentHistoryView } from './components/history/AssessmentHistoryView';
 
 export default function App() {
@@ -58,8 +60,8 @@ export default function App() {
   const [lang, setLang] = useState<'ar' | 'en'>('ar');
   const isAr = lang === 'ar';
 
-  // Active View Tab: 'calculator' | 'recall' | 'history' | 'benchmarks' | 'documentation'
-  const [activeTab, setActiveTab] = useState<'calculator' | 'recall' | 'history' | 'benchmarks' | 'documentation'>('calculator');
+  // Active View Tab: 'calculator' | 'recall' | 'planner' | 'history' | 'benchmarks' | 'documentation'
+  const [activeTab, setActiveTab] = useState<'calculator' | 'recall' | 'planner' | 'history' | 'benchmarks' | 'documentation'>('calculator');
 
   // History & Progress State
   const [historyRefreshTrigger, setHistoryRefreshTrigger] = useState(0);
@@ -411,6 +413,18 @@ export default function App() {
               </button>
               <button
                 type="button"
+                onClick={() => setActiveTab('planner')}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
+                  activeTab === 'planner'
+                    ? 'bg-white text-emerald-700 shadow-sm'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <CalendarDays className="h-3.5 w-3.5" />
+                {isAr ? 'مخطط الوجبات' : 'Meal Planner'}
+              </button>
+              <button
+                type="button"
                 onClick={() => setActiveTab('history')}
                 className={`relative flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium transition ${
                   activeTab === 'history'
@@ -466,7 +480,7 @@ export default function App() {
         </div>
 
         {/* Mobile Sub-tabs */}
-        <div className="flex border-t border-slate-100 px-4 py-2 md:hidden overflow-x-auto">
+        <div className="flex gap-2 border-t border-slate-100 px-4 py-2 md:hidden overflow-x-auto">
           <button
             type="button"
             onClick={() => setActiveTab('calculator')}
@@ -484,6 +498,15 @@ export default function App() {
             }`}
           >
             {isAr ? 'الاسترجاع' : 'Recall'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('planner')}
+            className={`flex-1 py-1 text-center text-xs font-medium whitespace-nowrap ${
+              activeTab === 'planner' ? 'border-b-2 border-emerald-600 font-bold text-emerald-600' : 'text-slate-500'
+            }`}
+          >
+            {isAr ? 'الوجبات' : 'Planner'}
           </button>
           <button
             type="button"
@@ -1504,6 +1527,21 @@ export default function App() {
               targetProteinG: macronutrients?.proteinGrams,
               targetCarbsG: macronutrients?.carbsGrams,
               targetFatG: macronutrients?.fatGrams,
+            }}
+          />
+        )}
+
+        {/* Tab: Phase 4 Unified Daily Meal Planner */}
+        {activeTab === 'planner' && (
+          <MealPlannerWorkbench
+            isAr={isAr}
+            patientName={patientNameInput.trim() || undefined}
+            phase1Targets={{
+              targetCalories: energy?.targetKcal,
+              targetProteinG: macronutrients?.proteinGrams,
+              targetCarbsG: macronutrients?.carbsGrams,
+              targetFatG: macronutrients?.fatGrams,
+              targetFiberG: macronutrients?.fiberGramsTarget,
             }}
           />
         )}
