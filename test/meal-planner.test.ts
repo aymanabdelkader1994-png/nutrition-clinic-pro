@@ -7,7 +7,11 @@ import assert from 'node:assert/strict';
 import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
-import { getFoodItemById } from '../src/clinical/food/food-database';
+import {
+  clearCustomFoodsForTesting,
+  getFoodItemById,
+  registerCustomFoodItem,
+} from '../src/clinical/food/food-database';
 import {
   addItemToMeal,
   addMealSlot,
@@ -17,12 +21,16 @@ import {
   createDailyMealPlan,
   createSampleEgyptianMealPlan,
   deleteSavedMealPlan,
+  formatLocalCalendarDate,
+  getMealPlanStorageStatus,
   getSavedMealPlans,
   removeMealItem,
   removeMealSlot,
   replaceMealItem,
   resolveMealPlanItem,
+  resolveMealPlanItemFood,
   saveMealPlan,
+  saveMealPlanWithStatus,
   updateMealItemQuantity,
 } from '../src/clinical/planner';
 import { MealPlanTargetInputs } from '../src/clinical/planner/types';
@@ -363,6 +371,214 @@ describe('Phase 4: Unified Daily Meal Planner Engine & UI Tests', () => {
       assert.ok(htmlPartial.includes('Partial · 1/2 items'));
       assert.ok(htmlPartial.includes('~252 kcal'));
       assert.ok(!htmlPartial.includes('1748 kcal remaining'));
+    });
+  });
+
+  describe('4. Targeted Phase 4 Remediation Regression Tests', () => {
+    it('keeps custom food items editable and recalculable after reload when runtime customFoodRegistry is cleared', () => {
+      clearCustomFoodsForTesting();
+
+      // Mock browser localStorage for full save -> reload roundtrip
+      const store = new Map<string, string>();
+      const prevWindow = (globalThis as { window?: unknown }).window;
+      (globalThis as { window?: unknown }).window = {
+        localStorage: {
+          getItem: (k: string) => (store.has(k) ? store.get(k)! : null),
+          setItem: (k: string, v: string) => {
+            store.set(k, v);
+          },
+          removeItem: (k: string) => {
+            store.delete(k);
+          },
+        },
+      };
+
+      try {
+        const customFood = registerCustomFoodItem({
+          nameEn: 'Clinic Whey Oat Shake',
+          nameAr: 'مشروب شوفان وبروتين',
+          foodGroupId: 'custom',
+          primaryExchangeCategoryId: 'combination_food',
+          preparationState: 'ready-to-eat',
+          compositionBasis: 'clinic_estimated',
+          nutrients100g: {
+            basisWeightG: 100,
+            caloriesKcal: 200,
+            proteinG: 20,
+            carbsG: 30,
+            fatG: 0, // genuine confirmed zero
+            fiberG: null, // unknown/unassayed
+            saturatedFatG: null,
+            transFatG: null,
+            monounsaturatedFatG: null,
+            polyunsaturatedFatG: null,
+            cholesterolMg: null,
+            sodiumMg: null,
+            potassiumMg: null,
+            calciumMg: null,
+            ironMg: null,
+            missingNutrientKeys: ['fiberG', 'sodiumMg'],
+          },
+          portions: [
+            {
+              id: 'portion_custom_shake_50g',
+              portionNameEn: '1 Scoop Shake (~50g)',
+              portionNameAr: 'سكوب (~50 جم)',
+              householdMeasureEn: '1 Scoop Shake (~50g)',
+              householdMeasureAr: 'سكوب (~50 جم)',
+              gramWeight: 50,
+              exchangeCategory: 'combination_food',
+              exchangeEquivalentFactor: 0,
+              isDefaultServing: true,
+            },
+          ],
+        });
+
+        let plan = createDailyMealPlan({ planDate: '2026-11-16' });
+        const snackId = plan.meals[1].id;
+        const customItem = resolveMealPlanItem({
+          food: customFood,
+          selectedPortionId: customFood.portions[0].id,
+          quantity: 1,
+        });
+        plan = addItemToMeal(plan, snackId, customItem);
+
+        const saveResult = saveMealPlanWithStatus(plan);
+        assert.equal(saveResult.persistenceMode, 'local_storage');
+        assert.equal(saveResult.isDurable, true);
+
+        // Simulate full application reload: runtime customFoodRegistry is wiped
+        clearCustomFoodsForTesting();
+        assert.equal(getFoodItemById(customFood.id), undefined);
+
+        const reloadedPlans = getSavedMealPlans();
+        assert.equal(reloadedPlans.length, 1);
+        const reloadedPlan = reloadedPlans[0];
+        const reloadedItem = reloadedPlan.meals[1].items[0];
+
+        // Verify metadata and null vs 0 preservation
+        assert.equal(reloadedItem.isCustomFood, true);
+        assert.equal(reloadedItem.verificationStatus, 'user_custom');
+        assert.equal(reloadedItem.compositionBasis, 'clinic_estimated');
+        assert.equal(reloadedItem.customFoodRecord?.sourceId, 'clinic_reviewed');
+        assert.equal(reloadedItem.customFoodRecord?.sourceRecordId, undefined);
+        assert.equal(reloadedItem.customFoodRecord?.nutrients100g.fatG, 0);
+        assert.equal(reloadedItem.customFoodRecord?.nutrients100g.fiberG, null);
+
+        // Verify resolveMealPlanItemFood resolves snapshot without polluting standard records
+        const resolvedFood = resolveMealPlanItemFood(reloadedItem);
+        assert.ok(resolvedFood);
+        assert.equal(resolvedFood.id, customFood.id);
+
+        // Edit portion multiplier on reloaded plan (3 x 50g = 150g)
+        const editedPortionPlan = updateMealItemQuantity(reloadedPlan, snackId, reloadedItem.id, {
+          selectedPortionId: customFood.portions[0].id,
+          quantity: 3,
+        });
+        const updatedItem = editedPortionPlan.meals[1].items[0];
+        assert.equal(updatedItem.resolvedGramWeight, 150);
+        assert.equal(updatedItem.nutrients.caloriesKcal, 300);
+        assert.equal(updatedItem.nutrients.proteinG, 30);
+        assert.equal(updatedItem.nutrients.carbsG, 45);
+        assert.equal(updatedItem.nutrients.fatG, 0);
+        assert.equal(updatedItem.nutrients.fiberG, null);
+        assert.equal(updatedItem.nutrients.sodiumMg, null);
+
+        // Edit direct grams on reloaded plan (200g)
+        const editedGramsPlan = updateMealItemQuantity(editedPortionPlan, snackId, updatedItem.id, {
+          selectedPortionId: undefined,
+          quantity: 200,
+        });
+        const gramsItem = editedGramsPlan.meals[1].items[0];
+        assert.equal(gramsItem.isDirectGrams, true);
+        assert.equal(gramsItem.resolvedGramWeight, 200);
+        assert.equal(gramsItem.nutrients.caloriesKcal, 400);
+        assert.equal(gramsItem.nutrients.fatG, 0);
+        assert.equal(gramsItem.nutrients.fiberG, null);
+
+        // Ensure UI renders editable portion selector & quantity input for reloaded custom food
+        const html = renderToStaticMarkup(
+          React.createElement(MealPlannerWorkbench, {
+            isAr: false,
+            phase1Targets: sampleTargets,
+            initialPlan: editedGramsPlan,
+          })
+        );
+        assert.ok(html.includes(`Portion for ${customFood.nameEn}`));
+        assert.ok(html.includes(`Quantity for ${customFood.nameEn}`));
+
+        // Guard: custom snapshot can never override a standard catalog record
+        const authoritativeBread = resolveMealPlanItemFood({
+          ...reloadedItem,
+          foodId: 'food_bread_baladi_baked',
+        });
+        assert.equal(authoritativeBread?.id, 'food_bread_baladi_baked');
+        assert.equal(authoritativeBread?.isCustom, false);
+      } finally {
+        clearCustomFoodsForTesting();
+        clearSavedMealPlansForTesting();
+        (globalThis as { window?: unknown }).window = prevWindow;
+      }
+    });
+
+    it('uses local calendar date rather than UTC date when planDate is not explicitly supplied', () => {
+      // Simulate a local evening timestamp (Nov 16 local) whose UTC ISO string is already Nov 17
+      const utcShiftedDate = new Date('2026-11-17T03:30:00.000Z');
+      utcShiftedDate.getFullYear = () => 2026;
+      utcShiftedDate.getMonth = () => 10; // 0-indexed November
+      utcShiftedDate.getDate = () => 16;
+
+      assert.equal(formatLocalCalendarDate(utcShiftedDate), '2026-11-16');
+
+      const defaultPlan = createDailyMealPlan({ now: utcShiftedDate });
+      assert.equal(defaultPlan.planDate, '2026-11-16');
+
+      // Explicitly provided planDate must remain untouched
+      const explicitPlan = createDailyMealPlan({ planDate: '2026-01-05', now: utcShiftedDate });
+      assert.equal(explicitPlan.planDate, '2026-01-05');
+    });
+
+    it('reports memory_fallback honestly when localStorage is unavailable or write fails', () => {
+      const plan = createDailyMealPlan({ planDate: '2026-11-16' });
+
+      // Case A: no window/localStorage (SSR or blocked storage)
+      const prevWindow = (globalThis as { window?: unknown }).window;
+      (globalThis as { window?: unknown }).window = undefined;
+      try {
+        clearSavedMealPlansForTesting();
+        const fallbackResult = saveMealPlanWithStatus(plan);
+        assert.equal(fallbackResult.persistenceMode, 'memory_fallback');
+        assert.equal(fallbackResult.isDurable, false);
+        assert.equal(getMealPlanStorageStatus().isUsingMemoryFallback, true);
+        assert.equal(getSavedMealPlans().length, 1);
+      } finally {
+        (globalThis as { window?: unknown }).window = prevWindow;
+      }
+
+      // Case B: localStorage exists for probe, but setItem throws QuotaExceededError on payload
+      const prevWindow2 = (globalThis as { window?: unknown }).window;
+      (globalThis as { window?: unknown }).window = {
+        localStorage: {
+          getItem: () => null,
+          setItem: (key: string) => {
+            if (key === 'ncp_daily_meal_plans_v1') {
+              throw new Error('QuotaExceededError');
+            }
+          },
+          removeItem: () => {},
+        },
+      };
+      try {
+        clearSavedMealPlansForTesting();
+        const quotaResult = saveMealPlanWithStatus(plan);
+        assert.equal(quotaResult.persistenceMode, 'memory_fallback');
+        assert.equal(quotaResult.isDurable, false);
+        assert.equal(getMealPlanStorageStatus().isUsingMemoryFallback, true);
+        assert.equal(getSavedMealPlans().length, 1);
+      } finally {
+        clearSavedMealPlansForTesting();
+        (globalThis as { window?: unknown }).window = prevWindow2;
+      }
     });
   });
 });

@@ -11,7 +11,7 @@
  * - exchange_only items never contribute fabricated macronutrients or calories
  */
 
-import { CompositionBasis, ExchangeCategoryId, ScaledNutrientProfile } from '../food/types';
+import { CompositionBasis, ExchangeCategoryId, FoodItemRecord, ScaledNutrientProfile } from '../food/types';
 import { MealType, Phase1TargetInputs, RecallNutrientSummary } from '../recall/types';
 
 export interface MealPlanTargetInputs extends Phase1TargetInputs {
@@ -34,6 +34,7 @@ export interface MealPlanItem {
   isCustomFood: boolean;
   verificationStatus: string;
   compositionBasis?: CompositionBasis;
+  customFoodRecord?: FoodItemRecord;
   notes?: string;
 }
 

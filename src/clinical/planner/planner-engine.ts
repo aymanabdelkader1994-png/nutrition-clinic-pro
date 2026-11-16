@@ -12,7 +12,7 @@ import {
   calculatePortionNutrients,
   roundToPrecision,
 } from '../food/scaling-engine';
-import { getFoodItemById } from '../food/food-database';
+import { getFoodItemById, STANDARD_FOOD_DATABASE } from '../food/food-database';
 import {
   aggregateRecallEntries,
   resolveRecallEntry,
@@ -38,6 +38,65 @@ import {
 
 function makeId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+}
+
+function cloneFoodRecord(food: FoodItemRecord): FoodItemRecord {
+  return {
+    ...food,
+    nutrients100g: {
+      ...food.nutrients100g,
+      missingNutrientKeys: [...(food.nutrients100g.missingNutrientKeys ?? [])],
+    },
+    portions: (food.portions ?? []).map((p) => ({
+      ...p,
+      exchangeBreakdown: p.exchangeBreakdown ? { ...p.exchangeBreakdown } : undefined,
+    })),
+    tags: food.tags ? [...food.tags] : undefined,
+  };
+}
+
+/**
+ * Formats a Date into a YYYY-MM-DD calendar date using the runtime's local timezone
+ * rather than UTC, avoiding off-by-one day shifts around midnight.
+ */
+export function formatLocalCalendarDate(date: Date = new Date()): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+/**
+ * Resolves the underlying FoodItemRecord for a MealPlanItem.
+ * - Standard catalog records are always resolved authoritatively from STANDARD_FOOD_DATABASE
+ *   and are never overwritten by item snapshots.
+ * - Live runtime custom foods resolve via getFoodItemById().
+ * - After reload (when runtime customFoodRegistry is empty), falls back safely to the
+ *   embedded customFoodRecord snapshot preserved on the saved MealPlanItem.
+ */
+export function resolveMealPlanItemFood(item: MealPlanItem): FoodItemRecord | undefined {
+  const standardFood = STANDARD_FOOD_DATABASE.find((f) => f.id === item.foodId);
+  if (standardFood) {
+    return standardFood;
+  }
+
+  const catalogFood = getFoodItemById(item.foodId);
+  if (catalogFood) {
+    return catalogFood;
+  }
+
+  if (
+    item.isCustomFood &&
+    item.customFoodRecord &&
+    item.customFoodRecord.isCustom === true &&
+    item.customFoodRecord.id === item.foodId &&
+    item.customFoodRecord.nutrients100g &&
+    Array.isArray(item.customFoodRecord.portions)
+  ) {
+    return cloneFoodRecord(item.customFoodRecord);
+  }
+
+  return undefined;
 }
 
 /**
@@ -84,6 +143,7 @@ export function resolveMealPlanItem(params: {
 
   return {
     ...resolved,
+    ...(params.food.isCustom ? { customFoodRecord: cloneFoodRecord(params.food) } : {}),
     nutrients: {
       ...resolved.nutrients,
       exchangeCategory,
@@ -101,9 +161,25 @@ export function resolveMealPlanItem(params: {
  * enriching exchange metadata if the underlying food exists in the catalog.
  */
 export function mealPlanItemFromEntry(entry: RecallEntry): MealPlanItem {
-  const food = getFoodItemById(entry.foodId);
-  if (!food || food.portions.length === 0) {
+  const catalogFood = getFoodItemById(entry.foodId);
+  const embeddedCustom = (entry as MealPlanItem).customFoodRecord;
+  const food =
+    catalogFood ??
+    (entry.isCustomFood &&
+    embeddedCustom &&
+    embeddedCustom.isCustom === true &&
+    embeddedCustom.id === entry.foodId
+      ? embeddedCustom
+      : undefined);
+
+  if (!food) {
     return { ...entry };
+  }
+  if (food.portions.length === 0 && !entry.isDirectGrams) {
+    return {
+      ...entry,
+      ...(food.isCustom ? { customFoodRecord: cloneFoodRecord(food) } : {}),
+    };
   }
   return resolveMealPlanItem({
     id: entry.id,
@@ -123,9 +199,11 @@ export function createDailyMealPlan(params?: {
   planDate?: string;
   patientName?: string;
   notes?: string;
+  now?: Date;
 }): DailyMealPlan {
-  const nowIso = new Date().toISOString();
-  const defaultDate = nowIso.split('T')[0];
+  const now = params?.now ?? new Date();
+  const nowIso = now.toISOString();
+  const defaultDate = formatLocalCalendarDate(now);
 
   const defaultSlots: Array<{ mealType: MealType; timeOfDay: string }> = [
     { mealType: 'breakfast', timeOfDay: '08:00' },
@@ -236,7 +314,7 @@ export function updateMealItemQuantity(
     throw new Error(`Meal item "${itemId}" not found in meal "${mealId}".`);
   }
 
-  const food = getFoodItemById(existingItem.foodId);
+  const food = resolveMealPlanItemFood(existingItem);
   if (!food) {
     throw new Error(
       `Food record "${existingItem.foodId}" (${existingItem.foodNameEn}) is missing from catalog; cannot re-scale without fabricating composition.`

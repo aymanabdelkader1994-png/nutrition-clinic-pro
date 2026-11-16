@@ -33,7 +33,6 @@ import {
 } from 'lucide-react';
 
 import { ADA_AND_EXCHANGE_SYSTEM } from '../../clinical/food/exchange-systems';
-import { getFoodItemById } from '../../clinical/food/food-database';
 import { ExchangeCategoryId } from '../../clinical/food/types';
 import {
   addItemToMeal,
@@ -42,12 +41,14 @@ import {
   createDailyMealPlan,
   createSampleEgyptianMealPlan,
   deleteSavedMealPlan,
+  getMealPlanStorageStatus,
   getSavedMealPlans,
   mealPlanItemFromEntry,
   removeMealItem,
   removeMealSlot,
   replaceMealItem,
-  saveMealPlan,
+  resolveMealPlanItemFood,
+  saveMealPlanWithStatus,
   updateMealItemQuantity,
   updateMealSlotMeta,
 } from '../../clinical/planner';
@@ -91,7 +92,7 @@ export function MealPlannerWorkbench({
   );
   const [savedPlans, setSavedPlans] = useState<DailyMealPlan[]>(() => getSavedMealPlans());
   const [showSavedDrawer, setShowSavedDrawer] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<{ text: string; tone: 'success' | 'warning' } | null>(null);
   const [errorBanner, setErrorBanner] = useState<string | null>(null);
 
   // Add Meal / Snack state
@@ -130,9 +131,13 @@ export function MealPlannerWorkbench({
     return map;
   }, [analysis]);
 
-  const showNotice = (msg: string) => {
-    setStatusMessage(msg);
-    setTimeout(() => setStatusMessage(null), 4000);
+  const showNotice = (text: string, tone: 'success' | 'warning' = 'success') => {
+    setStatusMessage({ text, tone });
+    if (tone === 'success') {
+      setTimeout(() => {
+        setStatusMessage((prev) => (prev?.text === text ? null : prev));
+      }, 4000);
+    }
   };
 
   // Handlers
@@ -156,7 +161,7 @@ export function MealPlannerWorkbench({
     const item = meal?.items.find((it) => it.id === itemId);
     if (!item) return;
 
-    const food = getFoodItemById(item.foodId);
+    const food = resolveMealPlanItemFood(item);
     if (!food) return;
 
     let nextQty = currentQuantity;
@@ -246,10 +251,25 @@ export function MealPlannerWorkbench({
   };
 
   const handleSavePlan = () => {
-    const saved = saveMealPlan(plan);
-    setPlan(saved);
+    setErrorBanner(null);
+    const result = saveMealPlanWithStatus(plan);
+    setPlan(result.plan);
     setSavedPlans(getSavedMealPlans());
-    showNotice(isAr ? 'تم حفظ خطة الوجبات محلياً بنجاح' : 'Meal plan saved locally.');
+    if (result.isDurable) {
+      showNotice(
+        isAr
+          ? 'تم حفظ خطة الوجبات في التخزين المحلي للمتصفح (محفوظة عبر إعادة التحميل).'
+          : 'Meal plan saved to browser local storage (persists across reloads).',
+        'success'
+      );
+    } else {
+      showNotice(
+        isAr
+          ? 'التخزين المحلي غير متاح أو تعذر الكتابة فيه — تم الحفظ مؤقتاً في ذاكرة الجلسة فقط وسيُفقد عند إعادة التحميل.'
+          : 'Browser local storage is unavailable or write failed — saved temporarily in session memory only (will be lost on reload).',
+        'warning'
+      );
+    }
   };
 
   const handleLoadSavedPlan = (loaded: DailyMealPlan) => {
@@ -394,9 +414,31 @@ export function MealPlannerWorkbench({
 
         {/* Status / Error notifications */}
         {statusMessage && (
-          <div className="mt-3 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs font-medium text-emerald-800">
-            <Check className="h-4 w-4 text-emerald-600" />
-            <span>{statusMessage}</span>
+          <div
+            role={statusMessage.tone === 'warning' ? 'alert' : 'status'}
+            className={`mt-3 flex items-center justify-between gap-2 rounded-xl border px-3 py-2 text-xs font-medium ${
+              statusMessage.tone === 'warning'
+                ? 'border-amber-200 bg-amber-50 text-amber-900'
+                : 'border-emerald-200 bg-emerald-50 text-emerald-800'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              {statusMessage.tone === 'warning' ? (
+                <AlertTriangle className="h-4 w-4 shrink-0 text-amber-600" />
+              ) : (
+                <Check className="h-4 w-4 shrink-0 text-emerald-600" />
+              )}
+              <span>{statusMessage.text}</span>
+            </div>
+            {statusMessage.tone === 'warning' && (
+              <button
+                type="button"
+                onClick={() => setStatusMessage(null)}
+                className="shrink-0 text-xs font-semibold text-amber-700 hover:text-amber-950"
+              >
+                {isAr ? 'إغلاق' : 'Dismiss'}
+              </button>
+            )}
           </div>
         )}
         {errorBanner && (
@@ -410,9 +452,22 @@ export function MealPlannerWorkbench({
         {showSavedDrawer && (
           <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4">
             <div className="mb-2 flex items-center justify-between">
-              <h3 className="text-xs font-bold text-slate-800">
-                {isAr ? 'خطط الوجبات المحفوظة محلياً:' : 'Locally Saved Daily Meal Plans:'}
-              </h3>
+              <div className="flex flex-wrap items-center gap-2">
+                <h3 className="text-xs font-bold text-slate-800">
+                  {getMealPlanStorageStatus().isUsingMemoryFallback
+                    ? isAr
+                      ? 'الخطط المحفوظة مؤقتاً (ذاكرة الجلسة فقط):'
+                      : 'Temporarily Saved Meal Plans (Session Memory Only):'
+                    : isAr
+                    ? 'خطط الوجبات المحفوظة محلياً:'
+                    : 'Locally Saved Daily Meal Plans:'}
+                </h3>
+                {getMealPlanStorageStatus().isUsingMemoryFallback && (
+                  <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
+                    {isAr ? 'تخزين مؤقت غير دائم' : 'Not Durable Across Reloads'}
+                  </span>
+                )}
+              </div>
               <button
                 type="button"
                 onClick={() => setShowSavedDrawer(false)}
@@ -596,7 +651,7 @@ export function MealPlannerWorkbench({
                 ) : (
                   <div className="mt-2 divide-y divide-slate-100">
                     {meal.items.map((item) => {
-                      const food = getFoodItemById(item.foodId);
+                      const food = resolveMealPlanItemFood(item);
                       const foodLabel = isAr ? item.foodNameAr : item.foodNameEn;
                       const isExchangeOnly = item.compositionBasis === 'exchange_only';
                       const selectValue = item.isDirectGrams ? 'grams' : item.selectedPortionId || 'grams';

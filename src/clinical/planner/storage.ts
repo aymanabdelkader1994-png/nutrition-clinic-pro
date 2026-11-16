@@ -1,13 +1,28 @@
 /**
  * Nutrition Clinic Pro - Daily Meal Plan LocalStorage Persistence
- * Matches Phase 3/History safe storage pattern with in-memory fallback.
+ * Matches Phase 3/History safe storage pattern with explicit in-memory fallback status.
  */
 
 import { DailyMealPlan } from './types';
 
 const STORAGE_KEY = 'ncp_daily_meal_plans_v1';
 
+export type MealPlanPersistenceMode = 'local_storage' | 'memory_fallback';
+
+export interface SaveMealPlanResult {
+  plan: DailyMealPlan;
+  persistenceMode: MealPlanPersistenceMode;
+  isDurable: boolean;
+}
+
+export interface MealPlanStorageStatus {
+  isLocalStorageAvailable: boolean;
+  isUsingMemoryFallback: boolean;
+  persistenceMode: MealPlanPersistenceMode;
+}
+
 let memoryFallback: DailyMealPlan[] = [];
+let storageWriteFallbackActive = false;
 
 function isLocalStorageAvailable(): boolean {
   try {
@@ -21,8 +36,18 @@ function isLocalStorageAvailable(): boolean {
   }
 }
 
+export function getMealPlanStorageStatus(): MealPlanStorageStatus {
+  const available = isLocalStorageAvailable();
+  const usingFallback = !available || storageWriteFallbackActive;
+  return {
+    isLocalStorageAvailable: available,
+    isUsingMemoryFallback: usingFallback,
+    persistenceMode: usingFallback ? 'memory_fallback' : 'local_storage',
+  };
+}
+
 export function getSavedMealPlans(): DailyMealPlan[] {
-  if (!isLocalStorageAvailable()) {
+  if (!isLocalStorageAvailable() || storageWriteFallbackActive) {
     return [...memoryFallback];
   }
   try {
@@ -35,7 +60,7 @@ export function getSavedMealPlans(): DailyMealPlan[] {
   }
 }
 
-export function saveMealPlan(plan: DailyMealPlan): DailyMealPlan {
+export function saveMealPlanWithStatus(plan: DailyMealPlan): SaveMealPlanResult {
   const current = getSavedMealPlans();
   const updatedPlan: DailyMealPlan = {
     ...plan,
@@ -48,17 +73,34 @@ export function saveMealPlan(plan: DailyMealPlan): DailyMealPlan {
       ? current.map((p, i) => (i === existingIdx ? updatedPlan : p))
       : [updatedPlan, ...current];
 
+  let persistenceMode: MealPlanPersistenceMode = 'memory_fallback';
+
   if (isLocalStorageAvailable()) {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(nextList));
-    } catch {
+      storageWriteFallbackActive = false;
       memoryFallback = nextList;
+      persistenceMode = 'local_storage';
+    } catch {
+      storageWriteFallbackActive = true;
+      memoryFallback = nextList;
+      persistenceMode = 'memory_fallback';
     }
   } else {
+    storageWriteFallbackActive = true;
     memoryFallback = nextList;
+    persistenceMode = 'memory_fallback';
   }
 
-  return updatedPlan;
+  return {
+    plan: updatedPlan,
+    persistenceMode,
+    isDurable: persistenceMode === 'local_storage',
+  };
+}
+
+export function saveMealPlan(plan: DailyMealPlan): DailyMealPlan {
+  return saveMealPlanWithStatus(plan).plan;
 }
 
 export function deleteSavedMealPlan(planId: string): boolean {
@@ -69,10 +111,14 @@ export function deleteSavedMealPlan(planId: string): boolean {
   if (isLocalStorageAvailable()) {
     try {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+      storageWriteFallbackActive = false;
+      memoryFallback = filtered;
     } catch {
+      storageWriteFallbackActive = true;
       memoryFallback = filtered;
     }
   } else {
+    storageWriteFallbackActive = true;
     memoryFallback = filtered;
   }
   return true;
@@ -80,6 +126,7 @@ export function deleteSavedMealPlan(planId: string): boolean {
 
 export function clearSavedMealPlansForTesting(): void {
   memoryFallback = [];
+  storageWriteFallbackActive = false;
   if (isLocalStorageAvailable()) {
     try {
       window.localStorage.removeItem(STORAGE_KEY);
