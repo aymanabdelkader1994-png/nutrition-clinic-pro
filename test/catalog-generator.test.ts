@@ -680,3 +680,252 @@ describe('Task C & D: Catalog Provenance Counts & Isolated Dual-Run Reproducibil
     }
   });
 });
+
+describe('REM-04 Phase 2: Controlled Arabic Name Remediation (124 Category A Records)', () => {
+  const EXPECTED_MEAT_CORRECTIONS: Record<string, string> = {
+    'RP-MT-002': 'حمص نيء',
+    'RP-MT-003': 'حمص مطبوخ',
+    'RP-MT-014': 'حمص بطحينة',
+    'RP-MT-015': 'طعمية',
+    'RP-MT-016': 'دقيق حمص',
+    'RP-MT-017': 'حمص معلب',
+    'RP-MT-018': 'دال حمص مطبوخ',
+    'RP-MT-021': 'حمص محمص',
+    'RP-MT-022': 'ترمس مطبوخ',
+    'RP-MT-030': 'لحم بقري قليل الدهن مشوي',
+    'RP-MT-032': 'وز في الفرن',
+    'RP-MT-033': 'وز نيء',
+    'RP-MT-034': 'سمان مشوي',
+    'RP-MT-035': 'سمان نيء',
+    'RP-MT-036': 'حمام في الفرن',
+    'RP-MT-037': 'حمام نيء',
+    'RP-MT-039': 'رومي مدخن',
+    'RP-MT-040': 'بط في الفرن',
+    'RP-MT-041': 'قوانص فراخ مطبوخة',
+    'RP-MT-042': 'قوانص فراخ نيئة',
+    'RP-MT-043': 'دبوس فراخ بدون جلد مسلوق',
+    'RP-MT-047': 'كبدة فراخ نيئة',
+    'RP-MT-049': 'لحم بط نيء',
+    'RP-MT-051': 'سمك القد نيء',
+    'RP-MT-052': 'سردين معلب بالزيت',
+    'RP-MT-060': 'سالمون في الفرن',
+    'RP-MT-061': 'سالمون مشوي',
+    'RP-MT-062': 'سالمون نيء',
+    'RP-MT-063': 'بسطرمة',
+    'RP-MT-067': 'لحم جملي مطبوخ',
+    'RP-MT-068': 'لحم جملي نيء',
+    'RP-MT-071': 'لحم بقري مفروم قليل الدهن مشوح',
+    'RP-MT-078': 'سالمون معلب',
+    'RP-MT-079': 'سالمون مدخن',
+    'RP-MT-081': 'جمبري نهري مطبوخ',
+    'RP-MT-086': 'سمك أبو سيف نيء',
+    'RP-MT-087': 'سمك بولاك نيء',
+    'RP-MT-088': 'قرموط نيء',
+    'RP-MT-089': 'هاليبوت نيء',
+    'RP-MT-096': 'تراوت نيء',
+    'RP-MT-098': 'محار مطبوخ',
+    'RP-MT-099': 'بلح البحر مطبوخ',
+    'RP-MT-101': 'كاليماري مشوي',
+    'RP-MT-102': 'كاليماري نيء',
+    'RP-MT-103': 'جمبري مسلوق',
+    'RP-MT-104': 'جمبري مشوي',
+    'RP-MT-105': 'جمبري نيء',
+    'RP-MT-106': 'قاروص مشوي',
+    'RP-MT-108': 'سمك القد في الفرن',
+    'RP-MT-117': 'برجر نباتي',
+    'RP-MT-122': 'بياض بيض',
+    'RP-MT-124': 'رنجة مدخنة',
+    'RP-MT-126': 'سمك موسى نيء',
+    'RP-MT-132': 'دنيس نيء',
+    'RP-MT-136': 'كاليماري مقلي',
+    'RP-MT-137': 'جمبري مقلي',
+    'RP-MT-138': 'سمك القد مقلي',
+    'RP-MT-140': 'سالمون مقلي',
+    'RP-MT-141': 'برجر لحم مشوي',
+    'RP-MT-142': 'لانشون بقري',
+    'RP-MT-144': 'إسكالوب بانيه',
+    'RP-MT-148': 'سلامي بقري',
+    'RP-MT-159': 'لانشون فراخ',
+    'RP-MT-161': 'كبدة فراخ مقلية',
+    'RP-MT-166': 'صفار بيض',
+    'RP-MT-168': 'ريش ضاني مشوية',
+    'RP-MT-169': 'بيبروني بقري',
+    'RP-MT-171': 'شاورما لحمة',
+    'RP-MT-174': 'شرائح دجاج نباتية',
+    'RP-MT-178': 'تمبيه',
+    'RP-MT-181': 'جبنة مثلثات',
+    'RP-MT-182': 'بانير',
+    'RP-MT-183': 'ريكوتا',
+    'RP-MT-187': 'أومليت',
+    'RP-MT-193': 'فيليه سمك بانيه',
+    'RP-MT-196': 'سمك موسى مقلي',
+  };
+
+  const EXPECTED_FAT_CORRECTIONS: Record<string, string> = {
+    'RP-FT-001': 'زبدة لب عباد الشمس',
+    'RP-FT-003': 'بذور هيمب',
+    'RP-FT-005': 'لب القرع محمص',
+    'RP-FT-007': 'لب عباد الشمس مملح',
+    'RP-FT-008': 'لب عباد الشمس محمص',
+    'RP-FT-009': 'لب عباد الشمس نيء',
+    'RP-FT-010': 'سمسم',
+    'RP-FT-013': 'عين جمل نيء',
+    'RP-FT-015': 'زبدة نباتية',
+    'RP-FT-016': 'بارميزان نباتي',
+    'RP-FT-017': 'جبنة قشقوان',
+    'RP-FT-018': 'جبنة رومي',
+    'RP-FT-019': 'جبنة شرائح معالجة',
+    'RP-FT-020': 'مونتيري جاك',
+    'RP-FT-024': 'جودة',
+    'RP-FT-025': 'جبنة سويسرية',
+    'RP-FT-026': 'بروفولون',
+    'RP-FT-027': 'حلوم',
+    'RP-FT-028': 'بارميزان',
+    'RP-FT-029': 'شيدر',
+    'RP-FT-030': 'كاجو نيء',
+    'RP-FT-031': 'لوز مملح',
+    'RP-FT-032': 'لوز محمص',
+    'RP-FT-034': 'زبدة لوز',
+    'RP-FT-036': 'أفوكادو نيء',
+    'RP-FT-037': 'زيتون أخضر',
+    'RP-FT-038': 'زيتون أسود',
+    'RP-FT-039': 'كريمة شوفان',
+    'RP-FT-040': 'كريمة كاجو',
+    'RP-FT-042': 'ثومية',
+    'RP-FT-043': 'طحينة بالخل',
+    'RP-FT-046': 'صلصة سيزر',
+    'RP-FT-048': 'مايونيز',
+    'RP-FT-056': 'مارجرين',
+    'RP-FT-059': 'زيت سمسم',
+    'RP-FT-060': 'زيت عباد الشمس',
+    'RP-FT-062': 'عين جمل محمص',
+    'RP-FT-068': 'مكسرات مشكلة محمصة',
+    'RP-FT-069': 'بندق محمص',
+    'RP-FT-070': 'بيكان محمص',
+    'RP-FT-075': 'بيكان نيء',
+    'RP-FT-076': 'بندق نيء',
+    'RP-FT-077': 'فستق مملح',
+    'RP-FT-078': 'فستق محمص',
+    'RP-FT-079': 'فستق نيء',
+    'RP-FT-081': 'فول سوداني محمص',
+    'RP-FT-083': 'كاجو مملح',
+    'RP-FT-084': 'كاجو محمص',
+  };
+
+  it('verifies all 124 Category A corrected Arabic names in the runtime catalog and preserves exclusions', () => {
+    assert.equal(Object.keys(EXPECTED_MEAT_CORRECTIONS).length, 76);
+    assert.equal(Object.keys(EXPECTED_FAT_CORRECTIONS).length, 48);
+
+    const byCode = new Map(getAllFoodItems().map((item) => [item.code, item]));
+
+    for (const [code, expectedNameAr] of Object.entries(EXPECTED_MEAT_CORRECTIONS)) {
+      const rec = byCode.get(code);
+      assert.ok(rec, `Missing meat record ${code}`);
+      assert.equal(rec.foodGroupId, 'meats');
+      assert.equal(rec.nameAr, expectedNameAr, `Mismatch in ${code}`);
+    }
+
+    for (const [code, expectedNameAr] of Object.entries(EXPECTED_FAT_CORRECTIONS)) {
+      const rec = byCode.get(code);
+      assert.ok(rec, `Missing fat record ${code}`);
+      assert.equal(rec.foodGroupId, 'fats');
+      assert.equal(rec.nameAr, expectedNameAr, `Mismatch in ${code}`);
+    }
+
+    // Confirm RegimePlan PDF "سالمون" spelling preserved across all 6 salmon records
+    for (const salmonCode of ['RP-MT-060', 'RP-MT-061', 'RP-MT-062', 'RP-MT-078', 'RP-MT-079', 'RP-MT-140']) {
+      const rec = byCode.get(salmonCode)!;
+      assert.ok(rec.nameAr.includes('سالمون'), `${salmonCode} must use سالمون spelling`);
+      assert.equal(rec.nameAr.includes('ساملون'), false);
+    }
+
+    // Confirm wrapped-line fixes preserve non-nameAr fields
+    const mt030 = byCode.get('RP-MT-030')!;
+    assert.equal(mt030.nameAr, 'لحم بقري قليل الدهن مشوي');
+    assert.equal(mt030.nameEn, 'Lean Beef');
+    assert.equal(mt030.preparationState, 'cooked');
+
+    const mt043 = byCode.get('RP-MT-043')!;
+    assert.equal(mt043.nameAr, 'دبوس فراخ بدون جلد مسلوق');
+    assert.equal(mt043.nameEn, 'Skinless Chicken Drumstick');
+    assert.equal(mt043.preparationState, 'cooked');
+
+    const mt071 = byCode.get('RP-MT-071')!;
+    assert.equal(mt071.nameAr, 'لحم بقري مفروم قليل الدهن مشوح');
+    assert.equal(mt071.nameEn, 'Lean Ground Beef');
+    assert.equal(mt071.preparationState, 'cooked');
+
+    // Explicit exclusions must remain unchanged
+    assert.equal(byCode.get('RP-FT-021')?.nameAr, 'جرير');
+    assert.equal(byCode.get('RP-OCC-015')?.nameAr, 'قطايف مقلية بالمسكرات');
+  });
+
+  it('guards against residual CMap swaps and glued measurement artifacts in meats and fats nameAr', () => {
+    const meatsAndFats = getAllFoodItems().filter(
+      (item) => item.foodGroupId === 'meats' || item.foodGroupId === 'fats'
+    );
+    const forbiddenSubstrings = [
+      'محص',
+      'مسك ',
+      'شرائج',
+      'ساملون',
+      'مايوانيز',
+      'جبنيم',
+      'مدخنةنصف',
+      'مقليفيليه',
+      'مسلوقجمبري',
+      'نيئةوزة',
+      'غ(',
+    ];
+
+    for (const item of meatsAndFats) {
+      for (const bad of forbiddenSubstrings) {
+        assert.equal(
+          item.nameAr.includes(bad),
+          false,
+          `Forbidden artifact "${bad}" found in ${item.code}: "${item.nameAr}"`
+        );
+      }
+      if (item.code?.startsWith('RP-MT-') || item.code?.startsWith('RP-FT-')) {
+        assert.equal(/[()0-9٠-٩]/.test(item.nameAr), false, `Unexpected digit/paren in ${item.code}: "${item.nameAr}"`);
+      }
+    }
+  });
+
+  it('verifies generator correction mappings and سالمون normalization without touching production files', () => {
+    const tmpOut = fs.mkdtempSync(path.join(os.tmpdir(), 'ncp_rem04_gen_check_'));
+    try {
+      const pyCode = `
+import json, os, sys
+sys.dont_write_bytecode = True
+sys.path.insert(0, ${JSON.stringify(REPO_ROOT)})
+os.environ['NCP_CATALOG_OUT_DIR'] = ${JSON.stringify(tmpOut)}
+from scripts.gen_meats import MEAT_NAME_AR_CORRECTIONS, AR_TYPO_NORMALIZATION, translate_name
+from scripts.gen_fats import FAT_NAME_AR_CORRECTIONS
+print(json.dumps({
+  'meatCount': len(MEAT_NAME_AR_CORRECTIONS),
+  'fatCount': len(FAT_NAME_AR_CORRECTIONS),
+  'ft021Excluded': 'RP-FT-021' not in FAT_NAME_AR_CORRECTIONS,
+  'salmonNorm': AR_TYPO_NORMALIZATION.get('ساملون'),
+  'bakedSalmon': translate_name('سالمون في الفرن'),
+  'smokedSalmon': translate_name('سالمون مدخن'),
+  'rawSalmon': translate_name('سالمون نيء'),
+}, ensure_ascii=False))
+`;
+      const res = spawnSync('python3', ['-c', pyCode], { cwd: REPO_ROOT, encoding: 'utf-8' });
+      assert.equal(res.status, 0, `Python generator inspection failed: ${res.stderr}`);
+      const lastLine = res.stdout.trim().split('\n').pop()!;
+      const info = JSON.parse(lastLine);
+      assert.equal(info.meatCount, 76);
+      assert.equal(info.fatCount, 48);
+      assert.equal(info.ft021Excluded, true);
+      assert.equal(info.salmonNorm, 'سالمون');
+      assert.equal(info.bakedSalmon, 'Baked Salmon');
+      assert.equal(info.smokedSalmon, 'Smoked Salmon');
+      assert.equal(info.rawSalmon, 'Raw Salmon');
+    } finally {
+      fs.rmSync(tmpOut, { recursive: true, force: true });
+    }
+  });
+});
+

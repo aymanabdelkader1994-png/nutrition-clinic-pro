@@ -985,6 +985,61 @@ print(f"Extracted {len(numbered_items)} unique non-footer fat items from pages 1
 print(f"Selected {len(numbered_items)} new fat items to combine with {len(orig)} original.")
 
 
+# Source-verified Category A (HIGH-confidence) Arabic name corrections keyed by record code
+# (RegimePlan Food Exchange Lists 2026 PDF, pp. 11-12). RP-FT-021 ("جرير") is intentionally
+# preserved verbatim per source PDF. Applied strictly to record["nameAr"].
+FAT_NAME_AR_CORRECTIONS = {
+    "RP-FT-001": "زبدة لب عباد الشمس",
+    "RP-FT-003": "بذور هيمب",
+    "RP-FT-005": "لب القرع محمص",
+    "RP-FT-007": "لب عباد الشمس مملح",
+    "RP-FT-008": "لب عباد الشمس محمص",
+    "RP-FT-009": "لب عباد الشمس نيء",
+    "RP-FT-010": "سمسم",
+    "RP-FT-013": "عين جمل نيء",
+    "RP-FT-015": "زبدة نباتية",
+    "RP-FT-016": "بارميزان نباتي",
+    "RP-FT-017": "جبنة قشقوان",
+    "RP-FT-018": "جبنة رومي",
+    "RP-FT-019": "جبنة شرائح معالجة",
+    "RP-FT-020": "مونتيري جاك",
+    "RP-FT-024": "جودة",
+    "RP-FT-025": "جبنة سويسرية",
+    "RP-FT-026": "بروفولون",
+    "RP-FT-027": "حلوم",
+    "RP-FT-028": "بارميزان",
+    "RP-FT-029": "شيدر",
+    "RP-FT-030": "كاجو نيء",
+    "RP-FT-031": "لوز مملح",
+    "RP-FT-032": "لوز محمص",
+    "RP-FT-034": "زبدة لوز",
+    "RP-FT-036": "أفوكادو نيء",
+    "RP-FT-037": "زيتون أخضر",
+    "RP-FT-038": "زيتون أسود",
+    "RP-FT-039": "كريمة شوفان",
+    "RP-FT-040": "كريمة كاجو",
+    "RP-FT-042": "ثومية",
+    "RP-FT-043": "طحينة بالخل",
+    "RP-FT-046": "صلصة سيزر",
+    "RP-FT-048": "مايونيز",
+    "RP-FT-056": "مارجرين",
+    "RP-FT-059": "زيت سمسم",
+    "RP-FT-060": "زيت عباد الشمس",
+    "RP-FT-062": "عين جمل محمص",
+    "RP-FT-068": "مكسرات مشكلة محمصة",
+    "RP-FT-069": "بندق محمص",
+    "RP-FT-070": "بيكان محمص",
+    "RP-FT-075": "بيكان نيء",
+    "RP-FT-076": "بندق نيء",
+    "RP-FT-077": "فستق مملح",
+    "RP-FT-078": "فستق محمص",
+    "RP-FT-079": "فستق نيء",
+    "RP-FT-081": "فول سوداني محمص",
+    "RP-FT-083": "كاجو مملح",
+    "RP-FT-084": "كاجو محمص",
+}
+
+
 def make_fat_record(it, seq_num):
     code = f"RP-FT-{seq_num:03d}"
     if code not in FAT_COMPOSITION_MAP:
@@ -1096,7 +1151,7 @@ def make_fat_record(it, seq_num):
         "code": code,
         "sourceId": src_id,
         "nameEn": spec["nameEn"],
-        "nameAr": it["nameAr"],
+        "nameAr": FAT_NAME_AR_CORRECTIONS.get(code, it["nameAr"]),
         "foodGroupId": "fats",
         "primaryExchangeCategoryId": "fat",
         "preparationState": spec["prep"],
