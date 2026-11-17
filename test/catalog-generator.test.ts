@@ -421,49 +421,76 @@ describe('Task A: Catalog Pipeline Failure Isolation & Transactional Rollback', 
     }
   });
 
-  it('rejects exchange_only records with carbsG=None and carbCalculationBasis=total_by_difference in validate_catalog', () => {
-    const sb = makeTempSandbox();
-    try {
-      const before = snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES);
-      fs.writeFileSync(
-        path.join(sb.scriptsDir, 'gen_occasions.py'),
-        [
-          'import os, json',
-          'out = os.path.join(os.environ["NCP_CATALOG_OUT_DIR"], "occasions.ts")',
-          'bad_ex = [{',
-          '  "id": "food_bad_ex_carb_basis",',
-          '  "code": "RP-EX-CARB-BAD",',
-          '  "sourceId": "regimeplan_2026",',
-          '  "nameEn": "Invalid Exchange Carb Basis",',
-          '  "nameAr": "بديل بأساس كربوهيدرات غير صحيح",',
-          '  "foodGroupId": "occasions",',
-          '  "primaryExchangeCategoryId": "combination_food",',
-          '  "preparationState": "cooked",',
-          '  "verificationStatus": "clinic_reviewed",',
-          '  "compositionBasis": "exchange_only",',
-          '  "nutrients100g": {"basisWeightG": 100, "caloriesKcal": None, "carbsG": None, "availableCarbsG": None, "carbCalculationBasis": "total_by_difference", "proteinG": None, "fatG": None, "fiberG": None, "saturatedFatG": None, "transFatG": None, "monounsaturatedFatG": None, "polyunsaturatedFatG": None, "cholesterolMg": None, "sodiumMg": None, "potassiumMg": None, "calciumMg": None, "ironMg": None, "waterG": None, "missingNutrientKeys": ["caloriesKcal", "carbsG", "proteinG", "fatG", "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG", "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg", "calciumMg", "ironMg", "waterG"]},',
-          '  "portions": [{"id": "p_bad_ex_carb_1", "gramWeight": 30}]',
-          '}]',
-          'with open(out, "w", encoding="utf-8") as f:',
-          '    f.write("export const OCC: FoodItemRecord[] = " + json.dumps(bad_ex) + ";")',
-        ].join('\n'),
-        'utf-8'
-      );
+  it('rejects exchange_only records with carbsG=None unless carbCalculationBasis=unspecified in validate_catalog', () => {
+    const invalidCases: Array<{ label: string; recordId: string; code: string; carbBasisLine: string; expectedGot: string }> = [
+      {
+        label: 'total_by_difference',
+        recordId: 'food_bad_ex_carb_tbd',
+        code: 'RP-EX-CARB-TBD',
+        carbBasisLine: '"carbCalculationBasis": "total_by_difference", ',
+        expectedGot: "(got 'total_by_difference')",
+      },
+      {
+        label: 'available_carbohydrate',
+        recordId: 'food_bad_ex_carb_avail',
+        code: 'RP-EX-CARB-AVAIL',
+        carbBasisLine: '"carbCalculationBasis": "available_carbohydrate", ',
+        expectedGot: "(got 'available_carbohydrate')",
+      },
+      {
+        label: 'missing carbCalculationBasis',
+        recordId: 'food_bad_ex_carb_missing',
+        code: 'RP-EX-CARB-MISS',
+        carbBasisLine: '',
+        expectedGot: '(got None)',
+      },
+    ];
 
-      const res = spawnSync(
-        'python3',
-        [path.join(sb.scriptsDir, 'build_full_catalog.py'), '--scripts-dir', sb.scriptsDir, '--data-dir', sb.dataDir],
-        { cwd: REPO_ROOT, encoding: 'utf-8' }
-      );
-      assert.notEqual(res.status, 0);
-      assert.ok(
-        res.stdout.includes('food_bad_ex_carb_basis') &&
-          res.stdout.includes("nutrients100g.carbCalculationBasis='total_by_difference'"),
-        `Expected carbCalculationBasis invariant rejection naming record ID and field, got:\n${res.stdout}\n${res.stderr}`
-      );
-      assert.deepEqual(snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES), before);
-    } finally {
-      fs.rmSync(sb.root, { recursive: true, force: true });
+    for (const tc of invalidCases) {
+      const sb = makeTempSandbox();
+      try {
+        const before = snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES);
+        fs.writeFileSync(
+          path.join(sb.scriptsDir, 'gen_occasions.py'),
+          [
+            'import os, json',
+            'out = os.path.join(os.environ["NCP_CATALOG_OUT_DIR"], "occasions.ts")',
+            'bad_ex = [{',
+            `  "id": ${JSON.stringify(tc.recordId)},`,
+            `  "code": ${JSON.stringify(tc.code)},`,
+            '  "sourceId": "regimeplan_2026",',
+            '  "nameEn": "Invalid Exchange Carb Basis",',
+            '  "nameAr": "بديل بأساس كربوهيدرات غير صحيح",',
+            '  "foodGroupId": "occasions",',
+            '  "primaryExchangeCategoryId": "combination_food",',
+            '  "preparationState": "cooked",',
+            '  "verificationStatus": "clinic_reviewed",',
+            '  "compositionBasis": "exchange_only",',
+            `  "nutrients100g": {"basisWeightG": 100, "caloriesKcal": None, "carbsG": None, "availableCarbsG": None, ${tc.carbBasisLine}"proteinG": None, "fatG": None, "fiberG": None, "saturatedFatG": None, "transFatG": None, "monounsaturatedFatG": None, "polyunsaturatedFatG": None, "cholesterolMg": None, "sodiumMg": None, "potassiumMg": None, "calciumMg": None, "ironMg": None, "waterG": None, "missingNutrientKeys": ["caloriesKcal", "carbsG", "proteinG", "fatG", "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG", "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg", "calciumMg", "ironMg", "waterG"]},`,
+            '  "portions": [{"id": "p_bad_ex_carb_1", "gramWeight": 30}]',
+            '}]',
+            'with open(out, "w", encoding="utf-8") as f:',
+            '    f.write("export const OCC: FoodItemRecord[] = " + json.dumps(bad_ex) + ";")',
+          ].join('\n'),
+          'utf-8'
+        );
+
+        const res = spawnSync(
+          'python3',
+          [path.join(sb.scriptsDir, 'build_full_catalog.py'), '--scripts-dir', sb.scriptsDir, '--data-dir', sb.dataDir],
+          { cwd: REPO_ROOT, encoding: 'utf-8' }
+        );
+        assert.notEqual(res.status, 0, `${tc.label}: expected validation failure`);
+        assert.ok(
+          res.stdout.includes(tc.recordId) &&
+            res.stdout.includes("nutrients100g.carbCalculationBasis='unspecified'") &&
+            res.stdout.includes(tc.expectedGot),
+          `${tc.label}: expected rejection citing ${tc.recordId}, nutrients100g.carbCalculationBasis='unspecified', and ${tc.expectedGot}, got:\n${res.stdout}\n${res.stderr}`
+        );
+        assert.deepEqual(snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES), before);
+      } finally {
+        fs.rmSync(sb.root, { recursive: true, force: true });
+      }
     }
   });
 });
