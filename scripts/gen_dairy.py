@@ -153,7 +153,7 @@ def make_dairy_item(raw):
         "caloriesKcal": kcal100,
         "carbsG": c100,
         "availableCarbsG": None,
-        "carbCalculationBasis": "total_by_difference",
+        "carbCalculationBasis": "unspecified" if comp_basis == "exchange_only" else "total_by_difference",
         "proteinG": p100,
         "fatG": f100,
         "fiberG": override.get("fiberG", None),

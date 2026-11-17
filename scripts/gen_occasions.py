@@ -89,7 +89,7 @@ def make_occasion_item(raw):
             "caloriesKcal": None,
             "carbsG": None,
             "availableCarbsG": None,
-            "carbCalculationBasis": "total_by_difference",
+            "carbCalculationBasis": "unspecified",
             "proteinG": None,
             "fatG": None,
             "fiberG": None,

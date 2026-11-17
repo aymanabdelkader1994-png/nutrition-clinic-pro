@@ -420,6 +420,52 @@ describe('Task A: Catalog Pipeline Failure Isolation & Transactional Rollback', 
       fs.rmSync(sb.root, { recursive: true, force: true });
     }
   });
+
+  it('rejects exchange_only records with carbsG=None and carbCalculationBasis=total_by_difference in validate_catalog', () => {
+    const sb = makeTempSandbox();
+    try {
+      const before = snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES);
+      fs.writeFileSync(
+        path.join(sb.scriptsDir, 'gen_occasions.py'),
+        [
+          'import os, json',
+          'out = os.path.join(os.environ["NCP_CATALOG_OUT_DIR"], "occasions.ts")',
+          'bad_ex = [{',
+          '  "id": "food_bad_ex_carb_basis",',
+          '  "code": "RP-EX-CARB-BAD",',
+          '  "sourceId": "regimeplan_2026",',
+          '  "nameEn": "Invalid Exchange Carb Basis",',
+          '  "nameAr": "بديل بأساس كربوهيدرات غير صحيح",',
+          '  "foodGroupId": "occasions",',
+          '  "primaryExchangeCategoryId": "combination_food",',
+          '  "preparationState": "cooked",',
+          '  "verificationStatus": "clinic_reviewed",',
+          '  "compositionBasis": "exchange_only",',
+          '  "nutrients100g": {"basisWeightG": 100, "caloriesKcal": None, "carbsG": None, "availableCarbsG": None, "carbCalculationBasis": "total_by_difference", "proteinG": None, "fatG": None, "fiberG": None, "saturatedFatG": None, "transFatG": None, "monounsaturatedFatG": None, "polyunsaturatedFatG": None, "cholesterolMg": None, "sodiumMg": None, "potassiumMg": None, "calciumMg": None, "ironMg": None, "waterG": None, "missingNutrientKeys": ["caloriesKcal", "carbsG", "proteinG", "fatG", "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG", "polyunsaturatedFatG", "cholesterolMg", "sodiumMg", "potassiumMg", "calciumMg", "ironMg", "waterG"]},',
+          '  "portions": [{"id": "p_bad_ex_carb_1", "gramWeight": 30}]',
+          '}]',
+          'with open(out, "w", encoding="utf-8") as f:',
+          '    f.write("export const OCC: FoodItemRecord[] = " + json.dumps(bad_ex) + ";")',
+        ].join('\n'),
+        'utf-8'
+      );
+
+      const res = spawnSync(
+        'python3',
+        [path.join(sb.scriptsDir, 'build_full_catalog.py'), '--scripts-dir', sb.scriptsDir, '--data-dir', sb.dataDir],
+        { cwd: REPO_ROOT, encoding: 'utf-8' }
+      );
+      assert.notEqual(res.status, 0);
+      assert.ok(
+        res.stdout.includes('food_bad_ex_carb_basis') &&
+          res.stdout.includes("nutrients100g.carbCalculationBasis='total_by_difference'"),
+        `Expected carbCalculationBasis invariant rejection naming record ID and field, got:\n${res.stdout}\n${res.stderr}`
+      );
+      assert.deepEqual(snapshotDirHashes(sb.dataDir, OUTPUT_TS_FILES), before);
+    } finally {
+      fs.rmSync(sb.root, { recursive: true, force: true });
+    }
+  });
 });
 
 describe('Task B: Deterministic Semantic Meat/Seafood Translation Engine', () => {

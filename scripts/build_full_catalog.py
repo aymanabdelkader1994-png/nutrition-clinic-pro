@@ -176,6 +176,10 @@ def validate_catalog(all_items):
         if comp_basis == "exchange_only":
             if avail_carbs is not None:
                 errors.append(f"{item_id}: exchange_only item must have availableCarbsG=None (got {avail_carbs})")
+            if carbs is None and n100.get("carbCalculationBasis") == "total_by_difference":
+                errors.append(
+                    f"{item_id}: exchange_only item with carbsG=None must not have nutrients100g.carbCalculationBasis='total_by_difference'"
+                )
             for key in CORE_TRACKED_KEYS:
                 if n100.get(key) is not None:
                     errors.append(f"{item_id}: exchange_only item must have {key}=None (got {n100.get(key)})")

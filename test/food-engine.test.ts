@@ -1330,5 +1330,84 @@ describe('15. Exchange-Only Null Propagation & Integrity Repair Gate', () => {
     assert.equal(mixedComposite.observedTotals.caloriesKcal, scaledChicken.caloriesKcal);
     assert.equal(mixedComposite.observedTotals.proteinG, scaledChicken.proteinG);
   });
+
+  it('REM-05: sets carbCalculationBasis=unspecified on all 298 exchange_only records while preserving analytical bases and null nutrients', () => {
+    const all = getAllFoodItems();
+    const exchangeOnlyItems = all.filter((f) => f.compositionBasis === 'exchange_only');
+    const nonExchangeItems = all.filter((f) => f.compositionBasis !== 'exchange_only');
+
+    assert.equal(exchangeOnlyItems.length, 298, 'Expected exactly 298 exchange_only catalog records');
+    assert.equal(nonExchangeItems.length, 378, 'Expected exactly 378 non-exchange_only catalog records');
+
+    const coreTrackedKeys: Array<keyof FoodNutrientProfile100g> = [
+      'caloriesKcal',
+      'carbsG',
+      'proteinG',
+      'fatG',
+      'fiberG',
+      'saturatedFatG',
+      'transFatG',
+      'monounsaturatedFatG',
+      'polyunsaturatedFatG',
+      'cholesterolMg',
+      'sodiumMg',
+      'potassiumMg',
+      'calciumMg',
+      'ironMg',
+      'waterG',
+    ];
+
+    for (const item of exchangeOnlyItems) {
+      assert.equal(
+        item.nutrients100g.carbCalculationBasis,
+        'unspecified',
+        `${item.id}: exchange_only record must use carbCalculationBasis='unspecified'`
+      );
+      assert.notEqual(
+        item.nutrients100g.carbCalculationBasis,
+        'total_by_difference',
+        `${item.id}: exchange_only record with null carbsG must not claim total_by_difference`
+      );
+      assert.equal(item.nutrients100g.availableCarbsG ?? null, null, `${item.id}: availableCarbsG must remain null`);
+      for (const key of coreTrackedKeys) {
+        assert.equal(
+          item.nutrients100g[key],
+          null,
+          `${item.id}: exchange_only ${String(key)} must remain null (never fabricated or 0-imputed)`
+        );
+      }
+      assert.equal(
+        item.nutrients100g.missingNutrientKeys.length,
+        15,
+        `${item.id}: exchange_only missingNutrientKeys must retain all 15 core keys`
+      );
+    }
+
+    // All analytical, clinic_estimated, and recipe_based records preserve total_by_difference
+    for (const item of nonExchangeItems) {
+      assert.equal(
+        item.nutrients100g.carbCalculationBasis,
+        'total_by_difference',
+        `${item.id} (${item.compositionBasis}): non-exchange_only record must retain carbCalculationBasis='total_by_difference'`
+      );
+      assert.ok(
+        item.nutrients100g.carbsG !== null && Number.isFinite(item.nutrients100g.carbsG),
+        `${item.id}: analytical/reviewed record must retain numeric carbsG`
+      );
+    }
+
+    // Explicit provenance spot-checks across analytical_table (USDA & NNI), clinic_estimated, and recipe_based
+    const usdaLentils = getFoodItemById('food_lentils_brown_cooked')!;
+    assert.equal(usdaLentils.nutrients100g.carbCalculationBasis, 'total_by_difference');
+    const nniItems = all.filter((f) => f.sourceId === 'egyptian_nni_2006');
+    assert.equal(nniItems.length, 8);
+    assert.ok(nniItems.every((f) => f.nutrients100g.carbCalculationBasis === 'total_by_difference'));
+    const powderedSugar = getFoodItemById('food_starch_rp_rp_st_128')!;
+    assert.equal(powderedSugar.compositionBasis, 'clinic_estimated');
+    assert.equal(powderedSugar.nutrients100g.carbCalculationBasis, 'total_by_difference');
+    const baladiSalad = getFoodItemById('food_salad_baladi_green')!;
+    assert.equal(baladiSalad.compositionBasis, 'recipe_based');
+    assert.equal(baladiSalad.nutrients100g.carbCalculationBasis, 'total_by_difference');
+  });
 });
 

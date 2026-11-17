@@ -1013,7 +1013,7 @@ def make_fat_record(it, seq_num):
             "caloriesKcal": None,
             "carbsG": None,
             "availableCarbsG": None,
-            "carbCalculationBasis": "total_by_difference",
+            "carbCalculationBasis": "unspecified",
             "proteinG": None,
             "fatG": None,
             "fiberG": None,

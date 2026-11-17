@@ -214,7 +214,7 @@ def make_veg_item(row):
         "caloriesKcal": n_src.get("caloriesKcal", None),
         "carbsG": n_src.get("carbsG", None),
         "availableCarbsG": None,
-        "carbCalculationBasis": "total_by_difference",
+        "carbCalculationBasis": "unspecified" if comp_basis == "exchange_only" else "total_by_difference",
         "proteinG": n_src.get("proteinG", None),
         "fatG": n_src.get("fatG", None),
         "fiberG": n_src.get("fiberG", None),
