@@ -72,8 +72,8 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "healthy fat",
       "mediterranean"
     ],
-    "notesAr": "زيت زيتون بكر ممتاز معصور على البارد؛ غني بحمض الأوليك والبوليفينولات الداعمة لصحة القلب والأوعية الدموية.",
-    "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants.",
+    "notesAr": "زيت زيتون بكر ممتاز معصور على البارد؛ غني بحمض الأوليك والبوليفينولات الداعمة لصحة القلب والأوعية الدموية. السجل القياسي متعدد الحصص لمرجع USDA 04053 — يرتبط بسجل RegimePlan القياسي (RP-FT-067).",
+    "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants. Canonical multi-portion reference for USDA NDB 04053; cross-referenced with RegimePlan 2026 item RP-FT-067.",
     "compositionBasis": "analytical_table"
   },
   {
@@ -4399,8 +4399,8 @@ export const FAT_FOOD_ITEMS: FoodItemRecord[] = [
       "olive oil",
       "زيت زيتون"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04053). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 12).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04053). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 12).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من قاعدة بيانات USDA SR Legacy (NDB 04053). وزن بديل الدهون القياسي (5 جم، ملعقة صغيرة) وفق قوائم RegimePlan 2026 (ص 12). سجل بديل RegimePlan المرتبط بمرجع USDA 04053؛ يطابق السجل القياسي متعدد الحصص food_oil_olive_extra_virgin (USDA-04053).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 04053). Exchange portion weight (5g, 5g portion) from RegimePlan Food Exchange Lists (2026, p. 12). RegimePlan exchange sibling for USDA NDB 04053; cross-referenced with canonical multi-portion record food_oil_olive_extra_virgin (USDA-04053).",
     "sourceRecordId": "04053"
   },
   {

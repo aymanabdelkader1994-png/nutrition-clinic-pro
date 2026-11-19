@@ -75,7 +75,13 @@
         "starch",
         "egyptian",
         "grains",
-        "fiber"
+        "fiber",
+        "عيش",
+        "عيش بلدي",
+        "رغيف بلدي",
+        "خبز بلدي",
+        "خبز",
+        "بلدي"
       ],
       "notesAr": "الخبز البلدي المدعم التقليدي؛ يحتوي على نخالة القمح (الردة) مما يمنحه مؤشراً جلايسيمياً أكثر اعتدالاً ومحتوى ألياف أعلى من الخبز الأبيض الفينو.",
       "notesEn": "Traditional Egyptian flatbread made from 82% extraction coarse wheat flour with bran.",
@@ -866,8 +872,8 @@
         "cow milk",
         "whole milk"
       ],
-      "notesAr": "حليب بقري مبستر كامل الدسم؛ كوب واحد 240 مل يوفر قرابة 150 سعرة حرارية و8 جم بروتين و8 جم دهون.",
-      "notesEn": "Pasteurized whole cow milk with 3.25% milkfat.",
+      "notesAr": "حليب بقري مبستر كامل الدسم؛ كوب واحد 240 مل يوفر قرابة 150 سعرة حرارية و8 جم بروتين و8 جم دهون. السجل القياسي المرجعي في قاعدة USDA (01211) — يرتبط بسجل بديل قوائم RegimePlan المماثل (RP-DA-001).",
+      "notesEn": "Pasteurized whole cow milk with 3.25% milkfat. Canonical multi-portion reference for USDA NDB 01211; cross-referenced with RegimePlan 2026 exchange item RP-DA-001 (255g exchange serving).",
       "compositionBasis": "analytical_table"
     },
     {
@@ -1202,8 +1208,8 @@
         "folate",
         "plant protein"
       ],
-      "notesAr": "عدس مسلوق؛ غني بالألياف الغذائية والحديد وحمض الفوليك. حصة 1/2 كوب مطبوخ (~100 جم) موثقة بجدول بدائل ADA/AND (2014 ص 14 / 2019 ص 16) كبديل نشويات + بديل لحوم خفيفة الدسم.",
-      "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange.",
+      "notesAr": "عدس مسلوق؛ غني بالألياف الغذائية والحديد وحمض الفوليك. حصة 1/2 كوب مطبوخ (~100 جم) موثقة بجدول بدائل ADA/AND (2014 ص 14 / 2019 ص 16) كبديل نشويات + بديل لحوم خفيفة الدسم. السجل القياسي المرجعي لمرجع USDA 16070 — يرتبط بسجل RegimePlan (RP-LEG-002).",
+      "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange. Canonical reference for USDA NDB 16070; cross-referenced with RP-LEG-002.",
       "compositionBasis": "analytical_table"
     }
   ],
@@ -1263,8 +1269,8 @@
         "lean meat",
         "high protein"
       ],
-      "notesAr": "صدر دجاج طازج منزوع الجلد قبل الطهي. يفقد قرابة 20-25% من وزنه ماءً أثناء الشي أو السلق.",
-      "notesEn": "Raw skinless chicken breast before cooking shrinkage.",
+      "notesAr": "صدر دجاج طازج منزوع الجلد قبل الطهي. يفقد قرابة 20-25% من وزنه ماءً أثناء الشي أو السلق. السجل القياسي المرجعي لمرجع USDA 05062 — يرتبط بسجل RegimePlan (RP-MT-013).",
+      "notesEn": "Raw skinless chicken breast before cooking shrinkage. Canonical reference for USDA NDB 05062; cross-referenced with RegimePlan 2026 item RP-MT-013.",
       "compositionBasis": "analytical_table"
     },
     {
@@ -1344,8 +1350,8 @@
         "high protein",
         "poultry"
       ],
-      "notesAr": "صدر دجاج مشوي بدون جلد وبدون دهون مضافة. بروتين حيواني عالي القيمة الحيوية ومنخفض الدهون المشبعة.",
-      "notesEn": "Cooked skinless chicken breast; lean high-biological-value protein.",
+      "notesAr": "صدر دجاج مشوي بدون جلد وبدون دهون مضافة. بروتين حيواني عالي القيمة الحيوية ومنخفض الدهون المشبعة. السجل القياسي متعدد الحصص لمرجع USDA 05064 — يرتبط بسجلي RegimePlan للمخبوز والمشوي (RP-MT-011 وRP-MT-012).",
+      "notesEn": "Cooked skinless chicken breast; lean high-biological-value protein. Canonical multi-portion reference for USDA NDB 05064; cross-referenced with RegimePlan baked/grilled entries RP-MT-011 and RP-MT-012.",
       "compositionBasis": "analytical_table"
     },
     {
@@ -1536,8 +1542,8 @@
         "choline",
         "breakfast"
       ],
-      "notesAr": "بيضة كاملة مسلوقة؛ تعتبر المعيار الذهبي للبروتين ذي القيمة الحيوية 100، وغنية بالكولين واللوتين.",
-      "notesEn": "Boiled whole chicken egg; gold reference for high biological value protein.",
+      "notesAr": "بيضة كاملة مسلوقة؛ تعتبر المعيار الذهبي للبروتين ذي القيمة الحيوية 100، وغنية بالكولين واللوتين. السجل القياسي المرجعي لمرجع USDA 01129 — يرتبط بسجل RegimePlan (RP-MT-191).",
+      "notesEn": "Boiled whole chicken egg; gold reference for high biological value protein. Canonical reference for USDA NDB 01129; cross-referenced with RegimePlan 2026 item RP-MT-191.",
       "compositionBasis": "analytical_table"
     },
     {
@@ -1775,8 +1781,8 @@
         "healthy fat",
         "mediterranean"
       ],
-      "notesAr": "زيت زيتون بكر ممتاز معصور على البارد؛ غني بحمض الأوليك والبوليفينولات الداعمة لصحة القلب والأوعية الدموية.",
-      "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants.",
+      "notesAr": "زيت زيتون بكر ممتاز معصور على البارد؛ غني بحمض الأوليك والبوليفينولات الداعمة لصحة القلب والأوعية الدموية. السجل القياسي متعدد الحصص لمرجع USDA 04053 — يرتبط بسجل RegimePlan القياسي (RP-FT-067).",
+      "notesEn": "Extra virgin olive oil; heart-healthy high-MUFA oleic acid and antioxidants. Canonical multi-portion reference for USDA NDB 04053; cross-referenced with RegimePlan 2026 item RP-FT-067.",
       "compositionBasis": "analytical_table"
     },
     {

@@ -20,11 +20,11 @@ import {
 
 import {
   FoodItemRecord,
-  VerificationStatus,
   getAllFoodItems,
   searchFoodItems,
   registerCustomFoodItem,
-  roundToPrecision,
+  getFoodCompletenessMeta,
+  FoodCompletenessCategory,
 } from '../../clinical/food/index';
 
 import { resolveRecallEntry } from '../../clinical/recall/recall-engine';
@@ -114,7 +114,9 @@ export function FoodEntryModal({
   const searchResults = useMemo(() => {
     const all = getAllFoodItems();
     let items = searchQuery.trim() ? searchFoodItems(all, searchQuery) : all;
-    if (selectedGroup !== 'all') {
+    if (selectedGroup === 'custom') {
+      items = items.filter((item) => item.foodGroupId === 'custom' || item.isCustom);
+    } else if (selectedGroup !== 'all') {
       items = items.filter((item) => item.foodGroupId === selectedGroup);
     }
     return items;
@@ -131,6 +133,11 @@ export function FoodEntryModal({
     }
     setQuantityInput('1');
   };
+
+  const selectedCompleteness = useMemo(
+    () => (selectedFood ? getFoodCompletenessMeta(selectedFood) : null),
+    [selectedFood]
+  );
 
   // Preview resolved nutrients in real-time
   const previewEntry = useMemo(() => {
@@ -259,6 +266,7 @@ export function FoodEntryModal({
 
   const foodGroups: Array<{ id: string; labelEn: string; labelAr: string }> = [
     { id: 'all', labelEn: 'All Foods', labelAr: 'كل الأطعمة' },
+    { id: 'custom', labelEn: 'Custom Foods', labelAr: 'أطعمة مخصصة' },
     { id: 'starches', labelEn: 'Starches / Grains', labelAr: 'النشويات والحبوب' },
     { id: 'meats', labelEn: 'Meats & Poultry', labelAr: 'اللحوم والدواجن' },
     { id: 'dairy', labelEn: 'Dairy & Milk', labelAr: 'الألبان ومنتجاتها' },
@@ -269,6 +277,22 @@ export function FoodEntryModal({
     { id: 'occasions', labelEn: 'Occasion & Traditional Foods', labelAr: 'أطعمة المناسبات والأعياد' },
     { id: 'free_foods', labelEn: 'Free Foods & Beverages', labelAr: 'الأطعمة الحرة والمشروبات' },
   ];
+
+  const getCompletenessBadgeClass = (category: FoodCompletenessCategory): string => {
+    switch (category) {
+      case 'complete_analytical':
+        return 'bg-emerald-100 text-emerald-800';
+      case 'partial_analytical':
+      case 'clinic_estimated':
+        return 'bg-sky-100 text-sky-800';
+      case 'recipe_based':
+        return 'bg-purple-100 text-purple-800';
+      case 'exchange_only':
+      case 'user_custom':
+      default:
+        return 'bg-amber-100 text-amber-800';
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -298,8 +322,8 @@ export function FoodEntryModal({
               </h2>
               <p className="text-xs text-slate-500">
                 {isAr
-                  ? 'اختر صنفاً من قاعدة الأطعمة السريرية (جداول تحليلية وتقديرات بدائل/وصفات) أو أضف صنفاً مخصصاً'
-                  : 'Select from clinical food catalog (analytical tables, exchange-derived & recipe estimates) or enter custom item'}
+                  ? 'اختر صنفاً من قاعدة الأطعمة السريرية (جداول تحليلية وبدائل غذائية وتقديرات وصفات) أو أضف صنفاً مخصصاً'
+                  : 'Select from clinical food catalog (analytical tables, exchange-only & recipe estimates) or enter custom item'}
               </p>
             </div>
           </div>
@@ -398,19 +422,34 @@ export function FoodEntryModal({
                 {/* Results List */}
                 <div className="flex-1 overflow-y-auto space-y-2 pr-1">
                   {searchResults.length === 0 ? (
-                    <div className="flex h-40 flex-col items-center justify-center text-slate-400">
-                      <p className="text-xs">{isAr ? 'لم يتم العثور على أطعمة مطابقة.' : 'No foods found.'}</p>
+                    <div className="flex h-40 flex-col items-center justify-center px-4 text-center text-slate-400">
+                      <p className="text-xs">
+                        {selectedGroup === 'custom'
+                          ? isAr
+                            ? 'لم يتم إنشاء أطعمة مخصصة بعد.'
+                            : 'No custom foods created yet.'
+                          : isAr
+                          ? 'لم يتم العثور على أطعمة مطابقة.'
+                          : 'No foods found.'}
+                      </p>
                       <button
                         type="button"
                         onClick={() => setActiveTab('custom')}
                         className="mt-2 text-xs font-semibold text-emerald-600 hover:underline"
                       >
-                        {isAr ? 'إدخال هذا الصنف كطعام مخصص' : 'Create as custom food'}
+                        {selectedGroup === 'custom'
+                          ? isAr
+                            ? 'إضافة طعام مخصص جديد'
+                            : 'Add Custom Food'
+                          : isAr
+                          ? 'إدخال هذا الصنف كطعام مخصص'
+                          : 'Create as custom food'}
                       </button>
                     </div>
                   ) : (
                     searchResults.map((food) => {
                       const isSelected = selectedFood?.id === food.id;
+                      const completeness = getFoodCompletenessMeta(food);
                       return (
                         <button
                           key={food.id}
@@ -427,26 +466,13 @@ export function FoodEntryModal({
                               <span className="text-xs font-bold text-slate-900">
                                 {isAr ? food.nameAr : food.nameEn}
                               </span>
-                              {(food.compositionBasis === 'exchange_only' || food.nutrients100g.caloriesKcal === null) && (
-                                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
-                                  {isAr ? 'بديل غذائي فقط (غير محلل)' : 'Exchange-Only (Unassayed)'}
-                                </span>
-                              )}
-                              {food.compositionBasis === 'clinic_estimated' && !food.isCustom && (
-                                <span className="rounded bg-sky-100 px-1.5 py-0.5 text-[10px] font-bold text-sky-800">
-                                  {isAr ? 'تركيبة تقديرية' : 'Estimated Composition'}
-                                </span>
-                              )}
-                              {(food.compositionBasis === 'recipe_based' || food.verificationStatus === 'recipe_based') && (
-                                <span className="rounded bg-purple-100 px-1.5 py-0.5 text-[10px] font-bold text-purple-800">
-                                  {isAr ? 'تقدير وصفي مركب' : 'Recipe Estimate'}
-                                </span>
-                              )}
-                              {food.isCustom && (
-                                <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold text-amber-800">
-                                  {isAr ? 'مخصص' : 'Custom'}
-                                </span>
-                              )}
+                              <span
+                                className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${getCompletenessBadgeClass(
+                                  completeness.category
+                                )}`}
+                              >
+                                {isAr ? completeness.badgeAr : completeness.badgeEn}
+                              </span>
                             </div>
                             <span className="block text-[11px] text-slate-500">
                               {isAr ? food.nameEn : food.nameAr}
@@ -487,49 +513,37 @@ export function FoodEntryModal({
 
               {/* Right Column: Portion & Quantity Configuration */}
               <div className="flex w-full md:w-80 flex-col bg-slate-50 p-4 overflow-y-auto">
-                {selectedFood ? (
+                {selectedFood && selectedCompleteness ? (
                   <div className="flex flex-col gap-4">
                     <div className="rounded-xl border border-emerald-100 bg-emerald-50/50 p-3">
-                      <div className="text-xs font-bold text-emerald-900">
-                        {isAr ? selectedFood.nameAr : selectedFood.nameEn}
-                      </div>
-                      <div className="text-[11px] text-emerald-700">
-                        {isAr ? selectedFood.nameEn : selectedFood.nameAr}
+                      <div className="flex items-start justify-between gap-2">
+                        <div>
+                          <div className="text-xs font-bold text-emerald-900">
+                            {isAr ? selectedFood.nameAr : selectedFood.nameEn}
+                          </div>
+                          <div className="text-[11px] text-emerald-700">
+                            {isAr ? selectedFood.nameEn : selectedFood.nameAr}
+                          </div>
+                        </div>
+                        <span
+                          className={`shrink-0 rounded px-1.5 py-0.5 text-[10px] font-bold ${getCompletenessBadgeClass(
+                            selectedCompleteness.category
+                          )}`}
+                        >
+                          {isAr ? selectedCompleteness.badgeAr : selectedCompleteness.badgeEn}
+                        </span>
                       </div>
                       <div className="mt-1 text-[10px] text-emerald-800">
                         {isAr
                           ? `التحضير: ${selectedFood.preparationState} | المصدر: ${selectedFood.sourceId}${
                               selectedFood.sourceRecordId ? ` (مرجع #${selectedFood.sourceRecordId})` : ''
-                            } | الأساس: ${
-                              selectedFood.compositionBasis === 'exchange_only'
-                                ? 'بديل غذائي فقط (غير محلل)'
-                                : selectedFood.compositionBasis === 'clinic_estimated'
-                                ? 'تركيبة تقديرية (مراجعة سريرياً)'
-                                : selectedFood.compositionBasis === 'recipe_based' ||
-                                  selectedFood.verificationStatus === 'recipe_based'
-                                ? 'تقدير وصفي مركب (غير محلل معملياً)'
-                                : selectedFood.verificationStatus === 'verified_standard'
-                                ? 'جدول تحليلي معياري'
-                                : selectedFood.verificationStatus === 'clinic_reviewed'
-                                ? 'تركيبة تقديرية (مراجعة سريرياً)'
-                                : 'مخصص غير موثق'
                             }`
                           : `Prep: ${selectedFood.preparationState} | Source: ${selectedFood.sourceId}${
                               selectedFood.sourceRecordId ? ` (Ref #${selectedFood.sourceRecordId})` : ''
-                            } | Basis: ${
-                              selectedFood.compositionBasis === 'exchange_only'
-                                ? 'Exchange-Only (Unassayed)'
-                                : selectedFood.compositionBasis === 'clinic_estimated'
-                                ? 'Estimated Composition (Clinic-Reviewed)'
-                                : selectedFood.compositionBasis === 'recipe_based' ||
-                                  selectedFood.verificationStatus === 'recipe_based'
-                                ? 'Recipe Estimate (Not Lab-Assayed)'
-                                : selectedFood.verificationStatus === 'verified_standard'
-                                ? 'Analytical Table'
-                                : selectedFood.verificationStatus === 'clinic_reviewed'
-                                ? 'Estimated Composition (Clinic-Reviewed)'
-                                : 'Custom Unverified'
                             }`}
+                      </div>
+                      <div className="mt-1 text-[10px] font-medium text-emerald-900">
+                        {isAr ? selectedCompleteness.detailAr : selectedCompleteness.detailEn}
                       </div>
                       {(isAr ? selectedFood.notesAr : selectedFood.notesEn) && (
                         <p className="mt-1.5 border-t border-emerald-200/70 pt-1.5 text-[10px] leading-relaxed text-emerald-900/80">

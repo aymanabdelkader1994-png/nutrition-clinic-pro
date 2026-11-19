@@ -70,6 +70,57 @@ LEG_USDA_SR_PROFILES = {
 # so unassayed items remain exchange_only (null nutrients100g) and do not duplicate meats.ts estimates.
 LEG_ANALYTICAL_OVERRIDES = {}
 
+LEG_CROSS_REFERENCES = {
+    "RP-LEG-002": (
+        "سجل بديل RegimePlan (99 جم) المرتبط بمرجع USDA 16070؛ يطابق السجل المرجعي الأساسي متعدد الحصص food_lentils_brown_cooked (USDA-16070).",
+        "RegimePlan exchange sibling (99g) for USDA NDB 16070; cross-referenced with canonical multi-portion record food_lentils_brown_cooked (USDA-16070).",
+    ),
+    "RP-LEG-003": (
+        "سجل البقوليات الأساسي (82 جم) المرتبط بمرجع USDA 16057؛ يرتبط بالسجل المماثل ضمن قائمة بدائل اللحوم النباتية RP-MT-003 (78 جم).",
+        "Primary legumes entry (82g) for USDA NDB 16057; cross-referenced with meat-substitutes companion RP-MT-003 (78g, USDA NDB 16057).",
+    ),
+    "RP-LEG-008": (
+        "يرتبط بسجل الحمص النيء المماثل ضمن قائمة بدائل اللحوم النباتية RP-MT-002 (34 جم).",
+        "Cross-referenced with meat-substitutes companion RP-MT-002 (Raw Dried Chickpeas, 34g).",
+    ),
+    "RP-LEG-012": (
+        "سجل البقوليات الأساسي للماش المطبوخ؛ يرتبط بالسجل المماثل ضمن قائمة بدائل اللحوم النباتية RP-MT-001 (105 جم).",
+        "Primary legumes entry for Cooked Mung Beans; cross-referenced with meat-substitutes companion RP-MT-001 (105g).",
+    ),
+    "RP-LEG-017": (
+        "سجل البقوليات الأساسي للبسلة المجروشة المطبوخة؛ يرتبط بالسجل المماثل RP-MT-023 (93 جم).",
+        "Primary legumes entry for Cooked Split Peas; cross-referenced with meat-substitutes companion RP-MT-023 (93g).",
+    ),
+    "RP-LEG-018": (
+        "سجل البقوليات الأساسي للترمس المطبوخ؛ يرتبط بالسجل المماثل RP-MT-022 (100 جم).",
+        "Primary legumes entry for Cooked Lupini Beans; cross-referenced with meat-substitutes companion RP-MT-022 (100g).",
+    ),
+    "RP-LEG-019": (
+        "سجل البقوليات الأساسي للحمص المحمص؛ يرتبط بالسجل المماثل RP-MT-021 (32 جم).",
+        "Primary legumes entry for Roasted Chickpeas; cross-referenced with meat-substitutes companion RP-MT-021 (32g).",
+    ),
+    "RP-LEG-020": (
+        "سجل البقوليات الأساسي لدال توور المطبوخ؛ يرتبط بالسجل المماثل RP-MT-020 (98 جم).",
+        "Primary legumes entry for Cooked Toor Dal; cross-referenced with meat-substitutes companion RP-MT-020 (98g).",
+    ),
+    "RP-LEG-021": (
+        "سجل البقوليات الأساسي لدال أوراد المطبوخ؛ يرتبط بالسجل المماثل RP-MT-019 (105 جم).",
+        "Primary legumes entry for Cooked Urad Dal; cross-referenced with meat-substitutes companion RP-MT-019 (105g).",
+    ),
+    "RP-LEG-022": (
+        "سجل البقوليات الأساسي لدال حمص شانا المطبوخ؛ يرتبط بالسجل المماثل RP-MT-018 (78 جم).",
+        "Primary legumes entry for Cooked Chana Dal; cross-referenced with meat-substitutes companion RP-MT-018 (78g).",
+    ),
+    "RP-LEG-026": (
+        "سجل البقوليات الأساسي للحمص المعلب؛ يرتبط بالسجل المماثل RP-MT-017 (98 جم).",
+        "Primary legumes entry for Canned Chickpeas; cross-referenced with meat-substitutes companion RP-MT-017 (98g).",
+    ),
+    "RP-LEG-027": (
+        "سجل البقوليات الأساسي لدقيق الحمص؛ يرتبط بالسجل المماثل RP-MT-016 (34 جم).",
+        "Primary legumes entry for Chickpea Flour (Besan); cross-referenced with meat-substitutes companion RP-MT-016 (34g).",
+    ),
+}
+
 CORE_KEYS = [
     "caloriesKcal", "carbsG", "proteinG", "fatG",
     "fiberG", "saturatedFatG", "transFatG", "monounsaturatedFatG",
@@ -148,6 +199,11 @@ def make_leg_item(raw):
     else:
         notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar})."
         notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {page}) legume exchange portion: {w}g ({hh_en})."
+
+    xref = LEG_CROSS_REFERENCES.get(code)
+    if xref:
+        notes_ar = f"{notes_ar} {xref[0]}"
+        notes_en = f"{notes_en} {xref[1]}"
 
     item_id = f"food_legume_{code.lower().replace('-', '_')}"
     record = {

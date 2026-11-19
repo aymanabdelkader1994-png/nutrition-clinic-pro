@@ -21,6 +21,7 @@ import {
   FoodPortion,
   PreparationState,
   ScaledNutrientProfile,
+  VerificationStatus,
 } from './types';
 import { getExchangeSystem } from './exchange-systems';
 
@@ -663,7 +664,7 @@ export function calculateExchangeDivergence(
 
 /**
  * Normalizes Arabic text for flexible clinical search:
- * - Strips all Arabic diacritical marks (Tashkeel).
+ * - Strips all Arabic diacritical marks (Tashkeel) and Tatweel (ـ).
  * - Normalizes Alef forms (أ, إ, آ, ٱ -> ا).
  * - Normalizes Taa Marbuta (ة -> ه) and Yaa (ى -> ي).
  * - Trims and squashes multiple whitespace characters.
@@ -673,8 +674,8 @@ export function normalizeArabicText(text: string): string {
 
   return (
     text
-      // Strip Arabic Tashkeel / diacritics
-      .replace(/[\u064B-\u065F\u0670]/g, '')
+      // Strip Arabic Tashkeel / diacritics and Tatweel elongation
+      .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
       // Normalize Alef variations
       .replace(/[أإآٱ]/g, 'ا')
       // Normalize Taa Marbuta
@@ -691,6 +692,137 @@ export function normalizeArabicText(text: string): string {
 }
 
 /**
+ * Normalizes English/Latin text for flexible clinical search:
+ * - Strips combining diacritics (e.g. Pané -> pane)
+ * - Normalizes punctuation/separators to spaces and squashes whitespace
+ * - Trims and lowercases
+ */
+export function normalizeEnglishText(text: string): string {
+  if (!text) return '';
+
+  return text
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export type FoodCompletenessCategory =
+  | 'complete_analytical'
+  | 'partial_analytical'
+  | 'clinic_estimated'
+  | 'recipe_based'
+  | 'exchange_only'
+  | 'user_custom';
+
+export interface FoodCompletenessMeta {
+  category: FoodCompletenessCategory;
+  missingCount: number;
+  missingKeys: string[];
+  badgeEn: string;
+  badgeAr: string;
+  detailEn: string;
+  detailAr: string;
+}
+
+/**
+ * Classifies a food record's analytical completeness for clinical transparency.
+ */
+export function getFoodCompletenessMeta(food: FoodItemRecord): FoodCompletenessMeta {
+  const missingKeys = food.nutrients100g.missingNutrientKeys ?? [];
+  const missingCount = missingKeys.length;
+
+  if (food.isCustom || food.verificationStatus === 'user_custom') {
+    return {
+      category: 'user_custom',
+      missingCount,
+      missingKeys,
+      badgeEn: 'Custom',
+      badgeAr: 'مخصص',
+      detailEn:
+        missingCount > 0
+          ? `User custom food (${missingCount} tracked micronutrients/fatty acids omitted)`
+          : 'User custom food (all tracked fields entered)',
+      detailAr:
+        missingCount > 0
+          ? `طعام مخصص (ناقص ${missingCount} عناصر غير مدخلة)`
+          : 'طعام مخصص (جميع الحقول متوفرة)',
+    };
+  }
+
+  if (food.compositionBasis === 'exchange_only' || food.nutrients100g.caloriesKcal === null) {
+    return {
+      category: 'exchange_only',
+      missingCount,
+      missingKeys,
+      badgeEn: 'Exchange-Only',
+      badgeAr: 'بديل فقط',
+      detailEn: 'Exchange-only entry (unassayed 100g composition; calories/macros are null)',
+      detailAr: 'بديل غذائي فقط (غير محلل لكل 100 جم؛ السعرات والماكروز غير متوفرة)',
+    };
+  }
+
+  if (food.compositionBasis === 'recipe_based' || food.verificationStatus === 'recipe_based') {
+    return {
+      category: 'recipe_based',
+      missingCount,
+      missingKeys,
+      badgeEn: 'Recipe Estimate',
+      badgeAr: 'وصفة مركبة',
+      detailEn:
+        missingCount > 0
+          ? `Recipe estimate (${missingCount} unassayed micronutrients)`
+          : 'Recipe-modeled culinary composite (not lab-assayed)',
+      detailAr:
+        missingCount > 0
+          ? `تقدير وصفي مركب (ناقص ${missingCount} عناصر)`
+          : 'تقدير وصفي مركب (غير محلل معملياً)',
+    };
+  }
+
+  if (food.compositionBasis === 'clinic_estimated') {
+    return {
+      category: 'clinic_estimated',
+      missingCount,
+      missingKeys,
+      badgeEn: 'Estimated',
+      badgeAr: 'تقديرية',
+      detailEn:
+        missingCount > 0
+          ? `Clinically estimated macros (${missingCount} unassayed secondary nutrients)`
+          : 'Clinically estimated composition',
+      detailAr:
+        missingCount > 0
+          ? `تركيبة تقديرية مراجعة (ناقص ${missingCount} عناصر ثانوية)`
+          : 'تركيبة تقديرية مراجعة سريرياً',
+    };
+  }
+
+  if (missingCount > 0) {
+    return {
+      category: 'partial_analytical',
+      missingCount,
+      missingKeys,
+      badgeEn: `Partial (${missingCount} missing)`,
+      badgeAr: `تحليل جزئي (${missingCount} ناقص)`,
+      detailEn: `Partial analytical profile (${missingCount} unassayed nutrients: ${missingKeys.join(', ')})`,
+      detailAr: `ملف تحليلي جزئي (ناقص ${missingCount} عناصر: ${missingKeys.join('، ')})`,
+    };
+  }
+
+  return {
+    category: 'complete_analytical',
+    missingCount: 0,
+    missingKeys: [],
+    badgeEn: 'Complete Analytical',
+    badgeAr: 'تحليل مكتمل',
+    detailEn: 'Complete analytical profile (all 15 tracked nutrients verified)',
+    detailAr: 'ملف تحليلي مكتمل (جميع العناصر الـ 15 متوفرة وموثقة)',
+  };
+}
+
+/**
  * Filter options for clinical food database queries.
  */
 export interface FoodFilterOptions {
@@ -701,52 +833,176 @@ export interface FoodFilterOptions {
   dataSourceId?: string;
 }
 
+const COMPLETENESS_PRIORITY: Record<FoodCompletenessCategory, number> = {
+  complete_analytical: 0,
+  partial_analytical: 1,
+  clinic_estimated: 2,
+  recipe_based: 3,
+  user_custom: 4,
+  exchange_only: 5,
+};
+
+function getCanonicalPriority(food: FoodItemRecord): number {
+  const code = food.code ?? '';
+  if (!code.startsWith('RP-')) {
+    return 0; // Curated multi-portion canonical items (original_30 / USDA / NNI / RECIPE)
+  }
+  if (code.startsWith('RP-MT-') && food.primaryExchangeCategoryId === 'plant_protein_legumes') {
+    return 2; // Overlapping legume entries retained in meats module; prefer legumes module (RP-LEG-*)
+  }
+  return 1;
+}
+
+function getVerificationPriority(status: VerificationStatus): number {
+  switch (status) {
+    case 'verified_standard':
+      return 0;
+    case 'clinic_reviewed':
+      return 1;
+    case 'recipe_based':
+      return 2;
+    case 'user_custom':
+    default:
+      return 3;
+  }
+}
+
+function getSearchMatchTier(
+  food: FoodItemRecord,
+  normQueryAr: string,
+  normQueryEn: string
+): number | null {
+  const normAr = normalizeArabicText(food.nameAr);
+  const normEn = normalizeEnglishText(food.nameEn);
+  const normTagsAr = (food.tags ?? []).map((t) => normalizeArabicText(t)).filter(Boolean);
+  const normTagsEn = (food.tags ?? []).map((t) => normalizeEnglishText(t)).filter(Boolean);
+
+  // Tier 1: Exact Arabic name match
+  if (normQueryAr.length > 0 && normAr === normQueryAr) return 1;
+
+  // Tier 2: Exact English name match
+  if (normQueryEn.length > 0 && normEn === normQueryEn) return 2;
+
+  // Tier 3: Exact normalized tag/alias match
+  if (
+    (normQueryAr.length > 0 && normTagsAr.some((t) => t === normQueryAr)) ||
+    (normQueryEn.length > 0 && normTagsEn.some((t) => t === normQueryEn))
+  ) {
+    return 3;
+  }
+
+  // Tier 4: Prefix match on Arabic or English name
+  if (
+    (normQueryAr.length > 0 && normAr.startsWith(normQueryAr)) ||
+    (normQueryEn.length > 0 && normEn.startsWith(normQueryEn))
+  ) {
+    return 4;
+  }
+
+  // Tier 5: Substring match on Arabic or English name
+  if (
+    (normQueryAr.length > 0 && normAr.includes(normQueryAr)) ||
+    (normQueryEn.length > 0 && normEn.includes(normQueryEn))
+  ) {
+    return 5;
+  }
+
+  // Tier 6: Substring match on normalized tags/aliases
+  if (
+    (normQueryAr.length > 0 && normTagsAr.some((t) => t.includes(normQueryAr))) ||
+    (normQueryEn.length > 0 && normTagsEn.some((t) => t.includes(normQueryEn)))
+  ) {
+    return 6;
+  }
+
+  // Tier 7: Scientific name match
+  const normSci = food.scientificName ? normalizeEnglishText(food.scientificName) : '';
+  if (normQueryEn.length > 0 && normSci.includes(normQueryEn)) {
+    return 7;
+  }
+
+  return null;
+}
+
 /**
  * Searches and filters food items deterministically.
- * Matches bilingual names (English lowercase substring match + Normalized Arabic substring match).
+ * When a text query is provided, applies bilingual Arabic/English normalization
+ * (including tag normalization) and 7-tier deterministic ranking with clinical completeness
+ * and canonical tie-breakers.
  */
 export function searchFoodItems(
   database: FoodItemRecord[],
   query: string,
   options?: FoodFilterOptions
 ): FoodItemRecord[] {
-  const trimmed = query.trim().toLowerCase();
-  const normalizedQueryAr = normalizeArabicText(query);
+  const normQueryAr = normalizeArabicText(query);
+  const normQueryEn = normalizeEnglishText(query);
+  const hasQuery = normQueryEn.length > 0 || normQueryAr.length > 0;
   const targetSourceId = options?.sourceId || options?.dataSourceId;
 
-  return database.filter((food) => {
-    // 1. Text Search match
-    if (trimmed.length > 0) {
-      const matchEn = food.nameEn.toLowerCase().includes(trimmed);
-      const matchAr = normalizeArabicText(food.nameAr).includes(normalizedQueryAr);
-      const matchScientific = food.scientificName?.toLowerCase().includes(trimmed) ?? false;
-      const matchTags = food.tags?.some((t) => t.toLowerCase().includes(trimmed)) ?? false;
-
-      if (!matchEn && !matchAr && !matchScientific && !matchTags) {
-        return false;
-      }
-    }
-
-    // 2. Exchange Category filter
+  const filtered = database.filter((food) => {
+    // 1. Exchange Category filter
     if (options?.exchangeCategory && food.primaryExchangeCategoryId !== options.exchangeCategory) {
       return false;
     }
 
-    // 3. Preparation State filter
+    // 2. Preparation State filter
     if (options?.preparationState && food.preparationState !== options.preparationState) {
       return false;
     }
 
-    // 4. Verification status filter
+    // 3. Verification status filter
     if (options?.verifiedOnly && (food.verificationStatus === 'user_custom' || food.verificationStatus === 'recipe_based')) {
       return false;
     }
 
-    // 5. Data Source filter
+    // 4. Data Source filter
     if (targetSourceId && food.sourceId !== targetSourceId && food.dataSourceId !== targetSourceId) {
       return false;
     }
 
     return true;
   });
+
+  if (!hasQuery) {
+    return filtered;
+  }
+
+  const scored: Array<{
+    food: FoodItemRecord;
+    tier: number;
+    completenessRank: number;
+    canonicalRank: number;
+    verificationRank: number;
+    portionCount: number;
+    nameLength: number;
+  }> = [];
+
+  for (const food of filtered) {
+    const tier = getSearchMatchTier(food, normQueryAr, normQueryEn);
+    if (tier === null) continue;
+
+    const completeness = getFoodCompletenessMeta(food);
+    scored.push({
+      food,
+      tier,
+      completenessRank: COMPLETENESS_PRIORITY[completeness.category],
+      canonicalRank: getCanonicalPriority(food),
+      verificationRank: getVerificationPriority(food.verificationStatus),
+      portionCount: food.portions.length,
+      nameLength: Math.min(food.nameEn.length, food.nameAr.length),
+    });
+  }
+
+  scored.sort((a, b) => {
+    if (a.tier !== b.tier) return a.tier - b.tier;
+    if (a.completenessRank !== b.completenessRank) return a.completenessRank - b.completenessRank;
+    if (a.canonicalRank !== b.canonicalRank) return a.canonicalRank - b.canonicalRank;
+    if (a.verificationRank !== b.verificationRank) return a.verificationRank - b.verificationRank;
+    if (a.portionCount !== b.portionCount) return b.portionCount - a.portionCount;
+    if (a.nameLength !== b.nameLength) return a.nameLength - b.nameLength;
+    return a.food.id.localeCompare(b.food.id);
+  });
+
+  return scored.map((entry) => entry.food);
 }

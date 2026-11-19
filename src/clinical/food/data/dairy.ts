@@ -61,8 +61,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "cow milk",
       "whole milk"
     ],
-    "notesAr": "حليب بقري مبستر كامل الدسم؛ كوب واحد 240 مل يوفر قرابة 150 سعرة حرارية و8 جم بروتين و8 جم دهون.",
-    "notesEn": "Pasteurized whole cow milk with 3.25% milkfat.",
+    "notesAr": "حليب بقري مبستر كامل الدسم؛ كوب واحد 240 مل يوفر قرابة 150 سعرة حرارية و8 جم بروتين و8 جم دهون. السجل القياسي المرجعي في قاعدة USDA (01211) — يرتبط بسجل بديل قوائم RegimePlan المماثل (RP-DA-001).",
+    "notesEn": "Pasteurized whole cow milk with 3.25% milkfat. Canonical multi-portion reference for USDA NDB 01211; cross-referenced with RegimePlan 2026 exchange item RP-DA-001 (255g exchange serving).",
     "compositionBasis": "analytical_table"
   },
   {
@@ -306,8 +306,8 @@ export const DAIRY_FOOD_ITEMS: FoodItemRecord[] = [
       "milk_whole",
       "ready-to-eat"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01211). وزن بديل الألبان من RegimePlan 2026 (ص 6): 255 جم (كوب).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01211). RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 255g (1 cup).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01211). وزن بديل الألبان من RegimePlan 2026 (ص 6): 255 جم (كوب). سجل بديل RegimePlan (255 جم) المرتبط بمرجع USDA 01211؛ يطابق السجل القياسي متعدد الحصص food_milk_cow_whole (USDA-01211).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01211). RegimePlan Food Exchange Lists (2026, p. 6) exchange portion: 255g (1 cup). RegimePlan exchange sibling (255g) for USDA NDB 01211; cross-referenced with canonical multi-portion record food_milk_cow_whole (USDA-01211).",
     "sourceRecordId": "01211"
   },
   {

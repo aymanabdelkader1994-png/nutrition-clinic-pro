@@ -527,6 +527,74 @@ def translate_name(ar: str) -> str:
 
 
 def _extract_pdf_meat_items(streams, font_maps):
+    # Pre-pass top-to-bottom (ascending Y in PDF layout coordinates) so section headers
+    # bind accurately to items below them instead of inverting across bottom-to-top rows.
+    true_cat_by_name = {}
+    scan_cat = "plant_protein_legumes"
+    hh_markers = [
+        "شريحة ونصف", "شريحة", "قطعة فيليه", "قطعة", "نصف كوب", "ثلث كوب", "ربع كوب", "كوب",
+        "ملعقتان كبيرتان", "ملعقة كبيرة", "نصف دبوس", "دبوس", "نصف صدر", "صدر متوسط", "صدر",
+        "ورك متوسط", "ورك", "ربع فرخة", "نصف فرخة", "حبة كبيرة", "حبة متوسطة", "حبة ونصف",
+        "حبة", "حبتان", "3 قطع", "5 أصابع", "إصبع", "علبة", "—",
+    ]
+    footer_skip = [
+        "nalPemigeR", "الكمية", "منصة", "سعرة", "المقدار", "tsil-",
+        "ابدأ", "يحسب", "أخصائي", "اللحوم وبدائلها", "الطعما",
+    ]
+    excluded_substrings = ["لبن", "زبادي", "فول", "عدس", "حمص", "فاصوليا", "لوبيا", "إدامامي"]
+
+    for p_num in [7, 8, 9, 10]:
+        decomp = zlib.decompress(streams[page_streams[p_num - 1]]).decode("latin1")
+        toks = extract_page_tokens(decomp, font_maps)
+        left = [t for t in toks if t[0] < 390]
+        right = [t for t in toks if t[0] >= 390]
+        for col in [right, left]:
+            rows = {}
+            for x, y, f, text in col:
+                rows.setdefault(round(y), []).append((x, f, text))
+            for ry in sorted(rows.keys()):
+                row_toks = sorted(rows[ry], key=lambda i: -i[0])
+                txt = "".join(t[2] for t in row_toks).strip()
+                if "البقوليات" in txt:
+                    scan_cat = "plant_protein_legumes"
+                elif "متوسطة الدهون" in txt or "73 سعرة" in txt or "37 سعرة" in txt:
+                    scan_cat = "meat_medium_fat"
+                elif "عالية الدهون" in txt or "001 سعرة" in txt or "100 سعرة" in txt:
+                    scan_cat = "meat_high_fat"
+                elif (
+                    "اللحوم وبدائلها" in txt
+                    or "46 سعرة" in txt
+                    or "64 سعرة" in txt
+                    or "قليلة الدهون" in txt
+                    or "خالية الدهون" in txt
+                ):
+                    scan_cat = "meat_lean"
+
+                if any(h in txt for h in footer_skip):
+                    continue
+                m = re.search(r"(\d+)\s*$", txt)
+                if not m:
+                    continue
+                try:
+                    w_val = float(m.group(1)[::-1])
+                except Exception:
+                    continue
+                if w_val <= 0 or w_val > 500:
+                    continue
+                rest = txt[:m.start()].strip()
+                if not rest or len(rest) < 3:
+                    continue
+                cand_name = rest
+                for hm in hh_markers:
+                    if hm in rest:
+                        cand_name = rest.split(hm, 1)[0].strip()
+                        break
+                cand_name = re.sub(r"\s*=\s*\d+.*$", "", cand_name).strip()
+                if not cand_name or any(ex in cand_name for ex in excluded_substrings):
+                    continue
+                true_cat_by_name.setdefault(cand_name, scan_cat)
+
+    # Preserve legacy RP-MT-001..196 extraction order for zero breaking changes to IDs/codes.
     items = []
     current_cat = "meat_lean"
 
@@ -540,8 +608,7 @@ def _extract_pdf_meat_items(streams, font_maps):
         for col in [right, left]:
             rows = {}
             for x, y, f, text in col:
-                ry = round(y)
-                rows.setdefault(ry, []).append((x, f, text))
+                rows.setdefault(round(y), []).append((x, f, text))
 
             for ry in sorted(rows.keys(), reverse=True):
                 row_toks = sorted(rows[ry], key=lambda i: -i[0])
@@ -554,10 +621,7 @@ def _extract_pdf_meat_items(streams, font_maps):
                 elif "اللحوم وبدائلها" in txt or "46 سعرة" in txt or "قليلة الدهون" in txt:
                     current_cat = "meat_lean"
 
-                if any(h in txt for h in [
-                    "nalPemigeR", "الكمية", "منصة", "سعرة", "المقدار", "tsil-",
-                    "ابدأ", "يحسب", "أخصائي", "اللحوم وبدائلها", "الطعما"
-                ]):
+                if any(h in txt for h in footer_skip):
                     continue
 
                 m = re.search(r"(\d+)\s*$", txt)
@@ -581,7 +645,7 @@ def _extract_pdf_meat_items(streams, font_maps):
                 hh_ar = "حصة معيارية"
                 name_ar = rest
 
-                for hm in ["شريحة ونصف", "شريحة", "قطعة فيليه", "قطعة", "نصف كوب", "ثلث كوب", "ربع كوب", "كوب", "ملعقتان كبيرتان", "ملعقة كبيرة", "نصف دبوس", "دبوس", "نصف صدر", "صدر متوسط", "صدر", "ورك متوسط", "ورك", "ربع فرخة", "نصف فرخة", "حبة كبيرة", "حبة متوسطة", "حبة ونصف", "حبة", "حبتان", "3 قطع", "5 أصابع", "إصبع", "علبة", "—"]:
+                for hm in hh_markers:
                     if hm in rest:
                         parts = rest.split(hm, 1)
                         name_ar = parts[0].strip()
@@ -592,7 +656,7 @@ def _extract_pdf_meat_items(streams, font_maps):
                 if not name_ar:
                     continue
 
-                if any(ex in name_ar for ex in ["لبن", "زبادي", "فول", "عدس", "حمص", "فاصوليا", "لوبيا", "إدامامي"]):
+                if any(ex in name_ar for ex in excluded_substrings):
                     continue
 
                 prep = "cooked"
@@ -609,11 +673,12 @@ def _extract_pdf_meat_items(streams, font_maps):
                 elif "في الفرن" in name_ar:
                     prep = "baked"
 
+                resolved_cat = true_cat_by_name.get(name_ar, current_cat)
                 items.append({
                     "nameAr": name_ar,
                     "hhAr": hh_ar if hh_ar != "—" else f"{int(weight)} جم",
                     "weight": weight,
-                    "cat": current_cat,
+                    "cat": resolved_cat,
                     "prep": prep,
                     "page": p_num
                 })
@@ -819,6 +884,157 @@ MEAT_NAME_AR_CORRECTIONS = {
 }
 
 
+MEAT_CLINICAL_NOTES = {
+    # 11 RP-MT <-> RP-LEG concept & USDA NDB overlaps
+    "RP-MT-001": (
+        "ورد هذا الصنف في قسم البقوليات بملف RegimePlan (ص 7) وتم تصنيفه كبديل بقوليات (1 نشويات + 1 لحوم خفيفة). يرتبط بسجل البقوليات الأساسي RP-LEG-012.",
+        "Listed under RegimePlan Legumes (p. 7) and classified as plant_protein_legumes (1 Starch + 1 Lean Meat). Cross-referenced with primary legumes entry RP-LEG-012.",
+    ),
+    "RP-MT-002": (
+        "ورد هذا الصنف في قسم البقوليات بملف RegimePlan (ص 7) وتم تصنيفه كبديل بقوليات. يرتبط بسجل البقوليات الأساسي RP-LEG-008.",
+        "Listed under RegimePlan Legumes (p. 7) and classified as plant_protein_legumes. Cross-referenced with primary legumes entry RP-LEG-008.",
+    ),
+    "RP-MT-003": (
+        "ورد في قسم البقوليات بملف RegimePlan (ص 7، 78 جم) وتم تصنيفه كبديل بقوليات؛ يشترك في مرجع USDA 16057 مع السجل الأساسي في البقوليات RP-LEG-003 (82 جم).",
+        "Listed under RegimePlan Legumes (p. 7, 78g) and classified as plant_protein_legumes; shares USDA NDB 16057 with primary legumes record RP-LEG-003 (82g).",
+    ),
+    "RP-MT-014": (
+        "طبق مركب غير مصنف كبديل بقوليات مفرد رغم إدراجه في قسم البقوليات (ص 7)، نظراً لإضافة الطحينة عالية الدهون.",
+        "Composite dish listed under Legumes (p. 7); classified as unclassified combination_food due to high-fat sesame tahini.",
+    ),
+    "RP-MT-015": (
+        "طبق مركب غير مصنف كبديل بقوليات مفرد رغم إدراجه في قسم البقوليات (ص 7)، نظراً لامتصاص زيت القلي.",
+        "Composite dish listed under Legumes (p. 7); classified as unclassified combination_food due to absorbed frying oil.",
+    ),
+    "RP-MT-016": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-027.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-027.",
+    ),
+    "RP-MT-017": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-026.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-026.",
+    ),
+    "RP-MT-018": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-022.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-022.",
+    ),
+    "RP-MT-019": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-021.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-021.",
+    ),
+    "RP-MT-020": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-020.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-020.",
+    ),
+    "RP-MT-021": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-019.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-019.",
+    ),
+    "RP-MT-022": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-018.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-018.",
+    ),
+    "RP-MT-023": (
+        "صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-017.",
+        "RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-017.",
+    ),
+    # Duplicate USDA sourceRecordId siblings
+    "RP-MT-008": (
+        "يشترك في مرجع USDA 05098 الخاص بورك الدجاج المطهو مع سجل ورك الدجاج المشوي RP-MT-009.",
+        "Shares USDA NDB 05098 roasted/cooked skinless thigh assay with grilled counterpart RP-MT-009.",
+    ),
+    "RP-MT-009": (
+        "يشترك في مرجع USDA 05098 الخاص بورك الدجاج المطهو مع سجل ورك الدجاج في الفرن RP-MT-008.",
+        "Shares USDA NDB 05098 roasted/cooked skinless thigh assay with baked counterpart RP-MT-008.",
+    ),
+    "RP-MT-011": (
+        "سجل بديل RegimePlan (23 جم)؛ يشترك في مرجع USDA 05064 مع السجل الأساسي متعدد الحصص food_chicken_breast_grilled_skinless ومع RP-MT-012.",
+        "RegimePlan exchange item (23g); shares USDA NDB 05064 with canonical record food_chicken_breast_grilled_skinless and sibling RP-MT-012.",
+    ),
+    "RP-MT-012": (
+        "سجل بديل RegimePlan (23 جم)؛ يشترك في مرجع USDA 05064 مع السجل الأساسي متعدد الحصص food_chicken_breast_grilled_skinless ومع RP-MT-011.",
+        "RegimePlan exchange item (23g); shares USDA NDB 05064 with canonical record food_chicken_breast_grilled_skinless and sibling RP-MT-011.",
+    ),
+    "RP-MT-013": (
+        "سجل بديل RegimePlan (31 جم)؛ يشترك في مرجع USDA 05062 مع السجل الأساسي متعدد الحصص food_chicken_breast_raw_skinless.",
+        "RegimePlan exchange item (31g); shares USDA NDB 05062 with canonical multi-portion record food_chicken_breast_raw_skinless.",
+    ),
+    "RP-MT-026": (
+        "يشترك في مرجع USDA 17091 لبتلو مطهو مع سجل البتلو المشوي RP-MT-027.",
+        "Shares USDA NDB 17091 cooked veal assay with grilled counterpart RP-MT-027 (25g exchange vs 28g).",
+    ),
+    "RP-MT-027": (
+        "يشترك في مرجع USDA 17091 لبتلو مطهو مع سجل البتلو في الفرن RP-MT-026.",
+        "Shares USDA NDB 17091 cooked veal assay with baked counterpart RP-MT-026 (28g exchange vs 25g).",
+    ),
+    "RP-MT-043": (
+        "يشترك في مرجع USDA 05073 لدبوس الدجاج المطهو مع سجل دبوس الدجاج في الفرن RP-MT-044.",
+        "Shares USDA NDB 05073 cooked drumstick assay with baked counterpart RP-MT-044 (29g vs 25g).",
+    ),
+    "RP-MT-044": (
+        "يشترك في مرجع USDA 05073 لدبوس الدجاج المطهو مع سجل دبوس الدجاج المسلوق RP-MT-043.",
+        "Shares USDA NDB 05073 cooked drumstick assay with boiled/cooked counterpart RP-MT-043 (25g vs 29g).",
+    ),
+    "RP-MT-060": (
+        "يشترك في مرجع USDA 15209 للسالمون المطهو بالحرارة الجافة مع السالمون المشوي RP-MT-061.",
+        "Shares USDA NDB 15209 dry-heat cooked salmon assay with grilled counterpart RP-MT-061.",
+    ),
+    "RP-MT-061": (
+        "يشترك في مرجع USDA 15209 للسالمون المطهو بالحرارة الجافة مع السالمون في الفرن RP-MT-060.",
+        "Shares USDA NDB 15209 dry-heat cooked salmon assay with baked counterpart RP-MT-060.",
+    ),
+    "RP-MT-103": (
+        "يشترك في مرجع USDA 15271 للجمبري المطهو بالحرارة الرطبة/المطهو مع الجمبري المشوي RP-MT-104.",
+        "Shares USDA NDB 15271 cooked shrimp assay with grilled counterpart RP-MT-104.",
+    ),
+    "RP-MT-104": (
+        "يشترك في مرجع USDA 15271 للجمبري المطهو مع الجمبري المسلوق RP-MT-103.",
+        "Shares USDA NDB 15271 cooked shrimp assay with boiled counterpart RP-MT-103.",
+    ),
+    "RP-MT-121": (
+        "سجل بديل RegimePlan للجبن القريش (56 جم، بديل لحوم قليلة الدسم)؛ يرتبط بالسجل المرجعي food_cheese_quraish_egyptian.",
+        "RegimePlan 2026 lean-meat exchange entry for Quraish cheese (56g); cross-referenced with canonical Egyptian NNI record food_cheese_quraish_egyptian.",
+    ),
+    "RP-MT-191": (
+        "سجل بديل RegimePlan للبيض المسلوق (56 جم)؛ يشترك في مرجع USDA 01129 مع السجل الأساسي food_egg_whole_boiled (50 جم).",
+        "RegimePlan exchange item (56g); shares USDA NDB 01129 with canonical multi-portion record food_egg_whole_boiled (50g).",
+    ),
+    # Clinical breading & tofu notes
+    "RP-MT-136": (
+        "ملاحظة سريرية: القلي والتغطية بالبقسماط/الدقيق تضيف كربوهيدرات ودهوناً إضافية لا يشملها بديل اللحوم متوسطة الدسم القياسي.",
+        "Clinical note: Breading/frying adds carbohydrates and absorbed fat not represented by a pure medium-fat meat exchange.",
+    ),
+    "RP-MT-137": (
+        "ملاحظة سريرية: الجمبري المقلي المغطى بالبقسماط يحتوي على كربوهيدرات تغطية ودهون قلي إضافية.",
+        "Clinical note: Breaded fried shrimp contains extra coating carbohydrates and frying lipids beyond pure meat.",
+    ),
+    "RP-MT-138": (
+        "ملاحظة سريرية: تغطية البقسماط والقلي تضيف كربوهيدرات وزيوتاً ممتصة تتجاوز بديل اللحوم المفرد.",
+        "Clinical note: Breading and frying contribute additional carbohydrate coating and absorbed oil.",
+    ),
+    "RP-MT-144": (
+        "ملاحظة سريرية: الإسكالوب البانيه يحتوي على طبقة بقسماط كربوهيدراتية ودهون قلي إضافية.",
+        "Clinical note: Breaded beef escalope contains carbohydrate breading and absorbed frying oil.",
+    ),
+    "RP-MT-160": (
+        "ملاحظة سريرية: ناجتس الدجاج المصنعة تحتوي على تغطية نشوية ودهون طهي مضافة.",
+        "Clinical note: Nuggets include starch breading/binders and frying oil beyond pure poultry protein.",
+    ),
+    "RP-MT-165": (
+        "ملاحظة سريرية: رغم تصنيف RegimePlan لها ضمن اللحوم متوسطة الدسم، تحتوي الفراخ البانيه على كربوهيدرات التغطية ودهون القلي (راجع السجل المركب RECIPE-PANE-001).",
+        "Clinical note: While RegimePlan lists breaded chicken under medium-fat meats, breading adds significant carbs and frying fat (see composite recipe model RECIPE-PANE-001).",
+    ),
+    "RP-MT-179": (
+        "ملاحظة سريرية: يصنف RegimePlan التوفو الجامد ضمن البدائل متوسطة الدسم (144 سعرة و8.7 جم دهون لكل 100 جم) خلافاً لبعض قوائم ADA قليلة الدسم.",
+        "Clinical note: RegimePlan classifies Firm Tofu as medium-fat meat substitute (USDA 16426: 144 kcal, 8.7g fat/100g) whereas ADA lists lower-fat tofu variants as lean.",
+    ),
+    "RP-MT-193": (
+        "ملاحظة سريرية: فيليه السمك البانيه المقلي يحتوي على طبقة بقسماط نشوية ودهون قلي إضافية.",
+        "Clinical note: Breaded fried fish fillet adds coating carbohydrates and frying fat beyond plain fish.",
+    ),
+}
+
+
 def make_meat_record(it, seq_num):
     code = f"RP-MT-{seq_num:03d}"
     item_id = f"food_meat_{code.lower().replace('-', '_')}"
@@ -826,6 +1042,9 @@ def make_meat_record(it, seq_num):
 
     w = it["weight"]
     cat = it["cat"]
+    if code in ("RP-MT-014", "RP-MT-015"):
+        cat = "combination_food"
+
     usda_prof = MEAT_USDA_SR_PROFILES.get(code)
     override = MEAT_ANALYTICAL_OVERRIDES.get(code, {})
 
@@ -880,6 +1099,8 @@ def make_meat_record(it, seq_num):
 
     prep_state = override.get("prep", it["prep"])
     tags = ["meats", cat, prep_state]
+    if cat == "plant_protein_legumes" and "legumes" not in tags:
+        tags.append("legumes")
     for extra in override.get("tags", []):
         if extra not in tags:
             tags.append(extra)
@@ -892,11 +1113,11 @@ def make_meat_record(it, seq_num):
     if source_id == "usda_fdc":
         notes_ar = (
             f"التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB {src_rec_id}). "
-            f"وزن بديل اللحوم من RegimePlan 2026 (ص {it['page']}): {int(w)} جم ({it['hhAr']})."
+            f"وزن البديل القياسي من RegimePlan 2026 (ص {it['page']}): {int(w)} جم ({it['hhAr']})."
         )
         notes_en = (
             f"Analytical 100g composition from USDA SR Legacy (NDB {src_rec_id}). "
-            f"RegimePlan Food Exchange Lists (2026, p. {it['page']}) meat exchange portion: {int(w)}g ({hh_en})."
+            f"RegimePlan Food Exchange Lists (2026, p. {it['page']}) exchange portion: {int(w)}g ({hh_en})."
         )
     elif comp_basis == "exchange_only":
         notes_ar = (
@@ -905,11 +1126,69 @@ def make_meat_record(it, seq_num):
         )
         notes_en = (
             f"Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. {it['page']}). "
-            f"Standard meat exchange portion: {int(w)}g ({hh_en}). Analytical 100g composition is unassayed."
+            f"Standard exchange portion: {int(w)}g ({hh_en}). Analytical 100g composition is unassayed."
         )
     else:
         notes_ar = f"تركيبة مراجعة سريرياً لكل 100 جم. وزن الحصة البديلة وفق RegimePlan 2026 (ص {it['page']}): {int(w)} جم ({it['hhAr']})."
-        notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {it['page']}) meat exchange portion: {int(w)}g ({hh_en})."
+        notes_en = f"Clinically reviewed 100g composition. RegimePlan Food Exchange Lists (2026, p. {it['page']}) exchange portion: {int(w)}g ({hh_en})."
+
+    extra_note = MEAT_CLINICAL_NOTES.get(code)
+    if extra_note:
+        notes_ar = f"{notes_ar} {extra_note[0]}"
+        notes_en = f"{notes_en} {extra_note[1]}"
+
+    if code in ("RP-MT-014", "RP-MT-015"):
+        notice_en = (
+            "Listed in RegimePlan Legumes (p. 7) but includes added high-fat sesame tahini; cannot be scored as a single pure exchange."
+            if code == "RP-MT-014"
+            else "Listed in RegimePlan Legumes (p. 7) but deep-fried in oil; cannot be scored as a single pure exchange."
+        )
+        notice_ar = (
+            "مدرج في قسم البقوليات (ص 7) لكنه طبق مركب يحتوي على طحينة مضافة عالية الدهون ولا يُحسب كبديل مفرد."
+            if code == "RP-MT-014"
+            else "مدرج في قسم البقوليات (ص 7) لكنه مقلي بالزيت ولا يُحسب كبديل بقوليات مفرد."
+        )
+        portion = {
+            "id": portion_id,
+            "portionNameEn": f"1 Mixed Dish Serving (~{int(w)}g)",
+            "portionNameAr": f"حصة طبق مركب (~{int(w)} جم)",
+            "householdMeasureEn": hh_en,
+            "householdMeasureAr": it["hhAr"],
+            "gramWeight": w_gram,
+            "exchangeCategory": "combination_food",
+            "exchangeEquivalentFactor": 0,
+            "isDefaultServing": True,
+            "exchangeEvidenceStatus": "unclassified_composite",
+            "isUnclassifiedExchange": True,
+            "unclassifiedExchangeNoticeEn": notice_en,
+            "unclassifiedExchangeNoticeAr": notice_ar,
+        }
+    elif cat == "plant_protein_legumes":
+        portion = {
+            "id": portion_id,
+            "portionNameEn": f"1 Legume Exchange (~{int(w)}g)",
+            "portionNameAr": f"بديل بقوليات واحد (~{int(w)} جم)",
+            "householdMeasureEn": hh_en,
+            "householdMeasureAr": it["hhAr"],
+            "gramWeight": w_gram,
+            "exchangeCategory": "plant_protein_legumes",
+            "exchangeEquivalentFactor": 1,
+            "exchangeBreakdown": {"starch": 1, "meat_lean": 1},
+            "isDefaultServing": True,
+            "exchangeEvidenceStatus": "clinic_reviewed",
+        }
+    else:
+        portion = {
+            "id": portion_id,
+            "portionNameEn": f"1 Meat Exchange (~{int(w)}g)",
+            "portionNameAr": f"بديل لحوم واحد (~{int(w)} جم)",
+            "householdMeasureEn": hh_en,
+            "householdMeasureAr": it["hhAr"],
+            "gramWeight": w_gram,
+            "exchangeCategory": cat,
+            "exchangeEquivalentFactor": 1,
+            "isDefaultServing": True,
+        }
 
     record = {
         "id": item_id,
@@ -924,17 +1203,7 @@ def make_meat_record(it, seq_num):
         "compositionBasis": comp_basis,
         "isCustom": False,
         "nutrients100g": nutrients,
-        "portions": [{
-            "id": portion_id,
-            "portionNameEn": f"1 Meat Exchange (~{int(w)}g)",
-            "portionNameAr": f"بديل لحوم واحد (~{int(w)} جم)",
-            "householdMeasureEn": hh_en,
-            "householdMeasureAr": it["hhAr"],
-            "gramWeight": w_gram,
-            "exchangeCategory": cat,
-            "exchangeEquivalentFactor": 1,
-            "isDefaultServing": True
-        }],
+        "portions": [portion],
         "tags": tags,
         "notesAr": notes_ar,
         "notesEn": notes_en

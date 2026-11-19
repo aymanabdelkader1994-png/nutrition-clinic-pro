@@ -36,6 +36,8 @@ import {
   convertExchangesToEstimatedNutrients,
   calculateExchangeDivergence,
   normalizeArabicText,
+  normalizeEnglishText,
+  getFoodCompletenessMeta,
   searchFoodItems,
   searchFoodCatalog,
   deriveAvailableCarbohydrates,
@@ -1410,4 +1412,208 @@ describe('15. Exchange-Only Null Propagation & Integrity Repair Gate', () => {
     assert.equal(baladiSalad.nutrients100g.carbCalculationBasis, 'total_by_difference');
   });
 });
+
+describe('16. REM-05 Phase 1B: Search Ranking, PDF Meat Exchange Fixes, Cross-References & Completeness', () => {
+  beforeEach(() => {
+    clearCustomFoodsForTesting();
+  });
+
+  it('strips Arabic tatweel/tashkeel and matches normalized bilingual tags with 7-tier canonical ranking', () => {
+    assert.equal(normalizeArabicText('عـــيـــشْ بَلَدِيّ'), 'عيش بلدي');
+    assert.equal(normalizeEnglishText('  Pané  Chicken  '), 'pane chicken');
+
+    // Arabic bread queries must rank Egyptian Baladi Bread #1 via exact normalized tag match
+    for (const q of ['عيش', 'عيش بلدي', 'رغيف بلدي', 'عـــيـــش']) {
+      const results = searchFoodCatalog(q);
+      assert.ok(results.length > 0, `Expected search results for "${q}"`);
+      assert.equal(
+        results[0].id,
+        'food_bread_baladi_baked',
+        `Query "${q}" should rank food_bread_baladi_baked #1, got ${results[0].id}`
+      );
+    }
+
+    // Diacritics in فُول must still rank canonical ful medames first
+    const fulResults = searchFoodCatalog('فُول');
+    assert.equal(fulResults[0].id, 'food_ful_medames_cooked_plain');
+
+    // Canonical multi-portion records win ties over RegimePlan duplicates sharing USDA sourceRecordIds
+    const lentilResults = searchFoodCatalog('lentils');
+    const brownIdx = lentilResults.findIndex((f) => f.id === 'food_lentils_brown_cooked');
+    const rpLegIdx = lentilResults.findIndex((f) => f.id === 'food_legume_rp_leg_002');
+    assert.ok(brownIdx >= 0 && rpLegIdx >= 0);
+    assert.ok(brownIdx < rpLegIdx, 'Canonical food_lentils_brown_cooked should outrank RP-LEG-002');
+
+    const exactChickpeaResults = searchFoodCatalog('Cooked Chickpeas');
+    assert.equal(exactChickpeaResults[0].id, 'food_meat_rp_mt_003');
+
+    const chickpeaArResults = searchFoodCatalog('حمص مطبوخ');
+    const legChickIdx = chickpeaArResults.findIndex((f) => f.id === 'food_legume_rp_leg_003');
+    const mtChickIdx = chickpeaArResults.findIndex((f) => f.id === 'food_meat_rp_mt_003');
+    assert.ok(legChickIdx >= 0 && mtChickIdx >= 0);
+    assert.ok(legChickIdx < mtChickIdx, 'Primary legume RP-LEG-003 should outrank secondary RP-MT-003 on same-tier match');
+
+    const oliveResults = searchFoodCatalog('olive oil');
+    const canonOliveIdx = oliveResults.findIndex((f) => f.id === 'food_oil_olive_extra_virgin');
+    const rpOliveIdx = oliveResults.findIndex((f) => f.id === 'food_fat_rp_ft_067');
+    assert.ok(canonOliveIdx >= 0 && rpOliveIdx >= 0);
+    assert.ok(canonOliveIdx < rpOliveIdx, 'Canonical extra virgin olive oil should outrank RP-FT-067');
+  });
+
+  it('remediates PDF Y-inversion meat/legume/composite exchange classifications without changing IDs or foodGroupId', () => {
+    const legumeCodes = [
+      'RP-MT-001', 'RP-MT-002', 'RP-MT-003',
+      'RP-MT-016', 'RP-MT-017', 'RP-MT-018', 'RP-MT-019', 'RP-MT-020', 'RP-MT-021', 'RP-MT-022', 'RP-MT-023',
+    ];
+    for (const code of legumeCodes) {
+      const id = `food_meat_${code.toLowerCase().replaceAll('-', '_')}`;
+      const rec = getFoodItemById(id)!;
+      assert.ok(rec, `Missing ${id}`);
+      assert.equal(rec.foodGroupId, 'meats');
+      assert.equal(rec.primaryExchangeCategoryId, 'plant_protein_legumes', `${code} should be plant_protein_legumes`);
+      assert.equal(rec.portions[0].exchangeCategory, 'plant_protein_legumes');
+      assert.deepEqual(rec.portions[0].exchangeBreakdown, { starch: 1, meat_lean: 1 });
+    }
+
+    for (const code of ['RP-MT-014', 'RP-MT-015']) {
+      const id = `food_meat_${code.toLowerCase().replaceAll('-', '_')}`;
+      const rec = getFoodItemById(id)!;
+      assert.equal(rec.primaryExchangeCategoryId, 'combination_food');
+      assert.equal(rec.portions[0].exchangeCategory, 'combination_food');
+      assert.equal(rec.portions[0].exchangeEquivalentFactor, 0);
+      assert.equal(rec.portions[0].isUnclassifiedExchange, true);
+    }
+
+    const assertMeatRange = (from: number, to: number, expectedCat: string) => {
+      for (let seq = from; seq <= to; seq++) {
+        const code = `RP-MT-${String(seq).padStart(3, '0')}`;
+        const rec = getFoodItemById(`food_meat_rp_mt_${String(seq).padStart(3, '0')}`);
+        if (!rec) continue;
+        assert.equal(rec.foodGroupId, 'meats');
+        assert.equal(rec.primaryExchangeCategoryId, expectedCat, `${code} expected ${expectedCat}, got ${rec.primaryExchangeCategoryId}`);
+        assert.equal(rec.portions[0].exchangeCategory, expectedCat);
+      }
+    };
+
+    assertMeatRange(109, 116, 'meat_medium_fat');
+    assertMeatRange(117, 134, 'meat_lean');
+    assertMeatRange(136, 165, 'meat_medium_fat');
+    assertMeatRange(166, 170, 'meat_high_fat');
+    assertMeatRange(171, 196, 'meat_medium_fat');
+  });
+
+  it('includes symmetric bilingual cross-references across all 12 duplicate sourceRecordId groups and RP-MT/RP-LEG overlaps', () => {
+    const all = getAllFoodItems();
+    const bySourceRec = new Map<string, FoodItemRecord[]>();
+    for (const item of all) {
+      if (!item.sourceRecordId) continue;
+      const key = `${item.sourceId}:${item.sourceRecordId}`;
+      const list = bySourceRec.get(key) ?? [];
+      list.push(item);
+      bySourceRec.set(key, list);
+    }
+
+    const duplicates = [...bySourceRec.values()].filter((group) => group.length > 1);
+    assert.equal(duplicates.length, 12);
+    for (const group of duplicates) {
+      for (const item of group) {
+        const hasCounterpartRef = group.some(
+          (other) =>
+            other.id !== item.id &&
+            ((Boolean(other.code && item.notesEn?.includes(other.code)) || Boolean(item.notesEn?.includes(other.id))) &&
+              (Boolean(other.code && item.notesAr?.includes(other.code)) || Boolean(item.notesAr?.includes(other.id))))
+        );
+        assert.ok(hasCounterpartRef, `${item.id} (${item.code}) missing bilingual sibling cross-reference`);
+      }
+    }
+
+    const quraishRp = getFoodItemById('food_meat_rp_mt_121')!;
+    assert.ok(quraishRp.notesEn?.includes('food_cheese_quraish_egyptian'));
+    const tofuRp = getFoodItemById('food_meat_rp_mt_179')!;
+    assert.ok(tofuRp.notesEn?.includes('ADA') && tofuRp.notesAr?.includes('ADA'));
+    const breadedRp = getFoodItemById('food_meat_rp_mt_165')!;
+    assert.ok(breadedRp.notesEn?.includes('RECIPE-PANE-001'));
+  });
+
+  it('computes accurate clinical completeness metadata across all 6 composition categories', () => {
+    const complete = getFoodCompletenessMeta(getFoodItemById('food_bread_baladi_baked')!);
+    assert.equal(complete.category, 'complete_analytical');
+    assert.equal(complete.missingCount, 0);
+
+    // USDA-171946 retains unassayed MUFA/PUFA nulls (partial_analytical)
+    const partialItem = getAllFoodItems().find(
+      (f) => f.compositionBasis === 'analytical_table' && f.nutrients100g.missingNutrientKeys.length > 0
+    )!;
+    const partial = getFoodCompletenessMeta(partialItem);
+    assert.equal(partial.category, 'partial_analytical');
+    assert.ok(partial.missingCount > 0);
+
+    const estimated = getFoodCompletenessMeta(getFoodItemById('food_starch_rp_rp_st_128')!);
+    assert.equal(estimated.category, 'clinic_estimated');
+
+    const recipe = getFoodCompletenessMeta(getFoodItemById('food_chicken_breast_fried_breaded')!);
+    assert.equal(recipe.category, 'recipe_based');
+
+    const exchangeOnly = getFoodCompletenessMeta(getFoodItemById('food_meat_rp_mt_171')!);
+    assert.equal(exchangeOnly.category, 'exchange_only');
+
+    const custom = registerCustomFoodItem({
+      nameEn: 'Clinic Smoothie',
+      nameAr: 'سموذي عيادة',
+      foodGroupId: 'custom',
+      primaryExchangeCategoryId: 'combination_food',
+      preparationState: 'raw',
+      compositionBasis: 'clinic_estimated',
+      nutrients100g: {
+        basisWeightG: 100,
+        caloriesKcal: 95,
+        carbsG: 18,
+        availableCarbsG: null,
+        carbCalculationBasis: 'total_by_difference',
+        proteinG: 4,
+        fatG: 1,
+        fiberG: 2,
+        saturatedFatG: null,
+        transFatG: null,
+        monounsaturatedFatG: null,
+        polyunsaturatedFatG: null,
+        cholesterolMg: null,
+        sodiumMg: null,
+        potassiumMg: null,
+        calciumMg: null,
+        ironMg: null,
+        waterG: null,
+        missingNutrientKeys: [
+          'saturatedFatG',
+          'transFatG',
+          'monounsaturatedFatG',
+          'polyunsaturatedFatG',
+          'cholesterolMg',
+          'sodiumMg',
+          'potassiumMg',
+          'calciumMg',
+          'ironMg',
+          'waterG',
+        ],
+      },
+      portions: [
+        {
+          id: 'portion_smoothie_cup',
+          portionNameEn: '1 Cup',
+          portionNameAr: 'كوب واحد',
+          householdMeasureEn: '1 cup (240g)',
+          householdMeasureAr: 'كوب (240 جم)',
+          gramWeight: 240,
+          exchangeCategory: 'combination_food',
+          exchangeEquivalentFactor: 0,
+          isDefaultServing: true,
+        },
+      ],
+    });
+    const customMeta = getFoodCompletenessMeta(custom);
+    assert.equal(customMeta.category, 'user_custom');
+    assert.equal(customMeta.missingCount, 10);
+  });
+});
+
 

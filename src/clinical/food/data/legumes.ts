@@ -148,8 +148,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "folate",
       "plant protein"
     ],
-    "notesAr": "عدس مسلوق؛ غني بالألياف الغذائية والحديد وحمض الفوليك. حصة 1/2 كوب مطبوخ (~100 جم) موثقة بجدول بدائل ADA/AND (2014 ص 14 / 2019 ص 16) كبديل نشويات + بديل لحوم خفيفة الدسم.",
-    "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange.",
+    "notesAr": "عدس مسلوق؛ غني بالألياف الغذائية والحديد وحمض الفوليك. حصة 1/2 كوب مطبوخ (~100 جم) موثقة بجدول بدائل ADA/AND (2014 ص 14 / 2019 ص 16) كبديل نشويات + بديل لحوم خفيفة الدسم. السجل القياسي المرجعي لمرجع USDA 16070 — يرتبط بسجل RegimePlan (RP-LEG-002).",
+    "notesEn": "Boiled brown/green lentils; high in soluble fiber, folate, and non-heme iron. 1/2 cup cooked portion (~100g) verified in ADA/AND Choose Your Foods (2014, p. 14 / 2019, p. 16) as 1 Starch + 1 Lean Meat exchange. Canonical reference for USDA NDB 16070; cross-referenced with RP-LEG-002.",
     "compositionBasis": "analytical_table"
   },
   {
@@ -273,8 +273,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16070). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 99 جم (نصف كوب).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16070). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 99g (1/2 cup).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16070). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 99 جم (نصف كوب). سجل بديل RegimePlan (99 جم) المرتبط بمرجع USDA 16070؛ يطابق السجل المرجعي الأساسي متعدد الحصص food_lentils_brown_cooked (USDA-16070).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16070). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 99g (1/2 cup). RegimePlan exchange sibling (99g) for USDA NDB 16070; cross-referenced with canonical multi-portion record food_lentils_brown_cooked (USDA-16070).",
     "sourceRecordId": "16070"
   },
   {
@@ -328,8 +328,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16057). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 82 جم (نصف كوب).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16057). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 82g (1/2 cup).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16057). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 82 جم (نصف كوب). سجل البقوليات الأساسي (82 جم) المرتبط بمرجع USDA 16057؛ يرتبط بالسجل المماثل ضمن قائمة بدائل اللحوم النباتية RP-MT-003 (78 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16057). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 82g (1/2 cup). Primary legumes entry (82g) for USDA NDB 16057; cross-referenced with meat-substitutes companion RP-MT-003 (78g, USDA NDB 16057).",
     "sourceRecordId": "16057"
   },
   {
@@ -649,8 +649,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 35 جم (ملعقتان كبيرتان ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 35g (2.5 tbsp). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 35 جم (ملعقتان كبيرتان ونصف). التركيبة التحليلية لكل 100 جم غير محللة. يرتبط بسجل الحمص النيء المماثل ضمن قائمة بدائل اللحوم النباتية RP-MT-002 (34 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 35g (2.5 tbsp). Analytical 100g composition is unassayed. Cross-referenced with meat-substitutes companion RP-MT-002 (Raw Dried Chickpeas, 34g)."
   },
   {
     "id": "food_legume_rp_leg_009",
@@ -870,8 +870,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16081). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 105 جم (نصف كوب).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16081). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 105g (1/2 cup).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16081). وزن بديل البقوليات من RegimePlan 2026 (ص 7): 105 جم (نصف كوب). سجل البقوليات الأساسي للماش المطبوخ؛ يرتبط بالسجل المماثل ضمن قائمة بدائل اللحوم النباتية RP-MT-001 (105 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16081). RegimePlan Food Exchange Lists (2026, p. 7) legume exchange portion: 105g (1/2 cup). Primary legumes entry for Cooked Mung Beans; cross-referenced with meat-substitutes companion RP-MT-001 (105g).",
     "sourceRecordId": "16081"
   },
   {
@@ -1191,8 +1191,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 93 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 93g (1/2 cup). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 93 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي للبسلة المجروشة المطبوخة؛ يرتبط بالسجل المماثل RP-MT-023 (93 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 93g (1/2 cup). Analytical 100g composition is unassayed. Primary legumes entry for Cooked Split Peas; cross-referenced with meat-substitutes companion RP-MT-023 (93g)."
   },
   {
     "id": "food_legume_rp_leg_018",
@@ -1261,8 +1261,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 100 جم (ثلثا كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 100g (2/3 cup). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 100 جم (ثلثا كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي للترمس المطبوخ؛ يرتبط بالسجل المماثل RP-MT-022 (100 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 100g (2/3 cup). Analytical 100g composition is unassayed. Primary legumes entry for Cooked Lupini Beans; cross-referenced with meat-substitutes companion RP-MT-022 (100g)."
   },
   {
     "id": "food_legume_rp_leg_019",
@@ -1331,8 +1331,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "ready-to-eat"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (1/3 cup). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي للحمص المحمص؛ يرتبط بالسجل المماثل RP-MT-021 (32 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 32g (1/3 cup). Analytical 100g composition is unassayed. Primary legumes entry for Roasted Chickpeas; cross-referenced with meat-substitutes companion RP-MT-021 (32g)."
   },
   {
     "id": "food_legume_rp_leg_020",
@@ -1401,8 +1401,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (1/2 cup). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي لدال توور المطبوخ؛ يرتبط بالسجل المماثل RP-MT-020 (98 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (1/2 cup). Analytical 100g composition is unassayed. Primary legumes entry for Cooked Toor Dal; cross-referenced with meat-substitutes companion RP-MT-020 (98g)."
   },
   {
     "id": "food_legume_rp_leg_021",
@@ -1471,8 +1471,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 105g (1/2 cup). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي لدال أوراد المطبوخ؛ يرتبط بالسجل المماثل RP-MT-019 (105 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 105g (1/2 cup). Analytical 100g composition is unassayed. Primary legumes entry for Cooked Urad Dal; cross-referenced with meat-substitutes companion RP-MT-019 (105g)."
   },
   {
     "id": "food_legume_rp_leg_022",
@@ -1541,8 +1541,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "cooked"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (7 ملاعق كبيرة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (7 tbsp). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (7 ملاعق كبيرة). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي لدال حمص شانا المطبوخ؛ يرتبط بالسجل المماثل RP-MT-018 (78 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 78g (7 tbsp). Analytical 100g composition is unassayed. Primary legumes entry for Cooked Chana Dal; cross-referenced with meat-substitutes companion RP-MT-018 (78g)."
   },
   {
     "id": "food_legume_rp_leg_023",
@@ -1821,8 +1821,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "ready-to-eat"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (ثلثا كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (2/3 cup). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (ثلثا كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي للحمص المعلب؛ يرتبط بالسجل المماثل RP-MT-017 (98 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 98g (2/3 cup). Analytical 100g composition is unassayed. Primary legumes entry for Canned Chickpeas; cross-referenced with meat-substitutes companion RP-MT-017 (98g)."
   },
   {
     "id": "food_legume_rp_leg_027",
@@ -1891,8 +1891,8 @@ export const LEGUME_FOOD_ITEMS: FoodItemRecord[] = [
       "plant_protein_legumes",
       "raw"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (6 ملاعق كبيرة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 34g (6 tbsp). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (6 ملاعق كبيرة). التركيبة التحليلية لكل 100 جم غير محللة. سجل البقوليات الأساسي لدقيق الحمص؛ يرتبط بالسجل المماثل RP-MT-016 (34 جم).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard legume exchange portion: 34g (6 tbsp). Analytical 100g composition is unassayed. Primary legumes entry for Chickpea Flour (Besan); cross-referenced with meat-substitutes companion RP-MT-016 (34g)."
   },
   {
     "id": "food_legume_rp_leg_028",

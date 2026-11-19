@@ -220,6 +220,10 @@ def make_dairy_item(raw):
         notes_ar = f"{rev_ar} وزن الحصة البديلة وفق RegimePlan 2026 (ص {page}): {w} جم ({hh_ar}).".strip()
         notes_en = f"{rev_en} RegimePlan Food Exchange Lists (2026, p. {page}) exchange portion: {w}g ({hh_en}).".strip()
 
+    if code == "RP-DA-001":
+        notes_ar += " سجل بديل RegimePlan (255 جم) المرتبط بمرجع USDA 01211؛ يطابق السجل القياسي متعدد الحصص food_milk_cow_whole (USDA-01211)."
+        notes_en += " RegimePlan exchange sibling (255g) for USDA NDB 01211; cross-referenced with canonical multi-portion record food_milk_cow_whole (USDA-01211)."
+
     item_id = f"food_dairy_{code.lower().replace('-', '_')}"
     record = {
         "id": item_id,

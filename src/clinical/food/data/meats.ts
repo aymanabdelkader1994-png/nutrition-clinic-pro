@@ -61,8 +61,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "lean meat",
       "high protein"
     ],
-    "notesAr": "صدر دجاج طازج منزوع الجلد قبل الطهي. يفقد قرابة 20-25% من وزنه ماءً أثناء الشي أو السلق.",
-    "notesEn": "Raw skinless chicken breast before cooking shrinkage.",
+    "notesAr": "صدر دجاج طازج منزوع الجلد قبل الطهي. يفقد قرابة 20-25% من وزنه ماءً أثناء الشي أو السلق. السجل القياسي المرجعي لمرجع USDA 05062 — يرتبط بسجل RegimePlan (RP-MT-013).",
+    "notesEn": "Raw skinless chicken breast before cooking shrinkage. Canonical reference for USDA NDB 05062; cross-referenced with RegimePlan 2026 item RP-MT-013.",
     "compositionBasis": "analytical_table"
   },
   {
@@ -142,8 +142,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "high protein",
       "poultry"
     ],
-    "notesAr": "صدر دجاج مشوي بدون جلد وبدون دهون مضافة. بروتين حيواني عالي القيمة الحيوية ومنخفض الدهون المشبعة.",
-    "notesEn": "Cooked skinless chicken breast; lean high-biological-value protein.",
+    "notesAr": "صدر دجاج مشوي بدون جلد وبدون دهون مضافة. بروتين حيواني عالي القيمة الحيوية ومنخفض الدهون المشبعة. السجل القياسي متعدد الحصص لمرجع USDA 05064 — يرتبط بسجلي RegimePlan للمخبوز والمشوي (RP-MT-011 وRP-MT-012).",
+    "notesEn": "Cooked skinless chicken breast; lean high-biological-value protein. Canonical multi-portion reference for USDA NDB 05064; cross-referenced with RegimePlan baked/grilled entries RP-MT-011 and RP-MT-012.",
     "compositionBasis": "analytical_table"
   },
   {
@@ -334,8 +334,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "choline",
       "breakfast"
     ],
-    "notesAr": "بيضة كاملة مسلوقة؛ تعتبر المعيار الذهبي للبروتين ذي القيمة الحيوية 100، وغنية بالكولين واللوتين.",
-    "notesEn": "Boiled whole chicken egg; gold reference for high biological value protein.",
+    "notesAr": "بيضة كاملة مسلوقة؛ تعتبر المعيار الذهبي للبروتين ذي القيمة الحيوية 100، وغنية بالكولين واللوتين. السجل القياسي المرجعي لمرجع USDA 01129 — يرتبط بسجل RegimePlan (RP-MT-191).",
+    "notesEn": "Boiled whole chicken egg; gold reference for high biological value protein. Canonical reference for USDA NDB 01129; cross-referenced with RegimePlan 2026 item RP-MT-191.",
     "compositionBasis": "analytical_table"
   },
   {
@@ -512,7 +512,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Mung Beans",
     "nameAr": "ماش مطبوخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -557,25 +557,31 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_001_serving",
-        "portionNameEn": "1 Meat Exchange (~105g)",
-        "portionNameAr": "بديل لحوم واحد (~105 جم)",
+        "portionNameEn": "1 Legume Exchange (~105g)",
+        "portionNameAr": "بديل بقوليات واحد (~105 جم)",
         "householdMeasureEn": "105g portion",
         "householdMeasureAr": "نصف كوب",
         "gramWeight": 105,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "ماش",
       "mung beans"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 105g (105g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. ورد هذا الصنف في قسم البقوليات بملف RegimePlan (ص 7) وتم تصنيفه كبديل بقوليات (1 نشويات + 1 لحوم خفيفة). يرتبط بسجل البقوليات الأساسي RP-LEG-012.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 105g (105g portion). Analytical 100g composition is unassayed. Listed under RegimePlan Legumes (p. 7) and classified as plant_protein_legumes (1 Starch + 1 Lean Meat). Cross-referenced with primary legumes entry RP-LEG-012."
   },
   {
     "id": "food_meat_rp_mt_002",
@@ -584,7 +590,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Dried Chickpeas",
     "nameAr": "حمص نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -629,26 +635,32 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_002_serving",
-        "portionNameEn": "1 Meat Exchange (~34g)",
-        "portionNameAr": "بديل لحوم واحد (~34 جم)",
+        "portionNameEn": "1 Legume Exchange (~34g)",
+        "portionNameAr": "بديل بقوليات واحد (~34 جم)",
         "householdMeasureEn": "34g portion",
         "householdMeasureAr": "ملعقتان كبيرتان  ونصف",
         "gramWeight": 34,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "raw",
+      "legumes",
       "حمص",
       "حمص نيء",
       "chickpeas"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (ملعقتان كبيرتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (ملعقتان كبيرتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة. ورد هذا الصنف في قسم البقوليات بملف RegimePlan (ص 7) وتم تصنيفه كبديل بقوليات. يرتبط بسجل البقوليات الأساسي RP-LEG-008.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed. Listed under RegimePlan Legumes (p. 7) and classified as plant_protein_legumes. Cross-referenced with primary legumes entry RP-LEG-008."
   },
   {
     "id": "food_meat_rp_mt_003",
@@ -657,7 +669,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Chickpeas",
     "nameAr": "حمص مطبوخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -686,26 +698,32 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_003_serving",
-        "portionNameEn": "1 Meat Exchange (~78g)",
-        "portionNameAr": "بديل لحوم واحد (~78 جم)",
+        "portionNameEn": "1 Legume Exchange (~78g)",
+        "portionNameAr": "بديل بقوليات واحد (~78 جم)",
         "householdMeasureEn": "78g portion",
         "householdMeasureAr": "نصف كوب",
         "gramWeight": 78,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "حمص",
       "حمص مطبوخ",
       "chickpeas"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16057). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 78 جم (نصف كوب).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16057). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 78g (78g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16057). وزن البديل القياسي من RegimePlan 2026 (ص 7): 78 جم (نصف كوب). ورد في قسم البقوليات بملف RegimePlan (ص 7، 78 جم) وتم تصنيفه كبديل بقوليات؛ يشترك في مرجع USDA 16057 مع السجل الأساسي في البقوليات RP-LEG-003 (82 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16057). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 78g (78g portion). Listed under RegimePlan Legumes (p. 7, 78g) and classified as plant_protein_legumes; shares USDA NDB 16057 with primary legumes record RP-LEG-003 (82g).",
     "sourceRecordId": "16057"
   },
   {
@@ -759,8 +777,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05333). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 30 جم (30 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05333). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 30g (30g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05333). وزن البديل القياسي من RegimePlan 2026 (ص 7): 30 جم (30 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05333). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 30g (30g portion).",
     "sourceRecordId": "05333"
   },
   {
@@ -814,8 +832,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05332). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 40 جم (40 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05332). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 40g (40g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05332). وزن البديل القياسي من RegimePlan 2026 (ص 7): 40 جم (40 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05332). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 40g (40g portion).",
     "sourceRecordId": "05332"
   },
   {
@@ -886,7 +904,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 29 جم (نصف دبوس). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_007",
@@ -956,7 +974,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 36 جم (نصف دبوس). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 36g (36g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 36g (36g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_008",
@@ -1009,8 +1027,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05098). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 28 جم (ورك متوسط  )07 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05098). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05098). وزن البديل القياسي من RegimePlan 2026 (ص 7): 28 جم (ورك متوسط  )07 غ(). يشترك في مرجع USDA 05098 الخاص بورك الدجاج المطهو مع سجل ورك الدجاج المشوي RP-MT-009.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05098). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 28g (28g portion). Shares USDA NDB 05098 roasted/cooked skinless thigh assay with grilled counterpart RP-MT-009.",
     "sourceRecordId": "05098"
   },
   {
@@ -1064,8 +1082,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05098). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 28 جم (ورك متوسط  )07 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05098). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05098). وزن البديل القياسي من RegimePlan 2026 (ص 7): 28 جم (ورك متوسط  )07 غ(). يشترك في مرجع USDA 05098 الخاص بورك الدجاج المطهو مع سجل ورك الدجاج في الفرن RP-MT-008.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05098). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 28g (28g portion). Shares USDA NDB 05098 roasted/cooked skinless thigh assay with baked counterpart RP-MT-008.",
     "sourceRecordId": "05098"
   },
   {
@@ -1119,8 +1137,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05096). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 36 جم (ورك متوسط  )88 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05096). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 36g (36g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05096). وزن البديل القياسي من RegimePlan 2026 (ص 7): 36 جم (ورك متوسط  )88 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05096). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 36g (36g portion).",
     "sourceRecordId": "05096"
   },
   {
@@ -1176,8 +1194,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05064). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 23 جم (صدر متوسط  )021 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05064). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 23g (23g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05064). وزن البديل القياسي من RegimePlan 2026 (ص 7): 23 جم (صدر متوسط  )021 غ(). سجل بديل RegimePlan (23 جم)؛ يشترك في مرجع USDA 05064 مع السجل الأساسي متعدد الحصص food_chicken_breast_grilled_skinless ومع RP-MT-012.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05064). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 23g (23g portion). RegimePlan exchange item (23g); shares USDA NDB 05064 with canonical record food_chicken_breast_grilled_skinless and sibling RP-MT-012.",
     "sourceRecordId": "05064"
   },
   {
@@ -1233,8 +1251,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05064). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 23 جم (صدر متوسط  )021 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05064). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 23g (23g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05064). وزن البديل القياسي من RegimePlan 2026 (ص 7): 23 جم (صدر متوسط  )021 غ(). سجل بديل RegimePlan (23 جم)؛ يشترك في مرجع USDA 05064 مع السجل الأساسي متعدد الحصص food_chicken_breast_grilled_skinless ومع RP-MT-011.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05064). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 23g (23g portion). RegimePlan exchange item (23g); shares USDA NDB 05064 with canonical record food_chicken_breast_grilled_skinless and sibling RP-MT-011.",
     "sourceRecordId": "05064"
   },
   {
@@ -1288,8 +1306,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05062). وزن بديل اللحوم من RegimePlan 2026 (ص 7): 31 جم (صدر متوسط  )561 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05062). RegimePlan Food Exchange Lists (2026, p. 7) meat exchange portion: 31g (31g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05062). وزن البديل القياسي من RegimePlan 2026 (ص 7): 31 جم (صدر متوسط  )561 غ(). سجل بديل RegimePlan (31 جم)؛ يشترك في مرجع USDA 05062 مع السجل الأساسي متعدد الحصص food_chicken_breast_raw_skinless.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05062). RegimePlan Food Exchange Lists (2026, p. 7) exchange portion: 31g (31g portion). RegimePlan exchange item (31g); shares USDA NDB 05062 with canonical multi-portion record food_chicken_breast_raw_skinless.",
     "sourceRecordId": "05062"
   },
   {
@@ -1299,7 +1317,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Hummus with Tahini",
     "nameAr": "حمص بطحينة",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1344,26 +1362,30 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_014_serving",
-        "portionNameEn": "1 Meat Exchange (~115g)",
-        "portionNameAr": "بديل لحوم واحد (~115 جم)",
+        "portionNameEn": "1 Mixed Dish Serving (~115g)",
+        "portionNameAr": "حصة طبق مركب (~115 جم)",
         "householdMeasureEn": "115g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 115,
-        "exchangeCategory": "meat_lean",
-        "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "isUnclassifiedExchange": true,
+        "unclassifiedExchangeNoticeEn": "Listed in RegimePlan Legumes (p. 7) but includes added high-fat sesame tahini; cannot be scored as a single pure exchange.",
+        "unclassifiedExchangeNoticeAr": "مدرج في قسم البقوليات (ص 7) لكنه طبق مركب يحتوي على طحينة مضافة عالية الدهون ولا يُحسب كبديل مفرد."
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "combination_food",
       "cooked",
       "حمص بطحينة",
       "حمص",
       "hummus"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 115 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 115g (115g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 115 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة. طبق مركب غير مصنف كبديل بقوليات مفرد رغم إدراجه في قسم البقوليات (ص 7)، نظراً لإضافة الطحينة عالية الدهون.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 115g (115g portion). Analytical 100g composition is unassayed. Composite dish listed under Legumes (p. 7); classified as unclassified combination_food due to high-fat sesame tahini."
   },
   {
     "id": "food_meat_rp_mt_015",
@@ -1372,7 +1394,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Taameya / Falafel",
     "nameAr": "طعمية",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "combination_food",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1417,27 +1439,31 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_015_serving",
-        "portionNameEn": "1 Meat Exchange (~60g)",
-        "portionNameAr": "بديل لحوم واحد (~60 جم)",
+        "portionNameEn": "1 Mixed Dish Serving (~60g)",
+        "portionNameAr": "حصة طبق مركب (~60 جم)",
         "householdMeasureEn": "60g portion",
         "householdMeasureAr": "حبتان  ونصف",
         "gramWeight": 60,
-        "exchangeCategory": "meat_lean",
-        "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeCategory": "combination_food",
+        "exchangeEquivalentFactor": 0,
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "unclassified_composite",
+        "isUnclassifiedExchange": true,
+        "unclassifiedExchangeNoticeEn": "Listed in RegimePlan Legumes (p. 7) but deep-fried in oil; cannot be scored as a single pure exchange.",
+        "unclassifiedExchangeNoticeAr": "مدرج في قسم البقوليات (ص 7) لكنه مقلي بالزيت ولا يُحسب كبديل بقوليات مفرد."
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "combination_food",
       "cooked",
       "طعمية",
       "فلافل",
       "falafel",
       "taameya"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 60 جم (حبتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 60g (60g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 60 جم (حبتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة. طبق مركب غير مصنف كبديل بقوليات مفرد رغم إدراجه في قسم البقوليات (ص 7)، نظراً لامتصاص زيت القلي.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 60g (60g portion). Analytical 100g composition is unassayed. Composite dish listed under Legumes (p. 7); classified as unclassified combination_food due to absorbed frying oil."
   },
   {
     "id": "food_meat_rp_mt_016",
@@ -1446,7 +1472,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Chickpea Flour (Besan)",
     "nameAr": "دقيق حمص",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1491,26 +1517,32 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_016_serving",
-        "portionNameEn": "1 Meat Exchange (~34g)",
-        "portionNameAr": "بديل لحوم واحد (~34 جم)",
+        "portionNameEn": "1 Legume Exchange (~34g)",
+        "portionNameAr": "بديل بقوليات واحد (~34 جم)",
         "householdMeasureEn": "34g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 34,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "raw",
+      "legumes",
       "دقيق حمص",
       "حمص",
       "chickpea flour"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 34 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-027.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-027."
   },
   {
     "id": "food_meat_rp_mt_017",
@@ -1519,7 +1551,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Canned Chickpeas (Drained)",
     "nameAr": "حمص معلب",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "ready-to-eat",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1564,26 +1596,32 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_017_serving",
-        "portionNameEn": "1 Meat Exchange (~98g)",
-        "portionNameAr": "بديل لحوم واحد (~98 جم)",
+        "portionNameEn": "1 Legume Exchange (~98g)",
+        "portionNameAr": "بديل بقوليات واحد (~98 جم)",
         "householdMeasureEn": "98g portion",
         "householdMeasureAr": "كوب",
         "gramWeight": 98,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "ready-to-eat",
+      "legumes",
       "حمص معلب",
       "حمص",
       "chickpeas"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 98g (98g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (كوب). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-026.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 98g (98g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-026."
   },
   {
     "id": "food_meat_rp_mt_018",
@@ -1592,7 +1630,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Chana Dal (Split Chickpeas)",
     "nameAr": "دال حمص مطبوخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1637,26 +1675,32 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_018_serving",
-        "portionNameEn": "1 Meat Exchange (~78g)",
-        "portionNameAr": "بديل لحوم واحد (~78 جم)",
+        "portionNameEn": "1 Legume Exchange (~78g)",
+        "portionNameAr": "بديل بقوليات واحد (~78 جم)",
         "householdMeasureEn": "78g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 78,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "دال حمص",
       "حمص",
       "chana dal"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 78g (78g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 78 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-022.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 78g (78g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-022."
   },
   {
     "id": "food_meat_rp_mt_019",
@@ -1665,7 +1709,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Urad Dal (Black Gram)",
     "nameAr": "دال أوراد مطبوخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1710,25 +1754,31 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_019_serving",
-        "portionNameEn": "1 Meat Exchange (~105g)",
-        "portionNameAr": "بديل لحوم واحد (~105 جم)",
+        "portionNameEn": "1 Legume Exchange (~105g)",
+        "portionNameAr": "بديل بقوليات واحد (~105 جم)",
         "householdMeasureEn": "105g portion",
         "householdMeasureAr": "نصف كوب",
         "gramWeight": 105,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "دال أوراد",
       "urad dal"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 105g (105g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 105 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-021.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 105g (105g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-021."
   },
   {
     "id": "food_meat_rp_mt_020",
@@ -1737,7 +1787,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Toor Dal (Split Pigeon Peas)",
     "nameAr": "دال توور مطبوخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1782,25 +1832,31 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_020_serving",
-        "portionNameEn": "1 Meat Exchange (~98g)",
-        "portionNameAr": "بديل لحوم واحد (~98 جم)",
+        "portionNameEn": "1 Legume Exchange (~98g)",
+        "portionNameAr": "بديل بقوليات واحد (~98 جم)",
         "householdMeasureEn": "98g portion",
         "householdMeasureAr": "نصف كوب",
         "gramWeight": 98,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "دال توور",
       "toor dal"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 98g (98g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 98 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-020.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 98g (98g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-020."
   },
   {
     "id": "food_meat_rp_mt_021",
@@ -1809,7 +1865,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Roasted Chickpeas",
     "nameAr": "حمص محمص",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "roasted",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1854,26 +1910,32 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_021_serving",
-        "portionNameEn": "1 Meat Exchange (~32g)",
-        "portionNameAr": "بديل لحوم واحد (~32 جم)",
+        "portionNameEn": "1 Legume Exchange (~32g)",
+        "portionNameAr": "بديل بقوليات واحد (~32 جم)",
         "householdMeasureEn": "32g portion",
         "householdMeasureAr": "ثلث كوب",
         "gramWeight": 32,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "roasted",
+      "legumes",
       "حمص محمص",
       "حمص",
       "roasted chickpeas"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 32 جم (ثلث كوب). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-019.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 32g (32g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-019."
   },
   {
     "id": "food_meat_rp_mt_022",
@@ -1882,7 +1944,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Lupini Beans (Termis)",
     "nameAr": "ترمس مطبوخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1927,25 +1989,31 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_022_serving",
-        "portionNameEn": "1 Meat Exchange (~100g)",
-        "portionNameAr": "بديل لحوم واحد (~100 جم)",
+        "portionNameEn": "1 Legume Exchange (~100g)",
+        "portionNameAr": "بديل بقوليات واحد (~100 جم)",
         "householdMeasureEn": "100g portion",
         "householdMeasureAr": "كوب",
         "gramWeight": 100,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "ترمس",
       "lupini beans"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 100 جم (كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 100g (100g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 100 جم (كوب). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-018.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 100g (100g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-018."
   },
   {
     "id": "food_meat_rp_mt_023",
@@ -1954,7 +2022,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Cooked Split Peas",
     "nameAr": "بسلة مجروشة مطبوخة",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "plant_protein_legumes",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -1999,25 +2067,31 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "portions": [
       {
         "id": "portion_food_meat_rp_mt_023_serving",
-        "portionNameEn": "1 Meat Exchange (~93g)",
-        "portionNameAr": "بديل لحوم واحد (~93 جم)",
+        "portionNameEn": "1 Legume Exchange (~93g)",
+        "portionNameAr": "بديل بقوليات واحد (~93 جم)",
         "householdMeasureEn": "93g portion",
         "householdMeasureAr": "نصف كوب",
         "gramWeight": 93,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "plant_protein_legumes",
         "exchangeEquivalentFactor": 1,
-        "isDefaultServing": true
+        "exchangeBreakdown": {
+          "starch": 1,
+          "meat_lean": 1
+        },
+        "isDefaultServing": true,
+        "exchangeEvidenceStatus": "clinic_reviewed"
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "plant_protein_legumes",
       "cooked",
+      "legumes",
       "بسلة مجروشة",
       "split peas"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 93 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard meat exchange portion: 93g (93g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 7). وزن الحصة البديلة: 93 جم (نصف كوب). التركيبة التحليلية لكل 100 جم غير محللة. صنف بقوليات من RegimePlan (ص 7)؛ يرتبط بسجل البقوليات الأساسي RP-LEG-017.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 7). Standard exchange portion: 93g (93g portion). Analytical 100g composition is unassayed. RegimePlan Legumes entry (p. 7) classified as plant_protein_legumes; cross-referenced with primary legumes entry RP-LEG-017."
   },
   {
     "id": "food_meat_rp_mt_025",
@@ -2089,7 +2163,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "beef liver"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 34 جم (شريحة  )501 غ( = 3 حصص). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_026",
@@ -2144,8 +2218,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17091). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 28 جم (28 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17091). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17091). وزن البديل القياسي من RegimePlan 2026 (ص 8): 28 جم (28 جم). يشترك في مرجع USDA 17091 لبتلو مطهو مع سجل البتلو المشوي RP-MT-027.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17091). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 28g (28g portion). Shares USDA NDB 17091 cooked veal assay with grilled counterpart RP-MT-027 (25g exchange vs 28g).",
     "sourceRecordId": "17091"
   },
   {
@@ -2201,8 +2275,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17091). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 25 جم (25 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17091). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 25g (25g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17091). وزن البديل القياسي من RegimePlan 2026 (ص 8): 25 جم (25 جم). يشترك في مرجع USDA 17091 لبتلو مطهو مع سجل البتلو في الفرن RP-MT-026.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17091). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 25g (25g portion). Shares USDA NDB 17091 cooked veal assay with baked counterpart RP-MT-026 (28g exchange vs 25g).",
     "sourceRecordId": "17091"
   },
   {
@@ -2258,8 +2332,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17090). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 36 جم (36 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17090). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 36g (36g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17090). وزن البديل القياسي من RegimePlan 2026 (ص 8): 36 جم (36 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17090). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 36g (36g portion).",
     "sourceRecordId": "17090"
   },
   {
@@ -2330,7 +2404,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "baked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 25 جم (25 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_030",
@@ -2400,7 +2474,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 25 جم (25 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_031",
@@ -2470,7 +2544,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 32 جم (32 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_032",
@@ -2525,8 +2599,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05147). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 24 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05147). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05147). وزن البديل القياسي من RegimePlan 2026 (ص 8): 24 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05147). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 24g (24g portion).",
     "sourceRecordId": "05147"
   },
   {
@@ -2582,8 +2656,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05146). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 31 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05146). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 31g (31g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05146). وزن البديل القياسي من RegimePlan 2026 (ص 8): 31 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05146). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 31g (31g portion).",
     "sourceRecordId": "05146"
   },
   {
@@ -2656,7 +2730,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "quail"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 24 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 24g (24g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 24g (24g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_035",
@@ -2713,8 +2787,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمان",
       "quail"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05157). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 32 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05157). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 32g (32g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05157). وزن البديل القياسي من RegimePlan 2026 (ص 8): 32 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05157). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 32g (32g portion).",
     "sourceRecordId": "05157"
   },
   {
@@ -2787,7 +2861,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "pigeon"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 29 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_037",
@@ -2844,8 +2918,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "حمام",
       "pigeon"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05160). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 40 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05160). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 40g (40g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05160). وزن البديل القياسي من RegimePlan 2026 (ص 8): 40 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05160). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 40g (40g portion).",
     "sourceRecordId": "05160"
   },
   {
@@ -2899,8 +2973,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05306). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 26 جم (26 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05306). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 26g (26g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05306). وزن البديل القياسي من RegimePlan 2026 (ص 8): 26 جم (26 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05306). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 26g (26g portion).",
     "sourceRecordId": "05306"
   },
   {
@@ -2971,7 +3045,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ready-to-eat"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 47 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 47g (47g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 47g (47g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_040",
@@ -3026,8 +3100,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05140). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 30 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05140). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 30g (30g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05140). وزن البديل القياسي من RegimePlan 2026 (ص 8): 30 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05140). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 30g (30g portion).",
     "sourceRecordId": "05140"
   },
   {
@@ -3081,8 +3155,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05024). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 23 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05024). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 23g (23g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05024). وزن البديل القياسي من RegimePlan 2026 (ص 8): 23 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05024). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 23g (23g portion).",
     "sourceRecordId": "05024"
   },
   {
@@ -3136,8 +3210,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05023). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 40 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05023). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 40g (40g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05023). وزن البديل القياسي من RegimePlan 2026 (ص 8): 40 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05023). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 40g (40g portion).",
     "sourceRecordId": "05023"
   },
   {
@@ -3191,8 +3265,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05073). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 25 جم (نصف دبوس).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05073). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 25g (25g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05073). وزن البديل القياسي من RegimePlan 2026 (ص 8): 25 جم (نصف دبوس). يشترك في مرجع USDA 05073 لدبوس الدجاج المطهو مع سجل دبوس الدجاج في الفرن RP-MT-044.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05073). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 25g (25g portion). Shares USDA NDB 05073 cooked drumstick assay with baked counterpart RP-MT-044 (29g vs 25g).",
     "sourceRecordId": "05073"
   },
   {
@@ -3246,8 +3320,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05073). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 29 جم (نصف دبوس).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05073). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05073). وزن البديل القياسي من RegimePlan 2026 (ص 8): 29 جم (نصف دبوس). يشترك في مرجع USDA 05073 لدبوس الدجاج المطهو مع سجل دبوس الدجاج المسلوق RP-MT-043.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05073). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 29g (29g portion). Shares USDA NDB 05073 cooked drumstick assay with boiled/cooked counterpart RP-MT-043 (25g vs 29g).",
     "sourceRecordId": "05073"
   },
   {
@@ -3303,8 +3377,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "boiled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05099). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 28 جم (ورك متوسط  )08 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05099). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05099). وزن البديل القياسي من RegimePlan 2026 (ص 8): 28 جم (ورك متوسط  )08 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05099). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 28g (28g portion).",
     "sourceRecordId": "05099"
   },
   {
@@ -3360,8 +3434,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "boiled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05065). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 24 جم (صدر متوسط  )041 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05065). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05065). وزن البديل القياسي من RegimePlan 2026 (ص 8): 24 جم (صدر متوسط  )041 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05065). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 24g (24g portion).",
     "sourceRecordId": "05065"
   },
   {
@@ -3434,7 +3508,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "chicken liver"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 41 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 41g (41g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 41g (41g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_048",
@@ -3487,8 +3561,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05305). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 36 جم (36 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05305). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 36g (36g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05305). وزن البديل القياسي من RegimePlan 2026 (ص 8): 36 جم (36 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05305). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 36g (36g portion).",
     "sourceRecordId": "05305"
   },
   {
@@ -3544,8 +3618,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05141). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 38 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05141). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 38g (38g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05141). وزن البديل القياسي من RegimePlan 2026 (ص 8): 38 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05141). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 38g (38g portion).",
     "sourceRecordId": "05141"
   },
   {
@@ -3599,8 +3673,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05220). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 24 جم (شريحة  )06 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05220). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05220). وزن البديل القياسي من RegimePlan 2026 (ص 8): 24 جم (شريحة  )06 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05220). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 24g (24g portion).",
     "sourceRecordId": "05220"
   },
   {
@@ -3658,8 +3732,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "fish"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15015). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 39 جم (قطعة فيليه  )032 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15015). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 39g (39g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15015). وزن البديل القياسي من RegimePlan 2026 (ص 8): 39 جم (قطعة فيليه  )032 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15015). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 39g (39g portion).",
     "sourceRecordId": "15015"
   },
   {
@@ -3717,8 +3791,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "fish"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15088). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 28 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15088). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15088). وزن البديل القياسي من RegimePlan 2026 (ص 8): 28 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15088). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 28g (28g portion).",
     "sourceRecordId": "15088"
   },
   {
@@ -3774,8 +3848,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15047). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 29 جم (قطعة فيليه  )88 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15047). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15047). وزن البديل القياسي من RegimePlan 2026 (ص 8): 29 جم (قطعة فيليه  )88 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15047). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 29g (29g portion).",
     "sourceRecordId": "15047"
   },
   {
@@ -3831,8 +3905,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15046). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 38 جم (قطعة فيليه  )011 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15046). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 38g (38g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15046). وزن البديل القياسي من RegimePlan 2026 (ص 8): 38 جم (قطعة فيليه  )011 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15046). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 38g (38g portion).",
     "sourceRecordId": "15046"
   },
   {
@@ -3888,8 +3962,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15262). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 27 جم (قطعة فيليه  )78 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15262). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 27g (27g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15262). وزن البديل القياسي من RegimePlan 2026 (ص 8): 27 جم (قطعة فيليه  )78 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15262). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 27g (27g portion).",
     "sourceRecordId": "15262"
   },
   {
@@ -3945,8 +4019,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15261). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 35 جم (قطعة فيليه  )511 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15261). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 35g (35g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15261). وزن البديل القياسي من RegimePlan 2026 (ص 8): 35 جم (قطعة فيليه  )511 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15261). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 35g (35g portion).",
     "sourceRecordId": "15261"
   },
   {
@@ -4002,8 +4076,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "ready-to-eat"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15119). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 24 جم (علبة (130 جم) — 5 حصص).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15119). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15119). وزن البديل القياسي من RegimePlan 2026 (ص 8): 24 جم (علبة (130 جم) — 5 حصص).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15119). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 24g (24g portion).",
     "sourceRecordId": "15119"
   },
   {
@@ -4057,8 +4131,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15221). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 24 جم (قطعة  )531 غ( = 6 حصص).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15221). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15221). وزن البديل القياسي من RegimePlan 2026 (ص 8): 24 جم (قطعة  )531 غ( = 6 حصص).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15221). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 24g (24g portion).",
     "sourceRecordId": "15221"
   },
   {
@@ -4112,8 +4186,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15127). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 29 جم (قطعة  )061 غ( = 6 حصص).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15127). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15127). وزن البديل القياسي من RegimePlan 2026 (ص 8): 29 جم (قطعة  )061 غ( = 6 حصص).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15127). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 29g (29g portion).",
     "sourceRecordId": "15127"
   },
   {
@@ -4172,8 +4246,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "salmon"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15209). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 32 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15209). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 32g (32g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15209). وزن البديل القياسي من RegimePlan 2026 (ص 8): 32 جم (قطعة فيليه). يشترك في مرجع USDA 15209 للسالمون المطهو بالحرارة الجافة مع السالمون المشوي RP-MT-061.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15209). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 32g (32g portion). Shares USDA NDB 15209 dry-heat cooked salmon assay with grilled counterpart RP-MT-061.",
     "sourceRecordId": "15209"
   },
   {
@@ -4232,8 +4306,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "salmon"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15209). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 32 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15209). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 32g (32g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15209). وزن البديل القياسي من RegimePlan 2026 (ص 8): 32 جم (قطعة فيليه). يشترك في مرجع USDA 15209 للسالمون المطهو بالحرارة الجافة مع السالمون في الفرن RP-MT-060.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15209). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 32g (32g portion). Shares USDA NDB 15209 dry-heat cooked salmon assay with baked counterpart RP-MT-060.",
     "sourceRecordId": "15209"
   },
   {
@@ -4292,8 +4366,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "salmon"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15076). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 34 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15076). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 34g (34g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15076). وزن البديل القياسي من RegimePlan 2026 (ص 8): 34 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15076). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 34g (34g portion).",
     "sourceRecordId": "15076"
   },
   {
@@ -4364,7 +4438,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 23 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 23g (23g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 23g (23g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_064",
@@ -4419,8 +4493,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17178). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 24 جم (24 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17178). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17178). وزن البديل القياسي من RegimePlan 2026 (ص 8): 24 جم (24 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17178). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 24g (24g portion).",
     "sourceRecordId": "17178"
   },
   {
@@ -4476,8 +4550,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17179). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 23 جم (23 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17179). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 23g (23g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17179). وزن البديل القياسي من RegimePlan 2026 (ص 8): 23 جم (23 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17179). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 23g (23g portion).",
     "sourceRecordId": "17179"
   },
   {
@@ -4533,8 +4607,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17177). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 35 جم (35 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17177). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 35g (35g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17177). وزن البديل القياسي من RegimePlan 2026 (ص 8): 35 جم (35 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17177). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 35g (35g portion).",
     "sourceRecordId": "17177"
   },
   {
@@ -4607,7 +4681,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "camel"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 22 جم (22 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 22g (22g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 22g (22g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_068",
@@ -4679,7 +4753,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "camel"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 34 جم (34 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_069",
@@ -4732,8 +4806,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "boiled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 23640). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 60 جم (60 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 23640). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 60g (60g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 23640). وزن البديل القياسي من RegimePlan 2026 (ص 8): 60 جم (60 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 23640). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 60g (60g portion).",
     "sourceRecordId": "23640"
   },
   {
@@ -4787,8 +4861,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13324). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 26 جم (26 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13324). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 26g (26g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13324). وزن البديل القياسي من RegimePlan 2026 (ص 8): 26 جم (26 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13324). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 26g (26g portion).",
     "sourceRecordId": "13324"
   },
   {
@@ -4859,7 +4933,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 8). وزن الحصة البديلة: 25 جم (25 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard meat exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 8). Standard exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_072",
@@ -4914,8 +4988,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13355). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 32 جم (شريحة  وربع).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13355). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 32g (32g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13355). وزن البديل القياسي من RegimePlan 2026 (ص 8): 32 جم (شريحة  وربع).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13355). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 32g (32g portion).",
     "sourceRecordId": "13355"
   },
   {
@@ -4971,8 +5045,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17169). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 26 جم (26 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17169). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 26g (26g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17169). وزن البديل القياسي من RegimePlan 2026 (ص 8): 26 جم (26 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17169). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 26g (26g portion).",
     "sourceRecordId": "17169"
   },
   {
@@ -5028,8 +5102,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17168). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 34 جم (34 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17168). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 34g (34g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 17168). وزن البديل القياسي من RegimePlan 2026 (ص 8): 34 جم (34 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 17168). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 34g (34g portion).",
     "sourceRecordId": "17168"
   },
   {
@@ -5085,8 +5159,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "كبدة بقري",
       "beef liver"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13326). وزن بديل اللحوم من RegimePlan 2026 (ص 8): 26 جم (شريحة  )18 غ( = 3 حصص).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13326). RegimePlan Food Exchange Lists (2026, p. 8) meat exchange portion: 26g (26g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13326). وزن البديل القياسي من RegimePlan 2026 (ص 8): 26 جم (شريحة  )18 غ( = 3 حصص).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13326). RegimePlan Food Exchange Lists (2026, p. 8) exchange portion: 26g (26g portion).",
     "sourceRecordId": "13326"
   },
   {
@@ -5159,7 +5233,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "surimi"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 92 جم (5 أصابع). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 92g (92g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 92g (92g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_078",
@@ -5215,8 +5289,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "salmon"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15084). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 30 جم (30 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15084). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 30g (30g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15084). وزن البديل القياسي من RegimePlan 2026 (ص 9): 30 جم (30 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15084). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 30g (30g portion).",
     "sourceRecordId": "15084"
   },
   {
@@ -5275,8 +5349,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "salmon"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15077). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 32 جم (شريحة ونصف).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15077). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 32g (32g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15077). وزن البديل القياسي من RegimePlan 2026 (ص 9): 32 جم (شريحة ونصف).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15077). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 32g (32g portion).",
     "sourceRecordId": "15077"
   },
   {
@@ -5347,7 +5421,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ready-to-eat"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 34 جم (34 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_081",
@@ -5420,7 +5494,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "shrimp"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 42 جم (حبة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 42g (42g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 42g (42g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_082",
@@ -5475,8 +5549,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15012). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 28 جم (ملعقتان كبيرتان).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15012). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15012). وزن البديل القياسي من RegimePlan 2026 (ص 9): 28 جم (ملعقتان كبيرتان).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15012). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 28g (28g portion).",
     "sourceRecordId": "15012"
   },
   {
@@ -5532,8 +5606,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15001). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 34 جم (34 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15001). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 34g (34g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15001). وزن البديل القياسي من RegimePlan 2026 (ص 9): 34 جم (34 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15001). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 34g (34g portion).",
     "sourceRecordId": "15001"
   },
   {
@@ -5607,7 +5681,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "oysters"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 74 جم (حبة ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 74g (74g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 74g (74g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_085",
@@ -5677,7 +5751,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 36 جم (36 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 36g (36g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 36g (36g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_086",
@@ -5732,8 +5806,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "fish"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15110). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 36 جم (قطعة).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15110). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 36g (36g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15110). وزن البديل القياسي من RegimePlan 2026 (ص 9): 36 جم (قطعة).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15110). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 36g (36g portion).",
     "sourceRecordId": "15110"
   },
   {
@@ -5791,8 +5865,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "fish"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15065). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 41 جم (41 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15065). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 41g (41g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15065). وزن البديل القياسي من RegimePlan 2026 (ص 9): 41 جم (41 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15065). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 41g (41g portion).",
     "sourceRecordId": "15065"
   },
   {
@@ -5848,8 +5922,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15010). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 43 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15010). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 43g (43g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15010). وزن البديل القياسي من RegimePlan 2026 (ص 9): 43 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15010). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 43g (43g portion).",
     "sourceRecordId": "15010"
   },
   {
@@ -5905,8 +5979,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15036). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 38 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15036). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 38g (38g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15036). وزن البديل القياسي من RegimePlan 2026 (ص 9): 38 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15036). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 38g (38g portion).",
     "sourceRecordId": "15036"
   },
   {
@@ -5960,8 +6034,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 90240). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 34 جم (حبتان  ونصف).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 90240). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 34g (34g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 90240). وزن البديل القياسي من RegimePlan 2026 (ص 9): 34 جم (حبتان  ونصف).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 90240). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 34g (34g portion).",
     "sourceRecordId": "90240"
   },
   {
@@ -6015,8 +6089,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15148). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 27 جم (حبة  )561 غ( = 6 حصص).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15148). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 27g (27g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15148). وزن البديل القياسي من RegimePlan 2026 (ص 9): 27 جم (حبة  )561 غ( = 6 حصص).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15148). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 27g (27g portion).",
     "sourceRecordId": "15148"
   },
   {
@@ -6072,8 +6146,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15040). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 30 جم (قطعة فيليه  )541 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15040). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 30g (30g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15040). وزن البديل القياسي من RegimePlan 2026 (ص 9): 30 جم (قطعة فيليه  )541 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15040). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 30g (30g portion).",
     "sourceRecordId": "15040"
   },
   {
@@ -6129,8 +6203,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15039). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 39 جم (قطعة فيليه  )581 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15039). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 39g (39g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15039). وزن البديل القياسي من RegimePlan 2026 (ص 9): 39 جم (قطعة فيليه  )581 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15039). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 39g (39g portion).",
     "sourceRecordId": "15039"
   },
   {
@@ -6186,8 +6260,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "ready-to-eat"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15002). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 24 جم (6 قطع فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15002). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15002). وزن البديل القياسي من RegimePlan 2026 (ص 9): 24 جم (6 قطع فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15002). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 24g (24g portion).",
     "sourceRecordId": "15002"
   },
   {
@@ -6243,8 +6317,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15219). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 29 جم (قطعة فيليه  )17 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15219). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15219). وزن البديل القياسي من RegimePlan 2026 (ص 9): 29 جم (قطعة فيليه  )17 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15219). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 29g (29g portion).",
     "sourceRecordId": "15219"
   },
   {
@@ -6300,8 +6374,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15114). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 35 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15114). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 35g (35g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15114). وزن البديل القياسي من RegimePlan 2026 (ص 9): 35 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15114). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 35g (35g portion).",
     "sourceRecordId": "15114"
   },
   {
@@ -6357,8 +6431,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15230). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 23 جم (23 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15230). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 23g (23g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15230). وزن البديل القياسي من RegimePlan 2026 (ص 9): 23 جم (23 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15230). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 23g (23g portion).",
     "sourceRecordId": "15230"
   },
   {
@@ -6431,7 +6505,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "clams"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 27 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_099",
@@ -6503,7 +6577,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "mussels"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 29 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_100",
@@ -6556,8 +6630,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15140). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 39 جم (حبة  وثلاثة أرباع).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15140). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 39g (39g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15140). وزن البديل القياسي من RegimePlan 2026 (ص 9): 39 جم (حبة  وثلاثة أرباع).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15140). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 39g (39g portion).",
     "sourceRecordId": "15140"
   },
   {
@@ -6631,7 +6705,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "calamari"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 33 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_102",
@@ -6689,8 +6763,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "حبار",
       "calamari"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15175). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 45 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15175). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 45g (45g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15175). وزن البديل القياسي من RegimePlan 2026 (ص 9): 45 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15175). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 45g (45g portion).",
     "sourceRecordId": "15175"
   },
   {
@@ -6749,8 +6823,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "روبيان",
       "shrimp"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15271). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 29 جم (حبتان  كبيرتان).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15271). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15271). وزن البديل القياسي من RegimePlan 2026 (ص 9): 29 جم (حبتان  كبيرتان). يشترك في مرجع USDA 15271 للجمبري المطهو بالحرارة الرطبة/المطهو مع الجمبري المشوي RP-MT-104.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15271). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 29g (29g portion). Shares USDA NDB 15271 cooked shrimp assay with grilled counterpart RP-MT-104.",
     "sourceRecordId": "15271"
   },
   {
@@ -6809,8 +6883,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "روبيان",
       "shrimp"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15271). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 29 جم (حبتان  كبيرتان).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15271). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15271). وزن البديل القياسي من RegimePlan 2026 (ص 9): 29 جم (حبتان  كبيرتان). يشترك في مرجع USDA 15271 للجمبري المطهو مع الجمبري المسلوق RP-MT-103.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15271). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 29g (29g portion). Shares USDA NDB 15271 cooked shrimp assay with boiled counterpart RP-MT-103.",
     "sourceRecordId": "15271"
   },
   {
@@ -6869,8 +6943,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "روبيان",
       "shrimp"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15270). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 35 جم (حبتان  كبيرتان).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15270). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 35g (35g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15270). وزن البديل القياسي من RegimePlan 2026 (ص 9): 35 جم (حبتان  كبيرتان).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15270). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 35g (35g portion).",
     "sourceRecordId": "15270"
   },
   {
@@ -6926,8 +7000,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15092). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 30 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15092). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 30g (30g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15092). وزن البديل القياسي من RegimePlan 2026 (ص 9): 30 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15092). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 30g (30g portion).",
     "sourceRecordId": "15092"
   },
   {
@@ -6983,8 +7057,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15091). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 38 جم (قطعة فيليه  )031 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15091). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 38g (38g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15091). وزن البديل القياسي من RegimePlan 2026 (ص 9): 38 جم (قطعة فيليه  )031 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15091). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 38g (38g portion).",
     "sourceRecordId": "15091"
   },
   {
@@ -7042,8 +7116,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "سمك",
       "fish"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15016). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 31 جم (قطعة فيليه  )081 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15016). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 31g (31g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15016). وزن البديل القياسي من RegimePlan 2026 (ص 9): 31 جم (قطعة فيليه  )081 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15016). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 31g (31g portion).",
     "sourceRecordId": "15016"
   },
   {
@@ -7053,7 +7127,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Chicken Sausage",
     "nameAr": "سجق فراخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7103,18 +7177,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "45g portion",
         "householdMeasureAr": "إصبع",
         "gramWeight": 45,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 45 جم (إصبع). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 45g (45g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 45g (45g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_110",
@@ -7123,7 +7197,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Baked Whole Chicken",
     "nameAr": "فرخة كاملة في الفرن",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "baked",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -7159,18 +7233,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "26g portion",
         "householdMeasureAr": "ربع فرخة  )051 غ(",
         "gramWeight": 26,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "baked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05009). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 26 جم (ربع فرخة  )051 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05009). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 26g (26g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05009). وزن البديل القياسي من RegimePlan 2026 (ص 9): 26 جم (ربع فرخة  )051 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05009). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 26g (26g portion).",
     "sourceRecordId": "05009"
   },
   {
@@ -7180,7 +7254,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Chicken Wing",
     "nameAr": "جناح فراخ مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7230,18 +7304,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "27g portion",
         "householdMeasureAr": "27 جم",
         "gramWeight": 27,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "fried"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 27 جم (27 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_112",
@@ -7250,7 +7324,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Chicken Wing",
     "nameAr": "جناح فراخ مشوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "grilled",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -7284,18 +7358,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "29g portion",
         "householdMeasureAr": "29 جم",
         "gramWeight": 29,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05103). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 29 جم (29 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05103). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05103). وزن البديل القياسي من RegimePlan 2026 (ص 9): 29 جم (29 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05103). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 29g (29g portion).",
     "sourceRecordId": "05103"
   },
   {
@@ -7305,7 +7379,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Chicken Wing",
     "nameAr": "جناح فراخ نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -7339,18 +7413,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "40g portion",
         "householdMeasureAr": "40 جم",
         "gramWeight": 40,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05100). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 40 جم (40 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05100). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 40g (40g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05100). وزن البديل القياسي من RegimePlan 2026 (ص 9): 40 جم (40 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05100). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 40g (40g portion).",
     "sourceRecordId": "05100"
   },
   {
@@ -7360,7 +7434,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Skinless Chicken Drumstick",
     "nameAr": "دبوس فراخ بدون جلد مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -7396,18 +7470,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "24g portion",
         "householdMeasureAr": "نصف دبوس",
         "gramWeight": 24,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "fried"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05072). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 24 جم (نصف دبوس).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05072). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 24g (24g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05072). وزن البديل القياسي من RegimePlan 2026 (ص 9): 24 جم (نصف دبوس).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05072). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 24g (24g portion).",
     "sourceRecordId": "05072"
   },
   {
@@ -7417,7 +7491,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Skinless Chicken Thigh",
     "nameAr": "ورك فراخ بدون جلد مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7467,18 +7541,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "25g portion",
         "householdMeasureAr": "ورك متوسط  )07 غ(",
         "gramWeight": 25,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "fried"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 25 جم (ورك متوسط  )07 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 25g (25g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_116",
@@ -7487,7 +7561,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Chicken Breast",
     "nameAr": "صدر فراخ مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_lean",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7537,18 +7611,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "21g portion",
         "householdMeasureAr": "صدر متوسط  )021 غ(",
         "gramWeight": 21,
-        "exchangeCategory": "meat_lean",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_lean",
+      "meat_medium_fat",
       "fried"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 21 جم (صدر متوسط  )021 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 21g (21g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 21g (21g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_117",
@@ -7557,7 +7631,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Plant-Based Veggie Burger Patty",
     "nameAr": "برجر نباتي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7607,20 +7681,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "45g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 45,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "cooked",
       "برجر نباتي",
       "veggie burger"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 45 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 45g (45g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 45g (45g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_118",
@@ -7629,7 +7703,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Dry Textured Soy Protein (TVP)",
     "nameAr": "لحم صويا جاف",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "dried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7679,14 +7753,14 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "14g portion",
         "householdMeasureAr": "ملعقتان كبيرتان  ونصف",
         "gramWeight": 14,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "dried",
       "لحم صويا",
       "فول صويا",
@@ -7694,7 +7768,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "tvp"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 14 جم (ملعقتان كبيرتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 14g (14g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 14g (14g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_119",
@@ -7703,7 +7777,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Seitan (Wheat Gluten)",
     "nameAr": "سيتان",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7753,20 +7827,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "34g portion",
         "householdMeasureAr": "34 جم",
         "gramWeight": 34,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "cooked",
       "سيتان",
       "seitan"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 34 جم (34 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_120",
@@ -7775,7 +7849,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Light White Cheese (Reduced-Fat Feta)",
     "nameAr": "جبنة بيضاء لايت",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7825,21 +7899,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "58g portion",
         "householdMeasureAr": "58 جم",
         "gramWeight": 58,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "cooked",
       "جبنة بيضاء لايت",
       "جبنة",
       "cheese"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 58 جم (58 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 58g (58g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 58g (58g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_121",
@@ -7848,7 +7922,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Quraish / Cottage Cheese",
     "nameAr": "جبنة قريش",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -7898,21 +7972,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "56g portion",
         "householdMeasureAr": "ربع كوب",
         "gramWeight": 56,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "cooked",
       "جبنة قريش",
       "جبنة",
       "quraish"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 56 جم (ربع كوب). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 56 جم (ربع كوب). التركيبة التحليلية لكل 100 جم غير محللة. سجل بديل RegimePlan للجبن القريش (56 جم، بديل لحوم قليلة الدسم)؛ يرتبط بالسجل المرجعي food_cheese_quraish_egyptian.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 56g (56g portion). Analytical 100g composition is unassayed. RegimePlan 2026 lean-meat exchange entry for Quraish cheese (56g); cross-referenced with canonical Egyptian NNI record food_cheese_quraish_egyptian."
   },
   {
     "id": "food_meat_rp_mt_122",
@@ -7921,7 +7995,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egg White (Raw)",
     "nameAr": "بياض بيض",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -7957,20 +8031,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "64g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 64,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw",
       "بياض بيض",
       "egg white"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01124). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 64 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01124). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 64g (64g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01124). وزن البديل القياسي من RegimePlan 2026 (ص 9): 64 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01124). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 64g (64g portion).",
     "sourceRecordId": "01124"
   },
   {
@@ -7980,7 +8054,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Feseekh (Cured Grey Mullet)",
     "nameAr": "فسيخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8030,18 +8104,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "33g portion",
         "householdMeasureAr": "33 جم",
         "gramWeight": 33,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 33 جم (33 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_124",
@@ -8050,7 +8124,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Smoked Herring",
     "nameAr": "رنجة مدخنة",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "ready-to-eat",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -8086,18 +8160,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "28g portion",
         "householdMeasureAr": "قطعة فيليه",
         "gramWeight": 28,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "ready-to-eat"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15042). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 28 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15042). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15042). وزن البديل القياسي من RegimePlan 2026 (ص 9): 28 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15042). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 28g (28g portion).",
     "sourceRecordId": "15042"
   },
   {
@@ -8107,7 +8181,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Red Mullet",
     "nameAr": "بربوني نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8157,18 +8231,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "38g portion",
         "householdMeasureAr": "38 جم",
         "gramWeight": 38,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 38 جم (38 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 38g (38g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 38g (38g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_126",
@@ -8177,7 +8251,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Sole Fish",
     "nameAr": "سمك موسى نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -8211,20 +8285,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "39g portion",
         "householdMeasureAr": "قطعة فيليه",
         "gramWeight": 39,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw",
       "سمك",
       "fish"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15028). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 39 جم (قطعة فيليه).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15028). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 39g (39g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15028). وزن البديل القياسي من RegimePlan 2026 (ص 9): 39 جم (قطعة فيليه).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15028). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 39g (39g portion).",
     "sourceRecordId": "15028"
   },
   {
@@ -8234,7 +8308,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Kingfish",
     "nameAr": "كنعد مشوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "grilled",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8284,18 +8358,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "27g portion",
         "householdMeasureAr": "قطعة فيليه  )041 غ(",
         "gramWeight": 27,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 27 جم (قطعة فيليه  )041 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_128",
@@ -8304,7 +8378,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Kingfish",
     "nameAr": "كنعد نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8354,18 +8428,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "34g portion",
         "householdMeasureAr": "قطعة فيليه  )081 غ(",
         "gramWeight": 34,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 34 جم (قطعة فيليه  )081 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_129",
@@ -8374,7 +8448,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Grouper",
     "nameAr": "هامور مشوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "grilled",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -8410,18 +8484,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "28g portion",
         "householdMeasureAr": "قطعة فيليه  )002 غ(",
         "gramWeight": 28,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "grilled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15032). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 28 جم (قطعة فيليه  )002 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15032). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15032). وزن البديل القياسي من RegimePlan 2026 (ص 9): 28 جم (قطعة فيليه  )002 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15032). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 28g (28g portion).",
     "sourceRecordId": "15032"
   },
   {
@@ -8431,7 +8505,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Grouper",
     "nameAr": "هامور نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -8467,18 +8541,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "36g portion",
         "householdMeasureAr": "قطعة فيليه  )062 غ(",
         "gramWeight": 36,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15031). وزن بديل اللحوم من RegimePlan 2026 (ص 9): 36 جم (قطعة فيليه  )062 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15031). RegimePlan Food Exchange Lists (2026, p. 9) meat exchange portion: 36g (36g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 15031). وزن البديل القياسي من RegimePlan 2026 (ص 9): 36 جم (قطعة فيليه  )062 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 15031). RegimePlan Food Exchange Lists (2026, p. 9) exchange portion: 36g (36g portion).",
     "sourceRecordId": "15031"
   },
   {
@@ -8488,7 +8562,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Sea Bream",
     "nameAr": "دنيس مشوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "grilled",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8538,18 +8612,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "30g portion",
         "householdMeasureAr": "30 جم",
         "gramWeight": 30,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 30 جم (30 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_132",
@@ -8558,7 +8632,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Sea Bream",
     "nameAr": "دنيس نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8608,18 +8682,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "33g portion",
         "householdMeasureAr": "قطعة فيليه",
         "gramWeight": 33,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 33 جم (قطعة فيليه). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_133",
@@ -8628,7 +8702,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Grey Mullet",
     "nameAr": "بوري مشوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "grilled",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8678,18 +8752,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "28g portion",
         "householdMeasureAr": "قطعة فيليه  )39 غ(",
         "gramWeight": 28,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 28 جم (قطعة فيليه  )39 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_134",
@@ -8698,7 +8772,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Grey Mullet",
     "nameAr": "بوري نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_lean",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -8748,18 +8822,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "36g portion",
         "householdMeasureAr": "قطعة فيليه  )021 غ(",
         "gramWeight": 36,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_lean",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_lean",
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 9). وزن الحصة البديلة: 36 جم (قطعة فيليه  )021 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard meat exchange portion: 36g (36g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 9). Standard exchange portion: 36g (36g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_136",
@@ -8832,8 +8906,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "كاليماري",
       "حبار"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 39 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 39g (39g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 39 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: القلي والتغطية بالبقسماط/الدقيق تضيف كربوهيدرات ودهوناً إضافية لا يشملها بديل اللحوم متوسطة الدسم القياسي.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 39g (39g portion). Analytical 100g composition is unassayed. Clinical note: Breading/frying adds carbohydrates and absorbed fat not represented by a pure medium-fat meat exchange."
   },
   {
     "id": "food_meat_rp_mt_137",
@@ -8907,8 +8981,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "روبيان",
       "shrimp"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 33 جم (حبتان  كبيرتان). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 33 جم (حبتان  كبيرتان). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: الجمبري المقلي المغطى بالبقسماط يحتوي على كربوهيدرات تغطية ودهون قلي إضافية.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 33g (33g portion). Analytical 100g composition is unassayed. Clinical note: Breaded fried shrimp contains extra coating carbohydrates and frying lipids beyond pure meat."
   },
   {
     "id": "food_meat_rp_mt_138",
@@ -8981,8 +9055,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "fried cod",
       "fish"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 35 جم (قطعة فيليه  )502 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 35g (35g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 35 جم (قطعة فيليه  )502 غ(). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: تغطية البقسماط والقلي تضيف كربوهيدرات وزيوتاً ممتصة تتجاوز بديل اللحوم المفرد.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 35g (35g portion). Analytical 100g composition is unassayed. Clinical note: Breading and frying contribute additional carbohydrate coating and absorbed oil."
   },
   {
     "id": "food_meat_rp_mt_139",
@@ -9052,7 +9126,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "fried"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 31 جم (قطعة فيليه  )501 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 31g (31g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 31g (31g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_140",
@@ -9125,7 +9199,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "salmon"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (قطعة فيليه). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_141",
@@ -9195,7 +9269,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_142",
@@ -9268,7 +9342,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "luncheon meat"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 54 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 54g (54g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 54g (54g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_143",
@@ -9321,8 +9395,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_medium_fat",
       "boiled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13340). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 36 جم (36 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13340). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 36g (36g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13340). وزن البديل القياسي من RegimePlan 2026 (ص 10): 36 جم (36 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13340). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 36g (36g portion).",
     "sourceRecordId": "13340"
   },
   {
@@ -9395,8 +9469,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "بانيه",
       "beef escalope"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 26 جم (حبة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 26 جم (حبة). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: الإسكالوب البانيه يحتوي على طبقة بقسماط كربوهيدراتية ودهون قلي إضافية.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 26g (26g portion). Analytical 100g composition is unassayed. Clinical note: Breaded beef escalope contains carbohydrate breading and absorbed frying oil."
   },
   {
     "id": "food_meat_rp_mt_145",
@@ -9466,7 +9540,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "boiled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 24 جم (24 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 24g (24g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 24g (24g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_146",
@@ -9536,7 +9610,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 26 جم (26 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_147",
@@ -9591,8 +9665,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_medium_fat",
       "cooked"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13347). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 26 جم (شريحة  وربع).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13347). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 26g (26g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 13347). وزن البديل القياسي من RegimePlan 2026 (ص 10): 26 جم (شريحة  وربع).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 13347). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 26g (26g portion).",
     "sourceRecordId": "13347"
   },
   {
@@ -9666,7 +9740,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "salami"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_149",
@@ -9736,7 +9810,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 42 جم (42 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 42g (42g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 42g (42g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_150",
@@ -9806,7 +9880,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 26 جم (قطعة  )061 غ( = 6 حصص). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_151",
@@ -9876,7 +9950,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 34 جم (قطعة  )512 غ( = 6 حصص). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_152",
@@ -9948,7 +10022,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "beef liver"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 28 جم (شريحة  )58 غ( = 3 حصص). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_153",
@@ -10018,7 +10092,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "baked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 27 جم (27 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_154",
@@ -10088,7 +10162,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 29 جم (29 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 29g (29g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_155",
@@ -10158,7 +10232,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 41 جم (41 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 41g (41g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 41g (41g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_156",
@@ -10228,7 +10302,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "baked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 28 جم (28 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_157",
@@ -10298,7 +10372,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 27 جم (27 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_158",
@@ -10368,7 +10442,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "raw"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 41 جم (41 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 41g (41g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 41g (41g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_159",
@@ -10441,7 +10515,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "chicken luncheon"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 61 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 61g (61g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 61g (61g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_160",
@@ -10513,8 +10587,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "ناجتس",
       "chicken nuggets"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 49 جم (حبتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 49g (49g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 49 جم (حبتان  ونصف). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: ناجتس الدجاج المصنعة تحتوي على تغطية نشوية ودهون طهي مضافة.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 49g (49g portion). Analytical 100g composition is unassayed. Clinical note: Nuggets include starch breading/binders and frying oil beyond pure poultry protein."
   },
   {
     "id": "food_meat_rp_mt_161",
@@ -10586,7 +10660,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "chicken liver"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 27 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_162",
@@ -10656,7 +10730,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 26 جم (ربع فرخة  )051 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 26g (26g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_163",
@@ -10711,8 +10785,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_medium_fat",
       "boiled"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05014). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 28 جم (ربع فرخة  )561 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05014). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 28g (28g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05014). وزن البديل القياسي من RegimePlan 2026 (ص 10): 28 جم (ربع فرخة  )561 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05014). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 28g (28g portion).",
     "sourceRecordId": "05014"
   },
   {
@@ -10766,8 +10840,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "meat_medium_fat",
       "raw"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05006). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 38 جم (ربع فرخة  )032 غ().",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05006). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 38g (38g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 05006). وزن البديل القياسي من RegimePlan 2026 (ص 10): 38 جم (ربع فرخة  )032 غ().",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 05006). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 38g (38g portion).",
     "sourceRecordId": "05006"
   },
   {
@@ -10840,8 +10914,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "بانيه",
       "breaded chicken"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (صدر متوسط  )561 غ(). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (صدر متوسط  )561 غ(). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: رغم تصنيف RegimePlan لها ضمن اللحوم متوسطة الدسم، تحتوي الفراخ البانيه على كربوهيدرات التغطية ودهون القلي (راجع السجل المركب RECIPE-PANE-001).",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 30g (30g portion). Analytical 100g composition is unassayed. Clinical note: While RegimePlan lists breaded chicken under medium-fat meats, breading adds significant carbs and frying fat (see composite recipe model RECIPE-PANE-001)."
   },
   {
     "id": "food_meat_rp_mt_166",
@@ -10850,7 +10924,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egg Yolk (Raw)",
     "nameAr": "صفار بيض",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "raw",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -10886,20 +10960,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "44g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 44,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_high_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_high_fat",
       "raw",
       "صفار بيض",
       "egg yolk"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01125). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 44 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01125). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 44g (44g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01125). وزن البديل القياسي من RegimePlan 2026 (ص 10): 44 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01125). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 44g (44g portion).",
     "sourceRecordId": "01125"
   },
   {
@@ -10909,7 +10983,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Beef Hot Dog / Frankfurter",
     "nameAr": "هوت دوج بقري",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -10959,21 +11033,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "60g portion",
         "householdMeasureAr": "إصبع  وربع",
         "gramWeight": 60,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_high_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_high_fat",
       "cooked",
       "هوت دوج",
       "سوسيس",
       "hot dog"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 60 جم (إصبع  وربع). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 60g (60g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 60g (60g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_168",
@@ -10982,7 +11056,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Lamb Ribs",
     "nameAr": "ريش ضاني مشوية",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "grilled",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11032,18 +11106,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "32g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 32,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_high_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_high_fat",
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 32 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_169",
@@ -11052,7 +11126,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Beef Pepperoni",
     "nameAr": "بيبروني بقري",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11102,20 +11176,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "39g portion",
         "householdMeasureAr": "شريحة",
         "gramWeight": 39,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_high_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_high_fat",
       "cooked",
       "بيبروني",
       "pepperoni"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 39 جم (شريحة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 39g (39g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 39g (39g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_170",
@@ -11124,7 +11198,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Beef Sausage",
     "nameAr": "سجق بقري مشوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_medium_fat",
+    "primaryExchangeCategoryId": "meat_high_fat",
     "preparationState": "grilled",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11174,18 +11248,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "38g portion",
         "householdMeasureAr": "38 جم",
         "gramWeight": 38,
-        "exchangeCategory": "meat_medium_fat",
+        "exchangeCategory": "meat_high_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_medium_fat",
+      "meat_high_fat",
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 38 جم (38 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 38g (38g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 38g (38g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_171",
@@ -11194,7 +11268,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Beef Shawarma",
     "nameAr": "شاورما لحمة",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11244,21 +11318,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "28g portion",
         "householdMeasureAr": "28 جم",
         "gramWeight": 28,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "لحمة",
       "شاورما",
       "shawarma"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 28 جم (28 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 28g (28g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_172",
@@ -11267,7 +11341,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Chicken Shawarma",
     "nameAr": "شاورما فراخ",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11317,18 +11391,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "27g portion",
         "householdMeasureAr": "27 جم",
         "gramWeight": 27,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 27 جم (27 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 27g (27g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_173",
@@ -11337,7 +11411,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Grilled Kofta",
     "nameAr": "كفتة مشوية",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "grilled",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11387,18 +11461,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "31g portion",
         "householdMeasureAr": "31 جم",
         "gramWeight": 31,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "grilled"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 31 جم (31 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 31g (31g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 31g (31g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_174",
@@ -11407,7 +11481,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Plant-Based Chick'n Strips",
     "nameAr": "شرائح دجاج نباتية",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11457,20 +11531,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "30g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 30,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "شرائح دجاج نباتية",
       "plant protein"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 30 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 30g (30g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_175",
@@ -11479,7 +11553,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Plant-Based Vegetarian Sausage",
     "nameAr": "سجق نباتي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11529,20 +11603,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "34g portion",
         "householdMeasureAr": "34 جم",
         "gramWeight": 34,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "سجق نباتي",
       "plant sausage"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 34 جم (34 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_176",
@@ -11551,7 +11625,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Soft Tofu",
     "nameAr": "توفو طري",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11601,21 +11675,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "97g portion",
         "householdMeasureAr": "97 جم",
         "gramWeight": 97,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "توفو طري",
       "توفو",
       "soft tofu"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 97 جم (97 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 97g (97g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 97g (97g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_177",
@@ -11624,7 +11698,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Silken Tofu",
     "nameAr": "توفو حريري",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11674,21 +11748,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "145g portion",
         "householdMeasureAr": "145 جم",
         "gramWeight": 145,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "توفو حريري",
       "توفو",
       "silken tofu"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 145 جم (145 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 145g (145g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 145g (145g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_178",
@@ -11697,7 +11771,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Tempeh",
     "nameAr": "تمبيه",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11747,20 +11821,20 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "34g portion",
         "householdMeasureAr": "34 جم",
         "gramWeight": 34,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "تمبي",
       "tempeh"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 34 جم (34 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 34g (34g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_179",
@@ -11769,7 +11843,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Firm Tofu",
     "nameAr": "توفو جامد",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -11803,21 +11877,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "40g portion",
         "householdMeasureAr": "40 جم",
         "gramWeight": 40,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "توفو جامد",
       "توفو",
       "firm tofu"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16426). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 40 جم (40 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16426). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 40g (40g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 16426). وزن البديل القياسي من RegimePlan 2026 (ص 10): 40 جم (40 جم). ملاحظة سريرية: يصنف RegimePlan التوفو الجامد ضمن البدائل متوسطة الدسم (144 سعرة و8.7 جم دهون لكل 100 جم) خلافاً لبعض قوائم ADA قليلة الدسم.",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 16426). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 40g (40g portion). Clinical note: RegimePlan classifies Firm Tofu as medium-fat meat substitute (USDA 16426: 144 kcal, 8.7g fat/100g) whereas ADA lists lower-fat tofu variants as lean.",
     "sourceRecordId": "16426"
   },
   {
@@ -11827,7 +11901,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Akkawi Cheese",
     "nameAr": "جبنة عكاوي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11877,21 +11951,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "43g portion",
         "householdMeasureAr": "43 جم",
         "gramWeight": 43,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "جبنة عكاوي",
       "عكاوي",
       "akkawi cheese"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 43 جم (43 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 43g (43g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 43g (43g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_181",
@@ -11900,7 +11974,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Processed Triangle Cheese Wedges",
     "nameAr": "جبنة مثلثات",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -11950,21 +12024,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "65g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 65,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "جبنة مثلثات",
       "جبنة",
       "processed cheese"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 65 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 65g (65g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 65g (65g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_182",
@@ -11973,7 +12047,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Paneer Cheese",
     "nameAr": "بانير",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12023,21 +12097,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "38g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 38,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "جبنة بانير",
       "بانير",
       "paneer"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 38 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 38g (38g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 38g (38g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_183",
@@ -12046,7 +12120,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Whole Milk Ricotta Cheese",
     "nameAr": "ريكوتا",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -12080,21 +12154,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "93g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 93,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "ريكوتا",
       "جبنة ريكوتا",
       "ricotta cheese"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01036). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 93 جم (حصة معيارية).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01036). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 93g (93g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01036). وزن البديل القياسي من RegimePlan 2026 (ص 10): 93 جم (حصة معيارية).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01036). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 93g (93g portion).",
     "sourceRecordId": "01036"
   },
   {
@@ -12104,7 +12178,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Feta Cheese",
     "nameAr": "جبنة فيتا",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -12140,21 +12214,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "49g portion",
         "householdMeasureAr": "49 جم",
         "gramWeight": 49,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "جبنة فيتا",
       "فيتا",
       "feta cheese"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01019). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 49 جم (49 جم).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01019). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 49g (49g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01019). وزن البديل القياسي من RegimePlan 2026 (ص 10): 49 جم (49 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01019). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 49g (49g portion).",
     "sourceRecordId": "01019"
   },
   {
@@ -12164,7 +12238,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Whole Milk Mozzarella Cheese",
     "nameAr": "موتزاريلا",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -12200,21 +12274,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "29g portion",
         "householdMeasureAr": "شريحة",
         "gramWeight": 29,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "موتزاريلا",
       "جبنة موتزاريلا",
       "mozzarella"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01026). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 29 جم (شريحة).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01026). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 29g (29g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01026). وزن البديل القياسي من RegimePlan 2026 (ص 10): 29 جم (شريحة).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01026). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 29g (29g portion).",
     "sourceRecordId": "01026"
   },
   {
@@ -12224,7 +12298,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Egyptian Domiati White Cheese",
     "nameAr": "جبنة بيضاء دمياطي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12274,21 +12348,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "48g portion",
         "householdMeasureAr": "48 جم",
         "gramWeight": 48,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "جبنة بيضاء دمياطي",
       "جبنة دمياطي",
       "domiati cheese"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 48 جم (48 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 48g (48g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 48g (48g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_187",
@@ -12297,7 +12371,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Omelet (Cooked Whole Egg)",
     "nameAr": "أومليت",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12347,21 +12421,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "66g portion",
         "householdMeasureAr": "حصة معيارية",
         "gramWeight": 66,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "أومليت",
       "بيض",
       "omelet"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 66 جم (حصة معيارية). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 66g (66g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 66g (66g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_188",
@@ -12370,7 +12444,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Scrambled Egg",
     "nameAr": "بيض مخفوق",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12420,21 +12494,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "70g portion",
         "householdMeasureAr": "حبة كبيرة  وربع",
         "gramWeight": 70,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "بيض مخفوق",
       "بيض",
       "scrambled egg"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 70 جم (حبة كبيرة  وربع). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 70g (70g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 70g (70g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_189",
@@ -12443,7 +12517,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Poached Egg",
     "nameAr": "بيض بوشيه",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12493,21 +12567,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "56g portion",
         "householdMeasureAr": "حبة كبيرة",
         "gramWeight": 56,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "بيض بوشيه",
       "بيض",
       "poached egg"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حبة كبيرة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_190",
@@ -12516,7 +12590,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Egg",
     "nameAr": "بيض مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12566,21 +12640,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "51g portion",
         "householdMeasureAr": "حبة متوسطة",
         "gramWeight": 51,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "fried",
       "بيض مقلي",
       "بيض",
       "fried egg"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 51 جم (حبة متوسطة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 51g (51g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 51g (51g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_191",
@@ -12589,7 +12663,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Hard-Boiled Whole Egg",
     "nameAr": "بيض مسلوق",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "boiled",
     "verificationStatus": "verified_standard",
     "compositionBasis": "analytical_table",
@@ -12625,21 +12699,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "56g portion",
         "householdMeasureAr": "حبة كبيرة",
         "gramWeight": 56,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "boiled",
       "بيض مسلوق",
       "بيض",
       "boiled egg"
     ],
-    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01129). وزن بديل اللحوم من RegimePlan 2026 (ص 10): 56 جم (حبة كبيرة).",
-    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01129). RegimePlan Food Exchange Lists (2026, p. 10) meat exchange portion: 56g (56g portion).",
+    "notesAr": "التركيبة التحليلية لكل 100 جم من USDA SR Legacy (NDB 01129). وزن البديل القياسي من RegimePlan 2026 (ص 10): 56 جم (حبة كبيرة). سجل بديل RegimePlan للبيض المسلوق (56 جم)؛ يشترك في مرجع USDA 01129 مع السجل الأساسي food_egg_whole_boiled (50 جم).",
+    "notesEn": "Analytical 100g composition from USDA SR Legacy (NDB 01129). RegimePlan Food Exchange Lists (2026, p. 10) exchange portion: 56g (56g portion). RegimePlan exchange item (56g); shares USDA NDB 01129 with canonical multi-portion record food_egg_whole_boiled (50g).",
     "sourceRecordId": "01129"
   },
   {
@@ -12649,7 +12723,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Raw Whole Egg",
     "nameAr": "بيض نيء",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "raw",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12699,21 +12773,21 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "56g portion",
         "householdMeasureAr": "حبة كبيرة",
         "gramWeight": 56,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "raw",
       "بيض نيء",
       "بيض",
       "raw egg"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 56 جم (حبة كبيرة). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 56g (56g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_193",
@@ -12722,7 +12796,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Breaded Fried Fish Fillet (Pané)",
     "nameAr": "فيليه سمك بانيه",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "cooked",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12772,14 +12846,14 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "52g portion",
         "householdMeasureAr": "قطعة فيليه",
         "gramWeight": 52,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "cooked",
       "فيليه سمك بانيه",
       "سمك",
@@ -12787,8 +12861,8 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
       "breaded fish",
       "fish"
     ],
-    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 52 جم (قطعة فيليه). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 52g (52g portion). Analytical 100g composition is unassayed."
+    "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 52 جم (قطعة فيليه). التركيبة التحليلية لكل 100 جم غير محللة. ملاحظة سريرية: فيليه السمك البانيه المقلي يحتوي على طبقة بقسماط نشوية ودهون قلي إضافية.",
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 52g (52g portion). Analytical 100g composition is unassayed. Clinical note: Breaded fried fish fillet adds coating carbohydrates and frying fat beyond plain fish."
   },
   {
     "id": "food_meat_rp_mt_194",
@@ -12797,7 +12871,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Sardines",
     "nameAr": "سردين مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12847,18 +12921,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "32g portion",
         "householdMeasureAr": "32 جم",
         "gramWeight": 32,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "fried"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 32 جم (32 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 32g (32g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_195",
@@ -12867,7 +12941,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Red Mullet",
     "nameAr": "بربوني مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12917,18 +12991,18 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "33g portion",
         "householdMeasureAr": "33 جم",
         "gramWeight": 33,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "fried"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 33 جم (33 جم). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 33g (33g portion). Analytical 100g composition is unassayed."
   },
   {
     "id": "food_meat_rp_mt_196",
@@ -12937,7 +13011,7 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
     "nameEn": "Fried Sole Fish",
     "nameAr": "سمك موسى مقلي",
     "foodGroupId": "meats",
-    "primaryExchangeCategoryId": "meat_high_fat",
+    "primaryExchangeCategoryId": "meat_medium_fat",
     "preparationState": "fried",
     "verificationStatus": "clinic_reviewed",
     "compositionBasis": "exchange_only",
@@ -12987,19 +13061,19 @@ export const MEAT_FOOD_ITEMS: FoodItemRecord[] = [
         "householdMeasureEn": "35g portion",
         "householdMeasureAr": "قطعة فيليه",
         "gramWeight": 35,
-        "exchangeCategory": "meat_high_fat",
+        "exchangeCategory": "meat_medium_fat",
         "exchangeEquivalentFactor": 1,
         "isDefaultServing": true
       }
     ],
     "tags": [
       "meats",
-      "meat_high_fat",
+      "meat_medium_fat",
       "fried",
       "سمك",
       "fish"
     ],
     "notesAr": "سجل بديل غذائي فقط من RegimePlan 2026 (ص 10). وزن الحصة البديلة: 35 جم (قطعة فيليه). التركيبة التحليلية لكل 100 جم غير محللة.",
-    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard meat exchange portion: 35g (35g portion). Analytical 100g composition is unassayed."
+    "notesEn": "Exchange-only food item from RegimePlan Food Exchange Lists (2026, p. 10). Standard exchange portion: 35g (35g portion). Analytical 100g composition is unassayed."
   }
 ];

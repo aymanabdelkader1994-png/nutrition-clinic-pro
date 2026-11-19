@@ -80,7 +80,13 @@ export const STARCH_FOOD_ITEMS: FoodItemRecord[] = [
       "starch",
       "egyptian",
       "grains",
-      "fiber"
+      "fiber",
+      "عيش",
+      "عيش بلدي",
+      "رغيف بلدي",
+      "خبز بلدي",
+      "خبز",
+      "بلدي"
     ],
     "notesAr": "الخبز البلدي المدعم التقليدي؛ يحتوي على نخالة القمح (الردة) مما يمنحه مؤشراً جلايسيمياً أكثر اعتدالاً ومحتوى ألياف أعلى من الخبز الأبيض الفينو.",
     "notesEn": "Traditional Egyptian flatbread made from 82% extraction coarse wheat flour with bran.",

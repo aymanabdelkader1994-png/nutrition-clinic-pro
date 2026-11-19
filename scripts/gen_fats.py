@@ -1351,6 +1351,10 @@ def make_fat_record(it, seq_num):
         notes_en = review_en
         notes_ar = review_ar
 
+    if code == "RP-FT-067":
+        notes_ar += " سجل بديل RegimePlan المرتبط بمرجع USDA 04053؛ يطابق السجل القياسي متعدد الحصص food_oil_olive_extra_virgin (USDA-04053)."
+        notes_en += " RegimePlan exchange sibling for USDA NDB 04053; cross-referenced with canonical multi-portion record food_oil_olive_extra_virgin (USDA-04053)."
+
     record = {
         "id": item_id,
         "code": code,
