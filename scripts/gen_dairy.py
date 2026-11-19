@@ -56,14 +56,26 @@ RAW_DAIRY = [
 ]
 
 DAIRY_ANALYTICAL_OVERRIDES = {
-    "RP-DA-001": {"caloriesKcal": 61.0, "carbsG": 4.8, "proteinG": 3.2, "fatG": 3.3, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01211", "verificationStatus": "verified_standard"},
+    "RP-DA-001": {
+        "caloriesKcal": 61.0, "carbsG": 4.8, "proteinG": 3.2, "fatG": 3.3, "fiberG": 0.0,
+        "saturatedFatG": 1.86, "monounsaturatedFatG": 0.812, "polyunsaturatedFatG": 0.195,
+        "cholesterolMg": 10.0, "sodiumMg": 43.0, "potassiumMg": 132.0, "calciumMg": 113.0,
+        "ironMg": 0.03, "waterG": 88.1,
+        "sourceId": "usda_fdc", "sourceRecordId": "01211", "verificationStatus": "verified_standard",
+    },
     "RP-DA-002": {
         "caloriesKcal": 61.0, "carbsG": 4.7, "proteinG": 3.5, "fatG": 3.3, "fiberG": 0.0,
         "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
         "reviewNoteEn": "Clinically reviewed unflavored whole-milk yogurt standard (~3.3% milkfat, ~4.7% lactose/galactose, ~3.5% dairy protein; Atwater check: 62.5 kcal vs 61.0 kcal, delta -1.5 kcal).",
         "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للزبادي السادة كامل الدسم (~3.3% دهون، ~4.7% لاكتوز، ~3.5% بروتين ألبان).",
     },
-    "RP-DA-003": {"caloriesKcal": 97.0, "carbsG": 4.0, "proteinG": 9.0, "fatG": 5.0, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01293", "verificationStatus": "verified_standard"},
+    "RP-DA-003": {
+        "caloriesKcal": 97.0, "carbsG": 4.0, "proteinG": 9.0, "fatG": 5.0, "fiberG": 0.0,
+        "saturatedFatG": 2.4, "transFatG": 0.0, "monounsaturatedFatG": 2.14, "polyunsaturatedFatG": 0.469,
+        "cholesterolMg": 13.0, "sodiumMg": 35.0, "potassiumMg": 141.0, "calciumMg": 100.0,
+        "ironMg": 0.0, "waterG": 81.3,
+        "sourceId": "usda_fdc", "sourceRecordId": "01293", "verificationStatus": "verified_standard",
+    },
     "RP-DA-004": {
         "caloriesKcal": 134.0, "carbsG": 10.0, "proteinG": 6.8, "fatG": 7.6, "fiberG": 0.0,
         "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
@@ -112,8 +124,20 @@ DAIRY_ANALYTICAL_OVERRIDES = {
         "reviewNoteEn": "Clinically reviewed cultured low-fat/nonfat buttermilk (~0.9% residual milkfat, ~4.8% lactose, ~3.3% dairy protein; Atwater delta -0.5 kcal).",
         "reviewNoteAr": "تركيبة قياسية مراجعة سريرياً للبن المخيض منخفض/خالي الدسم (~0.9% دهون، ~4.8% لاكتوز، ~3.3% بروتين).",
     },
-    "RP-DA-013": {"caloriesKcal": 362.0, "carbsG": 52.0, "proteinG": 36.2, "fatG": 0.8, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01091", "verificationStatus": "verified_standard"},
-    "RP-DA-015": {"caloriesKcal": 59.0, "carbsG": 3.6, "proteinG": 10.2, "fatG": 0.4, "fiberG": 0.0, "sourceId": "usda_fdc", "sourceRecordId": "01256", "verificationStatus": "verified_standard"},
+    "RP-DA-013": {
+        "caloriesKcal": 362.0, "carbsG": 52.0, "proteinG": 36.2, "fatG": 0.8, "fiberG": 0.0,
+        "saturatedFatG": 0.499, "monounsaturatedFatG": 0.201, "polyunsaturatedFatG": 0.03,
+        "cholesterolMg": 20.0, "sodiumMg": 535.0, "potassiumMg": 1790.0, "calciumMg": 1260.0,
+        "ironMg": 0.32, "waterG": 3.16,
+        "sourceId": "usda_fdc", "sourceRecordId": "01091", "verificationStatus": "verified_standard",
+    },
+    "RP-DA-015": {
+        "caloriesKcal": 59.0, "carbsG": 3.6, "proteinG": 10.2, "fatG": 0.4, "fiberG": 0.0,
+        "saturatedFatG": 0.117, "transFatG": 0.006, "monounsaturatedFatG": 0.053, "polyunsaturatedFatG": 0.012,
+        "cholesterolMg": 5.0, "sodiumMg": 36.0, "potassiumMg": 141.0, "calciumMg": 110.0,
+        "ironMg": 0.07, "waterG": 85.1,
+        "sourceId": "usda_fdc", "sourceRecordId": "01256", "verificationStatus": "verified_standard",
+    },
 }
 
 CORE_KEYS = [

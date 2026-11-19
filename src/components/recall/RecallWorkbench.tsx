@@ -47,6 +47,7 @@ import {
 } from '../../clinical/recall/recall-engine';
 
 import { getFoodItemById } from '../../clinical/food/food-database';
+import { formatLocalCalendarDate } from '../../clinical/planner';
 import { FoodEntryModal } from './FoodEntryModal';
 
 interface RecallWorkbenchProps {
@@ -73,11 +74,12 @@ export function RecallWorkbench({
   const [session, setSession] = useState<RecallSession>(
     () =>
       initialSession ??
-      createNewRecallSession({ targetDays: 1, startDate: new Date().toISOString().split('T')[0] })
+      createNewRecallSession({ targetDays: 1, startDate: formatLocalCalendarDate() })
   );
 
   // Active day index (0, 1, or 2)
   const [activeDayIdx, setActiveDayIdx] = useState<number>(0);
+  const [confirmReset, setConfirmReset] = useState<boolean>(false);
 
   // Modal State for adding food
   const [modalState, setModalState] = useState<{
@@ -302,12 +304,11 @@ export function RecallWorkbench({
     setActiveDayIdx(0);
   };
 
-  // Reset Session
-  const handleResetSession = () => {
-    if (window.confirm(isAr ? 'هل أنت متأكد من رغبتك في إعادة ضبط جلسة الاسترجاع الحالية؟' : 'Are you sure you want to start a fresh recall session?')) {
-      setSession(createNewRecallSession({ targetDays: 1, startDate: new Date().toISOString().split('T')[0] }));
-      setActiveDayIdx(0);
-    }
+  // Reset Session (non-blocking inline confirmation)
+  const handleConfirmResetSession = () => {
+    setSession(createNewRecallSession({ targetDays: 1, startDate: formatLocalCalendarDate() }));
+    setActiveDayIdx(0);
+    setConfirmReset(false);
   };
 
   // Calculations
@@ -396,15 +397,37 @@ export function RecallWorkbench({
               <span>{isAr ? 'تحميل نموذج تجريبي' : 'Load Sample'}</span>
             </button>
 
-            {/* Reset Button */}
-            <button
-              type="button"
-              onClick={handleResetSession}
-              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
-            >
-              <RefreshCw className="h-3.5 w-3.5 text-slate-400" />
-              <span>{isAr ? 'جلسة جديدة' : 'New Session'}</span>
-            </button>
+            {/* Reset Button / Inline Confirmation */}
+            {confirmReset ? (
+              <div className="flex items-center gap-1.5 rounded-xl border border-amber-200 bg-amber-50 px-2.5 py-1.5 text-xs">
+                <span className="font-semibold text-amber-900">
+                  {isAr ? 'بدء جلسة جديدة؟' : 'Start fresh session?'}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleConfirmResetSession}
+                  className="rounded-lg bg-rose-600 px-2 py-1 text-[11px] font-bold text-white hover:bg-rose-700"
+                >
+                  {isAr ? 'تأكيد' : 'Confirm'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConfirmReset(false)}
+                  className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-[11px] font-semibold text-slate-600 hover:bg-slate-100"
+                >
+                  {isAr ? 'إلغاء' : 'Cancel'}
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setConfirmReset(true)}
+                className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
+              >
+                <RefreshCw className="h-3.5 w-3.5 text-slate-400" />
+                <span>{isAr ? 'جلسة جديدة' : 'New Session'}</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -503,6 +526,7 @@ export function RecallWorkbench({
                 </span>
                 <input
                   type="date"
+                  aria-label={isAr ? `تاريخ اليوم ${activeDay.dayIndex}` : `Day ${activeDay.dayIndex} Date`}
                   value={activeDay.date}
                   onChange={(e) => {
                     const updated = session.days.map((d, i) =>
@@ -618,6 +642,7 @@ export function RecallWorkbench({
                         type="button"
                         onClick={() => handleDeleteMeal(activeDayIdx, meal.id)}
                         className="rounded-lg p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600"
+                        aria-label={isAr ? 'حذف هذه الوجبة المخصصة' : 'Delete custom meal'}
                         title={isAr ? 'حذف هذه الوجبة المخصصة' : 'Delete custom meal'}
                       >
                         <Trash2 className="h-3.5 w-3.5" />

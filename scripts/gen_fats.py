@@ -130,7 +130,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12012",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 553.0, "carbsG": 8.7, "proteinG": 31.6, "fatG": 48.8, "fiberG": 4.0},
+        "nutrients": {
+            "caloriesKcal": 553.0, "carbsG": 8.7, "proteinG": 31.6, "fatG": 48.8, "fiberG": 4.0,
+            "saturatedFatG": 4.6, "transFatG": 0.0, "monounsaturatedFatG": 5.4, "polyunsaturatedFatG": 38.1,
+            "cholesterolMg": 0.0, "sodiumMg": 5.0, "potassiumMg": 1200.0, "calciumMg": 70.0, "ironMg": 7.95, "waterG": 4.96,
+        },
         "tags": ["seeds", "hemp seeds", "بذور قنب", "بذور هيمب"],
     },
     "RP-FT-004": {
@@ -139,7 +143,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12147",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 673.0, "carbsG": 13.1, "proteinG": 13.7, "fatG": 68.4, "fiberG": 3.7},
+        "nutrients": {
+            "caloriesKcal": 673.0, "carbsG": 13.1, "proteinG": 13.7, "fatG": 68.4, "fiberG": 3.7,
+            "saturatedFatG": 4.9, "monounsaturatedFatG": 18.8, "polyunsaturatedFatG": 34.1,
+            "cholesterolMg": 0.0, "sodiumMg": 2.0, "potassiumMg": 597.0, "calciumMg": 16.0, "ironMg": 5.53, "waterG": 2.28,
+        },
         "tags": ["nuts", "pine nuts", "صنوبر"],
     },
     "RP-FT-005": {
@@ -157,7 +165,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12014",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 559.0, "carbsG": 10.7, "proteinG": 30.2, "fatG": 49.1, "fiberG": 6.0},
+        "nutrients": {
+            "caloriesKcal": 559.0, "carbsG": 10.7, "proteinG": 30.2, "fatG": 49.1, "fiberG": 6.0,
+            "saturatedFatG": 8.66, "transFatG": 0.064, "monounsaturatedFatG": 16.2, "polyunsaturatedFatG": 21.0,
+            "cholesterolMg": 0.0, "sodiumMg": 7.0, "potassiumMg": 809.0, "calciumMg": 46.0, "ironMg": 8.82, "waterG": 5.23,
+        },
         "tags": ["seeds", "pumpkin seeds", "لب قرع نيء", "بذور يقطين"],
     },
     "RP-FT-007": {
@@ -175,7 +187,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12037",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 582.0, "carbsG": 24.1, "proteinG": 19.3, "fatG": 49.8, "fiberG": 11.1, "sodiumMg": 3.0},
+        "nutrients": {
+            "caloriesKcal": 582.0, "carbsG": 24.1, "proteinG": 19.3, "fatG": 49.8, "fiberG": 11.1,
+            "saturatedFatG": 5.22, "monounsaturatedFatG": 9.5, "polyunsaturatedFatG": 32.9,
+            "cholesterolMg": 0.0, "sodiumMg": 3.0, "potassiumMg": 850.0, "calciumMg": 70.0, "ironMg": 3.8, "waterG": 1.2,
+        },
         "tags": ["seeds", "sunflower seeds", "لب عباد الشمس محمص", "لب سوري"],
     },
     "RP-FT-009": {
@@ -184,7 +200,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12036",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 584.0, "carbsG": 20.0, "proteinG": 20.8, "fatG": 51.5, "fiberG": 8.6, "sodiumMg": 9.0},
+        "nutrients": {
+            "caloriesKcal": 584.0, "carbsG": 20.0, "proteinG": 20.8, "fatG": 51.5, "fiberG": 8.6,
+            "saturatedFatG": 4.46, "monounsaturatedFatG": 18.5, "polyunsaturatedFatG": 23.1,
+            "cholesterolMg": 0.0, "sodiumMg": 9.0, "potassiumMg": 645.0, "calciumMg": 78.0, "ironMg": 5.25, "waterG": 4.73,
+        },
         "tags": ["seeds", "sunflower seeds", "لب عباد الشمس نيء"],
     },
     "RP-FT-010": {
@@ -193,7 +213,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12023",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 573.0, "carbsG": 23.5, "proteinG": 17.7, "fatG": 49.7, "fiberG": 11.8, "sodiumMg": 11.0},
+        "nutrients": {
+            "caloriesKcal": 573.0, "carbsG": 23.5, "proteinG": 17.7, "fatG": 49.7, "fiberG": 11.8,
+            "saturatedFatG": 6.96, "monounsaturatedFatG": 18.8, "polyunsaturatedFatG": 21.8,
+            "cholesterolMg": 0.0, "sodiumMg": 11.0, "potassiumMg": 468.0, "calciumMg": 975.0, "ironMg": 14.6, "waterG": 4.69,
+        },
         "tags": ["seeds", "sesame seeds", "سمسم"],
     },
     "RP-FT-011": {
@@ -202,7 +226,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12220",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 534.0, "carbsG": 28.9, "proteinG": 18.3, "fatG": 42.2, "fiberG": 27.3, "sodiumMg": 30.0},
+        "nutrients": {
+            "caloriesKcal": 534.0, "carbsG": 28.9, "proteinG": 18.3, "fatG": 42.2, "fiberG": 27.3,
+            "saturatedFatG": 3.66, "monounsaturatedFatG": 7.53, "polyunsaturatedFatG": 28.7,
+            "cholesterolMg": 0.0, "sodiumMg": 30.0, "potassiumMg": 813.0, "calciumMg": 255.0, "ironMg": 5.73, "waterG": 6.96,
+        },
         "tags": ["seeds", "flaxseed", "بذر كتان", "بذور الكتان"],
     },
     "RP-FT-012": {
@@ -211,7 +239,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12006",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 486.0, "carbsG": 42.1, "proteinG": 16.5, "fatG": 30.7, "fiberG": 34.4, "sodiumMg": 16.0},
+        "nutrients": {
+            "caloriesKcal": 486.0, "carbsG": 42.1, "proteinG": 16.5, "fatG": 30.7, "fiberG": 34.4,
+            "saturatedFatG": 3.33, "transFatG": 0.14, "monounsaturatedFatG": 2.31, "polyunsaturatedFatG": 23.7,
+            "cholesterolMg": 0.0, "sodiumMg": 16.0, "potassiumMg": 407.0, "calciumMg": 631.0, "ironMg": 7.72, "waterG": 5.8,
+        },
         "tags": ["seeds", "chia seeds", "بذور تشيا", "بذور الشيا"],
     },
     "RP-FT-013": {
@@ -220,7 +252,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12155",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 654.0, "carbsG": 13.7, "proteinG": 15.2, "fatG": 65.2, "fiberG": 6.7, "sodiumMg": 2.0},
+        "nutrients": {
+            "caloriesKcal": 654.0, "carbsG": 13.7, "proteinG": 15.2, "fatG": 65.2, "fiberG": 6.7,
+            "saturatedFatG": 6.13, "monounsaturatedFatG": 8.93, "polyunsaturatedFatG": 47.2,
+            "cholesterolMg": 0.0, "sodiumMg": 2.0, "potassiumMg": 441.0, "calciumMg": 98.0, "ironMg": 2.91, "waterG": 4.07,
+        },
         "tags": ["nuts", "walnuts", "عين جمل نيء", "جوز"],
     },
     "RP-FT-014": {
@@ -231,7 +267,8 @@ FAT_COMPOSITION_MAP = {
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 595.0, "carbsG": 21.2, "proteinG": 17.0, "fatG": 53.8,
-            "fiberG": 9.3, "saturatedFatG": 7.5, "monounsaturatedFatG": 20.3, "polyunsaturatedFatG": 23.6, "sodiumMg": 115.0,
+            "fiberG": 9.3, "saturatedFatG": 7.5, "monounsaturatedFatG": 20.3, "polyunsaturatedFatG": 23.6,
+            "cholesterolMg": 0.0, "sodiumMg": 115.0, "potassiumMg": 414.0, "calciumMg": 426.0, "ironMg": 8.95, "waterG": 3.05,
         },
         "tags": ["tahini", "sesame paste", "طحينة", "سمسم"],
     },
@@ -277,7 +314,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01042",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 366.0, "carbsG": 4.78, "proteinG": 18.1, "fatG": 30.7, "fiberG": 0.0, "sodiumMg": 1670.0, "calciumMg": 1040.0, "ironMg": 0.63},
+        "nutrients": {
+            "caloriesKcal": 366.0, "carbsG": 4.78, "proteinG": 18.1, "fatG": 30.7, "fiberG": 0.0,
+            "saturatedFatG": 18.1, "transFatG": 1.14, "monounsaturatedFatG": 8.24, "polyunsaturatedFatG": 1.29,
+            "cholesterolMg": 100.0, "sodiumMg": 1670.0, "potassiumMg": 132.0, "calciumMg": 1040.0, "ironMg": 0.63, "waterG": 39.6,
+        },
         "tags": ["cheese", "processed cheese", "جبنة شرائح", "جبنة معالجة"],
     },
     "RP-FT-020": {
@@ -286,7 +327,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01025",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 373.0, "carbsG": 0.7, "proteinG": 24.5, "fatG": 30.8, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 373.0, "carbsG": 0.7, "proteinG": 24.5, "fatG": 30.8, "fiberG": 0.0,
+            "saturatedFatG": 19.1, "monounsaturatedFatG": 8.75, "polyunsaturatedFatG": 0.899,
+            "cholesterolMg": 89.0, "sodiumMg": 600.0, "potassiumMg": 81.0, "calciumMg": 746.0, "ironMg": 0.72, "waterG": 41.0,
+        },
         "tags": ["cheese", "monterey jack", "مونتيري جاك", "جبنة"],
     },
     "RP-FT-021": {
@@ -295,7 +340,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01023",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 413.0, "carbsG": 0.4, "proteinG": 29.8, "fatG": 32.3, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 413.0, "carbsG": 0.4, "proteinG": 29.8, "fatG": 32.3, "fiberG": 0.0,
+            "saturatedFatG": 18.9, "monounsaturatedFatG": 10.0, "polyunsaturatedFatG": 1.73,
+            "cholesterolMg": 110.0, "sodiumMg": 714.0, "potassiumMg": 81.0, "calciumMg": 1010.0, "ironMg": 0.17, "waterG": 33.2,
+        },
         "tags": ["cheese", "gruyere", "جبنة جرويير", "جرير"],
     },
     "RP-FT-022": {
@@ -304,7 +353,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01004",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 353.0, "carbsG": 2.3, "proteinG": 21.4, "fatG": 28.7, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 353.0, "carbsG": 2.3, "proteinG": 21.4, "fatG": 28.7, "fiberG": 0.0,
+            "saturatedFatG": 18.7, "monounsaturatedFatG": 7.78, "polyunsaturatedFatG": 0.8,
+            "cholesterolMg": 75.0, "sodiumMg": 1150.0, "potassiumMg": 256.0, "calciumMg": 528.0, "ironMg": 0.31, "waterG": 42.4,
+        },
         "tags": ["cheese", "blue cheese", "جبنة زرقاء", "روكفور"],
     },
     "RP-FT-023": {
@@ -313,7 +366,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01006",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 334.0, "carbsG": 0.5, "proteinG": 20.8, "fatG": 27.7, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 334.0, "carbsG": 0.5, "proteinG": 20.8, "fatG": 27.7, "fiberG": 0.0,
+            "saturatedFatG": 17.4, "monounsaturatedFatG": 8.01, "polyunsaturatedFatG": 0.826,
+            "cholesterolMg": 100.0, "sodiumMg": 629.0, "potassiumMg": 152.0, "calciumMg": 184.0, "ironMg": 0.5, "waterG": 48.4,
+        },
         "tags": ["cheese", "brie", "جبنة بري"],
     },
     "RP-FT-024": {
@@ -322,7 +379,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01022",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 356.0, "carbsG": 2.2, "proteinG": 24.9, "fatG": 27.4, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 356.0, "carbsG": 2.2, "proteinG": 24.9, "fatG": 27.4, "fiberG": 0.0,
+            "saturatedFatG": 17.6, "monounsaturatedFatG": 7.75, "polyunsaturatedFatG": 0.657,
+            "cholesterolMg": 114.0, "sodiumMg": 819.0, "potassiumMg": 121.0, "calciumMg": 700.0, "ironMg": 0.24, "waterG": 41.5,
+        },
         "tags": ["cheese", "gouda", "جبنة جودة", "جودا"],
     },
     "RP-FT-025": {
@@ -331,7 +392,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01040",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 393.0, "carbsG": 1.44, "proteinG": 27.0, "fatG": 31.0, "fiberG": 0.0, "sodiumMg": 187.0, "calciumMg": 890.0},
+        "nutrients": {
+            "caloriesKcal": 393.0, "carbsG": 1.44, "proteinG": 27.0, "fatG": 31.0, "fiberG": 0.0,
+            "saturatedFatG": 18.2, "transFatG": 0.987, "monounsaturatedFatG": 8.05, "polyunsaturatedFatG": 1.34,
+            "cholesterolMg": 93.0, "sodiumMg": 187.0, "potassiumMg": 72.0, "calciumMg": 890.0, "ironMg": 0.13, "waterG": 37.6,
+        },
         "tags": ["cheese", "swiss cheese", "جبنة سويسرية"],
     },
     "RP-FT-026": {
@@ -340,7 +405,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01035",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 351.0, "carbsG": 2.1, "proteinG": 25.6, "fatG": 26.6, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 351.0, "carbsG": 2.1, "proteinG": 25.6, "fatG": 26.6, "fiberG": 0.0,
+            "saturatedFatG": 17.1, "monounsaturatedFatG": 7.39, "polyunsaturatedFatG": 0.769,
+            "cholesterolMg": 69.0, "sodiumMg": 727.0, "potassiumMg": 138.0, "calciumMg": 756.0, "ironMg": 0.52, "waterG": 41.0,
+        },
         "tags": ["cheese", "provolone", "بروفولون", "جبنة"],
     },
     "RP-FT-027": {
@@ -358,7 +427,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01032",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 420.0, "carbsG": 13.9, "proteinG": 28.4, "fatG": 27.8, "fiberG": 0.0, "sodiumMg": 1800.0, "calciumMg": 853.0},
+        "nutrients": {
+            "caloriesKcal": 420.0, "carbsG": 13.9, "proteinG": 28.4, "fatG": 27.8, "fiberG": 0.0,
+            "saturatedFatG": 15.4, "transFatG": 0.876, "monounsaturatedFatG": 7.13, "polyunsaturatedFatG": 1.39,
+            "cholesterolMg": 86.0, "sodiumMg": 1800.0, "potassiumMg": 180.0, "calciumMg": 853.0, "ironMg": 0.49, "waterG": 22.6,
+        },
         "tags": ["cheese", "parmesan", "بارميزان", "جبنة بارميزان"],
     },
     "RP-FT-029": {
@@ -367,7 +440,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "01009",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 403.0, "carbsG": 3.37, "proteinG": 22.9, "fatG": 33.3, "fiberG": 0.0, "sodiumMg": 653.0, "calciumMg": 710.0},
+        "nutrients": {
+            "caloriesKcal": 403.0, "carbsG": 3.37, "proteinG": 22.9, "fatG": 33.3, "fiberG": 0.0,
+            "saturatedFatG": 18.9, "monounsaturatedFatG": 9.39, "polyunsaturatedFatG": 0.942,
+            "cholesterolMg": 99.0, "sodiumMg": 653.0, "potassiumMg": 76.0, "calciumMg": 710.0, "ironMg": 0.14, "waterG": 36.8,
+        },
         "tags": ["cheese", "cheddar", "شيدر", "جبنة شيدر"],
     },
     "RP-FT-030": {
@@ -376,7 +453,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12087",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 553.0, "carbsG": 30.2, "proteinG": 18.2, "fatG": 43.9, "fiberG": 3.3, "sodiumMg": 12.0},
+        "nutrients": {
+            "caloriesKcal": 553.0, "carbsG": 30.2, "proteinG": 18.2, "fatG": 43.9, "fiberG": 3.3,
+            "saturatedFatG": 7.78, "monounsaturatedFatG": 23.8, "polyunsaturatedFatG": 7.84,
+            "cholesterolMg": 0.0, "sodiumMg": 12.0, "potassiumMg": 660.0, "calciumMg": 37.0, "ironMg": 6.68, "waterG": 5.2,
+        },
         "tags": ["nuts", "cashews", "كاجو نيء", "مكسرات"],
     },
     "RP-FT-031": {
@@ -385,7 +466,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12563",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 598.0, "carbsG": 21.0, "proteinG": 21.0, "fatG": 52.5, "fiberG": 10.9, "sodiumMg": 234.0},
+        "nutrients": {
+            "caloriesKcal": 598.0, "carbsG": 21.0, "proteinG": 21.0, "fatG": 52.5, "fiberG": 10.9,
+            "saturatedFatG": 4.09, "transFatG": 0.007, "monounsaturatedFatG": 33.1, "polyunsaturatedFatG": 13.0,
+            "cholesterolMg": 0.0, "sodiumMg": 234.0, "potassiumMg": 713.0, "calciumMg": 268.0, "ironMg": 3.73, "waterG": 2.41,
+        },
         "tags": ["nuts", "almonds", "لوز مملح", "مكسرات"],
     },
     "RP-FT-032": {
@@ -394,7 +479,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12063",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 598.0, "carbsG": 21.0, "proteinG": 21.3, "fatG": 52.5, "fiberG": 10.9, "sodiumMg": 3.0},
+        "nutrients": {
+            "caloriesKcal": 598.0, "carbsG": 21.0, "proteinG": 21.3, "fatG": 52.5, "fiberG": 10.9,
+            "saturatedFatG": 4.09, "transFatG": 0.007, "monounsaturatedFatG": 33.1, "polyunsaturatedFatG": 13.0,
+            "cholesterolMg": 0.0, "sodiumMg": 3.0, "potassiumMg": 713.0, "calciumMg": 268.0, "ironMg": 3.73, "waterG": 2.41,
+        },
         "tags": ["nuts", "almonds", "لوز محمص", "مكسرات"],
     },
     "RP-FT-033": {
@@ -403,7 +492,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12061",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 579.0, "carbsG": 21.6, "proteinG": 21.2, "fatG": 49.9, "fiberG": 12.5, "sodiumMg": 1.0},
+        "nutrients": {
+            "caloriesKcal": 579.0, "carbsG": 21.6, "proteinG": 21.2, "fatG": 49.9, "fiberG": 12.5,
+            "saturatedFatG": 3.8, "transFatG": 0.015, "monounsaturatedFatG": 31.6, "polyunsaturatedFatG": 12.3,
+            "cholesterolMg": 0.0, "sodiumMg": 1.0, "potassiumMg": 733.0, "calciumMg": 269.0, "ironMg": 3.71, "waterG": 4.41,
+        },
         "tags": ["nuts", "almonds", "لوز نيء", "مكسرات"],
     },
     "RP-FT-034": {
@@ -412,7 +505,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12195",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 614.0, "carbsG": 18.8, "proteinG": 21.0, "fatG": 55.5, "fiberG": 10.3, "sodiumMg": 7.0},
+        "nutrients": {
+            "caloriesKcal": 614.0, "carbsG": 18.8, "proteinG": 21.0, "fatG": 55.5, "fiberG": 10.3,
+            "saturatedFatG": 4.15, "monounsaturatedFatG": 32.4, "polyunsaturatedFatG": 13.6,
+            "cholesterolMg": 0.0, "sodiumMg": 7.0, "potassiumMg": 748.0, "calciumMg": 347.0, "ironMg": 3.49, "waterG": 1.64,
+        },
         "tags": ["nuts", "almond butter", "زبدة لوز"],
     },
     "RP-FT-035": {
@@ -421,7 +518,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "16098",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 598.0, "carbsG": 22.3, "proteinG": 22.2, "fatG": 51.4, "fiberG": 5.0, "sodiumMg": 426.0},
+        "nutrients": {
+            "caloriesKcal": 598.0, "carbsG": 22.3, "proteinG": 22.2, "fatG": 51.4, "fiberG": 5.0,
+            "saturatedFatG": 10.3, "transFatG": 0.075, "monounsaturatedFatG": 25.9, "polyunsaturatedFatG": 12.5,
+            "cholesterolMg": 0.0, "sodiumMg": 426.0, "potassiumMg": 558.0, "calciumMg": 49.0, "ironMg": 1.74, "waterG": 1.23,
+        },
         "tags": ["peanut butter", "peanuts", "زبدة فول سوداني", "فول سوداني"],
     },
     "RP-FT-036": {
@@ -430,7 +531,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "09037",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 160.0, "carbsG": 8.5, "proteinG": 2.0, "fatG": 14.7, "fiberG": 6.7, "sodiumMg": 7.0},
+        "nutrients": {
+            "caloriesKcal": 160.0, "carbsG": 8.5, "proteinG": 2.0, "fatG": 14.7, "fiberG": 6.7,
+            "saturatedFatG": 2.13, "transFatG": 0.0, "monounsaturatedFatG": 9.8, "polyunsaturatedFatG": 1.82,
+            "cholesterolMg": 0.0, "sodiumMg": 7.0, "potassiumMg": 485.0, "calciumMg": 12.0, "ironMg": 0.55, "waterG": 73.2,
+        },
         "tags": ["avocado", "أفوكادو"],
     },
     "RP-FT-037": {
@@ -439,7 +544,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "09195",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 145.0, "carbsG": 3.8, "proteinG": 1.0, "fatG": 15.3, "fiberG": 3.3},
+        "nutrients": {
+            "caloriesKcal": 145.0, "carbsG": 3.8, "proteinG": 1.0, "fatG": 15.3, "fiberG": 3.3,
+            "saturatedFatG": 2.03, "transFatG": 0.0, "monounsaturatedFatG": 11.3, "polyunsaturatedFatG": 1.31,
+            "cholesterolMg": 0.0, "sodiumMg": 1560.0, "potassiumMg": 42.0, "calciumMg": 52.0, "ironMg": 0.49, "waterG": 75.3,
+        },
         "tags": ["olives", "green olives", "زيتون أخضر"],
     },
     "RP-FT-038": {
@@ -448,7 +557,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "09193",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 116.0, "carbsG": 6.3, "proteinG": 0.8, "fatG": 10.9, "fiberG": 1.6},
+        "nutrients": {
+            "caloriesKcal": 116.0, "carbsG": 6.3, "proteinG": 0.8, "fatG": 10.9, "fiberG": 1.6,
+            "saturatedFatG": 2.28, "transFatG": 0.0, "monounsaturatedFatG": 7.65, "polyunsaturatedFatG": 0.629,
+            "cholesterolMg": 0.0, "sodiumMg": 735.0, "potassiumMg": 8.0, "calciumMg": 88.0, "ironMg": 6.28, "waterG": 80.0,
+        },
         "tags": ["olives", "black olives", "زيتون أسود"],
     },
     "RP-FT-039": {
@@ -502,7 +615,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "04017",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 379.0, "carbsG": 14.6, "proteinG": 1.1, "fatG": 35.1, "fiberG": 0.8},
+        "nutrients": {
+            "caloriesKcal": 379.0, "carbsG": 14.6, "proteinG": 1.1, "fatG": 35.1, "fiberG": 0.8,
+            "saturatedFatG": 5.09, "monounsaturatedFatG": 7.88, "polyunsaturatedFatG": 18.2,
+            "cholesterolMg": 26.0, "sodiumMg": 962.0, "potassiumMg": 107.0, "calciumMg": 17.0, "ironMg": 1.18, "waterG": 46.5,
+        },
         "tags": ["dressing", "thousand island", "صلصة ثاوزند آيلاند"],
     },
     "RP-FT-045": {
@@ -520,7 +637,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "43015",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 542.0, "carbsG": 3.3, "proteinG": 2.17, "fatG": 57.8, "fiberG": 0.5, "sodiumMg": 1210.0},
+        "nutrients": {
+            "caloriesKcal": 542.0, "carbsG": 3.3, "proteinG": 2.17, "fatG": 57.8, "fiberG": 0.5,
+            "saturatedFatG": 8.79, "monounsaturatedFatG": 13.5, "polyunsaturatedFatG": 32.9,
+            "cholesterolMg": 39.0, "sodiumMg": 1210.0, "potassiumMg": 29.0, "calciumMg": 48.0, "ironMg": 1.08, "waterG": 34.3,
+        },
         "tags": ["dressing", "caesar dressing", "صلصة سيزر"],
     },
     "RP-FT-047": {
@@ -529,7 +650,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "04639",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 430.0, "carbsG": 5.9, "proteinG": 1.3, "fatG": 44.5, "fiberG": 0.0},
+        "nutrients": {
+            "caloriesKcal": 430.0, "carbsG": 5.9, "proteinG": 1.3, "fatG": 44.5, "fiberG": 0.0,
+            "saturatedFatG": 6.96, "transFatG": 0.182, "monounsaturatedFatG": 9.2, "polyunsaturatedFatG": 25.8,
+            "cholesterolMg": 26.0, "sodiumMg": 901.0, "potassiumMg": 64.0, "calciumMg": 28.0, "ironMg": 0.3, "waterG": 45.7,
+        },
         "tags": ["dressing", "ranch dressing", "صلصة رانش"],
     },
     "RP-FT-048": {
@@ -538,7 +663,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "04025",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 680.0, "carbsG": 0.6, "proteinG": 1.0, "fatG": 74.9},
+        "nutrients": {
+            "caloriesKcal": 680.0, "carbsG": 0.6, "proteinG": 1.0, "fatG": 74.9, "fiberG": 0.0,
+            "saturatedFatG": 11.7, "transFatG": 0.187, "monounsaturatedFatG": 16.8, "polyunsaturatedFatG": 44.7,
+            "cholesterolMg": 42.0, "sodiumMg": 635.0, "potassiumMg": 20.0, "calciumMg": 8.0, "ironMg": 0.21, "waterG": 21.6,
+        },
         "tags": ["mayonnaise", "مايونيز"],
     },
     "RP-FT-049": {
@@ -550,6 +679,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 25.9, "monounsaturatedFatG": 17.8, "polyunsaturatedFatG": 51.9,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "cottonseed oil", "زيت بذرة القطن"],
     },
@@ -561,7 +691,8 @@ FAT_COMPOSITION_MAP = {
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
-            "saturatedFatG": 15.7, "monounsaturatedFatG": 22.8, "polyunsaturatedFatG": 57.7,
+            "saturatedFatG": 15.7, "transFatG": 0.533, "monounsaturatedFatG": 22.8, "polyunsaturatedFatG": 57.7,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.05, "waterG": 0.0,
         },
         "tags": ["oil", "soybean oil", "زيت صويا"],
     },
@@ -583,6 +714,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 9.6, "monounsaturatedFatG": 16.1, "polyunsaturatedFatG": 69.9,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "grapeseed oil", "زيت بذور العنب"],
     },
@@ -595,6 +727,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 6.2, "monounsaturatedFatG": 14.4, "polyunsaturatedFatG": 74.6,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "safflower oil", "زيت عصفر"],
     },
@@ -606,7 +739,8 @@ FAT_COMPOSITION_MAP = {
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.11, "fatG": 100.0, "fiberG": 0.0,
-            "saturatedFatG": 8.98, "monounsaturatedFatG": 18.4, "polyunsaturatedFatG": 67.8,
+            "saturatedFatG": 8.98, "transFatG": 0.094, "monounsaturatedFatG": 18.4, "polyunsaturatedFatG": 67.8,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 1.0, "ironMg": 0.0, "waterG": 0.12,
         },
         "tags": ["oil", "flaxseed oil", "زيت بذر كتان"],
     },
@@ -619,6 +753,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 9.1, "monounsaturatedFatG": 22.8, "polyunsaturatedFatG": 63.3,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "walnut oil", "زيت جوز"],
     },
@@ -631,7 +766,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 717.0, "carbsG": 0.7, "proteinG": 0.16, "fatG": 80.7, "fiberG": 0.0,
             "saturatedFatG": 15.2, "transFatG": 14.9, "monounsaturatedFatG": 38.9, "polyunsaturatedFatG": 24.3,
-            "sodiumMg": 751.0,
+            "cholesterolMg": 0.0, "sodiumMg": 751.0, "potassiumMg": 18.0, "calciumMg": 3.0, "ironMg": 0.06, "waterG": 16.5,
         },
         "tags": ["margarine", "مارجرين"],
     },
@@ -653,6 +788,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 13.0, "monounsaturatedFatG": 27.6, "polyunsaturatedFatG": 54.7,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "corn oil", "زيت ذرة"],
     },
@@ -665,6 +801,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 14.2, "monounsaturatedFatG": 39.7, "polyunsaturatedFatG": 41.7,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "sesame oil", "زيت سمسم"],
     },
@@ -677,6 +814,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 10.3, "monounsaturatedFatG": 19.5, "polyunsaturatedFatG": 65.7,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "sunflower oil", "زيت عباد الشمس"],
     },
@@ -686,7 +824,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12174",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 557.0, "carbsG": 15.3, "proteinG": 28.3, "fatG": 47.4, "sodiumMg": 99.0},
+        "nutrients": {
+            "caloriesKcal": 557.0, "carbsG": 15.3, "proteinG": 28.3, "fatG": 47.4,
+            "saturatedFatG": 9.78, "monounsaturatedFatG": 7.41, "polyunsaturatedFatG": 28.1,
+            "cholesterolMg": 0.0, "sodiumMg": 99.0, "potassiumMg": 648.0, "calciumMg": 54.0, "ironMg": 7.28, "waterG": 5.05,
+        },
         "tags": ["seeds", "watermelon seeds", "بذور بطيخ مجففة", "لب"],
     },
     "RP-FT-062": {
@@ -716,6 +858,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 11.6, "monounsaturatedFatG": 70.6, "polyunsaturatedFatG": 13.5,
+            "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "avocado oil", "زيت أفوكادو"],
     },
@@ -727,7 +870,8 @@ FAT_COMPOSITION_MAP = {
         "verificationStatus": "verified_standard",
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
-            "saturatedFatG": 7.4, "monounsaturatedFatG": 63.3, "polyunsaturatedFatG": 28.1,
+            "saturatedFatG": 7.4, "transFatG": 0.395, "monounsaturatedFatG": 63.3, "polyunsaturatedFatG": 28.1,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 0.0, "calciumMg": 0.0, "ironMg": 0.0, "waterG": 0.0,
         },
         "tags": ["oil", "canola oil", "زيت كانولا"],
     },
@@ -740,6 +884,7 @@ FAT_COMPOSITION_MAP = {
         "nutrients": {
             "caloriesKcal": 884.0, "carbsG": 0.0, "proteinG": 0.0, "fatG": 100.0, "fiberG": 0.0,
             "saturatedFatG": 13.8, "monounsaturatedFatG": 73.0, "polyunsaturatedFatG": 10.5,
+            "cholesterolMg": 0.0, "sodiumMg": 2.0, "potassiumMg": 1.0, "calciumMg": 1.0, "ironMg": 0.56, "waterG": 0.0,
         },
         "tags": ["oil", "olive oil", "زيت زيتون"],
     },
@@ -749,7 +894,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12135",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 607.0, "carbsG": 22.4, "proteinG": 19.5, "fatG": 53.5, "fiberG": 6.4, "sodiumMg": 4.0},
+        "nutrients": {
+            "caloriesKcal": 607.0, "carbsG": 22.4, "proteinG": 19.5, "fatG": 53.5, "fiberG": 6.4,
+            "saturatedFatG": 8.01, "transFatG": 0.033, "monounsaturatedFatG": 34.5, "polyunsaturatedFatG": 9.86,
+            "cholesterolMg": 0.0, "sodiumMg": 4.0, "potassiumMg": 643.0, "calciumMg": 87.0, "ironMg": 3.73, "waterG": 2.13,
+        },
         "tags": ["nuts", "mixed nuts", "مكسرات مشكلة محمصة"],
     },
     "RP-FT-069": {
@@ -758,7 +907,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12122",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 646.0, "carbsG": 17.6, "proteinG": 15.0, "fatG": 62.4, "fiberG": 9.4},
+        "nutrients": {
+            "caloriesKcal": 646.0, "carbsG": 17.6, "proteinG": 15.0, "fatG": 62.4, "fiberG": 9.4,
+            "saturatedFatG": 4.51, "monounsaturatedFatG": 46.6, "polyunsaturatedFatG": 8.46,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 755.0, "calciumMg": 123.0, "ironMg": 4.38, "waterG": 2.52,
+        },
         "tags": ["nuts", "hazelnuts", "بندق محمص"],
     },
     "RP-FT-070": {
@@ -767,7 +920,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12143",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 710.0, "carbsG": 13.6, "proteinG": 9.5, "fatG": 74.3, "fiberG": 9.4},
+        "nutrients": {
+            "caloriesKcal": 710.0, "carbsG": 13.6, "proteinG": 9.5, "fatG": 74.3, "fiberG": 9.4,
+            "saturatedFatG": 6.28, "monounsaturatedFatG": 44.0, "polyunsaturatedFatG": 20.6,
+            "cholesterolMg": 0.0, "sodiumMg": 1.0, "potassiumMg": 424.0, "calciumMg": 72.0, "ironMg": 2.8, "waterG": 1.12,
+        },
         "tags": ["nuts", "pecans", "بيكان محمص"],
     },
     "RP-FT-071": {
@@ -785,7 +942,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12088",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 587.0, "carbsG": 27.6, "proteinG": 17.6, "fatG": 49.4, "fiberG": 2.0, "sodiumMg": 15.0},
+        "nutrients": {
+            "caloriesKcal": 587.0, "carbsG": 27.6, "proteinG": 17.6, "fatG": 49.4, "fiberG": 2.0,
+            "saturatedFatG": 9.76, "monounsaturatedFatG": 29.1, "polyunsaturatedFatG": 8.35,
+            "cholesterolMg": 0.0, "sodiumMg": 15.0, "potassiumMg": 546.0, "calciumMg": 43.0, "ironMg": 5.03, "waterG": 2.96,
+        },
         "tags": ["cashew butter", "cashews", "زبدة كاجو"],
     },
     "RP-FT-073": {
@@ -794,7 +955,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12131",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 718.0, "carbsG": 13.8, "proteinG": 7.9, "fatG": 75.8, "fiberG": 8.6},
+        "nutrients": {
+            "caloriesKcal": 718.0, "carbsG": 13.8, "proteinG": 7.9, "fatG": 75.8, "fiberG": 8.6,
+            "saturatedFatG": 12.1, "monounsaturatedFatG": 58.9, "polyunsaturatedFatG": 1.5,
+            "cholesterolMg": 0.0, "sodiumMg": 5.0, "potassiumMg": 368.0, "calciumMg": 85.0, "ironMg": 3.69, "waterG": 1.36,
+        },
         "tags": ["nuts", "macadamia", "مكاديميا نيئة"],
     },
     "RP-FT-074": {
@@ -803,7 +968,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12078",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 659.0, "carbsG": 11.7, "proteinG": 14.3, "fatG": 67.1, "fiberG": 7.5, "sodiumMg": 3.0},
+        "nutrients": {
+            "caloriesKcal": 659.0, "carbsG": 11.7, "proteinG": 14.3, "fatG": 67.1, "fiberG": 7.5,
+            "saturatedFatG": 16.1, "monounsaturatedFatG": 23.9, "polyunsaturatedFatG": 24.4,
+            "cholesterolMg": 0.0, "sodiumMg": 3.0, "potassiumMg": 659.0, "calciumMg": 160.0, "ironMg": 2.43, "waterG": 3.42,
+        },
         "tags": ["nuts", "brazil nuts", "جوز برازيلي"],
     },
     "RP-FT-075": {
@@ -812,7 +981,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12142",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 691.0, "carbsG": 13.9, "proteinG": 9.2, "fatG": 72.0, "fiberG": 9.6},
+        "nutrients": {
+            "caloriesKcal": 691.0, "carbsG": 13.9, "proteinG": 9.2, "fatG": 72.0, "fiberG": 9.6,
+            "saturatedFatG": 6.18, "monounsaturatedFatG": 40.8, "polyunsaturatedFatG": 21.6,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 410.0, "calciumMg": 70.0, "ironMg": 2.53, "waterG": 3.52,
+        },
         "tags": ["nuts", "pecans", "بيكان نيء"],
     },
     "RP-FT-076": {
@@ -821,7 +994,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12120",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 628.0, "carbsG": 16.7, "proteinG": 15.0, "fatG": 60.8, "fiberG": 9.7},
+        "nutrients": {
+            "caloriesKcal": 628.0, "carbsG": 16.7, "proteinG": 15.0, "fatG": 60.8, "fiberG": 9.7,
+            "saturatedFatG": 4.46, "monounsaturatedFatG": 45.7, "polyunsaturatedFatG": 7.92,
+            "cholesterolMg": 0.0, "sodiumMg": 0.0, "potassiumMg": 680.0, "calciumMg": 114.0, "ironMg": 4.7, "waterG": 5.31,
+        },
         "tags": ["nuts", "hazelnuts", "بندق نيء"],
     },
     "RP-FT-077": {
@@ -830,7 +1007,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12652",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 569.0, "carbsG": 28.3, "proteinG": 21.1, "fatG": 45.8, "fiberG": 10.3, "sodiumMg": 426.0},
+        "nutrients": {
+            "caloriesKcal": 569.0, "carbsG": 28.3, "proteinG": 21.1, "fatG": 45.8, "fiberG": 10.3,
+            "saturatedFatG": 5.64, "transFatG": 0.0, "monounsaturatedFatG": 24.5, "polyunsaturatedFatG": 13.3,
+            "cholesterolMg": 0.0, "sodiumMg": 426.0, "potassiumMg": 1010.0, "calciumMg": 107.0, "ironMg": 4.03, "waterG": 1.79,
+        },
         "tags": ["nuts", "pistachios", "فستق مملح"],
     },
     "RP-FT-078": {
@@ -839,7 +1020,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12152",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 569.0, "carbsG": 28.3, "proteinG": 21.1, "fatG": 45.8, "fiberG": 10.3, "sodiumMg": 6.0},
+        "nutrients": {
+            "caloriesKcal": 569.0, "carbsG": 28.3, "proteinG": 21.1, "fatG": 45.8, "fiberG": 10.3,
+            "saturatedFatG": 5.64, "transFatG": 0.0, "monounsaturatedFatG": 24.5, "polyunsaturatedFatG": 13.3,
+            "cholesterolMg": 0.0, "sodiumMg": 6.0, "potassiumMg": 1010.0, "calciumMg": 107.0, "ironMg": 4.03, "waterG": 1.85,
+        },
         "tags": ["nuts", "pistachios", "فستق محمص"],
     },
     "RP-FT-079": {
@@ -848,7 +1033,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12151",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 560.0, "carbsG": 27.2, "proteinG": 20.2, "fatG": 45.3, "fiberG": 10.6, "sodiumMg": 1.0},
+        "nutrients": {
+            "caloriesKcal": 560.0, "carbsG": 27.2, "proteinG": 20.2, "fatG": 45.3, "fiberG": 10.6,
+            "saturatedFatG": 5.91, "transFatG": 0.0, "monounsaturatedFatG": 23.3, "polyunsaturatedFatG": 14.4,
+            "cholesterolMg": 0.0, "sodiumMg": 1.0, "potassiumMg": 1020.0, "calciumMg": 105.0, "ironMg": 3.92, "waterG": 4.37,
+        },
         "tags": ["nuts", "pistachios", "فستق نيء"],
     },
     "RP-FT-080": {
@@ -857,7 +1046,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "16089",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 599.0, "carbsG": 15.3, "proteinG": 28.0, "fatG": 52.5, "fiberG": 9.4, "sodiumMg": 320.0},
+        "nutrients": {
+            "caloriesKcal": 599.0, "carbsG": 15.3, "proteinG": 28.0, "fatG": 52.5, "fiberG": 9.4,
+            "saturatedFatG": 8.66, "monounsaturatedFatG": 26.0, "polyunsaturatedFatG": 15.3,
+            "cholesterolMg": 0.0, "sodiumMg": 320.0, "potassiumMg": 726.0, "calciumMg": 61.0, "ironMg": 1.52, "waterG": 1.45,
+        },
         "tags": ["peanuts", "nuts", "فول سوداني مملح", "سوداني"],
     },
     "RP-FT-081": {
@@ -866,7 +1059,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "16390",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 587.0, "carbsG": 21.3, "proteinG": 24.4, "fatG": 49.7, "fiberG": 8.4, "sodiumMg": 6.0},
+        "nutrients": {
+            "caloriesKcal": 587.0, "carbsG": 21.3, "proteinG": 24.4, "fatG": 49.7, "fiberG": 8.4,
+            "saturatedFatG": 7.72, "transFatG": 0.027, "monounsaturatedFatG": 26.2, "polyunsaturatedFatG": 9.77,
+            "cholesterolMg": 0.0, "sodiumMg": 6.0, "potassiumMg": 634.0, "calciumMg": 58.0, "ironMg": 1.58, "waterG": 1.81,
+        },
         "tags": ["peanuts", "nuts", "فول سوداني محمص", "سوداني"],
     },
     "RP-FT-082": {
@@ -875,7 +1072,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "16087",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 567.0, "carbsG": 16.1, "proteinG": 25.8, "fatG": 49.2, "fiberG": 8.5, "sodiumMg": 18.0},
+        "nutrients": {
+            "caloriesKcal": 567.0, "carbsG": 16.1, "proteinG": 25.8, "fatG": 49.2, "fiberG": 8.5,
+            "saturatedFatG": 6.28, "transFatG": 0.0, "monounsaturatedFatG": 24.4, "polyunsaturatedFatG": 15.6,
+            "cholesterolMg": 0.0, "sodiumMg": 18.0, "potassiumMg": 705.0, "calciumMg": 92.0, "ironMg": 4.58, "waterG": 6.5,
+        },
         "tags": ["peanuts", "nuts", "فول سوداني نيء", "سوداني"],
     },
     "RP-FT-083": {
@@ -884,7 +1085,11 @@ FAT_COMPOSITION_MAP = {
         "sourceId": "usda_fdc",
         "sourceRecordId": "12585",
         "verificationStatus": "verified_standard",
-        "nutrients": {"caloriesKcal": 574.0, "carbsG": 32.7, "proteinG": 15.3, "fatG": 46.4, "fiberG": 3.0, "sodiumMg": 638.0},
+        "nutrients": {
+            "caloriesKcal": 574.0, "carbsG": 32.7, "proteinG": 15.3, "fatG": 46.4, "fiberG": 3.0,
+            "saturatedFatG": 9.16, "monounsaturatedFatG": 27.3, "polyunsaturatedFatG": 7.84,
+            "cholesterolMg": 0.0, "sodiumMg": 638.0, "potassiumMg": 565.0, "calciumMg": 45.0, "ironMg": 6.0, "waterG": 1.7,
+        },
         "tags": ["nuts", "cashews", "كاجو مملح"],
     },
     "RP-FT-084": {

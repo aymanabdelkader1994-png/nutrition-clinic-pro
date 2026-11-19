@@ -149,7 +149,10 @@ export function aggregateRecallEntries(entries: RecallEntry[]): RecallNutrientSu
 
     for (const entry of entries) {
       const isExchangeOnly = entry.compositionBasis === 'exchange_only';
-      const rawVal = entry.nutrients[def.key] as number | null | undefined;
+      let rawVal = entry.nutrients[def.key] as number | null | undefined;
+      if (!isExchangeOnly && def.key === 'availableCarbsG' && (rawVal === null || rawVal === undefined)) {
+        rawVal = deriveAvailableCarbohydrates(entry.nutrients);
+      }
       const val = isExchangeOnly ? null : rawVal;
       if (val === null || val === undefined || !Number.isFinite(val)) {
         completeTotal = null;

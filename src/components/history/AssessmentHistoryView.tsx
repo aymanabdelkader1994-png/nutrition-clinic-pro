@@ -327,6 +327,7 @@ export function AssessmentHistoryView({
               type="button"
               onClick={handleClearAll}
               className="flex items-center gap-1 rounded-lg border border-rose-200 bg-rose-50 px-2 py-1.5 text-xs font-medium text-rose-700 hover:bg-rose-100 transition"
+              aria-label={isAr ? 'مسح كل السجلات' : 'Clear all assessments'}
               title={isAr ? 'مسح كل السجلات' : 'Clear all'}
             >
               <Trash2 className="h-3.5 w-3.5" />
@@ -876,6 +877,7 @@ export function AssessmentHistoryView({
                               type="button"
                               onClick={() => setInspectRecord(fullRecord)}
                               className="rounded-md p-1 text-slate-500 hover:bg-slate-100 hover:text-slate-900 transition"
+                              aria-label={isAr ? 'عرض التفاصيل الكاملة' : 'View full assessment details'}
                               title={isAr ? 'عرض التفاصيل الكاملة' : 'View Full Details'}
                             >
                               <Eye className="h-3.5 w-3.5" />
@@ -886,6 +888,7 @@ export function AssessmentHistoryView({
                               type="button"
                               onClick={() => handleDelete(fullRecord.id, fullRecord.patientName)}
                               className="rounded-md p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600 transition"
+                              aria-label={isAr ? 'حذف الزيارة' : 'Delete visit'}
                               title={isAr ? 'حذف الزيارة' : 'Delete Visit'}
                             >
                               <Trash2 className="h-3.5 w-3.5" />
@@ -916,6 +919,7 @@ export function AssessmentHistoryView({
               <button
                 type="button"
                 onClick={() => setInspectRecord(null)}
+                aria-label={isAr ? 'إغلاق تقرير الفحص' : 'Close assessment details'}
                 className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700 transition"
               >
                 <X className="h-5 w-5" />

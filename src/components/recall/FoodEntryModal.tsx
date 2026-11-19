@@ -3,7 +3,7 @@
  * Phase 3 Implementation
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Search,
   Plus,
@@ -61,7 +61,7 @@ export function FoodEntryModal({
 
   // Portion selection state
   const [selectedPortionId, setSelectedPortionId] = useState<string>('');
-  const [quantity, setQuantity] = useState<number>(1);
+  const [quantityInput, setQuantityInput] = useState<string>('1');
   const [entryNotes, setEntryNotes] = useState<string>('');
 
   // Custom Food Form State
@@ -79,6 +79,36 @@ export function FoodEntryModal({
   const [customError, setCustomError] = useState<string | null>(null);
 
   const [catalogUpdateKey, setCatalogUpdateKey] = useState(0);
+
+  const parsedQuantity = useMemo(() => {
+    const n = Number(quantityInput);
+    return Number.isFinite(n) && n > 0 ? n : 0;
+  }, [quantityInput]);
+
+  // Reset transient modal selection state whenever reopened
+  useEffect(() => {
+    if (isOpen) {
+      setActiveTab('database');
+      setSearchQuery('');
+      setSelectedGroup('all');
+      setSelectedFood(null);
+      setSelectedPortionId('');
+      setQuantityInput('1');
+      setEntryNotes('');
+      setCustomNameEn('');
+      setCustomNameAr('');
+      setCustomCalories(100);
+      setCustomProtein(5);
+      setCustomCarbs(15);
+      setCustomFat(2);
+      setCustomFiber(1);
+      setCustomSodium('');
+      setCustomPortionNameEn('1 Serving');
+      setCustomPortionNameAr('حصة واحدة');
+      setCustomPortionGrams(100);
+      setCustomError(null);
+    }
+  }, [isOpen]);
 
   // Search results
   const searchResults = useMemo(() => {
@@ -99,23 +129,23 @@ export function FoodEntryModal({
     } else {
       setSelectedPortionId('grams');
     }
-    setQuantity(1);
+    setQuantityInput('1');
   };
 
   // Preview resolved nutrients in real-time
   const previewEntry = useMemo(() => {
-    if (!selectedFood || quantity <= 0) return null;
+    if (!selectedFood || parsedQuantity <= 0) return null;
     try {
       return resolveRecallEntry({
         food: selectedFood,
         selectedPortionId: selectedPortionId || 'grams',
-        quantity,
+        quantity: parsedQuantity,
         notes: entryNotes,
       });
     } catch {
       return null;
     }
-  }, [selectedFood, selectedPortionId, quantity, entryNotes]);
+  }, [selectedFood, selectedPortionId, parsedQuantity, entryNotes]);
 
   const handleConfirmAdd = () => {
     if (!previewEntry) return;
@@ -166,6 +196,8 @@ export function FoodEntryModal({
           caloriesKcal: Number(customCalories),
           proteinG: Number(customProtein),
           carbsG: Number(customCarbs),
+          availableCarbsG: null,
+          carbCalculationBasis: 'total_by_difference',
           fatG: Number(customFat),
           fiberG: fiberVal,
           saturatedFatG: null,
@@ -177,6 +209,7 @@ export function FoodEntryModal({
           potassiumMg: null,
           calciumMg: null,
           ironMg: null,
+          waterG: null,
           missingNutrientKeys: [
             ...(fiberVal === null ? ['fiberG'] : []),
             'saturatedFatG',
@@ -321,6 +354,7 @@ export function FoodEntryModal({
                   <Search className="pointer-events-none absolute top-3 start-3 h-4 w-4 text-slate-400" />
                   <input
                     type="text"
+                    aria-label={isAr ? 'البحث في قاعدة الأطعمة السريرية' : 'Search clinical food catalog'}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={
@@ -335,6 +369,7 @@ export function FoodEntryModal({
                     <button
                       type="button"
                       onClick={() => setSearchQuery('')}
+                      aria-label={isAr ? 'مسح البحث' : 'Clear search'}
                       className="absolute top-2.5 end-3 text-slate-400 hover:text-slate-600 text-xs"
                     >
                       {isAr ? 'مسح' : 'Clear'}
@@ -505,10 +540,11 @@ export function FoodEntryModal({
 
                     {/* Portion Selector */}
                     <div>
-                      <label className="mb-1 block text-xs font-bold text-slate-700">
+                      <label htmlFor="recall-food-portion" className="mb-1 block text-xs font-bold text-slate-700">
                         {isAr ? 'وحدة القياس / الحصة المنزلية:' : 'Measurement / Portion:'}
                       </label>
                       <select
+                        id="recall-food-portion"
                         value={selectedPortionId}
                         onChange={(e) => setSelectedPortionId(e.target.value)}
                         className="w-full rounded-xl border border-slate-300 bg-white p-2.5 text-xs text-slate-800 focus:border-emerald-500 focus:outline-none"
@@ -526,7 +562,7 @@ export function FoodEntryModal({
 
                     {/* Quantity Input */}
                     <div>
-                      <label className="mb-1 block text-xs font-bold text-slate-700">
+                      <label htmlFor="recall-food-quantity" className="mb-1 block text-xs font-bold text-slate-700">
                         {selectedPortionId === 'grams'
                           ? isAr
                             ? 'الوزن الصافي المستهلك (جرام):'
@@ -536,21 +572,28 @@ export function FoodEntryModal({
                           : 'Quantity Consumed (Portions):'}
                       </label>
                       <input
+                        id="recall-food-quantity"
                         type="number"
                         min="0.1"
                         step={selectedPortionId === 'grams' ? '1' : '0.25'}
-                        value={quantity}
-                        onChange={(e) => setQuantity(Math.max(0.1, Number(e.target.value) || 0))}
+                        value={quantityInput}
+                        onChange={(e) => setQuantityInput(e.target.value)}
+                        onBlur={() => {
+                          if (!parsedQuantity || parsedQuantity <= 0) {
+                            setQuantityInput('1');
+                          }
+                        }}
                         className="w-full rounded-xl border border-slate-300 bg-white p-2.5 text-xs font-bold text-slate-900 focus:border-emerald-500 focus:outline-none"
                       />
                     </div>
 
                     {/* Notes Input */}
                     <div>
-                      <label className="mb-1 block text-xs font-bold text-slate-700">
+                      <label htmlFor="recall-food-notes" className="mb-1 block text-xs font-bold text-slate-700">
                         {isAr ? 'ملاحظات سريرية اختيارية:' : 'Optional Clinical Notes:'}
                       </label>
                       <input
+                        id="recall-food-notes"
                         type="text"
                         value={entryNotes}
                         onChange={(e) => setEntryNotes(e.target.value)}
@@ -598,13 +641,13 @@ export function FoodEntryModal({
                           <div>
                             <span className="text-slate-500">{isAr ? 'الألياف:' : 'Fiber:'}</span>
                             <span className="font-bold text-slate-800 ms-1">
-                              {previewEntry.nutrients.fiberG !== null ? `${previewEntry.nutrients.fiberG} g` : 'N/A'}
+                              {previewEntry.nutrients.fiberG !== null ? `${previewEntry.nutrients.fiberG} g` : '—'}
                             </span>
                           </div>
                           <div>
                             <span className="text-slate-500">{isAr ? 'الصوديوم:' : 'Sodium:'}</span>
                             <span className="font-bold text-slate-800 ms-1">
-                              {previewEntry.nutrients.sodiumMg !== null ? `${previewEntry.nutrients.sodiumMg} mg` : 'N/A'}
+                              {previewEntry.nutrients.sodiumMg !== null ? `${previewEntry.nutrients.sodiumMg} mg` : '—'}
                             </span>
                           </div>
                         </div>

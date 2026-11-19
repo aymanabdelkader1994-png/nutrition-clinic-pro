@@ -50,6 +50,7 @@ import {
   PatientAssessmentRecord,
   saveAssessment,
   getSavedAssessments,
+  formatLocalCalendarDate,
 } from './clinical/index';
 import { RecallWorkbench } from './components/recall/RecallWorkbench';
 import { MealPlannerWorkbench } from './components/planner/MealPlannerWorkbench';
@@ -75,7 +76,7 @@ export default function App() {
   const [saveModalOpen, setSaveModalOpen] = useState(false);
   const [patientNameInput, setPatientNameInput] = useState('');
   const [patientMrnInput, setPatientMrnInput] = useState('');
-  const [visitDateInput, setVisitDateInput] = useState(() => new Date().toISOString().substring(0, 10));
+  const [visitDateInput, setVisitDateInput] = useState(() => formatLocalCalendarDate());
   const [visitNotesInput, setVisitNotesInput] = useState('');
   const [loadedNotification, setLoadedNotification] = useState<string | null>(null);
 
@@ -283,7 +284,7 @@ export default function App() {
     const newRecord = saveAssessment({
       patientName,
       patientIdOrMrn: patientMrnInput.trim() || undefined,
-      visitDate: visitDateInput || new Date().toISOString().substring(0, 10),
+      visitDate: visitDateInput || formatLocalCalendarDate(),
       notes: visitNotesInput.trim() || undefined,
       inputs: {
         sex,
@@ -550,6 +551,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setLoadedNotification(null)}
+              aria-label={isAr ? 'إغلاق التنبيه' : 'Dismiss notification'}
               className="text-emerald-700 hover:text-emerald-900"
             >
               <X className="h-3.5 w-3.5" />
@@ -1001,7 +1003,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => {
-                          setVisitDateInput(new Date().toISOString().substring(0, 10));
+                          setVisitDateInput(formatLocalCalendarDate());
                           setSaveModalOpen(true);
                         }}
                         className="inline-flex items-center gap-2 rounded-xl bg-white px-3.5 py-2.5 text-xs font-bold text-emerald-800 shadow-sm transition hover:bg-emerald-50 active:scale-95"
@@ -1693,6 +1695,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setSaveModalOpen(false)}
+                aria-label={isAr ? 'إغلاق نافذة الحفظ' : 'Close save modal'}
                 className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
               >
                 <X className="h-4 w-4" />

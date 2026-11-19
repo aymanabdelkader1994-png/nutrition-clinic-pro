@@ -679,15 +679,33 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
     });
 
     it('marks potassiumMg, ironMg, fiberG, and sodiumMg as incomplete in mixed assays without fabricating complete totals', () => {
-      const peanuts = getFoodItemById('food_fat_rp_ft_082')!; // USDA complete FDC record with fiber & sodium; verify missing K/Fe or add mixed entry
+      const peanuts = getFoodItemById('food_fat_rp_ft_082')!;
       const bread = getFoodItemById('food_bread_baladi_baked')!;
+
+      // Verify RP-FT-082 now carries full USDA SR Legacy potassium & iron assays
+      assert.equal(peanuts.nutrients100g.potassiumMg, 705);
+      assert.equal(peanuts.nutrients100g.ironMg, 4.58);
+
+      const unassayedMicroFood = {
+        ...peanuts,
+        id: 'synthetic_unassayed_micro_food',
+        nutrients100g: {
+          ...peanuts.nutrients100g,
+          potassiumMg: null,
+          ironMg: null,
+          missingNutrientKeys: [
+            ...peanuts.nutrients100g.missingNutrientKeys,
+            'potassiumMg',
+            'ironMg',
+          ],
+        },
+      };
 
       const completeMicroEntry = resolveRecallEntry({
         food: bread,
         selectedPortionId: 'grams',
         quantity: 100,
       });
-      // Synthesize a fully assayed item vs unassayed item (e.g. RegimePlan item missing K, Fe, fiber, sodium)
       const completeEntry: RecallEntry = {
         ...completeMicroEntry,
         id: 'complete_micro',
@@ -699,16 +717,16 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
           sodiumMg: 490,
         },
       };
-      const peanutsEntry = resolveRecallEntry({
-        food: peanuts,
-        selectedPortionId: peanuts.portions[0].id,
-        quantity: 2, // 20g -> 113.4 kcal, 5.16g P, 3.22g C, 9.84g F, K/Fe null
+      const partialMicroEntry = resolveRecallEntry({
+        food: unassayedMicroFood,
+        selectedPortionId: unassayedMicroFood.portions[0].id,
+        quantity: 2, // 20g -> fiber & sodium present, K/Fe null
       });
 
-      assert.equal(peanutsEntry.nutrients.potassiumMg, null);
-      assert.equal(peanutsEntry.nutrients.ironMg, null);
+      assert.equal(partialMicroEntry.nutrients.potassiumMg, null);
+      assert.equal(partialMicroEntry.nutrients.ironMg, null);
 
-      const summary = aggregateRecallEntries([completeEntry, peanutsEntry]);
+      const summary = aggregateRecallEntries([completeEntry, partialMicroEntry]);
       assert.equal(summary.hasIncompleteNutrients, true);
       assert.equal(summary.potassiumMg.isComplete, false);
       assert.equal(summary.potassiumMg.completeTotal, null);
@@ -730,7 +748,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
             id: 'd1_micro',
             dayIndex: 1,
             date: '2026-11-10',
-            meals: [{ id: 'm1', mealType: 'snack' as any, entries: [completeEntry, peanutsEntry] }],
+            meals: [{ id: 'm1', mealType: 'snack' as any, entries: [completeEntry, partialMicroEntry] }],
           },
         ],
       };
@@ -960,7 +978,16 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
     });
 
     it('Case 5: all days analytically unknown for a nutrient produces observedAverage null and no artificial zero average', () => {
-      const peanuts = getFoodItemById('food_fat_rp_ft_082')!; // analytical macros, null potassiumMg & ironMg
+      const peanuts = getFoodItemById('food_fat_rp_ft_082')!;
+      const unassayedMicroFood = {
+        ...peanuts,
+        id: 'synthetic_unassayed_micro_case5',
+        nutrients100g: {
+          ...peanuts.nutrients100g,
+          potassiumMg: null,
+          ironMg: null,
+        },
+      };
       const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
 
       // 5a: Two days with all exchange_only entries -> every nutrient has observedAverage === null
@@ -978,8 +1005,8 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
 
       // 5b: Two days where calories are known but potassiumMg & ironMg are null on both days
       const partialMicroSession = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
-      partialMicroSession.days[0].meals[0].entries.push(resolveRecallEntry({ food: peanuts, quantity: 50, selectedPortionId: 'grams' }));
-      partialMicroSession.days[1].meals[0].entries.push(resolveRecallEntry({ food: peanuts, quantity: 50, selectedPortionId: 'grams' }));
+      partialMicroSession.days[0].meals[0].entries.push(resolveRecallEntry({ food: unassayedMicroFood, quantity: 50, selectedPortionId: 'grams' }));
+      partialMicroSession.days[1].meals[0].entries.push(resolveRecallEntry({ food: unassayedMicroFood, quantity: 50, selectedPortionId: 'grams' }));
       const microAnalysis = calculateMultiDayRecallAnalysis(partialMicroSession);
       assert.equal(microAnalysis.averages.caloriesKcal.denominator, 2);
       assert.equal(microAnalysis.averages.caloriesKcal.isComplete, true);
@@ -1026,7 +1053,15 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal per 100g
       const chicken = getFoodItemById('food_chicken_breast_grilled_skinless')!; // 165 kcal per 100g
       const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
-      const peanuts = getFoodItemById('food_fat_rp_ft_082')!; // analytical macros, null potassiumMg & ironMg
+      const peanuts = getFoodItemById('food_fat_rp_ft_082')!;
+      const unassayedPotassiumFood = {
+        ...peanuts,
+        id: 'synthetic_unassayed_potassium_case7',
+        nutrients100g: {
+          ...peanuts.nutrients100g,
+          potassiumMg: null,
+        },
+      };
 
       // 2 analytical days + 1 exchange_only day -> denominator 2 of 3 recorded days
       const session3 = createNewRecallSession({ targetDays: 3, startDate: '2026-11-15' });
@@ -1051,8 +1086,8 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
 
       // 0/2 analytical coverage for unassayed micronutrients (potassiumMg) across 2 recorded days
       const session0of2 = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
-      session0of2.days[0].meals[0].entries.push(resolveRecallEntry({ food: peanuts, quantity: 30, selectedPortionId: 'grams' }));
-      session0of2.days[1].meals[0].entries.push(resolveRecallEntry({ food: peanuts, quantity: 30, selectedPortionId: 'grams' }));
+      session0of2.days[0].meals[0].entries.push(resolveRecallEntry({ food: unassayedPotassiumFood, quantity: 30, selectedPortionId: 'grams' }));
+      session0of2.days[1].meals[0].entries.push(resolveRecallEntry({ food: unassayedPotassiumFood, quantity: 30, selectedPortionId: 'grams' }));
       const analysis0of2 = calculateMultiDayRecallAnalysis(session0of2);
       assert.equal(analysis0of2.recordedDaysCount, 2);
       assert.equal(analysis0of2.averages.potassiumMg.denominator, 0);
@@ -1175,6 +1210,52 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.ok(html.includes('Based on 2-day recorded average'));
       assert.ok(html.includes('834 kcal/day'));
       assert.ok(!html.includes('Partial ·'));
+    });
+
+    it('derives availableCarbsG in recall aggregation for total_by_difference foods while preserving null on exchange_only and missing fiber', () => {
+      const peanuts = getFoodItemById('food_fat_rp_ft_082')!; // 16.1g carbsG, 8.5g fiberG, total_by_difference -> 7.6g avail per 100g
+      const avocadoOil = getFoodItemById('food_fat_rp_ft_065')!;
+      const unassayedFiberOil = {
+        ...avocadoOil,
+        id: 'synthetic_unassayed_fiber_oil',
+        nutrients100g: {
+          ...avocadoOil.nutrients100g,
+          fiberG: null,
+        },
+      };
+      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only -> null
+
+      const peanutEntry = resolveRecallEntry({ food: peanuts, quantity: 100, selectedPortionId: 'grams' });
+      const peanutOnly = aggregateRecallEntries([peanutEntry]);
+      assert.equal(peanutOnly.availableCarbsG.observedTotal, 7.6);
+      assert.equal(peanutOnly.availableCarbsG.completeTotal, 7.6);
+      assert.equal(peanutOnly.availableCarbsG.isComplete, true);
+
+      const oilEntry = resolveRecallEntry({ food: unassayedFiberOil, quantity: 15, selectedPortionId: 'grams' });
+      const finoEntry = resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 });
+      const mixed = aggregateRecallEntries([peanutEntry, oilEntry, finoEntry]);
+      assert.equal(mixed.availableCarbsG.observedTotal, 7.6);
+      assert.equal(mixed.availableCarbsG.completeTotal, null);
+      assert.equal(mixed.availableCarbsG.isComplete, false);
+    });
+
+    it('preserves USDA SR Legacy assayed dairy and fats micronutrients while keeping unassayed fields null', () => {
+      const wholeMilk = getFoodItemById('food_dairy_rp_da_001')!; // NDB 01211: transFatG absent in USDA SR Legacy
+      assert.equal(wholeMilk.nutrients100g.calciumMg, 113);
+      assert.equal(wholeMilk.nutrients100g.potassiumMg, 132);
+      assert.equal(wholeMilk.nutrients100g.transFatG, null);
+
+      const skimPowder = getFoodItemById('food_dairy_rp_da_013')!; // NDB 01091
+      assert.equal(skimPowder.nutrients100g.calciumMg, 1260);
+      assert.equal(skimPowder.nutrients100g.transFatG, null);
+
+      const greekNonfat = getFoodItemById('food_dairy_rp_da_015')!; // NDB 01256
+      assert.equal(greekNonfat.nutrients100g.calciumMg, 110);
+
+      const avocadoOil = getFoodItemById('food_fat_rp_ft_065')!; // NDB 04581: cholesterolMg & transFatG unassayed (null)
+      assert.equal(avocadoOil.nutrients100g.saturatedFatG, 11.6);
+      assert.equal(avocadoOil.nutrients100g.cholesterolMg, null);
+      assert.equal(avocadoOil.nutrients100g.transFatG, null);
     });
   });
 });
