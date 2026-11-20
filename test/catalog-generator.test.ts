@@ -600,25 +600,25 @@ describe('Task C & D: Catalog Provenance Counts & Isolated Dual-Run Reproducibil
     }
 
     assert.deepEqual(bySource, {
-      usda_fdc: 356,
+      usda_fdc: 357,
       egyptian_nni_2006: 8,
-      clinic_reviewed: 14,
-      regimeplan_2026: 262,
+      clinic_reviewed: 15,
+      regimeplan_2026: 260,
       egyptian_exchange_guide_2026: 36,
     });
     assert.deepEqual(byVerification, {
-      verified_standard: 364,
-      clinic_reviewed: 310,
-      recipe_based: 2,
+      verified_standard: 365,
+      clinic_reviewed: 308,
+      recipe_based: 3,
     });
     assert.deepEqual(byBasis, {
-      analytical_table: 364,
-      exchange_only: 298,
+      analytical_table: 365,
+      exchange_only: 296,
       clinic_estimated: 12,
-      recipe_based: 2,
+      recipe_based: 3,
     });
 
-    // Spot-check pure oil vs tahini vs exchange_only portion scaling
+    // Spot-check pure oil vs tahini vs recipe_based Fino vs exchange_only Sunn portion scaling
     const tahini = getFoodItemById('food_fat_rp_ft_014')!;
     const scaledTahini = calculatePortionNutrients(tahini, tahini.portions[0].id, 1);
     assert.equal(scaledTahini.netWeightG, 9);
@@ -631,16 +631,27 @@ describe('Task C & D: Catalog Provenance Counts & Isolated Dual-Run Reproducibil
     assert.equal(scaledOil.proteinG, 0);
 
     const finoBread = getFoodItemById('food_starch_rp_rp_st_007')!;
-    assert.equal(finoBread.compositionBasis, 'exchange_only');
-    assert.equal(finoBread.sourceId, 'regimeplan_2026');
+    assert.equal(finoBread.compositionBasis, 'recipe_based');
+    assert.equal(finoBread.sourceId, 'clinic_reviewed');
     const scaledFino = calculatePortionNutrients(finoBread, finoBread.portions[0].id, 1);
     assert.equal(scaledFino.netWeightG, 27);
     assert.equal(scaledFino.exchangeCategory, 'starch');
     assert.equal(scaledFino.calculatedExchangeCount, 1);
-    assert.equal(scaledFino.caloriesKcal, null);
-    assert.equal(scaledFino.carbsG, null);
-    assert.equal(scaledFino.proteinG, null);
-    assert.equal(scaledFino.fatG, null);
+    assert.equal(scaledFino.caloriesKcal, 74.8);
+    assert.equal(scaledFino.carbsG, 14.36);
+    assert.equal(scaledFino.sodiumMg, null);
+
+    const sunnBread = getFoodItemById('food_starch_rp_rp_st_008')!;
+    assert.equal(sunnBread.compositionBasis, 'exchange_only');
+    assert.equal(sunnBread.sourceId, 'regimeplan_2026');
+    const scaledSunn = calculatePortionNutrients(sunnBread, sunnBread.portions[0].id, 1);
+    assert.equal(scaledSunn.netWeightG, 28);
+    assert.equal(scaledSunn.exchangeCategory, 'starch');
+    assert.equal(scaledSunn.calculatedExchangeCount, 1);
+    assert.equal(scaledSunn.caloriesKcal, null);
+    assert.equal(scaledSunn.carbsG, null);
+    assert.equal(scaledSunn.proteinG, null);
+    assert.equal(scaledSunn.fatG, null);
   });
 
   it('produces byte-for-byte identical SHA-256 outputs across two independent isolated runs', () => {

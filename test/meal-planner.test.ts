@@ -216,7 +216,7 @@ describe('Phase 4: Unified Daily Meal Planner Engine & UI Tests', () => {
     });
 
     it('never converts exchange_only null values to 0 and withholds remaining/excess calculations', () => {
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only (Sunn bread)
       assert.equal(fino.compositionBasis, 'exchange_only');
 
       let plan = createDailyMealPlan();
@@ -243,7 +243,7 @@ describe('Phase 4: Unified Daily Meal Planner Engine & UI Tests', () => {
 
     it('handles mixed analytical + exchange_only items with partial observed sum and withheld remaining/excess', () => {
       const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal per 100g
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only (Sunn bread)
 
       let plan = createDailyMealPlan();
       plan = addItemToMeal(
@@ -335,7 +335,7 @@ describe('Phase 4: Unified Daily Meal Planner Engine & UI Tests', () => {
 
     it('renders Unavailable and Partial indicators without fabricating zeros when exchange_only items are planned', () => {
       const bread = getFoodItemById('food_bread_baladi_baked')!;
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!;
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only (Sunn bread)
 
       let exchangeOnlyPlan = createDailyMealPlan();
       exchangeOnlyPlan = addItemToMeal(

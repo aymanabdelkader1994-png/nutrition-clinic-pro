@@ -602,7 +602,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(zeroObsAnalysis.averages.caloriesKcal.observedAverage, 88.4);
 
       // Scenario 5 & 6: Incomplete day (exchange_only) -> unknown day excluded from numerator/denominator, averageValue null, target comparison withheld
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
       const mixedSession = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
       mixedSession.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 100, selectedPortionId: 'grams' }));
       mixedSession.days[1].meals[0].entries.push(resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 }));
@@ -762,7 +762,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
 
     it('propagates incomplete macro state cleanly when a recall session includes exchange_only foods', () => {
       const chickenBreast = getFoodItemById('food_meat_rp_mt_013')!; // USDA 05062
-      const finoBread = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const finoBread = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
 
       const chickenEntry = resolveRecallEntry({
         food: chickenBreast,
@@ -835,7 +835,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
     };
 
     it('Case 1: entire day contains only exchange_only entries -> all observed totals and averages are null, never zero', () => {
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
       const koshari = getFoodItemById('food_occ_rp_occ_001') || fino; // exchange_only
       const entry1 = resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 });
       const entry2 = resolveRecallEntry({ food: koshari, selectedPortionId: koshari.portions[0].id, quantity: 1 });
@@ -888,7 +888,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
 
     it('Case 2: multiple days with one analytical day and one exchange_only day -> unknown day does not contribute zero, result marked partial, target classification withheld', () => {
       const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal, 9.1P, 52.8C, 1.2F, 490mg Na per 100g
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
 
       const session = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
       session.days[0].meals[0].entries.push(resolveRecallEntry({ food: bread, quantity: 100, selectedPortionId: 'grams' }));
@@ -939,7 +939,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(summary.fiberG.observedTotal, 0);
 
       // Single analytical zero day + second exchange_only day -> denominator 1, observedAverage 0 (preserved), isComplete false
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!;
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!;
       const session = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
       session.days[0].meals[0].entries.push(teaEntry);
       session.days[1].meals[0].entries.push(resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 }));
@@ -953,7 +953,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
 
     it('Case 4: mixed analytical and exchange_only entries on the same day aggregate only analytical values and never treat exchange_only as analytical', () => {
       const chickenBreast = getFoodItemById('food_chicken_breast_grilled_skinless')!; // 165 kcal, 31.02P, 0C, 3.57F per 100g
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
 
       const chickenEntry = resolveRecallEntry({ food: chickenBreast, quantity: 100, selectedPortionId: 'grams' });
       const finoEntry = resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 });
@@ -988,7 +988,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
           ironMg: null,
         },
       };
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
 
       // 5a: Two days with all exchange_only entries -> every nutrient has observedAverage === null
       const allExSession = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
@@ -1052,7 +1052,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
     it('Case 7: 3-day session partial coverage counts (2/3 and 0/2) compute accurate denominators and withhold target classification', () => {
       const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal per 100g
       const chicken = getFoodItemById('food_chicken_breast_grilled_skinless')!; // 165 kcal per 100g
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
       const peanuts = getFoodItemById('food_fat_rp_ft_082')!;
       const unassayedPotassiumFood = {
         ...peanuts,
@@ -1106,7 +1106,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
     };
 
     it('renders Unavailable and — (never 0 kcal/day) and withholds target comparison when all entries are exchange_only', () => {
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!;
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!;
       const session = createNewRecallSession({ targetDays: 1, startDate: '2026-11-15' });
       session.days[0].meals[0].entries.push(
         resolveRecallEntry({ food: fino, selectedPortionId: fino.portions[0].id, quantity: 1 })
@@ -1130,7 +1130,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
 
     it('renders exact partial coverage count (1/2 recorded days) in English and Arabic and does not dilute average across unknown days', () => {
       const bread = getFoodItemById('food_bread_baladi_baked')!; // 252 kcal per 100g
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
 
       const session = createNewRecallSession({ targetDays: 2, startDate: '2026-11-15' });
       session.days[0].meals[0].entries.push(
@@ -1223,7 +1223,7 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
           fiberG: null,
         },
       };
-      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only -> null
+      const fino = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only -> null
 
       const peanutEntry = resolveRecallEntry({ food: peanuts, quantity: 100, selectedPortionId: 'grams' });
       const peanutOnly = aggregateRecallEntries([peanutEntry]);
@@ -1256,6 +1256,34 @@ describe('Phase 3: 24-Hour Dietary Recall Engine Tests', () => {
       assert.equal(avocadoOil.nutrients100g.saturatedFatG, 11.6);
       assert.equal(avocadoOil.nutrients100g.cholesterolMg, null);
       assert.equal(avocadoOil.nutrients100g.transFatG, null);
+    });
+
+    it('aggregates remediated bread profiles cleanly in 24-hour Recall (Baladi, Fino recipe_based, Phyllo, and Sunn exchange_only)', () => {
+      const baladi = getFoodItemById('food_bread_baladi_baked')!; // 100g = 252 kcal, 52.8C, 9.1P, 1.2F, 4.8Fib, 490 Na
+      const fino = getFoodItemById('food_starch_rp_rp_st_007')!; // 1 exchange = 27g -> 74.8 kcal, 14.4C, 2.3P, 0.9F, 0.5Fib, null Na
+      const phyllo = getFoodItemById('food_starch_rp_rp_st_015')!; // 30g -> 89.7 kcal, 15.8C, 2.1P, 1.8F, 0.6Fib, 144.9 Na
+      const sunn = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only -> all null
+
+      const baladiEntry = resolveRecallEntry({ food: baladi, quantity: 100, selectedPortionId: 'grams' });
+      const finoEntry = resolveRecallEntry({ food: fino, quantity: 1, selectedPortionId: fino.portions[0].id });
+      const phylloEntry = resolveRecallEntry({ food: phyllo, quantity: 30, selectedPortionId: 'grams' });
+
+      // Analytical + recipe_based aggregate macros completely while marking sodium partial due to fino's unassayed Na
+      const assayedSummary = aggregateRecallEntries([baladiEntry, finoEntry, phylloEntry]);
+      assert.equal(assayedSummary.caloriesKcal.isComplete, true);
+      assert.equal(assayedSummary.caloriesKcal.completeTotal, 416.5);
+      assert.equal(assayedSummary.carbsG.isComplete, true);
+      assert.equal(assayedSummary.carbsG.completeTotal, 82.94);
+      assert.equal(assayedSummary.sodiumMg.isComplete, false);
+      assert.equal(assayedSummary.sodiumMg.completeTotal, null);
+      assert.equal(assayedSummary.sodiumMg.observedTotal, 634.9);
+
+      // Adding exchange_only Sunn bread preserves null completeness while retaining observed totals
+      const sunnEntry = resolveRecallEntry({ food: sunn, quantity: 1, selectedPortionId: sunn.portions[0].id });
+      const mixedSummary = aggregateRecallEntries([baladiEntry, finoEntry, sunnEntry]);
+      assert.equal(mixedSummary.caloriesKcal.isComplete, false);
+      assert.equal(mixedSummary.caloriesKcal.completeTotal, null);
+      assert.equal(mixedSummary.caloriesKcal.observedTotal, 326.8);
     });
   });
 });

@@ -462,8 +462,8 @@ describe('10. Phase 4 Catalog Expansion & Cottage Cheese Verification', () => {
     const analyticalOrReviewedItems = allItems.filter(
       (f) => f.sourceId === 'usda_fdc' || f.sourceId === 'egyptian_nni_2006' || f.sourceId === 'clinic_reviewed'
     );
-    assert.equal(exchangeOnlyItems.length, 298, `Expected strictly 298 exchange_only items, got ${exchangeOnlyItems.length}`);
-    assert.equal(analyticalOrReviewedItems.length, 378, `Expected 378 analytical/reviewed items, got ${analyticalOrReviewedItems.length}`);
+    assert.equal(exchangeOnlyItems.length, 296, `Expected strictly 296 exchange_only items, got ${exchangeOnlyItems.length}`);
+    assert.equal(analyticalOrReviewedItems.length, 380, `Expected 380 analytical/reviewed items, got ${analyticalOrReviewedItems.length}`);
 
     // Verify all 4 macros, availableCarbsG, and micronutrients are strictly null on exchange_only items
     for (const item of exchangeOnlyItems) {
@@ -1305,18 +1305,18 @@ describe('15. Exchange-Only Null Propagation & Integrity Repair Gate', () => {
   });
 
   it('preserves null macros across scaling, mixed composite aggregation, carb derivation, and rejects exchange divergence', () => {
-    const finoBread = getFoodItemById('food_starch_rp_rp_st_007')!; // exchange_only
+    const sunnBread = getFoodItemById('food_starch_rp_rp_st_008')!; // exchange_only
     const chickenBreast = getFoodItemById('food_meat_rp_mt_013')!; // USDA 05062
 
-    const scaledEx = scaleNutrientProfile(finoBread.nutrients100g, 27);
+    const scaledEx = scaleNutrientProfile(sunnBread.nutrients100g, 28);
     assert.equal(scaledEx.caloriesKcal, null);
     assert.equal(scaledEx.carbsG, null);
     assert.equal(scaledEx.proteinG, null);
     assert.equal(scaledEx.fatG, null);
     assert.equal(scaledEx.fiberG, null);
 
-    assert.equal(deriveAvailableCarbohydrates(finoBread.nutrients100g), null);
-    assert.throws(() => calculateExchangeDivergence(finoBread, finoBread.portions[0]), /analytical macronutrient composition is unavailable/);
+    assert.equal(deriveAvailableCarbohydrates(sunnBread.nutrients100g), null);
+    assert.throws(() => calculateExchangeDivergence(sunnBread, sunnBread.portions[0]), /analytical macronutrient composition is unavailable/);
 
     const scaledChicken = scaleNutrientProfile(chickenBreast.nutrients100g, 100);
     const mixedComposite = aggregateNutrientProfiles([scaledChicken, scaledEx]);
@@ -1333,13 +1333,13 @@ describe('15. Exchange-Only Null Propagation & Integrity Repair Gate', () => {
     assert.equal(mixedComposite.observedTotals.proteinG, scaledChicken.proteinG);
   });
 
-  it('REM-05: sets carbCalculationBasis=unspecified on all 298 exchange_only records while preserving analytical bases and null nutrients', () => {
+  it('REM-05: sets carbCalculationBasis=unspecified on all 296 exchange_only records while preserving analytical bases and null nutrients', () => {
     const all = getAllFoodItems();
     const exchangeOnlyItems = all.filter((f) => f.compositionBasis === 'exchange_only');
     const nonExchangeItems = all.filter((f) => f.compositionBasis !== 'exchange_only');
 
-    assert.equal(exchangeOnlyItems.length, 298, 'Expected exactly 298 exchange_only catalog records');
-    assert.equal(nonExchangeItems.length, 378, 'Expected exactly 378 non-exchange_only catalog records');
+    assert.equal(exchangeOnlyItems.length, 296, 'Expected exactly 296 exchange_only catalog records');
+    assert.equal(nonExchangeItems.length, 380, 'Expected exactly 380 non-exchange_only catalog records');
 
     const coreTrackedKeys: Array<keyof FoodNutrientProfile100g> = [
       'caloriesKcal',
@@ -1613,6 +1613,112 @@ describe('16. REM-05 Phase 1B: Search Ranking, PDF Meat Exchange Fixes, Cross-Re
     const customMeta = getFoodCompletenessMeta(custom);
     assert.equal(customMeta.category, 'user_custom');
     assert.equal(customMeta.missingCount, 10);
+  });
+});
+
+describe('17. REM-05 Priority A.1: Egyptian Bread Nutritional Data Validation', () => {
+  it('validates bread catalog completeness, exact missingNutrientKeys, and null preservation across all bread records', () => {
+    const breadIds = [
+      'food_bread_baladi_baked',
+      'food_starch_rp_rp_st_001',
+      'food_starch_rp_rp_st_002',
+      'food_starch_rp_rp_st_003',
+      'food_starch_rp_rp_st_004',
+      'food_starch_rp_rp_st_005',
+      'food_starch_rp_rp_st_006',
+      'food_starch_rp_rp_st_007',
+      'food_starch_rp_rp_st_008',
+      'food_starch_rp_rp_st_009',
+      'food_starch_rp_rp_st_010',
+      'food_starch_rp_rp_st_011',
+      'food_starch_rp_rp_st_012',
+      'food_starch_rp_rp_st_013',
+      'food_starch_rp_rp_st_014',
+      'food_starch_rp_rp_st_015',
+      'food_starch_rp_rp_st_016',
+      'food_starch_rp_rp_st_017',
+      'food_starch_rp_rp_st_018',
+      'food_starch_rp_rp_st_019',
+      'food_starch_rp_rp_st_020',
+    ];
+    const coreKeys: Array<keyof FoodNutrientProfile100g> = [
+      'caloriesKcal', 'carbsG', 'proteinG', 'fatG', 'fiberG',
+      'saturatedFatG', 'transFatG', 'monounsaturatedFatG', 'polyunsaturatedFatG',
+      'cholesterolMg', 'sodiumMg', 'potassiumMg', 'calciumMg', 'ironMg', 'waterG',
+    ];
+
+    for (const id of breadIds) {
+      const item = getFoodItemById(id)!;
+      assert.ok(item, `Missing bread record ${id}`);
+      const actualNulls = coreKeys.filter((k) => item.nutrients100g[k] === null).sort();
+      assert.deepEqual(
+        [...item.nutrients100g.missingNutrientKeys].sort(),
+        actualNulls,
+        `${id}: missingNutrientKeys must match actual null fields`
+      );
+      for (const k of coreKeys) {
+        const val = item.nutrients100g[k];
+        assert.ok(val === null || (typeof val === 'number' && Number.isFinite(val) && val >= 0), `${id}.${String(k)} invalid: ${val}`);
+      }
+    }
+
+    // Priority 1: Egyptian Fino Bread (RP-ST-007) -> recipe_based with preserved null micronutrients
+    const fino = getFoodItemById('food_starch_rp_rp_st_007')!;
+    assert.equal(fino.compositionBasis, 'recipe_based');
+    assert.equal(fino.verificationStatus, 'recipe_based');
+    assert.equal(fino.sourceId, 'clinic_reviewed');
+    assert.equal(fino.nutrients100g.caloriesKcal, 277);
+    assert.equal(fino.nutrients100g.carbsG, 53.2);
+    assert.equal(fino.nutrients100g.proteinG, 8.5);
+    assert.equal(fino.nutrients100g.fatG, 3.3);
+    assert.equal(fino.nutrients100g.fiberG, 1.7);
+    assert.equal(fino.nutrients100g.sodiumMg, null);
+    assert.equal(fino.nutrients100g.waterG, null);
+    assert.equal(deriveAvailableCarbohydrates(fino.nutrients100g), 51.5);
+    const finoScaled = calculatePortionNutrients(fino, fino.portions[0].id, 1);
+    assert.equal(finoScaled.netWeightG, 27);
+    assert.equal(finoScaled.caloriesKcal, 74.8);
+    assert.equal(finoScaled.carbsG, 14.36);
+    assert.equal(finoScaled.sodiumMg, null);
+
+    // Priority 2: Egyptian Sunn Bread (RP-ST-008) -> honestly retained exchange_only
+    const sunn = getFoodItemById('food_starch_rp_rp_st_008')!;
+    assert.equal(sunn.compositionBasis, 'exchange_only');
+    assert.equal(sunn.sourceId, 'regimeplan_2026');
+    assert.equal(sunn.nutrients100g.caloriesKcal, null);
+
+    // Priority 3: Egyptian Baladi Bread (NNI-01-002) -> validated 82% extraction NNI 2006 record
+    const baladi = getFoodItemById('food_bread_baladi_baked')!;
+    assert.equal(baladi.compositionBasis, 'analytical_table');
+    assert.equal(baladi.sourceId, 'egyptian_nni_2006');
+    assert.equal(baladi.nutrients100g.caloriesKcal, 252);
+    assert.equal(baladi.nutrients100g.carbsG, 52.8);
+    assert.ok(baladi.notesEn?.includes('82%') && baladi.notesEn?.includes('2006'));
+
+    // Priority 4: Phyllo Pastry Dough (RP-ST-015) -> USDA SR Legacy 18338
+    const phyllo = getFoodItemById('food_starch_rp_rp_st_015')!;
+    assert.equal(phyllo.compositionBasis, 'analytical_table');
+    assert.equal(phyllo.sourceId, 'usda_fdc');
+    assert.equal(phyllo.sourceRecordId, '18338');
+    assert.equal(phyllo.nutrients100g.caloriesKcal, 299);
+    assert.equal(phyllo.nutrients100g.missingNutrientKeys.length, 0);
+
+    // Arabic bread search visibility across common queries
+    const expectedTopIds: Record<string, string> = {
+      'عيش': 'food_bread_baladi_baked',
+      'عيش بلدي': 'food_bread_baladi_baked',
+      'عيش فينو': 'food_starch_rp_rp_st_007',
+      'عيش سن': 'food_starch_rp_rp_st_008',
+      'عيش شامي': 'food_starch_rp_rp_st_001',
+      'بقسماط': 'food_starch_rp_rp_st_012',
+      'رقاق': 'food_starch_rp_rp_st_020',
+      'جلاش': 'food_starch_rp_rp_st_015',
+    };
+    for (const [q, expectedId] of Object.entries(expectedTopIds)) {
+      const results = searchFoodCatalog(q);
+      assert.ok(results.length > 0, `Expected search results for "${q}"`);
+      assert.equal(results[0].id, expectedId, `Expected ${expectedId} top result for "${q}", got ${results[0].id}`);
+    }
   });
 });
 

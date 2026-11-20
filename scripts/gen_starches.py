@@ -165,6 +165,7 @@ STARCH_USDA_SR_PROFILES = {
     "RP-ST-009": {"sourceRecordId": "18042", "nutrients": {"caloriesKcal": 262.0, "carbsG": 55.9, "proteinG": 9.8, "fatG": 1.71, "fiberG": 6.1, "saturatedFatG": 0.208, "monounsaturatedFatG": 0.349, "polyunsaturatedFatG": 1.06, "cholesterolMg": 0.0, "sodiumMg": 421.0, "potassiumMg": 170.0, "calciumMg": 15.0, "ironMg": 3.06, "waterG": 30.6}},
     "RP-ST-010": {"sourceRecordId": "18075", "nutrients": {"caloriesKcal": 252.0, "carbsG": 42.7, "proteinG": 12.4, "fatG": 3.5, "fiberG": 6.0, "saturatedFatG": 0.722, "transFatG": 0.02, "monounsaturatedFatG": 0.62, "polyunsaturatedFatG": 1.59, "cholesterolMg": 0.0, "sodiumMg": 455.0, "potassiumMg": 254.0, "calciumMg": 161.0, "ironMg": 2.47, "waterG": 39.0}},
     "RP-ST-011": {"sourceRecordId": "18069", "nutrients": {"caloriesKcal": 266.0, "carbsG": 49.4, "proteinG": 8.85, "fatG": 3.33, "fiberG": 2.7, "saturatedFatG": 0.698, "transFatG": 0.027, "monounsaturatedFatG": 0.599, "polyunsaturatedFatG": 1.6, "cholesterolMg": 0.0, "sodiumMg": 490.0, "potassiumMg": 126.0, "calciumMg": 144.0, "ironMg": 3.61, "waterG": 36.4}},
+    "RP-ST-015": {"sourceRecordId": "18338", "nutrients": {"caloriesKcal": 299.0, "carbsG": 52.6, "proteinG": 7.1, "fatG": 6.0, "fiberG": 1.9, "saturatedFatG": 1.47, "transFatG": 0.0, "monounsaturatedFatG": 3.149, "polyunsaturatedFatG": 0.923, "cholesterolMg": 0.0, "sodiumMg": 483.0, "potassiumMg": 74.0, "calciumMg": 11.0, "ironMg": 3.21, "waterG": 32.6}},
     "RP-ST-016": {"sourceRecordId": "18079", "nutrients": {"caloriesKcal": 395.0, "carbsG": 72.0, "proteinG": 13.4, "fatG": 5.3, "fiberG": 4.5, "saturatedFatG": 1.2, "monounsaturatedFatG": 1.02, "polyunsaturatedFatG": 2.06, "cholesterolMg": 0.0, "sodiumMg": 732.0, "potassiumMg": 196.0, "calciumMg": 183.0, "ironMg": 4.83, "waterG": 6.51}},
     "RP-ST-021": {"sourceRecordId": "20013", "nutrients": {"caloriesKcal": 83.0, "carbsG": 18.6, "proteinG": 3.08, "fatG": 0.24, "fiberG": 4.5, "saturatedFatG": 0.042, "monounsaturatedFatG": 0.031, "polyunsaturatedFatG": 0.098, "cholesterolMg": 0.0, "sodiumMg": 5.0, "potassiumMg": 68.0, "calciumMg": 10.0, "ironMg": 0.96, "waterG": 77.8}},
     "RP-ST-024": {"sourceRecordId": "20037", "nutrients": {"caloriesKcal": 123.0, "carbsG": 25.6, "proteinG": 2.74, "fatG": 0.97, "fiberG": 1.6, "saturatedFatG": 0.26, "transFatG": 0.0, "monounsaturatedFatG": 0.369, "polyunsaturatedFatG": 0.366, "cholesterolMg": 0.0, "sodiumMg": 4.0, "potassiumMg": 86.0, "calciumMg": 3.0, "ironMg": 0.56, "waterG": 70.3}},
@@ -231,6 +232,12 @@ STARCH_USDA_SR_PROFILES = {
 }
 
 STARCH_ANALYTICAL_OVERRIDES = {
+    "RP-ST-007": {
+        "caloriesKcal": 277.0, "carbsG": 53.2, "proteinG": 8.5, "fatG": 3.3, "fiberG": 1.7,
+        "sourceId": "clinic_reviewed", "verificationStatus": "recipe_based",
+        "reviewNoteEn": "Egyptian commercial Afrangi fino bread recipe model calculated per 100g baked roll from 142g baked yield (~32% target moisture): ~70.4% high-protein 72%-extraction bread flour (RP-ST-076 / USDA 20083), ~2.1% granulated white sugar (RP-ST-121), ~2.1% vegetable oil (RP-FT-060 / USDA 04506), and ~25.4% retained baking water/salt/yeast (Atwater check: 276.5 kcal, delta +0.5 kcal). Unassayed bakery-variable lipids, minerals, sodium, and moisture remain null.",
+        "reviewNoteAr": "نموذج وصفي محسوب للعيش الفينو المصري التجاري لكل 100 جم مخبوز (ناتج خبز 142 جم بنسبة رطوبة مستهدفة ~32%): ~70.4% دقيق خبز أبيض استخلاص 72% (USDA 20083)، ~2.1% سكر أبيض، ~2.1% زيت نباتي، و~25.4% ماء خبيز متبقي وملح وخميرة. المغذيات الدقيقة والأحماض الدهنية والصوديوم والرطوبة المتغيرة بين المخابز محفوظة كقيم غير محللة (null).",
+    },
     "RP-ST-128": {
         "caloriesKcal": 389.0, "carbsG": 99.5, "proteinG": 0.0, "fatG": 0.0, "waterG": 0.5,
         "sourceId": "clinic_reviewed", "verificationStatus": "clinic_reviewed",
