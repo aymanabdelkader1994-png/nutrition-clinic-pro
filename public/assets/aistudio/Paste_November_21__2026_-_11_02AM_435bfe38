@@ -1,0 +1,1128 @@
+NUTRITION CLINIC PRO — HEALTHY POPULATION NUTRITION ANALYTICS
+
+Master Execution Directive | Food Catalog Integrity + Sodium & Sugar Analysis
+
+Project: Nutrition Clinic Pro (NCP)
+Repository: https://github.com/aymanabdelkader1994-png/nutrition-clinic-pro
+Execution Role: Senior Software Engineer + Clinical Nutrition Data Auditor + QA Lead
+Priority: Data Integrity > Clinical Accuracy > Backward Compatibility > User Experience > Feature Expansion
+
+---
+
+0. EXECUTIVE MANDATE
+
+You are assigned to audit, design, and implement the next controlled development phase of Nutrition Clinic Pro.
+
+This phase is STRICTLY LIMITED to the HEALTHY POPULATION.
+
+The objectives are:
+
+1. Audit the existing food database and determine whether it is sufficient to support reliable sodium and sugar calculations.
+2. Implement reliable Sodium Intake Analysis using the existing authoritative food catalog.
+3. Implement reliable Sugar Intake Analysis using the existing authoritative food catalog.
+4. Establish a safe and controlled mechanism for future food record additions and modifications, without creating conflicting or duplicate nutritional records.
+5. Integrate these capabilities into the existing dietary recall and meal planning workflows without disrupting established functionality.
+
+The fundamental architectural principle is:
+
+THE EXISTING FOOD DATABASE REMAINS THE SINGLE SOURCE OF TRUTH.
+
+This is NOT a food database expansion project.
+
+Do not import, merge, synchronize, or automatically reconcile external food databases.
+
+External references may be consulted exclusively for auditing, validating, or documenting existing records and establishing scientifically defensible nutritional reference values.
+
+No external food record may automatically become an active record in NCP.
+
+---
+
+1. PROJECT CONTEXT AND SOURCE OF TRUTH
+
+The GitHub repository is the authoritative source of the project.
+
+Repository:
+https://github.com/aymanabdelkader1994-png/nutrition-clinic-pro
+
+Before beginning:
+
+1. Inspect the latest GitHub main branch.
+2. Identify the exact current HEAD commit.
+3. Inspect the complete relevant source files and existing architecture.
+4. Identify all existing food data models, calculation engines, recall workflows, meal planning workflows, validation systems, test suites, and existing nutritional fields.
+5. Review previous implementations and preserve existing functionality.
+6. Identify whether there are uncommitted, unpushed, or incomplete changes in the working environment, if accessible.
+
+Do not assume that previous reports accurately represent the current code.
+
+Do not use an older commit as your baseline if a newer commit exists on main.
+
+Document the actual baseline commit SHA before making any changes.
+
+---
+
+2. NON-NEGOTIABLE DATA INTEGRITY RULES
+
+2.1 Single Authoritative Food Catalog
+
+The existing NCP food catalog must remain the sole authoritative catalog used by the calculation engines.
+
+Forbidden:
+
+- Importing USDA records directly into the active catalog.
+- Importing EMFID records directly into the active catalog.
+- Creating parallel nutritional databases.
+- Creating alternate nutrient values for existing foods without a controlled review.
+- Automatically replacing existing nutrient values with external values.
+- Creating duplicate food records because different sources report different values.
+- Changing existing food IDs to accommodate new sources.
+- Automatically choosing whichever database provides the highest number of nutrient fields.
+- Silently filling missing nutrient values from another database.
+- Using AI-generated nutrient values as authoritative analytical data.
+
+External sources may be used only for evidence-based audit and validation.
+
+2.2 Existing Records Must Be Preserved
+
+Unless a specific, verified defect is identified and explicitly approved for remediation:
+
+Preserve:
+
+- Food IDs.
+- Arabic and English names.
+- Existing aliases and synonyms.
+- Food categories.
+- Nutrient values.
+- Nutrient units.
+- Food preparation states.
+- Portion definitions.
+- Exchange values.
+- Calculation bases.
+- Provenance.
+- Existing food relationships.
+- Existing recipe relationships.
+- Existing clinical logic.
+- Existing data validation rules.
+
+No bulk nutritional corrections.
+
+No mass renaming.
+
+No mass restructuring of the food catalog.
+
+No unnecessary refactoring.
+
+2.3 No Duplicate Food Identity
+
+Before introducing any new food record, the system must assess whether an equivalent food already exists.
+
+Identity assessment must consider:
+
+- Arabic name.
+- English name.
+- Synonyms.
+- Food category.
+- Food subtype.
+- Preparation method.
+- Raw versus cooked status.
+- Edible portion.
+- Fat content, where relevant.
+- Skin, bone, shell, or other relevant characteristics.
+- Existing IDs and relationships.
+
+Different nutritional values do not automatically justify creating separate food records.
+
+Food records may legitimately differ when the underlying food identity or preparation state genuinely differs.
+
+Examples:
+
+- Raw rice vs cooked rice.
+- Whole milk vs skimmed milk.
+- Chicken with skin vs chicken without skin.
+- Boiled potato vs fried potato.
+- Raw egg vs cooked egg.
+
+The system must distinguish legitimate food variants from duplicate representations.
+
+2.4 Missing Data Must Remain Missing
+
+If a food has no verified sodium value, the calculation engine must not interpret the missing value as zero.
+
+If a food has no verified total sugar value, the calculation engine must not interpret the missing value as zero.
+
+The same principle applies to added sugar.
+
+Missing values must remain explicitly unavailable.
+
+Never fabricate, infer, estimate, or silently substitute a nutrient value.
+
+---
+
+3. EXECUTION PHASES
+
+Execute the project through the following phases.
+
+Each phase has a mandatory acceptance gate.
+
+Do not proceed to implementation until the preceding phase has been completed and its findings documented.
+
+---
+
+PHASE 1 — READ-ONLY ARCHITECTURAL AND DATA AUDIT
+
+Objective
+
+Establish the actual current architecture and nutritional data capabilities before proposing modifications.
+
+This phase is STRICTLY READ-ONLY.
+
+No code changes.
+
+No generated files.
+
+No data modifications.
+
+No refactoring.
+
+1.1 Food Catalog Census
+
+Inspect the entire currently active food catalog.
+
+Produce a complete structural census identifying:
+
+- Total food records.
+- Records by category.
+- Records by provenance/source.
+- Records by calculation basis.
+- Analytical records.
+- Exchange-only records.
+- Recipe-based records.
+- Clinic-estimated records.
+- Custom records, if supported.
+- Records with missing nutritional fields.
+- Records with incomplete provenance.
+- Records with potentially duplicated identities.
+- Records with ambiguous preparation states.
+- Records with inconsistent nutrient units.
+
+Do not modify any record during the census.
+
+1.2 Nutrient Schema Audit
+
+Determine whether the existing FoodItemRecord or equivalent schema already supports:
+
+- Energy.
+- Protein.
+- Total carbohydrate.
+- Total fat.
+- Dietary fiber.
+- Total sugars.
+- Added sugars.
+- Sodium.
+- Salt.
+- Potassium.
+- Saturated fat.
+- Trans fat.
+- Other existing micronutrients.
+
+For each field, identify:
+
+1. Whether it exists in the schema.
+2. Whether it is populated in the active catalog.
+3. Its expected unit.
+4. Whether the unit is consistent across records.
+5. Whether missing values are represented correctly.
+6. Whether the calculation engine already supports scaling.
+7. Whether the nutrient is available through recipes or food combinations.
+8. Whether adding the field would require migration or backward compatibility work.
+
+Explicitly distinguish:
+
+- Total Sugars.
+- Added Sugars.
+- Naturally occurring sugars.
+- Sugar alcohols, if present.
+- Total Carbohydrate.
+
+Do not assume Total Carbohydrate is equivalent to Total Sugars.
+
+Do not assume Total Sugars are equivalent to Added Sugars.
+
+1.3 Current Calculation Engine Audit
+
+Inspect:
+
+- Food scaling logic.
+- Portion conversion logic.
+- Recall calculations.
+- Recipe calculations.
+- Meal totals.
+- Daily totals.
+- Meal planner totals.
+- Nutrient aggregation.
+- Missing-data behavior.
+- Existing validation and warning systems.
+- Existing calculation precision and rounding.
+- Existing unit conversion logic.
+
+Determine whether sodium and sugar can be calculated through existing infrastructure without creating a separate calculation system.
+
+Prefer extending the existing engine over creating parallel engines.
+
+1.4 Existing UI Audit
+
+Identify the appropriate locations for sodium and sugar analysis within:
+
+- 24-hour Recall.
+- Multi-day Recall, if supported.
+- Meal Planner.
+- Daily Nutrient Summary.
+- Existing Nutritional Analysis.
+- Existing Clinical Calculator interfaces.
+
+Do not create unnecessary tabs.
+
+Do not create a new navigation architecture.
+
+Do not duplicate existing calculations or summary components.
+
+1.5 Audit Report
+
+Produce a concise but comprehensive report:
+
+A. Current architecture.
+
+B. Existing nutrient capabilities.
+
+C. Missing capabilities.
+
+D. Verified data integrity issues.
+
+E. Existing components suitable for reuse.
+
+F. Proposed minimal changes.
+
+G. Risks and compatibility requirements.
+
+H. Phase 1 acceptance status.
+
+STOP after Phase 1 and present the findings before implementation.
+
+Do not generate an implementation prompt for another agent.
+
+Do not begin Phase 2 until the Phase 1 findings have been reviewed and approved.
+
+---
+
+PHASE 2 — CLINICAL AND TECHNICAL SPECIFICATION
+
+This phase establishes the exact calculation definitions and reference standards.
+
+No code implementation until the specifications are finalized.
+
+2.1 Population Scope
+
+Current scope:
+
+Healthy adults.
+
+Exclude from this phase:
+
+- Diabetes-specific management.
+- Chronic kidney disease.
+- Hypertension-specific therapeutic management.
+- Cardiovascular disease therapeutic diets.
+- Pediatric nutritional requirements.
+- Pregnancy and lactation requirements.
+- Disease-specific sodium restrictions.
+- Disease-specific sugar restrictions.
+- Therapeutic nutrition.
+- Clinical feeding protocols.
+- Disease-specific nutritional prescriptions.
+
+The system may display general population references but must not interpret them as treatment targets.
+
+2.2 Sodium Analysis Specification
+
+The system should calculate the user's recorded or planned sodium intake.
+
+Required calculations:
+
+- Sodium per food item.
+- Sodium per portion.
+- Sodium per meal.
+- Sodium per day.
+- Sodium per recall day.
+- Sodium per planned diet day.
+- Average daily sodium across multiple recorded days, if supported.
+
+Calculation principle:
+
+Sodium from each food must be scaled using the existing food quantity and nutrient calculation infrastructure.
+
+Daily sodium:
+
+Sum all valid sodium contributions from all included foods and recipes.
+
+Units must be consistent and explicitly defined.
+
+Recommended internal standard:
+
+mg sodium per 100 g edible food, where compatible with the existing catalog.
+
+If the current catalog uses another consistent basis, adapt the implementation without creating unnecessary schema changes.
+
+2.3 Sodium and Salt Conversion
+
+If the system displays salt equivalent, use the scientifically correct conversion:
+
+Salt equivalent (g) = Sodium (mg) × 2.5 ÷ 1000
+
+Sodium (mg) = Salt equivalent (g) × 1000 ÷ 2.5
+
+Never confuse sodium with salt.
+
+Never label sodium values as salt values.
+
+The interface must clearly identify units.
+
+2.4 Sodium Reference Values
+
+Before implementation:
+
+Identify appropriate current, authoritative recommendations for healthy adults.
+
+Review sources such as:
+
+- WHO.
+- National dietary guidelines.
+- Appropriate established nutrition authorities.
+
+Determine whether the interface should display:
+
+- Recommended intake.
+- Upper limit or recommended maximum.
+- Percentage of the applicable reference.
+- Intake status.
+
+Do not combine different authorities' thresholds into one undocumented threshold.
+
+Each displayed reference must include:
+
+- Source.
+- Publication or update date, if available.
+- Applicable population.
+- Definition of the recommendation.
+- Units.
+
+If authorities differ, document the difference and select one primary reference for the default interface.
+
+Do not hardcode multiple conflicting thresholds without explaining their purpose.
+
+2.5 Sugar Analysis Specification
+
+The system must distinguish the following whenever supported by verified data:
+
+- Total Sugars.
+- Added Sugars.
+- Naturally occurring sugars.
+- Sugar from individual foods.
+- Sugar from recipes.
+- Sugar per meal.
+- Daily total.
+- Average across multiple days.
+
+The system must NOT treat:
+
+- Total Carbohydrate as Total Sugars.
+- Naturally occurring sugars as Added Sugars.
+- Total Sugars as Added Sugars.
+- Missing Added Sugars as zero.
+
+If the current database contains only Total Sugars, the system may calculate Total Sugar Intake.
+
+Added Sugar Analysis must be clearly identified as incomplete whenever the necessary data are unavailable.
+
+2.6 Added Sugar Reference
+
+Evaluate current authoritative recommendations for healthy adults.
+
+Potential sources include:
+
+- WHO.
+- Dietary Guidelines for Americans.
+- Other recognized nutrition authorities, where relevant.
+
+The system must establish the primary reference before implementation.
+
+If the chosen recommendation is energy-based, calculate the percentage correctly.
+
+Added Sugar % Energy:
+
+(Added Sugar grams × 4 kcal/g) ÷ Total Energy Intake × 100
+
+Use the appropriate denominator and clearly document whether the denominator represents:
+
+- Actual recorded energy intake.
+- Planned energy intake.
+- Prescribed energy target.
+
+These are not interchangeable.
+
+The system must avoid misleading comparisons when total energy is missing or invalid.
+
+Do not apply adult references to pediatric or other excluded populations.
+
+2.7 Clinical Reference Documentation
+
+Create or update documentation describing:
+
+- Sodium reference.
+- Salt conversion.
+- Total Sugar definitions.
+- Added Sugar definitions.
+- Energy conversion.
+- Percentage calculations.
+- Population scope.
+- Data limitations.
+- Source citations.
+- Calculation assumptions.
+- Date of verification.
+
+Clinical reference values must not be embedded in scattered UI components.
+
+Prefer a single documented, validated reference configuration compatible with the existing architecture.
+
+---
+
+PHASE 3 — CONTROLLED FOOD DATA MANAGEMENT
+
+Objective
+
+Provide future flexibility to add or modify food records without allowing data conflicts.
+
+This phase must not introduce an external database or parallel nutritional data source.
+
+3.1 Determine Whether a Management Workflow Already Exists
+
+Audit existing mechanisms for:
+
+- Adding foods.
+- Editing foods.
+- Custom foods.
+- Local storage.
+- Food provenance.
+- Food validation.
+- Duplicate detection.
+- Food search.
+- Food catalog persistence.
+
+Reuse existing capabilities where appropriate.
+
+Do not create a second food-management system if one already exists.
+
+3.2 Required Future Workflow
+
+If the current architecture supports safe implementation without excessive complexity, introduce a controlled workflow:
+
+New Food
+
+1. User enters food information.
+2. System checks existing records for potential duplicates.
+3. System identifies similar Arabic and English names and synonyms.
+4. System checks food identity and preparation state.
+5. System validates nutrient units and required fields.
+6. System requires provenance/source information for analytical data.
+7. The new record is clearly identified as custom or pending review.
+8. The record must not silently overwrite an existing authoritative food.
+
+Edit Existing Food
+
+1. Identify the existing food using its immutable ID.
+2. Preserve the original record.
+3. Display the existing values.
+4. Display proposed changes.
+5. Record the source and reason for changes.
+6. Validate the modified record.
+7. Prevent invalid units or conflicting nutrient values.
+8. Require explicit confirmation before committing changes.
+9. Preserve sufficient change history to audit the modification.
+
+3.3 Data Status
+
+Determine whether the existing architecture supports or needs a distinction between:
+
+- Official Catalog Record.
+- User Custom Record.
+- Pending Review.
+- Approved Modification.
+
+Do not add complex role-based approval systems, cloud synchronization, multi-user permissions, or database infrastructure unless the existing architecture genuinely requires them.
+
+The solution must remain proportionate to the current application.
+
+3.4 Duplicate Prevention
+
+Implement or document a defensible duplicate detection mechanism.
+
+It must distinguish:
+
+- Exact duplicates.
+- Similar names.
+- Synonyms.
+- Legitimate preparation variants.
+- Legitimate nutritional variants.
+
+The system must warn about likely duplicates rather than automatically deleting, merging, or overwriting records.
+
+3.5 Provenance
+
+For nutritional values, preserve existing provenance mechanisms.
+
+If additional provenance fields are necessary, assess backward compatibility first.
+
+Do not invent sources.
+
+Do not falsely mark custom or user-entered nutritional values as analytical or verified.
+
+3.6 Acceptance Criteria
+
+- Existing official catalog remains intact.
+- Existing IDs remain intact.
+- Existing calculations remain unchanged.
+- Custom foods cannot silently overwrite official records.
+- Potential duplicates trigger a warning.
+- Nutrient values are unit-validated.
+- Missing values remain null/unavailable.
+- User modifications are distinguishable from official baseline records.
+- Existing catalog search and selection remain functional.
+
+If implementing a safe management workflow would require excessive architecture changes, complete the audit and provide a minimal design proposal instead of forcing the implementation.
+
+---
+
+PHASE 4 — SODIUM CALCULATION ENGINE
+
+Objective
+
+Implement a deterministic, independently testable sodium calculation engine using the existing food catalog and calculation infrastructure.
+
+4.1 Architecture
+
+Prefer the existing clinical calculation module structure.
+
+Avoid:
+
+- UI calculations.
+- Duplicate nutrient aggregation logic.
+- A second food scaling engine.
+- Unnecessary state management frameworks.
+- Unnecessary database migrations.
+
+The engine must be deterministic.
+
+The same valid input must always produce the same result.
+
+4.2 Required Inputs
+
+Use existing food entries and quantities.
+
+Support the existing supported quantity types, including:
+
+- Grams.
+- Existing portion units.
+- Existing exchange units, if compatible.
+- Recipe servings.
+- Existing food scaling mechanisms.
+
+Do not introduce a new unit system unless required.
+
+4.3 Required Outputs
+
+Where data are available:
+
+- Sodium per food.
+- Sodium per meal.
+- Sodium per day.
+- Salt equivalent per food.
+- Salt equivalent per meal.
+- Salt equivalent per day.
+- Percentage of selected daily reference.
+- Reference status.
+- Data completeness.
+- Warnings.
+
+4.4 Missing Data
+
+If one or more food items lack sodium data:
+
+The system must:
+
+1. Calculate sodium from foods with valid data.
+2. Identify foods with unavailable sodium.
+3. Mark the total as incomplete.
+4. Avoid presenting the partial total as a fully verified daily intake.
+5. Display a clear completeness indicator.
+6. Provide the number or list of affected foods where practical.
+
+The system must not convert missing sodium values into zero.
+
+4.5 Validation
+
+Reject or safely handle:
+
+- Negative quantities.
+- Invalid portions.
+- NaN.
+- Infinity.
+- Invalid nutrient values.
+- Invalid unit conversions.
+- Zero or invalid reference values.
+- Malformed recipe inputs.
+
+Do not crash the application.
+
+---
+
+PHASE 5 — SUGAR CALCULATION ENGINE
+
+Objective
+
+Implement reliable sugar intake analysis using existing verified nutrient data.
+
+5.1 Nutrient Separation
+
+Maintain separate calculations for:
+
+- Total Sugars.
+- Added Sugars.
+
+Do not infer Added Sugars from Total Sugars.
+
+Do not infer Total Sugars from Carbohydrates.
+
+5.2 Required Outputs
+
+Where supported:
+
+- Total Sugar per food.
+- Total Sugar per meal.
+- Total Sugar per day.
+- Added Sugar per food.
+- Added Sugar per meal.
+- Added Sugar per day.
+- Naturally occurring sugar, only when it can be accurately determined.
+- Percentage of energy from Added Sugars.
+- Reference comparison.
+- Data completeness.
+- Warnings.
+
+5.3 Missing Added Sugar Data
+
+When Added Sugar data are unavailable:
+
+- Total Sugar calculation may still be available.
+- Added Sugar calculation must be marked unavailable or incomplete.
+- Never assume Added Sugar = 0.
+- Never infer Added Sugar based solely on food category.
+- Never infer Added Sugar from Total Sugar.
+- Do not automatically classify every sugar in a food as Added Sugar.
+
+For recipes, Added Sugar may only be calculated when the ingredients and their Added Sugar values are sufficiently documented.
+
+5.4 Energy Calculations
+
+Use the existing energy calculation infrastructure where possible.
+
+If calculating percentage energy:
+
+- Use 4 kcal per gram of sugar, where applicable.
+- Validate total energy.
+- Use the correct denominator.
+- Handle zero energy safely.
+- Document the calculation.
+- Do not calculate percentages from incomplete or invalid data without clearly indicating the limitation.
+
+---
+
+PHASE 6 — RECALL AND MEAL PLANNER INTEGRATION
+
+Objective
+
+Integrate sodium and sugar analysis into the existing workflows.
+
+Do not redesign the entire interface.
+
+6.1 Recall Integration
+
+The user should be able to see:
+
+- Daily sodium intake.
+- Salt equivalent.
+- Total Sugars.
+- Added Sugars, when available.
+- Relevant reference comparison.
+- Data completeness.
+- Food-level contributions.
+
+For multi-day recall, use the existing day structure.
+
+Do not aggregate different days incorrectly.
+
+6.2 Meal Planner Integration
+
+The planned meal or daily diet must support:
+
+- Sodium totals.
+- Salt equivalent.
+- Total Sugars.
+- Added Sugars, when available.
+- Reference comparison.
+- Completeness warnings.
+
+The planner must update calculations consistently when:
+
+- Food quantity changes.
+- Portion changes.
+- Food is added.
+- Food is removed.
+- Recipe changes.
+- Meal changes.
+- Day changes.
+
+6.3 UI Requirements
+
+Maintain the existing:
+
+- Arabic and English localization.
+- RTL/LTR behavior.
+- Visual hierarchy.
+- Responsive layout.
+- Existing calculation conventions.
+
+Use understandable labels.
+
+Avoid unnecessary charts.
+
+Do not overload the screen with multiple competing reference values.
+
+Make incomplete data visible without overwhelming the user.
+
+---
+
+PHASE 7 — TESTING AND REGRESSION AUDIT
+
+This phase is mandatory.
+
+Passing the new feature tests is not sufficient.
+
+The existing application must remain functional.
+
+7.1 Unit Tests
+
+Test:
+
+Sodium
+
+- Single food.
+- Multiple foods.
+- Portion scaling.
+- Gram scaling.
+- Recipe scaling.
+- Meal aggregation.
+- Daily aggregation.
+- Salt conversion.
+- Reference comparison.
+- Incomplete data.
+- Invalid values.
+- Negative quantities.
+- NaN.
+- Infinity.
+- Zero reference values.
+
+Sugar
+
+- Total Sugar calculation.
+- Added Sugar calculation.
+- Total Sugar without Added Sugar.
+- Added Sugar unavailable.
+- Recipe calculations.
+- Portion scaling.
+- Meal aggregation.
+- Daily aggregation.
+- Percentage energy.
+- Invalid energy.
+- Missing nutrient data.
+- NaN.
+- Infinity.
+
+Data Integrity
+
+- Duplicate detection.
+- Existing ID preservation.
+- Custom food isolation.
+- Official record preservation.
+- Invalid nutrient units.
+- Missing nutrient behavior.
+- Nutrient provenance.
+
+7.2 Integration Tests
+
+Test complete workflows:
+
+1. Add food to recall.
+2. Change quantity.
+3. Change portion.
+4. Add food to another meal.
+5. Remove food.
+6. Change food.
+7. Add recipe.
+8. Modify recipe.
+9. Change recall day.
+10. Create planned diet.
+11. Edit planned diet.
+12. Verify sodium and sugar totals update correctly.
+
+7.3 Regression Tests
+
+Verify that all existing functionality continues to work.
+
+At minimum, test:
+
+- Clinical Calculator.
+- Anthropometric calculations.
+- Energy calculations.
+- Macronutrient calculations.
+- Recall engine.
+- Food search.
+- Food scaling.
+- Exchange calculations.
+- Meal Planner.
+- Food database.
+- Patient history.
+- Scientific benchmark.
+- Arabic localization.
+- English localization.
+- RTL/LTR.
+- Existing saved data.
+
+Do not remove, weaken, skip, or rewrite existing tests simply to make the new feature pass.
+
+7.4 Build and Quality Checks
+
+Execute the actual available commands from package.json.
+
+Report:
+
+- Test results.
+- TypeScript results.
+- Lint results.
+- Production build results.
+- Existing warnings.
+- New warnings.
+- Bundle changes.
+- Failed checks.
+
+Do not claim that a check passed unless it was actually executed and its output verified.
+
+---
+
+PHASE 8 — FINAL CODE AUDIT
+
+Before declaring completion:
+
+Conduct an independent audit of the resulting code.
+
+Review:
+
+- Changed files.
+- Complete diffs.
+- Nutrient formulas.
+- Data integrity.
+- Unit consistency.
+- Missing-data handling.
+- Duplicate detection.
+- Backward compatibility.
+- UI integration.
+- Localization.
+- Performance.
+- Test coverage.
+- Unintended modifications.
+
+Search for:
+
+- Hardcoded reference values in UI components.
+- Duplicate calculation logic.
+- Silent zero substitutions.
+- Unsafe casts.
+- Unnecessary dependencies.
+- Unnecessary architectural changes.
+- Duplicate food records.
+- Unverified nutritional values.
+- Unexplained modifications to existing food records.
+- Broken existing features.
+- Dead code.
+
+If any critical defect is discovered, fix it before completion.
+
+Do not reopen unrelated previously completed tasks unless there is concrete evidence of a defect.
+
+---
+
+9. CHANGE CONTROL
+
+Before implementation:
+
+Provide the Phase 1 audit report.
+
+After approval:
+
+Implement only the approved scope.
+
+For every modification:
+
+- Identify the affected files.
+- Explain why the change is required.
+- Preserve existing architecture where possible.
+- Avoid unnecessary code movement.
+- Avoid unrelated cleanup.
+- Avoid unnecessary dependencies.
+- Avoid modifications to the existing food catalog unless a specific approved defect requires correction.
+
+If a discovered issue falls outside the scope:
+
+Document it separately.
+
+Do not fix it opportunistically.
+
+Do not expand the project scope.
+
+---
+
+10. GIT AND EXECUTION REQUIREMENTS
+
+Use the latest main branch as the baseline.
+
+Before changes:
+
+- Record baseline commit SHA.
+- Confirm branch.
+- Confirm repository status.
+- Confirm working tree state.
+
+Do not overwrite unrelated work.
+
+Do not commit incomplete changes.
+
+Do not push unless explicitly authorized.
+
+If GitHub is the available execution environment, maintain changes in the appropriate working branch and provide a clear diff for review.
+
+If the execution environment is unable to access the repository or run the project, state that limitation explicitly.
+
+Do not fabricate test results.
+
+Do not fabricate commit hashes.
+
+---
+
+11. REQUIRED REPORTING FORMAT
+
+At the end of each phase, provide a concise but complete report.
+
+Phase Report
+
+1. Phase Status
+
+Completed / Blocked / Awaiting Approval.
+
+2. Baseline
+
+Commit SHA.
+
+3. Findings
+
+Actual findings from code inspection.
+
+4. Files Inspected
+
+List the important files.
+
+5. Files Modified
+
+If applicable.
+
+6. Changes
+
+Specific changes made.
+
+7. Tests
+
+Exact commands and results.
+
+8. Data Integrity
+
+Explicitly confirm whether existing food records or nutrient values were modified.
+
+9. Risks
+
+Remaining issues.
+
+10. Next Phase
+
+What is permitted to proceed.
+
+Avoid excessively long reports.
+
+Use concise tables where useful.
+
+Do not force the user to copy large action histories or raw logs.
+
+Summarize the relevant findings and preserve detailed logs in the repository only when appropriate.
+
+---
+
+12. FINAL ACCEPTANCE CRITERIA
+
+This phase is considered complete only when:
+
+- The existing food database remains the single authoritative food catalog.
+- No external database has been merged.
+- No duplicate nutritional source has been introduced.
+- Existing food records remain intact unless explicitly approved for correction.
+- Sodium calculations are mathematically verified.
+- Salt conversion is correct.
+- Sugar calculations distinguish Total Sugars from Added Sugars.
+- Missing data are handled transparently.
+- Reference values are documented and population-appropriate.
+- Recall calculations are correct.
+- Meal Planner calculations are correct.
+- Existing application functionality remains intact.
+- All required tests pass.
+- TypeScript passes.
+- Production build passes.
+- No unexplained regression exists.
+- The code has undergone an independent final audit.
+- The final changes are clearly documented.
+
+---
+
+13. EXECUTION DISCIPLINE
+
+Start with PHASE 1 ONLY.
+
+Do not implement anything during Phase 1.
+
+Do not import new food databases.
+
+Do not add new food records.
+
+Do not modify existing nutrient values.
+
+Do not begin implementation before presenting the audit findings and obtaining approval.
+
+The goal is not to maximize the number of features or lines of code.
+
+The goal is to produce a clinically reliable, deterministic, maintainable nutritional analysis system while protecting the integrity of the existing Nutrition Clinic Pro database and architecture.
+
+Execute with maximum precision, minimum unnecessary changes, and zero tolerance for silent nutritional data corruption.
